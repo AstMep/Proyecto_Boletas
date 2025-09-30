@@ -14,7 +14,7 @@ namespace Proyecto_Boletas
     {
         public Menu_principal()
         {
-            InitializeComponent();
+            InitializeComponent();//HOLI
         }
 
         private void label3_Click(object sender, EventArgs e)
