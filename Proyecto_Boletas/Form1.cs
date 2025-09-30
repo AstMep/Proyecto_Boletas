@@ -11,7 +11,7 @@ namespace Proyecto_Boletas
         {
 
         }
-
+        //comentario prueba git javier
         private void Form1_Load(object sender, EventArgs e)
         {
 
