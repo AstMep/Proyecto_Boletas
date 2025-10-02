@@ -21,23 +21,31 @@ namespace Proyecto_Boletas
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@usuario", txtbox_usuario.Text);        // TextBox del nombre de usuario
                     command.Parameters.AddWithValue("@contrasena", txtbox_contraseña.Text); // TextBox de la contrase�a
-
                     MySqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
                     {
-                        MessageBox.Show("Inicio de sesión exitoso");
-
-                        // Opcional: puedes obtener el rol o ID si lo necesitas
-                        while (reader.Read())
-                        {
-                            string rol = reader["Rol"].ToString();
-                            Console.WriteLine("Rol del usuario: " + rol);
-                        }
-
-                        Menu_principal menuPrincipal = new Menu_principal();
-                        menuPrincipal.Show();
-                        this.Hide();
+                        
+                // Declarar la variable rol fuera del while
+                string rol = "";
+                string nombreUsuario = "";
+                
+                while (reader.Read())
+                {
+                    rol = reader["Rol"].ToString();
+                    nombreUsuario = reader["Nombre"].ToString();
+                    Console.WriteLine("Rol del usuario: " + rol);
+                }
+                
+                // AQUÍ MUESTRAS EL MENSAJE CON EL ROL
+                MessageBox.Show($"¡Bienvenido {nombreUsuario}!\nRol: {rol}",
+                               "Inicio de sesión exitoso",
+                               MessageBoxButtons.OK, 
+                               MessageBoxIcon.Information);
+                
+                Menu_principal menuPrincipal = new Menu_principal();
+                menuPrincipal.Show();
+                this.Hide();
                     }
                     else
                     {
