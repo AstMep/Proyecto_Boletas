@@ -7,16 +7,7 @@ namespace Proyecto_Boletas
         {
             InitializeComponent();
         }
-        //G
-        public class Conexion
-        {
-            private string conexionString = "server=localhost;port=3306;user=root;password=;database=boletasescolares;";
 
-            public MySqlConnection GetConnection()
-            {
-                return new MySqlConnection(conexionString);
-            }
-        }
         public void login()
         {
             Conexion conexion = new Conexion();
@@ -28,14 +19,14 @@ namespace Proyecto_Boletas
                     connection.Open();
                     string query = "SELECT * FROM usuarios WHERE Nombre = @usuario AND Contrasena = @contrasena";
                     MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@usuario", usuario_txtbox.Text);        // TextBox del nombre de usuario
-                    command.Parameters.AddWithValue("@contrasena", contraseña_txtbox.Text); // TextBox de la contraseña
+                    command.Parameters.AddWithValue("@usuario", tb_usuario.Text);        // TextBox del nombre de usuario
+                    command.Parameters.AddWithValue("@contrasena", txt_contraseÃ±a.Text); // TextBox de la contraseï¿½a
 
                     MySqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
                     {
-                        MessageBox.Show("Inicio de sesión exitoso");
+                        MessageBox.Show("Inicio de sesiï¿½n exitoso");
 
                         // Opcional: puedes obtener el rol o ID si lo necesitas
                         while (reader.Read())
@@ -50,7 +41,7 @@ namespace Proyecto_Boletas
                     }
                     else
                     {
-                        MessageBox.Show("Usuario o contraseña incorrectos");
+                        MessageBox.Show("Usuario o contraseï¿½a incorrectos");
                     }
                 }
                 catch (Exception ex)
