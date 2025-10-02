@@ -26,6 +26,7 @@ namespace Proyecto_Boletas
                     if (reader.HasRows)
                     {
                         
+                        //comentario para aenviar mi rama
                 // Declarar la variable rol fuera del while
                 string rol = "";
                 string nombreUsuario = "";
