@@ -26,10 +26,20 @@ namespace Proyecto_Boletas
 
                     if (reader.HasRows)
                     {
-                        MessageBox.Show("Inicio de sesión exitoso");
+                        
+               
+
+                        // Declarar la variable rol fuera del while
+                        string rolDisplay = "";
+                        string nombreUsuario = "";
+
 
                         while (reader.Read())
                         {
+
+                            rolDisplay = reader["Rol"].ToString();
+                            nombreUsuario = reader["Nombre"].ToString();
+
                             string rol = reader["Rol"].ToString();
 
                             if (rol == "Secretaria")
@@ -37,6 +47,7 @@ namespace Proyecto_Boletas
                                 Form_Secretaria formSecretaria = new Form_Secretaria();
                                 formSecretaria.Show();
                                 this.Hide();
+
                             }
                             else if (rol == "Director")
                             {
@@ -46,13 +57,23 @@ namespace Proyecto_Boletas
                             }
                             else
                             {
+                               
                                 MessageBox.Show("Rol no reconocido");
                             }
                         }
+
+                        // AQUÍ MUESTRAS EL MENSAJE CON EL ROL
+                        MessageBox.Show($"¡Bienvenido {nombreUsuario}!\nRol: {rolDisplay}",
+                                       "Inicio de sesión exitoso",
+                                       MessageBoxButtons.OK,
+                                       MessageBoxIcon.Information);
                     }
                     else
                     {
                         MessageBox.Show("Usuario o contraseña incorrectos");
+                        txtbox_usuario.Clear();
+                        txtbox_contrasena.Clear();
+                        txtbox_usuario.Focus(); // Pone el cursor en el campo de usuario
                     }
                 }
                 catch (Exception ex)
