@@ -19,41 +19,40 @@ namespace Proyecto_Boletas
                     connection.Open();
                     string query = "SELECT * FROM usuarios WHERE Nombre = @usuario AND Contrasena = @contrasena";
                     MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@usuario", txtbox_usuario.Text);        // TextBox del nombre de usuario
-                    command.Parameters.AddWithValue("@contrasena", txtbox_contrasena.Text); // TextBox de la contrase�a
+                    command.Parameters.AddWithValue("@usuario", txtbox_usuario.Text);
+                    command.Parameters.AddWithValue("@contrasena", txtbox_contrasena.Text);
+
                     MySqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
                     {
-
-                        //comentario para aenviar mi rama
-                        // Declarar la variable rol fuera del while
-                        string rol = "";
-                        string nombreUsuario = "";
+                        MessageBox.Show("Inicio de sesión exitoso");
 
                         while (reader.Read())
                         {
-                            rol = reader["Rol"].ToString();
-                            nombreUsuario = reader["Nombre"].ToString();
-                            Console.WriteLine("Rol del usuario: " + rol);
+                            string rol = reader["Rol"].ToString();
+
+                            if (rol == "Secretaria")
+                            {
+                                Form_Secretaria formSecretaria = new Form_Secretaria();
+                                formSecretaria.Show();
+                                this.Hide();
+                            }
+                            else if (rol == "Director")
+                            {
+                                Menu_principal formDirector = new Menu_principal();
+                                formDirector.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Rol no reconocido");
+                            }
                         }
-
-                        // AQUÍ MUESTRAS EL MENSAJE CON EL ROL
-                        MessageBox.Show($"¡Bienvenido {nombreUsuario}!\nRol: {rol}",
-                                       "Inicio de sesión exitoso",
-                                       MessageBoxButtons.OK,
-                                       MessageBoxIcon.Information);
-
-                        Menu_principal menuPrincipal = new Menu_principal();
-                        menuPrincipal.Show();
-                        this.Hide();
                     }
                     else
                     {
                         MessageBox.Show("Usuario o contraseña incorrectos");
-                        txtbox_usuario.Clear();
-                        txtbox_contrasena.Clear();
-                        txtbox_usuario.Focus(); // Pone el cursor en el campo de usuario
                     }
                 }
                 catch (Exception ex)

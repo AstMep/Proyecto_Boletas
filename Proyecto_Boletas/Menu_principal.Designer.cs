@@ -33,20 +33,20 @@
             label1 = new Label();
             btn_inscripcion = new Button();
             groupBox2 = new GroupBox();
+            label8 = new Label();
             label2 = new Label();
             btn_capturaCalif = new Button();
             groupBox3 = new GroupBox();
+            label7 = new Label();
             label4 = new Label();
             label3 = new Label();
             button1 = new Button();
             groupBox4 = new GroupBox();
+            label10 = new Label();
+            label9 = new Label();
             label5 = new Label();
             label6 = new Label();
             button2 = new Button();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            label10 = new Label();
             groupBox5 = new GroupBox();
             label11 = new Label();
             button3 = new Button();
@@ -56,6 +56,7 @@
             button4 = new Button();
             panel1 = new Panel();
             label14 = new Label();
+            btn_ingresar = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -112,6 +113,17 @@
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = SystemColors.ControlLightLight;
+            label8.Location = new Point(30, 162);
+            label8.Name = "label8";
+            label8.Size = new Size(110, 21);
+            label8.TabIndex = 5;
+            label8.Text = "Calificaciones";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -148,6 +160,17 @@
             groupBox3.Size = new Size(160, 186);
             groupBox3.TabIndex = 3;
             groupBox3.TabStop = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = SystemColors.ControlLightLight;
+            label7.Location = new Point(36, 147);
+            label7.Name = "label7";
+            label7.Size = new Size(93, 21);
+            label7.TabIndex = 5;
+            label7.Text = "Estadisticas";
             // 
             // label4
             // 
@@ -197,6 +220,28 @@
             groupBox4.TabIndex = 4;
             groupBox4.TabStop = false;
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = SystemColors.ControlLightLight;
+            label10.Location = new Point(38, 162);
+            label10.Name = "label10";
+            label10.Size = new Size(93, 21);
+            label10.TabIndex = 7;
+            label10.Text = "de Bitacora";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = SystemColors.ControlLightLight;
+            label9.Location = new Point(30, 144);
+            label9.Name = "label9";
+            label9.Size = new Size(103, 21);
+            label9.TabIndex = 6;
+            label9.Text = "Información ";
+            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -229,50 +274,6 @@
             button2.Size = new Size(121, 135);
             button2.TabIndex = 3;
             button2.UseVisualStyleBackColor = false;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.ControlLightLight;
-            label7.Location = new Point(36, 147);
-            label7.Name = "label7";
-            label7.Size = new Size(93, 21);
-            label7.TabIndex = 5;
-            label7.Text = "Estadisticas";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = SystemColors.ControlLightLight;
-            label8.Location = new Point(30, 162);
-            label8.Name = "label8";
-            label8.Size = new Size(110, 21);
-            label8.TabIndex = 5;
-            label8.Text = "Calificaciones";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = SystemColors.ControlLightLight;
-            label9.Location = new Point(30, 144);
-            label9.Name = "label9";
-            label9.Size = new Size(103, 21);
-            label9.TabIndex = 6;
-            label9.Text = "Información ";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.ForeColor = SystemColors.ControlLightLight;
-            label10.Location = new Point(38, 162);
-            label10.Name = "label10";
-            label10.Size = new Size(93, 21);
-            label10.TabIndex = 7;
-            label10.Text = "de Bitacora";
             // 
             // groupBox5
             // 
@@ -359,6 +360,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(btn_ingresar);
             panel1.Controls.Add(label14);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -376,6 +378,23 @@
             label14.Size = new Size(406, 32);
             label14.TabIndex = 6;
             label14.Text = "Bienvenido al Sistema FAY JC";
+            // 
+            // btn_ingresar
+            // 
+            btn_ingresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_ingresar.BackColor = Color.FromArgb(247, 189, 86);
+            btn_ingresar.Cursor = Cursors.Hand;
+            btn_ingresar.FlatStyle = FlatStyle.Popup;
+            btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
+            btn_ingresar.Location = new Point(22, 9);
+            btn_ingresar.Name = "btn_ingresar";
+            btn_ingresar.RightToLeft = RightToLeft.Yes;
+            btn_ingresar.Size = new Size(155, 29);
+            btn_ingresar.TabIndex = 8;
+            btn_ingresar.Text = "Cerrar Sesión ";
+            btn_ingresar.UseVisualStyleBackColor = false;
+            btn_ingresar.Click += btn_ingresar_Click;
             // 
             // Menu_principal
             // 
@@ -439,5 +458,6 @@
         private Button button4;
         private Panel panel1;
         private Label label14;
+        private Button btn_ingresar;
     }
 }

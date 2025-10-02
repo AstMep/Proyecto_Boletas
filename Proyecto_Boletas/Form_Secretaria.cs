@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace Proyecto_Boletas
 {
-    public partial class Menu_principal : Form
+    public partial class Form_Secretaria : Form
     {
-        public Menu_principal()
+        public Form_Secretaria()
         {
-            InitializeComponent();//HOLI
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
+            InitializeComponent();
         }
 
         private void btn_ingresar_Click(object sender, EventArgs e)
