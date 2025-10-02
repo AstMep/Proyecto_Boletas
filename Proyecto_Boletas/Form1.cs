@@ -19,14 +19,14 @@ namespace Proyecto_Boletas
                     connection.Open();
                     string query = "SELECT * FROM usuarios WHERE Nombre = @usuario AND Contrasena = @contrasena";
                     MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@usuario", tb_usuario.Text);        // TextBox del nombre de usuario
-                    command.Parameters.AddWithValue("@contrasena", txt_contraseña.Text); // TextBox de la contrase�a
+                    command.Parameters.AddWithValue("@usuario", txtbox_usuario.Text);        // TextBox del nombre de usuario
+                    command.Parameters.AddWithValue("@contrasena", txtbox_contraseña.Text); // TextBox de la contrase�a
 
                     MySqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
                     {
-                        MessageBox.Show("Inicio de sesi�n exitoso");
+                        MessageBox.Show("Inicio de sesión exitoso");
 
                         // Opcional: puedes obtener el rol o ID si lo necesitas
                         while (reader.Read())
@@ -41,7 +41,10 @@ namespace Proyecto_Boletas
                     }
                     else
                     {
-                        MessageBox.Show("Usuario o contrase�a incorrectos");
+                        MessageBox.Show("Usuario o contraseña incorrectos");
+                        txtbox_usuario.Clear();
+                        txtbox_contraseña.Clear();
+                        txtbox_usuario.Focus(); // Pone el cursor en el campo de usuario
                     }
                 }
                 catch (Exception ex)
@@ -78,6 +81,11 @@ namespace Proyecto_Boletas
         private void btn_ingresar_Click(object sender, EventArgs e)
         {
             login();
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
