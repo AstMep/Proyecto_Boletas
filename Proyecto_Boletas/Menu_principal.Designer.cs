@@ -107,6 +107,7 @@
             btn_inscripcion.Size = new Size(121, 135);
             btn_inscripcion.TabIndex = 3;
             btn_inscripcion.UseVisualStyleBackColor = false;
+            btn_inscripcion.Click += btn_inscripcion_Click;
             // 
             // groupBox2
             // 
@@ -472,6 +473,7 @@
             btnAdmSecre.Size = new Size(121, 135);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.UseVisualStyleBackColor = false;
+            btnAdmSecre.Click += btnAdmSecre_Click;
             // 
             // Menu_principal
             // 

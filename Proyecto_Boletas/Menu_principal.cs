@@ -38,5 +38,19 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void btnAdmSecre_Click(object sender, EventArgs e)
+        {
+            adm_Secretaria nuevoFormulario = new adm_Secretaria(); // creas una instancia del otro form
+            nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+            Mod_inscripcion nuevoFormulario = new Mod_inscripcion(); // creas una instancia del otro form
+            nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
     }
 }

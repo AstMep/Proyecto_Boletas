@@ -32,30 +32,21 @@
             panel1 = new Panel();
             btnVolver = new Button();
             label14 = new Label();
-            groupBox7 = new GroupBox();
             label18 = new Label();
             label15 = new Label();
-            label16 = new Label();
-            label17 = new Label();
             btnAltaSecretarias = new Button();
             label1 = new Label();
             label2 = new Label();
             groupBox1 = new GroupBox();
-            Usuario = new Label();
-            txtUsuarioSecre = new TextBox();
-            txtCorreoSecre = new TextBox();
             txtContrasenaSecre = new TextBox();
-            groupBox2 = new GroupBox();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
+            txtCorreoSecre = new TextBox();
+            txtUsuarioSecre = new TextBox();
+            Usuario = new Label();
+            listBoxSecretarias = new ListBox();
+            button1 = new Button();
             label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
             panel1.SuspendLayout();
-            groupBox7.SuspendLayout();
             groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -96,27 +87,13 @@
             label14.TabIndex = 6;
             label14.Text = "Administración de Secretarias";
             // 
-            // groupBox7
-            // 
-            groupBox7.BackColor = Color.FromArgb(39, 66, 89);
-            groupBox7.Controls.Add(label18);
-            groupBox7.Controls.Add(label16);
-            groupBox7.Controls.Add(label17);
-            groupBox7.Controls.Add(label15);
-            groupBox7.Controls.Add(btnAltaSecretarias);
-            groupBox7.Location = new Point(454, 19);
-            groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(142, 141);
-            groupBox7.TabIndex = 16;
-            groupBox7.TabStop = false;
-            // 
             // label18
             // 
             label18.AutoSize = true;
             label18.BackColor = Color.Transparent;
             label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label18.ForeColor = SystemColors.ControlLightLight;
-            label18.Location = new Point(22, 120);
+            label18.Location = new Point(461, 148);
             label18.Name = "label18";
             label18.Size = new Size(113, 21);
             label18.TabIndex = 9;
@@ -128,32 +105,12 @@
             label15.BackColor = Color.Transparent;
             label15.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = SystemColors.ControlLightLight;
-            label15.Location = new Point(56, 101);
+            label15.Location = new Point(495, 127);
             label15.Name = "label15";
             label15.Size = new Size(43, 21);
             label15.TabIndex = 5;
             label15.Text = "Alta ";
             label15.Click += label15_Click;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.ForeColor = SystemColors.ControlLightLight;
-            label16.Location = new Point(30, 162);
-            label16.Name = "label16";
-            label16.Size = new Size(0, 21);
-            label16.TabIndex = 5;
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label17.ForeColor = SystemColors.ControlLightLight;
-            label17.Location = new Point(56, 147);
-            label17.Name = "label17";
-            label17.Size = new Size(0, 21);
-            label17.TabIndex = 4;
             // 
             // btnAltaSecretarias
             // 
@@ -162,11 +119,12 @@
             btnAltaSecretarias.FlatStyle = FlatStyle.Popup;
             btnAltaSecretarias.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAltaSecretarias.Image = (Image)resources.GetObject("btnAltaSecretarias.Image");
-            btnAltaSecretarias.Location = new Point(18, 25);
+            btnAltaSecretarias.Location = new Point(461, 46);
             btnAltaSecretarias.Name = "btnAltaSecretarias";
             btnAltaSecretarias.Size = new Size(113, 73);
             btnAltaSecretarias.TabIndex = 3;
             btnAltaSecretarias.UseVisualStyleBackColor = false;
+            btnAltaSecretarias.Click += btnAltaSecretarias_Click;
             // 
             // label1
             // 
@@ -191,9 +149,11 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.FromArgb(212, 168, 133);
+            groupBox1.Controls.Add(label18);
             groupBox1.Controls.Add(txtContrasenaSecre);
-            groupBox1.Controls.Add(groupBox7);
             groupBox1.Controls.Add(txtCorreoSecre);
+            groupBox1.Controls.Add(label15);
+            groupBox1.Controls.Add(btnAltaSecretarias);
             groupBox1.Controls.Add(txtUsuarioSecre);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(Usuario);
@@ -206,6 +166,27 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Alta de Secretarias";
             // 
+            // txtContrasenaSecre
+            // 
+            txtContrasenaSecre.Location = new Point(130, 134);
+            txtContrasenaSecre.Name = "txtContrasenaSecre";
+            txtContrasenaSecre.Size = new Size(258, 26);
+            txtContrasenaSecre.TabIndex = 6;
+            // 
+            // txtCorreoSecre
+            // 
+            txtCorreoSecre.Location = new Point(130, 88);
+            txtCorreoSecre.Name = "txtCorreoSecre";
+            txtCorreoSecre.Size = new Size(258, 26);
+            txtCorreoSecre.TabIndex = 5;
+            // 
+            // txtUsuarioSecre
+            // 
+            txtUsuarioSecre.Location = new Point(130, 46);
+            txtUsuarioSecre.Name = "txtUsuarioSecre";
+            txtUsuarioSecre.Size = new Size(258, 26);
+            txtUsuarioSecre.TabIndex = 4;
+            // 
             // Usuario
             // 
             Usuario.AutoSize = true;
@@ -216,103 +197,36 @@
             Usuario.TabIndex = 3;
             Usuario.Text = "Usuario:";
             // 
-            // txtUsuarioSecre
+            // listBoxSecretarias
             // 
-            txtUsuarioSecre.Location = new Point(130, 46);
-            txtUsuarioSecre.Name = "txtUsuarioSecre";
-            txtUsuarioSecre.Size = new Size(258, 26);
-            txtUsuarioSecre.TabIndex = 4;
+            listBoxSecretarias.BackColor = Color.FromArgb(212, 168, 133);
+            listBoxSecretarias.FormattingEnabled = true;
+            listBoxSecretarias.ItemHeight = 15;
+            listBoxSecretarias.Location = new Point(72, 309);
+            listBoxSecretarias.Name = "listBoxSecretarias";
+            listBoxSecretarias.Size = new Size(388, 199);
+            listBoxSecretarias.TabIndex = 20;
             // 
-            // txtCorreoSecre
+            // button1
             // 
-            txtCorreoSecre.Location = new Point(130, 88);
-            txtCorreoSecre.Name = "txtCorreoSecre";
-            txtCorreoSecre.Size = new Size(258, 26);
-            txtCorreoSecre.TabIndex = 5;
-            // 
-            // txtContrasenaSecre
-            // 
-            txtContrasenaSecre.Location = new Point(130, 134);
-            txtContrasenaSecre.Name = "txtContrasenaSecre";
-            txtContrasenaSecre.Size = new Size(258, 26);
-            txtContrasenaSecre.TabIndex = 6;
-            // 
-            // groupBox2
-            // 
-            groupBox2.BackColor = Color.FromArgb(212, 168, 133);
-            groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(label4);
-            groupBox2.Controls.Add(label3);
-            groupBox2.Controls.Add(label7);
-            groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(label9);
-            groupBox2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            groupBox2.Location = new Point(72, 305);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(647, 195);
-            groupBox2.TabIndex = 19;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Secretarias Registradas";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(27, 96);
-            label7.Name = "label7";
-            label7.Size = new Size(97, 18);
-            label7.TabIndex = 2;
-            label7.Text = "Contraseña:";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(27, 37);
-            label8.Name = "label8";
-            label8.Size = new Size(66, 18);
-            label8.TabIndex = 3;
-            label8.Text = "Usuario:";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(27, 67);
-            label9.Name = "label9";
-            label9.Size = new Size(64, 18);
-            label9.TabIndex = 1;
-            label9.Text = "Correo:";
+            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
+            button1.Cursor = Cursors.Hand;
+            button1.Location = new Point(558, 318);
+            button1.Name = "button1";
+            button1.Size = new Size(43, 46);
+            button1.TabIndex = 21;
+            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button1.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(156, 37);
+            label3.Location = new Point(607, 331);
             label3.Name = "label3";
-            label3.Size = new Size(70, 18);
-            label3.TabIndex = 4;
-            label3.Text = "$Usuario";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(156, 67);
-            label4.Name = "label4";
-            label4.Size = new Size(68, 18);
-            label4.TabIndex = 5;
-            label4.Text = "$Correo";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(156, 96);
-            label5.Name = "label5";
-            label5.Size = new Size(101, 18);
-            label5.TabIndex = 6;
-            label5.Text = "$Contrasena";
+            label3.Size = new Size(66, 18);
+            label3.TabIndex = 22;
+            label3.Text = "Usuario:";
             // 
             // adm_Secretaria
             // 
@@ -321,20 +235,19 @@
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
             ClientSize = new Size(801, 543);
-            Controls.Add(groupBox2);
+            Controls.Add(label3);
+            Controls.Add(button1);
+            Controls.Add(listBoxSecretarias);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             Name = "adm_Secretaria";
             Text = "adm_Secretaria";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            groupBox7.ResumeLayout(false);
-            groupBox7.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -342,11 +255,8 @@
         private Panel panel1;
         private Button btnVolver;
         private Label label14;
-        private GroupBox groupBox7;
         private Label label18;
         private Label label15;
-        private Label label16;
-        private Label label17;
         private Button btnAltaSecretarias;
         private Label label1;
         private Label label2;
@@ -355,12 +265,8 @@
         private TextBox txtContrasenaSecre;
         private TextBox txtCorreoSecre;
         private TextBox txtUsuarioSecre;
-        private GroupBox groupBox2;
-        private Label label5;
-        private Label label4;
+        private ListBox listBoxSecretarias;
+        private Button button1;
         private Label label3;
-        private Label label7;
-        private Label label8;
-        private Label label9;
     }
 }
