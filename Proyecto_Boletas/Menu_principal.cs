@@ -24,8 +24,8 @@ namespace Proyecto_Boletas
 
         private void btn_ingresar_Click(object sender, EventArgs e)
         {
-            Form1 nuevoFormulario = new Form1(); // creas una instancia del otro form
-            nuevoFormulario.Show();              // lo muestras
+            Form1 nuevoFormulario = new Form1(); 
+            nuevoFormulario.Show();              
             this.Hide();
         }
 

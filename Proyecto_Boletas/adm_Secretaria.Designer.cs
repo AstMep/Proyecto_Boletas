@@ -43,8 +43,10 @@
             txtUsuarioSecre = new TextBox();
             Usuario = new Label();
             listBoxSecretarias = new ListBox();
-            button1 = new Button();
             label3 = new Label();
+            btn_eliminar = new Button();
+            btnModificar = new Button();
+            label4 = new Label();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -207,17 +209,6 @@
             listBoxSecretarias.Size = new Size(388, 199);
             listBoxSecretarias.TabIndex = 20;
             // 
-            // button1
-            // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.Cursor = Cursors.Hand;
-            button1.Location = new Point(558, 318);
-            button1.Name = "button1";
-            button1.Size = new Size(43, 46);
-            button1.TabIndex = 21;
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -226,7 +217,43 @@
             label3.Name = "label3";
             label3.Size = new Size(66, 18);
             label3.TabIndex = 22;
-            label3.Text = "Usuario:";
+            label3.Text = "Eliminar";
+            // 
+            // btn_eliminar
+            // 
+            btn_eliminar.Anchor = AnchorStyles.None;
+            btn_eliminar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_eliminar.BackgroundImage = (Image)resources.GetObject("btn_eliminar.BackgroundImage");
+            btn_eliminar.Cursor = Cursors.Hand;
+            btn_eliminar.Location = new Point(558, 318);
+            btn_eliminar.Margin = new Padding(1);
+            btn_eliminar.Name = "btn_eliminar";
+            btn_eliminar.Size = new Size(43, 46);
+            btn_eliminar.TabIndex = 21;
+            btn_eliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn_eliminar.UseVisualStyleBackColor = true;
+            btn_eliminar.Click += button1_Click;
+            // 
+            // btnModificar
+            // 
+            btnModificar.Anchor = AnchorStyles.None;
+            btnModificar.BackgroundImage = (Image)resources.GetObject("btnModificar.BackgroundImage");
+            btnModificar.Location = new Point(556, 402);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(45, 49);
+            btnModificar.TabIndex = 23;
+            btnModificar.UseVisualStyleBackColor = true;
+            btnModificar.Click += btnModificar_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(607, 416);
+            label4.Name = "label4";
+            label4.Size = new Size(49, 18);
+            label4.TabIndex = 24;
+            label4.Text = "Editar";
             // 
             // adm_Secretaria
             // 
@@ -235,8 +262,10 @@
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
             ClientSize = new Size(801, 543);
+            Controls.Add(label4);
+            Controls.Add(btnModificar);
             Controls.Add(label3);
-            Controls.Add(button1);
+            Controls.Add(btn_eliminar);
             Controls.Add(listBoxSecretarias);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
@@ -266,7 +295,9 @@
         private TextBox txtCorreoSecre;
         private TextBox txtUsuarioSecre;
         private ListBox listBoxSecretarias;
-        private Button button1;
         private Label label3;
+        private Button btn_eliminar;
+        private Button btnModificar;
+        private Label label4;
     }
 }

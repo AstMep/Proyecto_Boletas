@@ -10,6 +10,10 @@ namespace Proyecto_Boletas
 
         public void login()
         {
+
+
+
+
             Conexion conexion = new Conexion();
 
             using (MySqlConnection connection = conexion.GetConnection())
