@@ -28,5 +28,15 @@ namespace Proyecto_Boletas
             nuevoFormulario.Show();              // lo muestras
             this.Hide();
         }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Menu_principal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -46,17 +46,23 @@
             label9 = new Label();
             label5 = new Label();
             label6 = new Label();
-            button2 = new Button();
+            btnBitacora = new Button();
             groupBox5 = new GroupBox();
             label11 = new Label();
-            button3 = new Button();
+            btnEdicionDatos = new Button();
             groupBox6 = new GroupBox();
             label12 = new Label();
             label13 = new Label();
-            button4 = new Button();
+            btnEnvioBoletas = new Button();
             panel1 = new Panel();
-            label14 = new Label();
             btn_ingresar = new Button();
+            label14 = new Label();
+            groupBox7 = new GroupBox();
+            label18 = new Label();
+            label15 = new Label();
+            label16 = new Label();
+            label17 = new Label();
+            btnAdmSecre = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -64,6 +70,7 @@
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
             panel1.SuspendLayout();
+            groupBox7.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -71,7 +78,7 @@
             groupBox1.BackColor = Color.FromArgb(157, 101, 101);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(btn_inscripcion);
-            groupBox1.Location = new Point(80, 76);
+            groupBox1.Location = new Point(60, 76);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(160, 186);
             groupBox1.TabIndex = 1;
@@ -107,7 +114,7 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(btn_capturaCalif);
-            groupBox2.Location = new Point(301, 76);
+            groupBox2.Location = new Point(281, 76);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(160, 186);
             groupBox2.TabIndex = 2;
@@ -155,7 +162,7 @@
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(label3);
             groupBox3.Controls.Add(button1);
-            groupBox3.Location = new Point(514, 76);
+            groupBox3.Location = new Point(502, 76);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(160, 186);
             groupBox3.TabIndex = 3;
@@ -213,8 +220,8 @@
             groupBox4.Controls.Add(label9);
             groupBox4.Controls.Add(label5);
             groupBox4.Controls.Add(label6);
-            groupBox4.Controls.Add(button2);
-            groupBox4.Location = new Point(80, 303);
+            groupBox4.Controls.Add(btnBitacora);
+            groupBox4.Location = new Point(60, 300);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(160, 186);
             groupBox4.TabIndex = 4;
@@ -262,25 +269,25 @@
             label6.Size = new Size(0, 21);
             label6.TabIndex = 4;
             // 
-            // button2
+            // btnBitacora
             // 
-            button2.BackColor = Color.FromArgb(212, 168, 133);
-            button2.BackgroundImageLayout = ImageLayout.Center;
-            button2.FlatStyle = FlatStyle.Popup;
-            button2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Image = (Image)resources.GetObject("button2.Image");
-            button2.Location = new Point(19, 9);
-            button2.Name = "button2";
-            button2.Size = new Size(121, 135);
-            button2.TabIndex = 3;
-            button2.UseVisualStyleBackColor = false;
+            btnBitacora.BackColor = Color.FromArgb(212, 168, 133);
+            btnBitacora.BackgroundImageLayout = ImageLayout.Center;
+            btnBitacora.FlatStyle = FlatStyle.Popup;
+            btnBitacora.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
+            btnBitacora.Location = new Point(19, 9);
+            btnBitacora.Name = "btnBitacora";
+            btnBitacora.Size = new Size(121, 135);
+            btnBitacora.TabIndex = 3;
+            btnBitacora.UseVisualStyleBackColor = false;
             // 
             // groupBox5
             // 
             groupBox5.BackColor = Color.FromArgb(157, 101, 101);
             groupBox5.Controls.Add(label11);
-            groupBox5.Controls.Add(button3);
-            groupBox5.Location = new Point(301, 303);
+            groupBox5.Controls.Add(btnEdicionDatos);
+            groupBox5.Location = new Point(281, 300);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(160, 186);
             groupBox5.TabIndex = 5;
@@ -297,26 +304,26 @@
             label11.TabIndex = 4;
             label11.Text = "Edición de Datos";
             // 
-            // button3
+            // btnEdicionDatos
             // 
-            button3.BackColor = Color.FromArgb(212, 168, 133);
-            button3.BackgroundImageLayout = ImageLayout.Center;
-            button3.FlatStyle = FlatStyle.Popup;
-            button3.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Image = (Image)resources.GetObject("button3.Image");
-            button3.Location = new Point(19, 9);
-            button3.Name = "button3";
-            button3.Size = new Size(121, 135);
-            button3.TabIndex = 3;
-            button3.UseVisualStyleBackColor = false;
+            btnEdicionDatos.BackColor = Color.FromArgb(212, 168, 133);
+            btnEdicionDatos.BackgroundImageLayout = ImageLayout.Center;
+            btnEdicionDatos.FlatStyle = FlatStyle.Popup;
+            btnEdicionDatos.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
+            btnEdicionDatos.Location = new Point(19, 9);
+            btnEdicionDatos.Name = "btnEdicionDatos";
+            btnEdicionDatos.Size = new Size(121, 135);
+            btnEdicionDatos.TabIndex = 3;
+            btnEdicionDatos.UseVisualStyleBackColor = false;
             // 
             // groupBox6
             // 
             groupBox6.BackColor = Color.FromArgb(157, 101, 101);
             groupBox6.Controls.Add(label12);
             groupBox6.Controls.Add(label13);
-            groupBox6.Controls.Add(button4);
-            groupBox6.Location = new Point(514, 303);
+            groupBox6.Controls.Add(btnEnvioBoletas);
+            groupBox6.Location = new Point(502, 300);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(160, 186);
             groupBox6.TabIndex = 6;
@@ -344,18 +351,18 @@
             label13.TabIndex = 4;
             label13.Text = "Envio de ";
             // 
-            // button4
+            // btnEnvioBoletas
             // 
-            button4.BackColor = Color.FromArgb(212, 168, 133);
-            button4.BackgroundImageLayout = ImageLayout.Center;
-            button4.FlatStyle = FlatStyle.Popup;
-            button4.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Image = (Image)resources.GetObject("button4.Image");
-            button4.Location = new Point(19, 9);
-            button4.Name = "button4";
-            button4.Size = new Size(121, 135);
-            button4.TabIndex = 3;
-            button4.UseVisualStyleBackColor = false;
+            btnEnvioBoletas.BackColor = Color.FromArgb(212, 168, 133);
+            btnEnvioBoletas.BackgroundImageLayout = ImageLayout.Center;
+            btnEnvioBoletas.FlatStyle = FlatStyle.Popup;
+            btnEnvioBoletas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
+            btnEnvioBoletas.Location = new Point(19, 9);
+            btnEnvioBoletas.Name = "btnEnvioBoletas";
+            btnEnvioBoletas.Size = new Size(121, 135);
+            btnEnvioBoletas.TabIndex = 3;
+            btnEnvioBoletas.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -365,19 +372,8 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 48);
+            panel1.Size = new Size(885, 48);
             panel1.TabIndex = 7;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlLightLight;
-            label14.Location = new Point(220, 9);
-            label14.Name = "label14";
-            label14.Size = new Size(406, 32);
-            label14.TabIndex = 6;
-            label14.Text = "Bienvenido al Sistema FAY JC";
             // 
             // btn_ingresar
             // 
@@ -396,6 +392,87 @@
             btn_ingresar.UseVisualStyleBackColor = false;
             btn_ingresar.Click += btn_ingresar_Click;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlLightLight;
+            label14.Location = new Point(220, 9);
+            label14.Name = "label14";
+            label14.Size = new Size(406, 32);
+            label14.TabIndex = 6;
+            label14.Text = "Bienvenido al Sistema FAY JC";
+            // 
+            // groupBox7
+            // 
+            groupBox7.BackColor = Color.FromArgb(157, 101, 101);
+            groupBox7.Controls.Add(label18);
+            groupBox7.Controls.Add(label15);
+            groupBox7.Controls.Add(label16);
+            groupBox7.Controls.Add(label17);
+            groupBox7.Controls.Add(btnAdmSecre);
+            groupBox7.Location = new Point(710, 76);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(153, 186);
+            groupBox7.TabIndex = 8;
+            groupBox7.TabStop = false;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.ForeColor = SystemColors.ControlLightLight;
+            label18.Location = new Point(16, 162);
+            label18.Name = "label18";
+            label18.Size = new Size(113, 21);
+            label18.TabIndex = 9;
+            label18.Text = "de Secretarias";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.ForeColor = SystemColors.ControlLightLight;
+            label15.Location = new Point(19, 144);
+            label15.Name = "label15";
+            label15.Size = new Size(124, 21);
+            label15.TabIndex = 5;
+            label15.Text = "Administración ";
+            label15.Click += label15_Click;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.ForeColor = SystemColors.ControlLightLight;
+            label16.Location = new Point(30, 162);
+            label16.Name = "label16";
+            label16.Size = new Size(0, 21);
+            label16.TabIndex = 5;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.ForeColor = SystemColors.ControlLightLight;
+            label17.Location = new Point(56, 147);
+            label17.Name = "label17";
+            label17.Size = new Size(0, 21);
+            label17.TabIndex = 4;
+            // 
+            // btnAdmSecre
+            // 
+            btnAdmSecre.BackColor = Color.FromArgb(212, 168, 133);
+            btnAdmSecre.BackgroundImageLayout = ImageLayout.Center;
+            btnAdmSecre.FlatStyle = FlatStyle.Popup;
+            btnAdmSecre.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
+            btnAdmSecre.Location = new Point(19, 9);
+            btnAdmSecre.Name = "btnAdmSecre";
+            btnAdmSecre.Size = new Size(121, 135);
+            btnAdmSecre.TabIndex = 3;
+            btnAdmSecre.UseVisualStyleBackColor = false;
+            // 
             // Menu_principal
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -403,7 +480,8 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(181, 131, 120);
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(800, 517);
+            ClientSize = new Size(885, 517);
+            Controls.Add(groupBox7);
             Controls.Add(panel1);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
@@ -413,6 +491,7 @@
             Controls.Add(groupBox1);
             Name = "Menu_principal";
             Text = "Menu_principal";
+            Load += Menu_principal_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -427,6 +506,8 @@
             groupBox6.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -444,20 +525,26 @@
         private GroupBox groupBox4;
         private Label label5;
         private Label label6;
-        private Button button2;
+        private Button btnBitacora;
         private Label label8;
         private Label label7;
         private Label label9;
         private Label label10;
         private GroupBox groupBox5;
         private Label label11;
-        private Button button3;
+        private Button btnEdicionDatos;
         private GroupBox groupBox6;
         private Label label12;
         private Label label13;
-        private Button button4;
+        private Button btnEnvioBoletas;
         private Panel panel1;
         private Label label14;
         private Button btn_ingresar;
+        private GroupBox groupBox7;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Button btnAdmSecre;
+        private Label label18;
     }
 }

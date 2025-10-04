@@ -30,19 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Secretaria));
             panel1 = new Panel();
+            btn_ingresar = new Button();
             label14 = new Label();
             groupBox6 = new GroupBox();
             label12 = new Label();
             label13 = new Label();
-            button4 = new Button();
+            btnEnvioBoletas = new Button();
             groupBox5 = new GroupBox();
             label11 = new Label();
-            button3 = new Button();
+            btnDatosAlumnado = new Button();
             groupBox3 = new GroupBox();
             label7 = new Label();
             label4 = new Label();
             label3 = new Label();
-            button1 = new Button();
+            btnEstadisticas = new Button();
             groupBox2 = new GroupBox();
             label8 = new Label();
             label2 = new Label();
@@ -50,7 +51,6 @@
             groupBox1 = new GroupBox();
             label1 = new Label();
             btn_inscripcion = new Button();
-            btn_ingresar = new Button();
             panel1.SuspendLayout();
             groupBox6.SuspendLayout();
             groupBox5.SuspendLayout();
@@ -70,6 +70,23 @@
             panel1.Size = new Size(800, 48);
             panel1.TabIndex = 14;
             // 
+            // btn_ingresar
+            // 
+            btn_ingresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_ingresar.BackColor = Color.FromArgb(247, 189, 86);
+            btn_ingresar.Cursor = Cursors.Hand;
+            btn_ingresar.FlatStyle = FlatStyle.Popup;
+            btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
+            btn_ingresar.Location = new Point(23, 9);
+            btn_ingresar.Name = "btn_ingresar";
+            btn_ingresar.RightToLeft = RightToLeft.Yes;
+            btn_ingresar.Size = new Size(155, 29);
+            btn_ingresar.TabIndex = 7;
+            btn_ingresar.Text = "Cerrar Sesión ";
+            btn_ingresar.UseVisualStyleBackColor = false;
+            btn_ingresar.Click += btn_ingresar_Click;
+            // 
             // label14
             // 
             label14.AutoSize = true;
@@ -86,7 +103,7 @@
             groupBox6.BackColor = Color.FromArgb(157, 101, 101);
             groupBox6.Controls.Add(label12);
             groupBox6.Controls.Add(label13);
-            groupBox6.Controls.Add(button4);
+            groupBox6.Controls.Add(btnEnvioBoletas);
             groupBox6.Location = new Point(526, 57);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(160, 186);
@@ -115,24 +132,24 @@
             label13.TabIndex = 4;
             label13.Text = "Envio de ";
             // 
-            // button4
+            // btnEnvioBoletas
             // 
-            button4.BackColor = Color.FromArgb(212, 168, 133);
-            button4.BackgroundImageLayout = ImageLayout.Center;
-            button4.FlatStyle = FlatStyle.Popup;
-            button4.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Image = (Image)resources.GetObject("button4.Image");
-            button4.Location = new Point(19, 9);
-            button4.Name = "button4";
-            button4.Size = new Size(121, 135);
-            button4.TabIndex = 3;
-            button4.UseVisualStyleBackColor = false;
+            btnEnvioBoletas.BackColor = Color.FromArgb(212, 168, 133);
+            btnEnvioBoletas.BackgroundImageLayout = ImageLayout.Center;
+            btnEnvioBoletas.FlatStyle = FlatStyle.Popup;
+            btnEnvioBoletas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
+            btnEnvioBoletas.Location = new Point(19, 9);
+            btnEnvioBoletas.Name = "btnEnvioBoletas";
+            btnEnvioBoletas.Size = new Size(121, 135);
+            btnEnvioBoletas.TabIndex = 3;
+            btnEnvioBoletas.UseVisualStyleBackColor = false;
             // 
             // groupBox5
             // 
             groupBox5.BackColor = Color.FromArgb(157, 101, 101);
             groupBox5.Controls.Add(label11);
-            groupBox5.Controls.Add(button3);
+            groupBox5.Controls.Add(btnDatosAlumnado);
             groupBox5.Location = new Point(466, 275);
             groupBox5.Name = "groupBox5";
             groupBox5.Size = new Size(172, 186);
@@ -150,18 +167,18 @@
             label11.TabIndex = 4;
             label11.Text = "Datos de Alumnado";
             // 
-            // button3
+            // btnDatosAlumnado
             // 
-            button3.BackColor = Color.FromArgb(212, 168, 133);
-            button3.BackgroundImageLayout = ImageLayout.Center;
-            button3.FlatStyle = FlatStyle.Popup;
-            button3.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.Image = (Image)resources.GetObject("button3.Image");
-            button3.Location = new Point(28, 9);
-            button3.Name = "button3";
-            button3.Size = new Size(121, 135);
-            button3.TabIndex = 3;
-            button3.UseVisualStyleBackColor = false;
+            btnDatosAlumnado.BackColor = Color.FromArgb(212, 168, 133);
+            btnDatosAlumnado.BackgroundImageLayout = ImageLayout.Center;
+            btnDatosAlumnado.FlatStyle = FlatStyle.Popup;
+            btnDatosAlumnado.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDatosAlumnado.Image = (Image)resources.GetObject("btnDatosAlumnado.Image");
+            btnDatosAlumnado.Location = new Point(28, 9);
+            btnDatosAlumnado.Name = "btnDatosAlumnado";
+            btnDatosAlumnado.Size = new Size(121, 135);
+            btnDatosAlumnado.TabIndex = 3;
+            btnDatosAlumnado.UseVisualStyleBackColor = false;
             // 
             // groupBox3
             // 
@@ -169,7 +186,7 @@
             groupBox3.Controls.Add(label7);
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(label3);
-            groupBox3.Controls.Add(button1);
+            groupBox3.Controls.Add(btnEstadisticas);
             groupBox3.Location = new Point(220, 275);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(160, 186);
@@ -207,18 +224,18 @@
             label3.Size = new Size(0, 21);
             label3.TabIndex = 4;
             // 
-            // button1
+            // btnEstadisticas
             // 
-            button1.BackColor = Color.FromArgb(212, 168, 133);
-            button1.BackgroundImageLayout = ImageLayout.Center;
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(19, 9);
-            button1.Name = "button1";
-            button1.Size = new Size(121, 135);
-            button1.TabIndex = 3;
-            button1.UseVisualStyleBackColor = false;
+            btnEstadisticas.BackColor = Color.FromArgb(212, 168, 133);
+            btnEstadisticas.BackgroundImageLayout = ImageLayout.Center;
+            btnEstadisticas.FlatStyle = FlatStyle.Popup;
+            btnEstadisticas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
+            btnEstadisticas.Location = new Point(19, 9);
+            btnEstadisticas.Name = "btnEstadisticas";
+            btnEstadisticas.Size = new Size(121, 135);
+            btnEstadisticas.TabIndex = 3;
+            btnEstadisticas.UseVisualStyleBackColor = false;
             // 
             // groupBox2
             // 
@@ -302,23 +319,6 @@
             btn_inscripcion.TabIndex = 3;
             btn_inscripcion.UseVisualStyleBackColor = false;
             // 
-            // btn_ingresar
-            // 
-            btn_ingresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btn_ingresar.BackColor = Color.FromArgb(247, 189, 86);
-            btn_ingresar.Cursor = Cursors.Hand;
-            btn_ingresar.FlatStyle = FlatStyle.Popup;
-            btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(23, 9);
-            btn_ingresar.Name = "btn_ingresar";
-            btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(155, 29);
-            btn_ingresar.TabIndex = 7;
-            btn_ingresar.Text = "Cerrar Sesión ";
-            btn_ingresar.UseVisualStyleBackColor = false;
-            btn_ingresar.Click += btn_ingresar_Click;
-            // 
             // Form_Secretaria
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -355,15 +355,15 @@
         private GroupBox groupBox6;
         private Label label12;
         private Label label13;
-        private Button button4;
+        private Button btnEnvioBoletas;
         private GroupBox groupBox5;
         private Label label11;
-        private Button button3;
+        private Button btnDatosAlumnado;
         private GroupBox groupBox3;
         private Label label7;
         private Label label4;
         private Label label3;
-        private Button button1;
+        private Button btnEstadisticas;
         private GroupBox groupBox2;
         private Label label8;
         private Label label2;
