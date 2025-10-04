@@ -206,6 +206,7 @@
             ClientSize = new Size(922, 513);
             Controls.Add(groupBox1);
             DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Programa Boleta";
             Load += Form1_Load;
