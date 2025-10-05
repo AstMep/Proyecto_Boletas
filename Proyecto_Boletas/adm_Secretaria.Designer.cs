@@ -217,6 +217,7 @@
             Controls.Add(panel1);
             Name = "adm_Secretaria";
             Text = "adm_Secretaria";
+            TransparencyKey = Color.Transparent;
             Load += adm_Secretaria_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

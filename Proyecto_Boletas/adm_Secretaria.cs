@@ -92,6 +92,21 @@ namespace Proyecto_Boletas
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
+                    string queryCount = "SELECT COUNT(*) FROM usuarios WHERE Rol='Secretaria'";
+                    MySqlCommand cmdCount = new MySqlCommand(queryCount, conn);
+                    int cantidadSecretarias = Convert.ToInt32(cmdCount.ExecuteScalar());
+
+                    if (cantidadSecretarias >= 3)
+                    {
+                        MessageBox.Show("Ya no puedes registrar más secretarias. El límite es 3.", "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (DatoExistente("Nombre", nombre.ToLower()))
+                    {
+                        MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }                  
                     string query = "INSERT INTO usuarios (Nombre, Correo, Contrasena, Rol, FechaRegistro) VALUES (@nombre, @correo, @contrasena, @rol, @fecha)";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@nombre", nombre);

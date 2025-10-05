@@ -6,6 +6,8 @@ namespace Proyecto_Boletas
         public Form1()
         {
             InitializeComponent();
+            txtbox_usuario.MaxLength = 20;
+            txtbox_contrasena.MaxLength = 20;
         }
 
         public void login()
@@ -30,10 +32,7 @@ namespace Proyecto_Boletas
 
                     if (reader.HasRows)
                     {
-                        
                
-
-                        // Declarar la variable rol fuera del while
                         string rolDisplay = "";
                         string nombreUsuario = "";
 
@@ -66,7 +65,7 @@ namespace Proyecto_Boletas
                             }
                         }
 
-                        // AQUÍ MUESTRAS EL MENSAJE CON EL ROL
+                       
                         MessageBox.Show($"¡Bienvenido {nombreUsuario}!\nRol: {rolDisplay}",
                                        "Inicio de sesión exitoso",
                                        MessageBoxButtons.OK,
@@ -77,7 +76,7 @@ namespace Proyecto_Boletas
                         MessageBox.Show("Usuario o contraseña incorrectos");
                         txtbox_usuario.Clear();
                         txtbox_contrasena.Clear();
-                        txtbox_usuario.Focus(); // Pone el cursor en el campo de usuario
+                        txtbox_usuario.Focus(); 
                     }
                 }
                 catch (Exception ex)
