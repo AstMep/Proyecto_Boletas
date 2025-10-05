@@ -42,11 +42,7 @@
             txtCorreoSecre = new TextBox();
             txtUsuarioSecre = new TextBox();
             Usuario = new Label();
-            listBoxSecretarias = new ListBox();
-            label3 = new Label();
-            btn_eliminar = new Button();
-            btnModificar = new Button();
-            label4 = new Label();
+            flowSecretarias = new FlowLayoutPanel();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -77,6 +73,7 @@
             btnVolver.Size = new Size(50, 50);
             btnVolver.TabIndex = 7;
             btnVolver.UseVisualStyleBackColor = false;
+            btnVolver.Click += btnVolver_Click;
             // 
             // label14
             // 
@@ -150,7 +147,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = Color.FromArgb(212, 168, 133);
+            groupBox1.BackColor = Color.FromArgb(63, 75, 92);
             groupBox1.Controls.Add(label18);
             groupBox1.Controls.Add(txtContrasenaSecre);
             groupBox1.Controls.Add(txtCorreoSecre);
@@ -166,7 +163,6 @@
             groupBox1.Size = new Size(647, 195);
             groupBox1.TabIndex = 18;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Alta de Secretarias";
             // 
             // txtContrasenaSecre
             // 
@@ -199,61 +195,15 @@
             Usuario.TabIndex = 3;
             Usuario.Text = "Usuario:";
             // 
-            // listBoxSecretarias
+            // flowSecretarias
             // 
-            listBoxSecretarias.BackColor = Color.FromArgb(212, 168, 133);
-            listBoxSecretarias.FormattingEnabled = true;
-            listBoxSecretarias.ItemHeight = 15;
-            listBoxSecretarias.Location = new Point(72, 309);
-            listBoxSecretarias.Name = "listBoxSecretarias";
-            listBoxSecretarias.Size = new Size(388, 199);
-            listBoxSecretarias.TabIndex = 20;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(607, 331);
-            label3.Name = "label3";
-            label3.Size = new Size(66, 18);
-            label3.TabIndex = 22;
-            label3.Text = "Eliminar";
-            // 
-            // btn_eliminar
-            // 
-            btn_eliminar.Anchor = AnchorStyles.None;
-            btn_eliminar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btn_eliminar.BackgroundImage = (Image)resources.GetObject("btn_eliminar.BackgroundImage");
-            btn_eliminar.Cursor = Cursors.Hand;
-            btn_eliminar.Location = new Point(558, 318);
-            btn_eliminar.Margin = new Padding(1);
-            btn_eliminar.Name = "btn_eliminar";
-            btn_eliminar.Size = new Size(43, 46);
-            btn_eliminar.TabIndex = 21;
-            btn_eliminar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            btn_eliminar.UseVisualStyleBackColor = true;
-            btn_eliminar.Click += button1_Click;
-            // 
-            // btnModificar
-            // 
-            btnModificar.Anchor = AnchorStyles.None;
-            btnModificar.BackgroundImage = (Image)resources.GetObject("btnModificar.BackgroundImage");
-            btnModificar.Location = new Point(556, 402);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(45, 49);
-            btnModificar.TabIndex = 23;
-            btnModificar.UseVisualStyleBackColor = true;
-            btnModificar.Click += btnModificar_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(607, 416);
-            label4.Name = "label4";
-            label4.Size = new Size(49, 18);
-            label4.TabIndex = 24;
-            label4.Text = "Editar";
+            flowSecretarias.AutoScroll = true;
+            flowSecretarias.BackColor = Color.FromArgb(63, 75, 92);
+            flowSecretarias.Location = new Point(72, 307);
+            flowSecretarias.Name = "flowSecretarias";
+            flowSecretarias.Size = new Size(647, 224);
+            flowSecretarias.TabIndex = 25;
+            flowSecretarias.Paint += flowSecretarias_Paint;
             // 
             // adm_Secretaria
             // 
@@ -262,21 +212,17 @@
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
             ClientSize = new Size(801, 543);
-            Controls.Add(label4);
-            Controls.Add(btnModificar);
-            Controls.Add(label3);
-            Controls.Add(btn_eliminar);
-            Controls.Add(listBoxSecretarias);
+            Controls.Add(flowSecretarias);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             Name = "adm_Secretaria";
             Text = "adm_Secretaria";
+            Load += adm_Secretaria_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -294,10 +240,6 @@
         private TextBox txtContrasenaSecre;
         private TextBox txtCorreoSecre;
         private TextBox txtUsuarioSecre;
-        private ListBox listBoxSecretarias;
-        private Label label3;
-        private Button btn_eliminar;
-        private Button btnModificar;
-        private Label label4;
+        private FlowLayoutPanel flowSecretarias;
     }
 }

@@ -16,12 +16,21 @@ namespace Proyecto_Boletas
         public adm_Secretaria()
         {
             InitializeComponent();
+            txtUsuarioSecre.MaxLength = 20;
+            txtCorreoSecre.MaxLength = 65;
+            txtContrasenaSecre.MaxLength = 20;
         }
 
         private void label15_Click(object sender, EventArgs e)
         {
 
         }
+        private void adm_Secretaria_Load(object sender, EventArgs e)
+        {
+            MostrarSecretarias();
+        }
+
+
         private void btnAltaSecretarias_Click(object sender, EventArgs e)
         {
             string nombre = txtUsuarioSecre.Text.Trim();
@@ -42,7 +51,7 @@ namespace Proyecto_Boletas
                 return;
             }
 
-        
+
             if (!System.Text.RegularExpressions.Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("Ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -93,27 +102,124 @@ namespace Proyecto_Boletas
         {
             try
             {
+                // Limpiar primero el FlowLayoutPanel
+                flowSecretarias.Controls.Clear();
+
                 Conexion conexion = new Conexion();
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
-                    string query = "SELECT Nombre, Correo FROM usuarios WHERE Rol = 'Secretaria'";
+
+                    // Seleccionamos ID, Nombre, Correo y Contrasena
+                    string query = "SELECT UsuarioID, Nombre, Correo, Contrasena FROM usuarios WHERE Rol = 'Secretaria'";
+
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
-                    listBoxSecretarias.Items.Clear();
-
                     while (reader.Read())
                     {
-                        string info = $"Nombre: {reader["Nombre"]} | Correo: {reader["Correo"]}";
-                        listBoxSecretarias.Items.Add(info);
+                        // Capturamos valores en variables temporales
+                        int idTemp = Convert.ToInt32(reader["UsuarioID"]);
+                        string nombreTemp = reader["Nombre"].ToString();
+                        string correoTemp = reader["Correo"].ToString();
+                        string contrasenaTemp = reader["Contrasena"].ToString();
+
+                        // Creamos la tarjeta visual
+                        Panel card = new Panel
+                        {
+                            Width = 280,
+                            Height = 100,
+                            Margin = new Padding(10),
+                            BackColor = Color.Bisque,
+                            BorderStyle = BorderStyle.FixedSingle,
+                            Cursor = Cursors.Hand
+                        };
+
+                        // Etiqueta de Nombre
+                        Label lblNombre = new Label
+                        {
+                            Text = "👩 " + nombreTemp,
+                            Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                            Location = new Point(10, 10),
+                            AutoSize = true
+                        };
+
+                        // Etiqueta de Correo
+                        Label lblCorreo = new Label
+                        {
+                            Text = "📧 " + correoTemp,
+                            Font = new Font("Segoe UI", 9),
+                            Location = new Point(10, 40),
+                            AutoSize = true
+                        };
+
+                        // Botón Editar
+                        Button btnEditar = new Button
+                        {
+                            Text = "✏️",
+                            Font = new Font("Segoe UI Emoji", 10),
+                            Size = new Size(35, 30),
+                            Location = new Point(200, 10),
+                            FlatStyle = FlatStyle.Flat,
+                            BackColor = Color.SandyBrown
+                        };
+                        btnEditar.Click += (s, e) => EditarSecretaria(nombreTemp);
+
+                        // Botón Eliminar
+                        Button btnEliminar = new Button
+                        {
+                            Text = "❌",
+                            Font = new Font("Segoe UI Emoji", 10),
+                            Size = new Size(35, 30),
+                            Location = new Point(240, 10),
+                            FlatStyle = FlatStyle.Flat,
+                            BackColor = Color.IndianRed
+                        };
+                        btnEliminar.Click += (s, e) => EliminarSecretaria(nombreTemp);
+
+                        // Agregamos controles al panel
+                        card.Controls.Add(lblNombre);
+                        card.Controls.Add(lblCorreo);
+                        card.Controls.Add(btnEditar);
+                        card.Controls.Add(btnEliminar);
+
+                        // Agregamos el panel al FlowLayoutPanel
+                        flowSecretarias.Controls.Add(card);
                     }
+
+                    reader.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al mostrar secretarias: " + ex.Message);
+                MessageBox.Show("Error al mostrar secretarias: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void EliminarSecretaria(string nombre)
+        {
+            if (MessageBox.Show($"¿Seguro que deseas eliminar a {nombre}?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Conexion conexion = new Conexion();
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    conn.Open();
+                    string query = "DELETE FROM usuarios WHERE Nombre=@nombre AND Rol='Secretaria'";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Secretaria eliminada correctamente.");
+                MostrarSecretarias();
+            }
+        }
+
+        private void EditarSecretaria(string nombre)
+        {
+            txtUsuarioSecre.Text = nombre; // Puedes cargar su info en los campos
+            MessageBox.Show($"Ahora puedes editar los datos de {nombre}.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private bool DatoExistente(string campo, string valor)
@@ -131,75 +237,16 @@ namespace Proyecto_Boletas
             }
         }
 
-        private void adm_Secretaria_Load(object sender, EventArgs e)
+        private void btnVolver_Click(object sender, EventArgs e)
         {
-            txtUsuarioSecre.MaxLength = 20;
-            txtCorreoSecre.MaxLength = 100;
-            txtContrasenaSecre.MaxLength = 20;
-
-            MostrarSecretarias();
+            Menu_principal nuevoFormulario = new Menu_principal();
+            nuevoFormulario.Show();
+            this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void flowSecretarias_Paint(object sender, PaintEventArgs e)
         {
 
-            if (listBoxSecretarias.SelectedItem == null)
-            {
-                MessageBox.Show("Selecciona una secretaria para eliminar.");
-                return;
-            }
-
-            string nombreSeleccionado = listBoxSecretarias.SelectedItem.ToString()
-                .Split('|')[0].Replace("Nombre:", "").Trim();
-
-            Conexion conexion = new Conexion();
-            using (MySqlConnection conn = conexion.GetConnection())
-            {
-                conn.Open();
-                string query = "DELETE FROM usuarios WHERE Nombre = @nombre AND Rol = 'Secretaria'";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@nombre", nombreSeleccionado);
-                cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Secretaria eliminada correctamente.");
-                MostrarSecretarias();
-            }
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            if (listBoxSecretarias.SelectedItem == null)
-            {
-                MessageBox.Show("Selecciona una secretaria para modificar.");
-                return;
-            }
-
-            string nombreSeleccionado = listBoxSecretarias.SelectedItem.ToString()
-                .Split('|')[0].Replace("Nombre:", "").Trim();
-
-            string nuevoCorreo = txtCorreoSecre.Text;
-            string nuevaContrasena = txtContrasenaSecre.Text;
-
-            if (nuevoCorreo == "" || nuevaContrasena == "")
-            {
-                MessageBox.Show("Ingresa los nuevos datos.");
-                return;
-            }
-
-            Conexion conexion = new Conexion();
-            using (MySqlConnection conn = conexion.GetConnection())
-            {
-                conn.Open();
-                string query = "UPDATE usuarios SET Correo=@correo, Contrasena=@contrasena WHERE Nombre=@nombre AND Rol='Secretaria'";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@correo", nuevoCorreo);
-                cmd.Parameters.AddWithValue("@contrasena", nuevaContrasena);
-                cmd.Parameters.AddWithValue("@nombre", nombreSeleccionado);
-                cmd.ExecuteNonQuery();
-
-                MessageBox.Show(" Datos actualizados correctamente.");
-                MostrarSecretarias();
-            }
         }
     }
 }

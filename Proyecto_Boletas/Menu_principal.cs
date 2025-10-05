@@ -48,7 +48,7 @@ namespace Proyecto_Boletas
 
         private void btn_inscripcion_Click(object sender, EventArgs e)
         {
-            Mod_inscripcion nuevoFormulario = new Mod_inscripcion(); // creas una instancia del otro form
+            Mod_inscripcion nuevoFormulario = new Mod_inscripcion("Director"); // creas una instancia del otro form
             nuevoFormulario.Show();              // lo muestras
             this.Hide();
         }

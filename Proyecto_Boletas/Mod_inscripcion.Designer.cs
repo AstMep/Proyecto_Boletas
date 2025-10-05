@@ -30,21 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mod_inscripcion));
             groupBox2 = new GroupBox();
-            panel1 = new Panel();
-            btnVolver = new Button();
-            label14 = new Label();
             textBox4 = new TextBox();
             label4 = new Label();
+            label12 = new Label();
             textBox5 = new TextBox();
             label5 = new Label();
-            textBox6 = new TextBox();
-            label12 = new Label();
             button1 = new Button();
+            textBox6 = new TextBox();
             textBox7 = new TextBox();
             textBox8 = new TextBox();
             label13 = new Label();
             label19 = new Label();
             label20 = new Label();
+            panel1 = new Panel();
+            btnVolver = new Button();
+            label14 = new Label();
             label18 = new Label();
             button2 = new Button();
             label1 = new Label();
@@ -92,44 +92,6 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Alta de Tutor";
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(181, 131, 120);
-            panel1.Controls.Add(btnVolver);
-            panel1.Controls.Add(label14);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(783, 59);
-            panel1.TabIndex = 20;
-            // 
-            // btnVolver
-            // 
-            btnVolver.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnVolver.BackColor = Color.FromArgb(247, 189, 86);
-            btnVolver.BackgroundImage = (Image)resources.GetObject("btnVolver.BackgroundImage");
-            btnVolver.Cursor = Cursors.Hand;
-            btnVolver.FlatStyle = FlatStyle.Popup;
-            btnVolver.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.ForeColor = SystemColors.ActiveCaptionText;
-            btnVolver.Location = new Point(12, 6);
-            btnVolver.Name = "btnVolver";
-            btnVolver.RightToLeft = RightToLeft.Yes;
-            btnVolver.Size = new Size(50, 50);
-            btnVolver.TabIndex = 7;
-            btnVolver.UseVisualStyleBackColor = false;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlLightLight;
-            label14.Location = new Point(234, 13);
-            label14.Name = "label14";
-            label14.Size = new Size(322, 32);
-            label14.TabIndex = 6;
-            label14.Text = "Inscripción de Alumnos";
-            // 
             // textBox4
             // 
             textBox4.Location = new Point(180, 171);
@@ -146,6 +108,18 @@
             label4.Size = new Size(64, 18);
             label4.TabIndex = 32;
             label4.Text = "Correo:";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.BackColor = Color.Transparent;
+            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = SystemColors.ActiveCaptionText;
+            label12.Location = new Point(525, 150);
+            label12.Name = "label12";
+            label12.Size = new Size(59, 21);
+            label12.TabIndex = 5;
+            label12.Text = "Validar";
             // 
             // textBox5
             // 
@@ -164,25 +138,6 @@
             label5.TabIndex = 30;
             label5.Text = "Teléfono:";
             // 
-            // textBox6
-            // 
-            textBox6.Location = new Point(180, 107);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(258, 26);
-            textBox6.TabIndex = 28;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.BackColor = Color.Transparent;
-            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.ForeColor = SystemColors.ActiveCaptionText;
-            label12.Location = new Point(525, 150);
-            label12.Name = "label12";
-            label12.Size = new Size(59, 21);
-            label12.TabIndex = 5;
-            label12.Text = "Validar";
-            // 
             // button1
             // 
             button1.BackColor = Color.FromArgb(212, 168, 133);
@@ -195,6 +150,13 @@
             button1.Size = new Size(113, 73);
             button1.TabIndex = 3;
             button1.UseVisualStyleBackColor = false;
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(180, 107);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(258, 26);
+            textBox6.TabIndex = 28;
             // 
             // textBox7
             // 
@@ -239,6 +201,45 @@
             label20.Size = new Size(135, 18);
             label20.TabIndex = 23;
             label20.Text = "Apellido Paterno:";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(181, 131, 120);
+            panel1.Controls.Add(btnVolver);
+            panel1.Controls.Add(label14);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(783, 59);
+            panel1.TabIndex = 20;
+            // 
+            // btnVolver
+            // 
+            btnVolver.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnVolver.BackColor = Color.FromArgb(247, 189, 86);
+            btnVolver.BackgroundImage = (Image)resources.GetObject("btnVolver.BackgroundImage");
+            btnVolver.Cursor = Cursors.Hand;
+            btnVolver.FlatStyle = FlatStyle.Popup;
+            btnVolver.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnVolver.ForeColor = SystemColors.ActiveCaptionText;
+            btnVolver.Location = new Point(12, 6);
+            btnVolver.Name = "btnVolver";
+            btnVolver.RightToLeft = RightToLeft.Yes;
+            btnVolver.Size = new Size(50, 50);
+            btnVolver.TabIndex = 7;
+            btnVolver.UseVisualStyleBackColor = false;
+            btnVolver.Click += btnVolver_Click;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlLightLight;
+            label14.Location = new Point(234, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(322, 32);
+            label14.TabIndex = 6;
+            label14.Text = "Inscripción de Alumnos";
             // 
             // label18
             // 
