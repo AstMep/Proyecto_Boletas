@@ -10,7 +10,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Iconos\correo45.png" />
+    <None Remove="Iconos\delete32.png" />
+    <None Remove="Iconos\editor32.png" />
+    <None Remove="Iconos\email32.png" />
+    <None Remove="Iconos\secretaria32.png" />
+    <None Remove="Iconos\secretaria45.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\logo_app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Iconos\correo45.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Iconos\delete32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Iconos\editor32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Iconos\email32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Iconos\secretaria32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Iconos\secretaria45.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

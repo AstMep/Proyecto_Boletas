@@ -33,12 +33,19 @@ namespace Proyecto_Boletas
 
         private void btnAltaSecretarias_Click(object sender, EventArgs e)
         {
+         
             string nombre = txtUsuarioSecre.Text.Trim();
             string correo = txtCorreoSecre.Text.Trim();
-            string contrasena = txtContrasenaSecre.Text;
+            string contrasena = txtContrasenaSecre.Text.Trim();
             string rol = "Secretaria";
             DateTime fechaRegistro = DateTime.Now;
 
+  
+            nombre = System.Text.RegularExpressions.Regex.Replace(nombre, @"\s+", " ");
+            correo = System.Text.RegularExpressions.Regex.Replace(correo, @"\s+", "");
+            contrasena = System.Text.RegularExpressions.Regex.Replace(contrasena, @"\s+", "");
+
+     
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contrasena))
             {
                 MessageBox.Show("Por favor, completa todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -51,24 +58,34 @@ namespace Proyecto_Boletas
                 return;
             }
 
-
+           
             if (!System.Text.RegularExpressions.Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("Ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             if (correo.Length > 65)
             {
-                MessageBox.Show("El correo no puede tener más de 65 caracteres.",
-                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("El correo no puede tener más de 65 caracteres.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+          
             if (!System.Text.RegularExpressions.Regex.IsMatch(contrasena, @"^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\|,.<>\/?]).{8,}$"))
             {
                 MessageBox.Show("La contraseña debe tener al menos:\n- 1 mayúscula\n- 1 número\n- 1 carácter especial\n- Mínimo 8 caracteres.", "Contraseña inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+           
+            if (DatoExistente("Nombre", nombre.ToLower()))
+            {
+                MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+           
             try
             {
                 Conexion conexion = new Conexion();
@@ -102,7 +119,6 @@ namespace Proyecto_Boletas
         {
             try
             {
-                // Limpiar primero el FlowLayoutPanel
                 flowSecretarias.Controls.Clear();
 
                 Conexion conexion = new Conexion();
@@ -110,21 +126,17 @@ namespace Proyecto_Boletas
                 {
                     conn.Open();
 
-                    // Seleccionamos ID, Nombre, Correo y Contrasena
                     string query = "SELECT UsuarioID, Nombre, Correo, Contrasena FROM usuarios WHERE Rol = 'Secretaria'";
-
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        // Capturamos valores en variables temporales
                         int idTemp = Convert.ToInt32(reader["UsuarioID"]);
                         string nombreTemp = reader["Nombre"].ToString();
                         string correoTemp = reader["Correo"].ToString();
-                        string contrasenaTemp = reader["Contrasena"].ToString();
 
-                        // Creamos la tarjeta visual
+                      
                         Panel card = new Panel
                         {
                             Width = 280,
@@ -135,55 +147,75 @@ namespace Proyecto_Boletas
                             Cursor = Cursors.Hand
                         };
 
-                        // Etiqueta de Nombre
+                     
+                        PictureBox picSecretaria = new PictureBox
+                        {
+                            Image = Image.FromFile(Application.StartupPath + @"\Iconos\secretaria45.png"),
+                            SizeMode = PictureBoxSizeMode.Zoom,
+                            Location = new Point(10, 10),
+                            Size = new Size(32, 32)
+                        };
+
+                     
                         Label lblNombre = new Label
                         {
-                            Text = "👩 " + nombreTemp,
+                            Text = nombreTemp,
                             Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                            Location = new Point(10, 10),
+                            Location = new Point(45, 10),
                             AutoSize = true
                         };
 
-                        // Etiqueta de Correo
+            
+                        PictureBox picCorreo = new PictureBox
+                        {
+                            Image = Image.FromFile(Application.StartupPath + @"\Iconos\correo45.png"),
+                            SizeMode = PictureBoxSizeMode.Zoom,
+                            Location = new Point(10, 45),
+                            Size = new Size(32, 32)
+                        };
+
+                    
                         Label lblCorreo = new Label
                         {
-                            Text = "📧 " + correoTemp,
+                            Text = correoTemp,
                             Font = new Font("Segoe UI", 9),
-                            Location = new Point(10, 40),
+                            Location = new Point(45, 47),
                             AutoSize = true
                         };
 
-                        // Botón Editar
+                
                         Button btnEditar = new Button
                         {
-                            Text = "✏️",
-                            Font = new Font("Segoe UI Emoji", 10),
-                            Size = new Size(35, 30),
+                            Size = new Size(30, 25),
                             Location = new Point(200, 10),
                             FlatStyle = FlatStyle.Flat,
-                            BackColor = Color.SandyBrown
+                            BackColor = Color.SandyBrown,
+                            BackgroundImageLayout = ImageLayout.Zoom
                         };
+                        btnEditar.BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\editor32.png");
                         btnEditar.Click += (s, e) => EditarSecretaria(nombreTemp);
 
-                        // Botón Eliminar
+                       
                         Button btnEliminar = new Button
                         {
-                            Text = "❌",
-                            Font = new Font("Segoe UI Emoji", 10),
-                            Size = new Size(35, 30),
+                            Size = new Size(30, 25),
                             Location = new Point(240, 10),
                             FlatStyle = FlatStyle.Flat,
-                            BackColor = Color.IndianRed
+                            BackColor = Color.IndianRed,
+                            BackgroundImageLayout = ImageLayout.Zoom
                         };
+                        btnEliminar.BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\delete32.png");
                         btnEliminar.Click += (s, e) => EliminarSecretaria(nombreTemp);
 
-                        // Agregamos controles al panel
+                      
+                        card.Controls.Add(picSecretaria);
                         card.Controls.Add(lblNombre);
+                        card.Controls.Add(picCorreo);
                         card.Controls.Add(lblCorreo);
                         card.Controls.Add(btnEditar);
                         card.Controls.Add(btnEliminar);
 
-                        // Agregamos el panel al FlowLayoutPanel
+                      
                         flowSecretarias.Controls.Add(card);
                     }
 
@@ -195,6 +227,7 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al mostrar secretarias: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void EliminarSecretaria(string nombre)
         {
@@ -218,7 +251,7 @@ namespace Proyecto_Boletas
 
         private void EditarSecretaria(string nombre)
         {
-            txtUsuarioSecre.Text = nombre; // Puedes cargar su info en los campos
+            txtUsuarioSecre.Text = nombre; 
             MessageBox.Show($"Ahora puedes editar los datos de {nombre}.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -233,7 +266,7 @@ namespace Proyecto_Boletas
                 cmd.Parameters.AddWithValue("@valor", valor);
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
-                return count > 0; // Retorna true si el dato ya existe
+                return count > 0;
             }
         }
 

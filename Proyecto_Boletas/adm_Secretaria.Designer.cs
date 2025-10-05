@@ -92,11 +92,11 @@
             label18.BackColor = Color.Transparent;
             label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label18.ForeColor = SystemColors.ControlLightLight;
-            label18.Location = new Point(461, 148);
+            label18.Location = new Point(495, 140);
             label18.Name = "label18";
-            label18.Size = new Size(113, 21);
+            label18.Size = new Size(99, 21);
             label18.TabIndex = 9;
-            label18.Text = "de Secretarias";
+            label18.Text = "Información";
             // 
             // label15
             // 
@@ -104,11 +104,11 @@
             label15.BackColor = Color.Transparent;
             label15.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = SystemColors.ControlLightLight;
-            label15.Location = new Point(495, 127);
+            label15.Location = new Point(510, 119);
             label15.Name = "label15";
-            label15.Size = new Size(43, 21);
+            label15.Size = new Size(68, 21);
             label15.TabIndex = 5;
-            label15.Text = "Alta ";
+            label15.Text = "Guardar";
             label15.Click += label15_Click;
             // 
             // btnAltaSecretarias
@@ -118,9 +118,9 @@
             btnAltaSecretarias.FlatStyle = FlatStyle.Popup;
             btnAltaSecretarias.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAltaSecretarias.Image = (Image)resources.GetObject("btnAltaSecretarias.Image");
-            btnAltaSecretarias.Location = new Point(461, 46);
+            btnAltaSecretarias.Location = new Point(510, 62);
             btnAltaSecretarias.Name = "btnAltaSecretarias";
-            btnAltaSecretarias.Size = new Size(113, 73);
+            btnAltaSecretarias.Size = new Size(52, 52);
             btnAltaSecretarias.TabIndex = 3;
             btnAltaSecretarias.UseVisualStyleBackColor = false;
             btnAltaSecretarias.Click += btnAltaSecretarias_Click;
@@ -160,7 +160,7 @@
             groupBox1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
             groupBox1.Location = new Point(72, 89);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(647, 195);
+            groupBox1.Size = new Size(668, 195);
             groupBox1.TabIndex = 18;
             groupBox1.TabStop = false;
             // 
@@ -199,9 +199,9 @@
             // 
             flowSecretarias.AutoScroll = true;
             flowSecretarias.BackColor = Color.FromArgb(63, 75, 92);
-            flowSecretarias.Location = new Point(72, 307);
+            flowSecretarias.Location = new Point(60, 307);
             flowSecretarias.Name = "flowSecretarias";
-            flowSecretarias.Size = new Size(647, 224);
+            flowSecretarias.Size = new Size(680, 224);
             flowSecretarias.TabIndex = 25;
             flowSecretarias.Paint += flowSecretarias_Paint;
             // 
