@@ -57,6 +57,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(801, 59);
             panel1.TabIndex = 15;
+            panel1.Paint += panel1_Paint;
             // 
             // btnVolver
             // 
@@ -67,7 +68,7 @@
             btnVolver.FlatStyle = FlatStyle.Popup;
             btnVolver.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnVolver.ForeColor = SystemColors.ActiveCaptionText;
-            btnVolver.Location = new Point(12, 6);
+            btnVolver.Location = new Point(35, 3);
             btnVolver.Name = "btnVolver";
             btnVolver.RightToLeft = RightToLeft.Yes;
             btnVolver.Size = new Size(50, 50);
@@ -79,7 +80,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlLightLight;
+            label14.ForeColor = SystemColors.ControlText;
             label14.Location = new Point(190, 9);
             label14.Name = "label14";
             label14.Size = new Size(420, 32);
@@ -166,6 +167,7 @@
             // 
             // txtContrasenaSecre
             // 
+            txtContrasenaSecre.BackColor = SystemColors.WindowFrame;
             txtContrasenaSecre.Location = new Point(130, 134);
             txtContrasenaSecre.Name = "txtContrasenaSecre";
             txtContrasenaSecre.Size = new Size(258, 26);
@@ -173,6 +175,7 @@
             // 
             // txtCorreoSecre
             // 
+            txtCorreoSecre.BackColor = SystemColors.WindowFrame;
             txtCorreoSecre.Location = new Point(130, 88);
             txtCorreoSecre.Name = "txtCorreoSecre";
             txtCorreoSecre.Size = new Size(258, 26);
@@ -180,6 +183,7 @@
             // 
             // txtUsuarioSecre
             // 
+            txtUsuarioSecre.BackColor = SystemColors.WindowFrame;
             txtUsuarioSecre.Location = new Point(130, 46);
             txtUsuarioSecre.Name = "txtUsuarioSecre";
             txtUsuarioSecre.Size = new Size(258, 26);
@@ -219,6 +223,7 @@
             Text = "adm_Secretaria";
             TransparencyKey = Color.Transparent;
             Load += adm_Secretaria_Load;
+            Paint += panel1_Paint;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             groupBox1.ResumeLayout(false);

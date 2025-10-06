@@ -33,19 +33,19 @@ namespace Proyecto_Boletas
 
         private void btnAltaSecretarias_Click(object sender, EventArgs e)
         {
-         
+
             string nombre = txtUsuarioSecre.Text.Trim();
             string correo = txtCorreoSecre.Text.Trim();
             string contrasena = txtContrasenaSecre.Text.Trim();
             string rol = "Secretaria";
             DateTime fechaRegistro = DateTime.Now;
 
-  
+
             nombre = System.Text.RegularExpressions.Regex.Replace(nombre, @"\s+", " ");
             correo = System.Text.RegularExpressions.Regex.Replace(correo, @"\s+", "");
             contrasena = System.Text.RegularExpressions.Regex.Replace(contrasena, @"\s+", "");
 
-     
+
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(correo) || string.IsNullOrWhiteSpace(contrasena))
             {
                 MessageBox.Show("Por favor, completa todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -58,7 +58,7 @@ namespace Proyecto_Boletas
                 return;
             }
 
-           
+
             if (!System.Text.RegularExpressions.Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("Ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -71,21 +71,21 @@ namespace Proyecto_Boletas
                 return;
             }
 
-          
+
             if (!System.Text.RegularExpressions.Regex.IsMatch(contrasena, @"^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':""\\|,.<>\/?]).{8,}$"))
             {
                 MessageBox.Show("La contraseña debe tener al menos:\n- 1 mayúscula\n- 1 número\n- 1 carácter especial\n- Mínimo 8 caracteres.", "Contraseña inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-           
+
             if (DatoExistente("Nombre", nombre.ToLower()))
             {
                 MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-           
+
             try
             {
                 Conexion conexion = new Conexion();
@@ -106,7 +106,7 @@ namespace Proyecto_Boletas
                     {
                         MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
-                    }                  
+                    }
                     string query = "INSERT INTO usuarios (Nombre, Correo, Contrasena, Rol, FechaRegistro) VALUES (@nombre, @correo, @contrasena, @rol, @fecha)";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@nombre", nombre);
@@ -151,7 +151,7 @@ namespace Proyecto_Boletas
                         string nombreTemp = reader["Nombre"].ToString();
                         string correoTemp = reader["Correo"].ToString();
 
-                      
+
                         Panel card = new Panel
                         {
                             Width = 280,
@@ -162,7 +162,7 @@ namespace Proyecto_Boletas
                             Cursor = Cursors.Hand
                         };
 
-                     
+
                         PictureBox picSecretaria = new PictureBox
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\secretaria45.png"),
@@ -171,7 +171,7 @@ namespace Proyecto_Boletas
                             Size = new Size(32, 32)
                         };
 
-                     
+
                         Label lblNombre = new Label
                         {
                             Text = nombreTemp,
@@ -180,7 +180,7 @@ namespace Proyecto_Boletas
                             AutoSize = true
                         };
 
-            
+
                         PictureBox picCorreo = new PictureBox
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\correo45.png"),
@@ -189,7 +189,7 @@ namespace Proyecto_Boletas
                             Size = new Size(32, 32)
                         };
 
-                    
+
                         Label lblCorreo = new Label
                         {
                             Text = correoTemp,
@@ -198,7 +198,7 @@ namespace Proyecto_Boletas
                             AutoSize = true
                         };
 
-                
+
                         Button btnEditar = new Button
                         {
                             Size = new Size(30, 25),
@@ -210,7 +210,7 @@ namespace Proyecto_Boletas
                         btnEditar.BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\editor32.png");
                         btnEditar.Click += (s, e) => EditarSecretaria(nombreTemp);
 
-                       
+
                         Button btnEliminar = new Button
                         {
                             Size = new Size(30, 25),
@@ -222,7 +222,7 @@ namespace Proyecto_Boletas
                         btnEliminar.BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\delete32.png");
                         btnEliminar.Click += (s, e) => EliminarSecretaria(nombreTemp);
 
-                      
+
                         card.Controls.Add(picSecretaria);
                         card.Controls.Add(lblNombre);
                         card.Controls.Add(picCorreo);
@@ -230,7 +230,7 @@ namespace Proyecto_Boletas
                         card.Controls.Add(btnEditar);
                         card.Controls.Add(btnEliminar);
 
-                      
+
                         flowSecretarias.Controls.Add(card);
                     }
 
@@ -266,7 +266,7 @@ namespace Proyecto_Boletas
 
         private void EditarSecretaria(string nombre)
         {
-            txtUsuarioSecre.Text = nombre; 
+            txtUsuarioSecre.Text = nombre;
             MessageBox.Show($"Ahora puedes editar los datos de {nombre}.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -295,6 +295,24 @@ namespace Proyecto_Boletas
         private void flowSecretarias_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            int borderRadius = 25; // puedes ajustar el radio a tu gusto
+
+            System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
+            Rectangle rect = new Rectangle(0, 0, panel1.Width, panel1.Height);
+            int diameter = borderRadius * 2;
+
+            // Esquinas redondeadas
+            path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
+            path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);
+            path.AddArc(rect.Right - diameter, rect.Bottom - diameter, diameter, diameter, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - diameter, diameter, diameter, 90, 90);
+            path.CloseAllFigures();
+
+            panel1.Region = new Region(path);
         }
     }
 }
