@@ -38,7 +38,7 @@ namespace Proyecto_Boletas
             MostrarMaestros();
         }
 
-       
+
         private void MostrarMaestros()
         {
             try
@@ -330,8 +330,17 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al registrar maestro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-  
-}
+
+        private void txtnombremaestro_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+    }
 
 }
 
