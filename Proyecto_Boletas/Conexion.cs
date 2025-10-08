@@ -9,7 +9,7 @@ namespace Proyecto_Boletas
 {
     internal class Conexion
     {
-        private string conexionString = "server=localhost;port=3307;user=root;password=;database=boletasescolares;";
+        private string conexionString = "server=localhost;port=3306;user=root;password=;database=boletasescolares;";
 
         public MySqlConnection GetConnection()
         {

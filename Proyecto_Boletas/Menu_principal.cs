@@ -24,8 +24,8 @@ namespace Proyecto_Boletas
 
         private void btn_ingresar_Click(object sender, EventArgs e)
         {
-            Form1 nuevoFormulario = new Form1(); 
-            nuevoFormulario.Show();              
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
             this.Hide();
         }
 
@@ -50,6 +50,13 @@ namespace Proyecto_Boletas
         {
             Mod_inscripcion nuevoFormulario = new Mod_inscripcion("Director"); // creas una instancia del otro form
             nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void btn_admaestros_Click(object sender, EventArgs e)
+        {
+            adm_maestros nuevoForulario = new adm_maestros(); // creas una instancia del otro form
+            nuevoForulario.Show();              // lo muestras
             this.Hide();
         }
     }
