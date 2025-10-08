@@ -43,5 +43,85 @@ namespace Proyecto_Boletas
 
 
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nombre_alumno_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnvalidar_alumno_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void apellidoP_alumno_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void apellidoM_alumno_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCurp_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nacimiento_alumno_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void edad_alumno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grupo_alumno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nombre_tutor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void apellidoP_tutor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void apellidoM_tutor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void telefono_tutor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void correo_tutor_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnvalidar_tutor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnalta_inscripcion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
