@@ -51,7 +51,7 @@ namespace Proyecto_Boletas
         {
             // Edad
             edad_alumno.Items.Clear();
-            for (int i = 5; i <= 18; i++)
+            for (int i = 6; i <= 14; i++)
                 edad_alumno.Items.Add(i);
 
             // Grupos
@@ -95,9 +95,9 @@ namespace Proyecto_Boletas
                 grado = "tercero";
             else if (edad == 9)
                 grado = "cuarto";
-            else if (edad == 10)
+            else if (edad >= 10 && edad <= 12)
                 grado = "quinto";
-            else if (edad == 11)
+            else if (edad >= 13 && edad <= 14)
                 grado = "sexto";
             else
             {
@@ -171,7 +171,7 @@ namespace Proyecto_Boletas
 
 
 
-        private bool ValidarAlumno(string nombres, string apellidoP, string apellidoM, int edad, string curp, out string mensajeError)
+        private bool ValidarAlumno(string nombres, string apellidoP, string apellidoM, int edad, DateTime fechaNac, string curp, out string mensajeError)
         {
             mensajeError = "";
 
@@ -198,8 +198,10 @@ namespace Proyecto_Boletas
                 return false;
             }
 
-            // CURP
-            if (!ValidarCURPyEdad(curp, edad, out mensajeError))
+
+
+            // ⭐ VALIDAR COHERENCIA: Edad, Fecha de Nacimiento y CURP
+            if (!ValidarCoherenciaEdadFechaCURP(edad, fechaNac, curp, out mensajeError))
                 return false;
 
             return true;
@@ -275,11 +277,65 @@ namespace Proyecto_Boletas
             catch { return null; }
         }
 
+        private string ObtenerGeneroDesdeCURP(string curp)
+        {
+            if (curp.Length != 18)
+                return null;
+
+            char generoChar = curp[10]; // Posición 11 (índice 10)
+            if (generoChar == 'H')
+                return "Masculino";
+            else if (generoChar == 'M')
+                return "Femenino";
+            else
+                return null;
+        }
+
+
         private int CalcularEdad(DateTime fechaNacimiento)
         {
             int edad = DateTime.Now.Year - fechaNacimiento.Year;
             if (DateTime.Now < fechaNacimiento.AddYears(edad)) edad--;
             return edad;
+        }
+
+        private bool ValidarCoherenciaEdadFechaCURP(int edad, DateTime fechaNac, string curp, out string mensajeError)
+        {
+            mensajeError = "";
+
+            // 1. Validar que la edad coincida con la fecha de nacimiento
+            int edadSegunFecha = CalcularEdad(fechaNac);
+            if (edad != edadSegunFecha)
+            {
+                mensajeError = $"❌ INCOHERENCIA DETECTADA:\n\n" +
+                              $"• Edad seleccionada: {edad} años\n" +
+                              $"• Edad según fecha de nacimiento: {edadSegunFecha} años\n\n" +
+                              $"La edad seleccionada debe coincidir con la fecha de nacimiento.";
+                return false;
+            }
+
+            // 2. Validar CURP
+            if (!ValidarCURPyEdad(curp, edad, out string msgCURP))
+            {
+                mensajeError = msgCURP;
+                return false;
+            }
+
+            // 3. Validar que la fecha de la CURP coincida con la fecha de nacimiento
+            DateTime? fechaCURP = ObtenerFechaDesCURP(curp);
+            if (fechaCURP != null)
+            {
+                if (fechaCURP.Value.Date != fechaNac.Date)
+                {
+                    mensajeError = $"❌ INCOHERENCIA DETECTADA:\n\n" +
+                                  $"• Fecha de nacimiento ingresada: {fechaNac.ToString("dd/MM/yyyy")}\n" +
+                                  $"• Fecha según CURP: {fechaCURP.Value.ToString("dd/MM/yyyy")}\n\n" +
+                                  $"Las fechas deben coincidir exactamente.";
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private bool ValidarCURPyEdad(string curp, int edadSeleccionada, out string mensajeError)
@@ -388,12 +444,77 @@ namespace Proyecto_Boletas
 
         private void txtCurp_TextChanged(object sender, EventArgs e)
         {
+            string curp = txtCurp.Text.Trim().ToUpper();
 
+            // Solo procesar si tiene los 18 caracteres válidos
+            if (curp.Length == 18)
+            {
+                // Obtener la fecha desde la CURP
+                DateTime? fechaCURP = ObtenerFechaDesCURP(curp);
+
+                if (fechaCURP != null)
+                {
+                    nacimiento_alumno.Value = fechaCURP.Value;
+
+                    int edadCalculada = CalcularEdad(fechaCURP.Value);
+                    if (edadCalculada >= 6 && edadCalculada <= 14)
+                        edad_alumno.SelectedItem = edadCalculada;
+                }
+
+                // 🔹 Obtener género desde la CURP
+                string generoCURP = ObtenerGeneroDesdeCURP(curp);
+
+                if (generoCURP != null)
+                {
+                    // Si no hay selección, asigna automáticamente
+                    if (combosgenero.SelectedIndex == -1)
+                    {
+                        combosgenero.SelectedItem = generoCURP;
+                    }
+                    else
+                    {
+                        // Si ya hay un valor seleccionado, verificar coincidencia
+                        string generoSeleccionado = combosgenero.SelectedItem.ToString();
+                        if (generoSeleccionado != generoCURP)
+                        {
+                            MessageBox.Show(
+                                $"⚠ El género seleccionado ({generoSeleccionado}) no coincide con el género indicado en la CURP ({generoCURP}).",
+                                "Inconsistencia de género",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+
+                            // Opcional: corregir automáticamente
+                            combosgenero.SelectedItem = generoCURP;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La CURP ingresada tiene un formato incorrecto para determinar el género.",
+                        "Error en CURP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
+
 
         private void nacimiento_alumno_ValueChanged(object sender, EventArgs e)
         {
+            // Calcular edad automáticamente
+            DateTime fechaNac = nacimiento_alumno.Value;
+            int edadCalculada = CalcularEdad(fechaNac);
 
+            // Seleccionar la edad en el ComboBox si está en el rango válido
+            if (edadCalculada >= 5 && edadCalculada <= 18)
+            {
+                edad_alumno.SelectedItem = edadCalculada;
+            }
+            else
+            {
+                edad_alumno.SelectedIndex = -1;
+                MessageBox.Show($"La edad calculada ({edadCalculada} años) está fuera del rango permitido (5-18 años).",
+                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void edad_alumno_SelectedIndexChanged(object sender, EventArgs e)
@@ -402,8 +523,18 @@ namespace Proyecto_Boletas
             {
                 int edadSeleccionada = Convert.ToInt32(edad_alumno.SelectedItem);
                 AsignarGradoPorEdad(edadSeleccionada);
+
+                if (nacimiento_alumno.Value.Date == DateTime.Now.Date)
+                {
+                    DateTime fechaAproximada = DateTime.Now.AddYears(-edadSeleccionada);
+                    nacimiento_alumno.Value = fechaAproximada;
+                }
             }
         }
+
+        
+
+
 
         private void grupo_alumno_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -445,6 +576,54 @@ namespace Proyecto_Boletas
             }
 
 
+        }
+
+        private bool EsCadenaValida(string texto)
+        {
+            // Quitar espacios y pasar a mayúsculas
+            texto = texto.Trim().ToUpper();
+
+            // Verificar que solo tenga letras
+            if (!texto.All(char.IsLetter))
+                return false;
+
+            // Si la longitud es menor a 2, no es válida
+            if (texto.Length < 2)
+                return false;
+
+            // Verificar cuántos caracteres distintos hay
+            int distintos = texto.Distinct().Count();
+
+            // Debe haber al menos 2 diferentes (ejemplo: "Ana" = 2 letras distintas)
+            return distintos >= 2;
+        }
+
+
+        private bool ValidarApellidosCoinciden(string apellidoPAlumno, string apellidoMAlumno,
+                                       string apellidoPTutor, string apellidoMTutor,
+                                       out string mensajeError)
+        {
+            mensajeError = "";
+
+            // Convertir a minúsculas para comparación
+            string apPAlumno = apellidoPAlumno.ToLower().Trim();
+            string apMAlumno = apellidoMAlumno.ToLower().Trim();
+            string apPTutor = apellidoPTutor.ToLower().Trim();
+            string apMTutor = apellidoMTutor.ToLower().Trim();
+
+            // Verificar si al menos un apellido del tutor coincide con algún apellido del alumno
+            bool coincide = (apPAlumno == apPTutor) || (apPAlumno == apMTutor) ||
+                            (apMAlumno == apPTutor) || (apMAlumno == apMTutor);
+
+            if (!coincide)
+            {
+                mensajeError = "Al menos uno de los apellidos del tutor debe coincidir con los apellidos del alumno.\n\n" +
+                              $"Apellidos del alumno: {apellidoPAlumno} {apellidoMAlumno}\n" +
+                              $"Apellidos del tutor: {apellidoPTutor} {apellidoMTutor}";
+                return false;
+            }
+
+            return true;
         }
 
         private void MostrarMateriasDeGrupo(int idGrupo)
@@ -509,6 +688,30 @@ namespace Proyecto_Boletas
         {
 
         }
+
+
+
+        private bool EsNombreValido(string nombre)
+        {
+            nombre = nombre.Trim();
+
+            // Debe contener al menos una palabra
+            string[] palabras = nombre.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (palabras.Length < 1)
+                return false;
+
+            // Cada palabra debe tener al menos 2 letras distintas y solo letras
+            foreach (var palabra in palabras)
+            {
+                if (!palabra.All(char.IsLetter)) return false;       // Solo letras
+                if (palabra.Length < 2) return false;                // Mínimo 2 caracteres
+                if (palabra.Distinct().Count() < 2) return false;    // Al menos 2 letras distintas
+            }
+
+            return true;
+        }
+
+
 
         private void btnvalidar_tutor_Click(object sender, EventArgs e)
         {
@@ -590,6 +793,7 @@ namespace Proyecto_Boletas
 
         private void btnalta_inscripcion_Click(object sender, EventArgs e)
         {
+            
 
             try
             {
@@ -601,7 +805,7 @@ namespace Proyecto_Boletas
                 int edad = Convert.ToInt32(edad_alumno.SelectedItem);
                 string generoSeleccionado = combosgenero.SelectedItem?.ToString();
                 string grupoSeleccionado = grupo_alumno.SelectedItem?.ToString();
-                DateTime fechaNac = nacimiento_alumno.Value;
+                DateTime fechaNac = nacimiento_alumno.Value.Date;
 
                 string nombreTutor = Regex.Replace(nombre_tutor.Text.Trim(), @"\s+", " ");
                 string apellidoPTutor = Regex.Replace(apellidoP_tutor.Text.Trim(), @"\s+", " ");
@@ -609,9 +813,55 @@ namespace Proyecto_Boletas
                 string telefonoTutor = Regex.Replace(telefono_tutor.Text.Trim(), @"\s+", "");
                 string correoTutor = Regex.Replace(correo_tutor.Text.Trim().ToLower(), @"\s+", "");
 
-                if (!ValidarAlumno(nombreAlumno, apellidoPAlumno, apellidoMAlumno, edad, curp, out string msgAlumno))
+                // ====== NUEVA VALIDACIÓN: EVITAR NOMBRES SIN SENTIDO ======
+                
+
+                if (!EsCadenaValida(apellidoPAlumno))
                 {
-                    MessageBox.Show(msgAlumno, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El apellido paterno del alumno no es válido. Debe contener al menos dos letras diferentes y solo caracteres alfabéticos.",
+                        "Error en apellido paterno", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    apellidoP_alumno.Focus();
+                    return;
+                }
+
+                if (!EsCadenaValida(apellidoMAlumno))
+                {
+                    MessageBox.Show("El apellido materno del alumno no es válido. Debe contener al menos dos letras diferentes y solo caracteres alfabéticos.",
+                        "Error en apellido materno", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    apellidoM_alumno.Focus();
+                    return;
+                }
+
+                if (!EsNombreValido(nombreAlumno))
+                {
+                    MessageBox.Show("El nombre del alumno no es válido. Debe contener al menos dos palabras, cada una con al menos dos letras distintas y solo caracteres alfabéticos.",
+                        "Error en nombre del alumno", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    nombre_alumno.Focus();
+                    return;
+                }
+
+                if (!EsNombreValido(nombreTutor))
+                {
+                    MessageBox.Show("El nombre del tutor no es válido. Debe contener al menos dos palabras, cada una con al menos dos letras distintas y solo caracteres alfabéticos.",
+                        "Error en nombre del tutor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    nombre_tutor.Focus();
+                    return;
+                }
+
+
+                if (!ValidarAlumno(nombreAlumno, apellidoPAlumno, apellidoMAlumno, edad, fechaNac, curp, out string msgAlumno))
+                {
+                    MessageBox.Show(msgAlumno, "Error - Datos del Alumno", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // ========== ⭐ NUEVA VALIDACIÓN: APELLIDOS COINCIDAN ==========
+                if (!ValidarApellidosCoinciden(apellidoPAlumno, apellidoMAlumno,
+                                               apellidoPTutor, apellidoMTutor,
+                                               out string msgApellidos))
+                {
+                    MessageBox.Show(msgApellidos, "Error - Apellidos no Coinciden",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
