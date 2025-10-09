@@ -98,7 +98,7 @@ namespace Proyecto_Boletas
 
                         Panel card = new Panel
                         {
-                            Width = 300,
+                            Width = 500,
                             Height = 120,
                             Margin = new Padding(10),
                             BackColor = Color.Bisque,
@@ -158,7 +158,7 @@ namespace Proyecto_Boletas
                         Button btnEditar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(220, 10),
+                            Location = new Point(360, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.SandyBrown,
                             BackgroundImageLayout = ImageLayout.Zoom,
@@ -169,7 +169,7 @@ namespace Proyecto_Boletas
                         Button btnEliminar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(260, 10),
+                            Location = new Point(400, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.IndianRed,
                             BackgroundImageLayout = ImageLayout.Zoom,
