@@ -37,6 +37,7 @@
             label4 = new Label();
             panel3 = new Panel();
             panel4 = new Panel();
+            btnMostrarContrasena = new Button();
             panel2 = new Panel();
             txtbox_contrasena = new TextBox();
             panel1 = new Panel();
@@ -53,9 +54,10 @@
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(181, 131, 120);
             label1.Font = new Font("Palatino Linotype", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(15, 34);
+            label1.Location = new Point(28, 73);
+            label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new Size(89, 28);
+            label1.Size = new Size(177, 57);
             label1.TabIndex = 1;
             label1.Text = "Usuario";
             label1.Click += label1_Click_1;
@@ -65,9 +67,10 @@
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(181, 131, 120);
             label2.Font = new Font("Palatino Linotype", 15.75F, FontStyle.Bold);
-            label2.Location = new Point(15, 158);
+            label2.Location = new Point(28, 337);
+            label2.Margin = new Padding(6, 0, 6, 0);
             label2.Name = "label2";
-            label2.Size = new Size(124, 28);
+            label2.Size = new Size(242, 57);
             label2.TabIndex = 2;
             label2.Text = "Contraseña";
             // 
@@ -81,10 +84,11 @@
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ControlLightLight;
             btn_ingresar.Image = Properties.Resources._3f4f5c;
-            btn_ingresar.Location = new Point(96, 245);
+            btn_ingresar.Location = new Point(178, 523);
+            btn_ingresar.Margin = new Padding(6);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(111, 36);
+            btn_ingresar.Size = new Size(206, 77);
             btn_ingresar.TabIndex = 3;
             btn_ingresar.Text = "Ingresar";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -98,9 +102,11 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(panel3);
             groupBox1.Controls.Add(pictureBox2);
-            groupBox1.Location = new Point(25, 32);
+            groupBox1.Location = new Point(46, 68);
+            groupBox1.Margin = new Padding(6);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(868, 474);
+            groupBox1.Padding = new Padding(6);
+            groupBox1.Size = new Size(1612, 1011);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Inicio de Sesión";
@@ -110,19 +116,21 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Bernard MT Condensed", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(429, 37);
+            label3.Location = new Point(797, 79);
+            label3.Margin = new Padding(6, 0, 6, 0);
             label3.Name = "label3";
-            label3.Size = new Size(391, 38);
+            label3.Size = new Size(759, 76);
             label3.TabIndex = 9;
             label3.Text = "INSTITUTO MANUEL M. ACOSTA";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Uighur", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label4.Location = new Point(688, 436);
+            label4.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label4.Location = new Point(1278, 930);
+            label4.Margin = new Padding(6, 0, 6, 0);
             label4.Name = "label4";
-            label4.Size = new Size(147, 23);
+            label4.Size = new Size(478, 37);
             label4.TabIndex = 14;
             label4.Text = "Derechos reservaod a FAY JC";
             // 
@@ -130,14 +138,16 @@
             // 
             panel3.BackColor = Color.FromArgb(157, 101, 101);
             panel3.Controls.Add(panel4);
-            panel3.Location = new Point(453, 87);
+            panel3.Location = new Point(841, 186);
+            panel3.Margin = new Padding(6);
             panel3.Name = "panel3";
-            panel3.Size = new Size(330, 330);
+            panel3.Size = new Size(613, 704);
             panel3.TabIndex = 13;
             // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(181, 131, 120);
+            panel4.Controls.Add(btnMostrarContrasena);
             panel4.Controls.Add(panel2);
             panel4.Controls.Add(txtbox_contrasena);
             panel4.Controls.Add(panel1);
@@ -145,68 +155,87 @@
             panel4.Controls.Add(btn_ingresar);
             panel4.Controls.Add(label1);
             panel4.Controls.Add(label2);
-            panel4.Location = new Point(8, 9);
+            panel4.Location = new Point(15, 19);
+            panel4.Margin = new Padding(6);
             panel4.Name = "panel4";
-            panel4.Size = new Size(315, 312);
+            panel4.Size = new Size(585, 666);
             panel4.TabIndex = 8;
+            // 
+            // btnMostrarContrasena
+            // 
+            btnMostrarContrasena.BackColor = Color.FromArgb(181, 131, 120);
+            btnMostrarContrasena.FlatStyle = FlatStyle.Flat;
+            btnMostrarContrasena.Location = new Point(499, 414);
+            btnMostrarContrasena.Name = "btnMostrarContrasena";
+            btnMostrarContrasena.Size = new Size(56, 46);
+            btnMostrarContrasena.TabIndex = 9;
+            btnMostrarContrasena.Text = "👁️";
+            btnMostrarContrasena.UseVisualStyleBackColor = false;
+            btnMostrarContrasena.Click += btnMostrarContrasena_Click;
             // 
             // panel2
             // 
             panel2.BackColor = Color.Black;
-            panel2.Location = new Point(15, 220);
+            panel2.Location = new Point(28, 469);
+            panel2.Margin = new Padding(6);
             panel2.Name = "panel2";
-            panel2.Size = new Size(284, 1);
+            panel2.Size = new Size(527, 2);
             panel2.TabIndex = 7;
             // 
             // txtbox_contrasena
             // 
             txtbox_contrasena.BackColor = Color.FromArgb(181, 131, 120);
             txtbox_contrasena.BorderStyle = BorderStyle.None;
-            txtbox_contrasena.Location = new Point(15, 205);
+            txtbox_contrasena.Location = new Point(28, 437);
+            txtbox_contrasena.Margin = new Padding(6);
             txtbox_contrasena.Name = "txtbox_contrasena";
-            txtbox_contrasena.PasswordChar = '*';
-            txtbox_contrasena.Size = new Size(284, 16);
+            txtbox_contrasena.Size = new Size(527, 32);
             txtbox_contrasena.TabIndex = 6;
-            txtbox_contrasena.UseSystemPasswordChar = true;
+            txtbox_contrasena.TextChanged += txtbox_contrasena_TextChanged;
             // 
             // panel1
             // 
             panel1.BackColor = Color.Black;
-            panel1.Location = new Point(12, 104);
+            panel1.Location = new Point(22, 222);
+            panel1.Margin = new Padding(6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(287, 1);
+            panel1.Size = new Size(533, 2);
             panel1.TabIndex = 5;
             // 
             // txtbox_usuario
             // 
             txtbox_usuario.BackColor = Color.FromArgb(181, 131, 120);
             txtbox_usuario.BorderStyle = BorderStyle.None;
-            txtbox_usuario.Location = new Point(9, 89);
+            txtbox_usuario.Location = new Point(17, 190);
+            txtbox_usuario.Margin = new Padding(6);
             txtbox_usuario.Name = "txtbox_usuario";
-            txtbox_usuario.Size = new Size(287, 16);
+            txtbox_usuario.Size = new Size(533, 32);
             txtbox_usuario.TabIndex = 4;
+            txtbox_usuario.TextChanged += txtbox_usuario_TextChanged;
             // 
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.Transparent;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(49, 60);
+            pictureBox2.Location = new Point(91, 128);
+            pictureBox2.Margin = new Padding(6);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(398, 339);
+            pictureBox2.Size = new Size(739, 723);
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SlateGray;
             BackgroundImage = Properties.Resources._274259;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(922, 513);
+            ClientSize = new Size(1712, 1094);
             Controls.Add(groupBox1);
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(6);
             Name = "Form1";
             Text = "Programa Boleta";
             Load += Form1_Load;
@@ -233,5 +262,6 @@
         private Panel panel3;
         private Label label4;
         private Panel panel4;
+        private Button btnMostrarContrasena;
     }
 }

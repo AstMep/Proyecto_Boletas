@@ -13,12 +13,17 @@ namespace Proyecto_Boletas
 {
     public partial class adm_Secretaria : Form
     {
+        // Variables para controlar la edición
+        private bool modoEdicion = false;
+        private int idSecretariaEditar = 0;
+        private string nombreOriginal = "";
+            
         public adm_Secretaria()
         {
             InitializeComponent();
-            txtUsuarioSecre.MaxLength = 20;
-            txtCorreoSecre.MaxLength = 65;
-            txtContrasenaSecre.MaxLength = 20;
+            txtUsuarioSecre.MaxLength = 100;
+            txtCorreoSecre.MaxLength = 100;
+            txtContrasenaSecre.MaxLength = 10;
         }
 
         private void label15_Click(object sender, EventArgs e)
@@ -92,32 +97,66 @@ namespace Proyecto_Boletas
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
-                    string queryCount = "SELECT COUNT(*) FROM usuarios WHERE Rol='Secretaria'";
-                    MySqlCommand cmdCount = new MySqlCommand(queryCount, conn);
-                    int cantidadSecretarias = Convert.ToInt32(cmdCount.ExecuteScalar());
 
-                    if (cantidadSecretarias >= 3)
+                    // ⭐ MODO EDICIÓN
+                    if (modoEdicion)
                     {
-                        MessageBox.Show("Ya no puedes registrar más secretarias. El límite es 3.", "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        // Verificar si el nuevo nombre ya existe (excepto el actual)
+                        if (nombre.ToLower() != nombreOriginal.ToLower() && DatoExistente("Nombre", nombre.ToLower()))
+                        {
+                            MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Actualizar secretaria existente
+                        string queryUpdate = "UPDATE usuarios SET Nombre=@nombre, Correo=@correo, Contrasena=@contrasena WHERE UsuarioID=@id";
+                        MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, conn);
+                        cmdUpdate.Parameters.AddWithValue("@nombre", nombre);
+                        cmdUpdate.Parameters.AddWithValue("@correo", correo);
+                        cmdUpdate.Parameters.AddWithValue("@contrasena", contrasena);
+                        cmdUpdate.Parameters.AddWithValue("@id", idSecretariaEditar);
+                        cmdUpdate.ExecuteNonQuery();
+
+                        MessageBox.Show("Secretaria actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Salir del modo edición
+                        CancelarEdicion();
+                    }
+                    // ⭐ MODO INSERCIÓN (NUEVA SECRETARIA)
+                    else
+                    {
+                        // Verificar límite de secretarias
+                        string queryCount = "SELECT COUNT(*) FROM usuarios WHERE Rol='Secretaria'";
+                        MySqlCommand cmdCount = new MySqlCommand(queryCount, conn);
+                        int cantidadSecretarias = Convert.ToInt32(cmdCount.ExecuteScalar());
+
+                        if (cantidadSecretarias >= 3)
+                        {
+                            MessageBox.Show("Ya no puedes registrar más secretarias. El límite es 3.", "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Verificar duplicados
+                        if (DatoExistente("Nombre", nombre.ToLower()))
+                        {
+                            MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Insertar nueva secretaria
+                        string query = "INSERT INTO usuarios (Nombre, Correo, Contrasena, Rol, FechaRegistro) VALUES (@nombre, @correo, @contrasena, @rol, @fecha)";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@nombre", nombre);
+                        cmd.Parameters.AddWithValue("@correo", correo);
+                        cmd.Parameters.AddWithValue("@contrasena", contrasena);
+                        cmd.Parameters.AddWithValue("@rol", rol);
+                        cmd.Parameters.AddWithValue("@fecha", fechaRegistro);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Secretaria registrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
-                    if (DatoExistente("Nombre", nombre.ToLower()))
-                    {
-                        MessageBox.Show("El nombre de usuario ya existe. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    string query = "INSERT INTO usuarios (Nombre, Correo, Contrasena, Rol, FechaRegistro) VALUES (@nombre, @correo, @contrasena, @rol, @fecha)";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@nombre", nombre);
-                    cmd.Parameters.AddWithValue("@correo", correo);
-                    cmd.Parameters.AddWithValue("@contrasena", contrasena);
-                    cmd.Parameters.AddWithValue("@rol", rol);
-                    cmd.Parameters.AddWithValue("@fecha", fechaRegistro);
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Secretaria registrada correctamente.");
-
+                    // Limpiar campos y recargar
                     txtUsuarioSecre.Clear();
                     txtCorreoSecre.Clear();
                     txtContrasenaSecre.Clear();
@@ -154,8 +193,8 @@ namespace Proyecto_Boletas
 
                         Panel card = new Panel
                         {
-                            Width = 280,
-                            Height = 100,
+                            Width = 300,
+                            Height = 250,
                             Margin = new Padding(10),
                             BackColor = Color.Bisque,
                             BorderStyle = BorderStyle.FixedSingle,
@@ -167,7 +206,7 @@ namespace Proyecto_Boletas
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\secretaria45.png"),
                             SizeMode = PictureBoxSizeMode.Zoom,
-                            Location = new Point(10, 10),
+                            Location = new Point(10, 50),
                             Size = new Size(32, 32)
                         };
 
@@ -176,7 +215,7 @@ namespace Proyecto_Boletas
                         {
                             Text = nombreTemp,
                             Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                            Location = new Point(45, 10),
+                            Location = new Point(50, 50),
                             AutoSize = true
                         };
 
@@ -185,7 +224,7 @@ namespace Proyecto_Boletas
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\correo45.png"),
                             SizeMode = PictureBoxSizeMode.Zoom,
-                            Location = new Point(10, 45),
+                            Location = new Point(10, 85),
                             Size = new Size(32, 32)
                         };
 
@@ -194,31 +233,35 @@ namespace Proyecto_Boletas
                         {
                             Text = correoTemp,
                             Font = new Font("Segoe UI", 9),
-                            Location = new Point(45, 47),
+                            Location = new Point(50, 85),
                             AutoSize = true
                         };
 
 
                         Button btnEditar = new Button
                         {
-                            Size = new Size(30, 25),
-                            Location = new Point(200, 10),
+                            Size = new Size(35, 35),
+                            Location = new Point(195, 8),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.SandyBrown,
-                            BackgroundImageLayout = ImageLayout.Zoom
+                            BackgroundImageLayout = ImageLayout.Zoom,
+                            Cursor = Cursors.Hand
                         };
+                        btnEditar.FlatAppearance.BorderSize = 0;
                         btnEditar.BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\editor32.png");
                         btnEditar.Click += (s, e) => EditarSecretaria(nombreTemp);
 
 
                         Button btnEliminar = new Button
                         {
-                            Size = new Size(30, 25),
-                            Location = new Point(240, 10),
+                            Size = new Size(35, 35),
+                            Location = new Point(235, 8),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.IndianRed,
-                            BackgroundImageLayout = ImageLayout.Zoom
+                            BackgroundImageLayout = ImageLayout.Zoom,
+                            Cursor = Cursors.Hand
                         };
+                        btnEliminar.FlatAppearance.BorderSize = 0;
                         btnEliminar.BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\delete32.png");
                         btnEliminar.Click += (s, e) => EliminarSecretaria(nombreTemp);
 
@@ -243,31 +286,103 @@ namespace Proyecto_Boletas
             }
         }
 
-
         private void EliminarSecretaria(string nombre)
         {
             if (MessageBox.Show($"¿Seguro que deseas eliminar a {nombre}?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    Conexion conexion = new Conexion();
+                    using (MySqlConnection conn = conexion.GetConnection())
+                    {
+                        conn.Open();
+                        string query = "DELETE FROM usuarios WHERE Nombre=@nombre AND Rol='Secretaria'";
+
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@nombre", nombre);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Secretaria eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Si estábamos editando esta secretaria, cancelar edición
+                    if (modoEdicion && nombreOriginal == nombre)
+                    {
+                        CancelarEdicion();
+                    }
+
+                    MostrarSecretarias();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al eliminar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+        private void EditarSecretaria(string nombre)
+        {
+            try
             {
                 Conexion conexion = new Conexion();
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
-                    string query = "DELETE FROM usuarios WHERE Nombre=@nombre AND Rol='Secretaria'";
 
+                    // Obtener todos los datos de la secretaria
+                    string query = "SELECT UsuarioID, Nombre, Correo, Contrasena FROM usuarios WHERE Nombre=@nombre AND Rol='Secretaria'";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@nombre", nombre);
-                    cmd.ExecuteNonQuery();
-                }
 
-                MessageBox.Show("Secretaria eliminada correctamente.");
-                MostrarSecretarias();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        // Guardar datos para edición
+                        idSecretariaEditar = Convert.ToInt32(reader["UsuarioID"]);
+                        nombreOriginal = reader["Nombre"].ToString();
+
+                        // Cargar datos en los campos
+                        txtUsuarioSecre.Text = reader["Nombre"].ToString();
+                        txtCorreoSecre.Text = reader["Correo"].ToString();
+                        txtContrasenaSecre.Text = reader["Contrasena"].ToString();
+
+                        // Activar modo edición
+                        modoEdicion = true;
+
+                        // Cambiar el texto del botón
+                        btnAltaSecretarias.Text = "Actualizar Secretaria";
+                        btnAltaSecretarias.BackColor = Color.Orange;
+
+                        MessageBox.Show($"Editando datos de {nombre}.\n\nModifica los campos y haz clic en 'Actualizar Secretaria'.",
+                            "Modo Edición", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar datos para editar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void EditarSecretaria(string nombre)
+        // ⭐ MÉTODO PARA CANCELAR EDICIÓN
+        private void CancelarEdicion()
         {
-            txtUsuarioSecre.Text = nombre;
-            MessageBox.Show($"Ahora puedes editar los datos de {nombre}.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            modoEdicion = false;
+            idSecretariaEditar = 0;
+            nombreOriginal = "";
+
+            // Restaurar el botón
+            btnAltaSecretarias.Text = "Agregar Secretaria";
+            btnAltaSecretarias.BackColor = SystemColors.Control;
+
+            // Limpiar campos
+            txtUsuarioSecre.Clear();
+            txtCorreoSecre.Clear();
+            txtContrasenaSecre.Clear();
         }
 
         private bool DatoExistente(string campo, string valor)
@@ -313,6 +428,11 @@ namespace Proyecto_Boletas
             path.CloseAllFigures();
 
             panel1.Region = new Region(path);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -3,11 +3,15 @@ namespace Proyecto_Boletas
 {
     public partial class Form1 : Form
     {
+        private bool contrasenaVisible = false;
         public Form1()
         {
             InitializeComponent();
-            txtbox_usuario.MaxLength = 20;
-            txtbox_contrasena.MaxLength = 20;
+            txtbox_usuario.MaxLength = 100;
+            txtbox_contrasena.MaxLength = 10;
+            txtbox_contrasena.UseSystemPasswordChar = true;
+            
+            btnMostrarContrasena.Text = "👁️";
         }
 
         public void login()
@@ -32,7 +36,7 @@ namespace Proyecto_Boletas
 
                     if (reader.HasRows)
                     {
-               
+
                         string rolDisplay = "";
                         string nombreUsuario = "";
 
@@ -60,12 +64,12 @@ namespace Proyecto_Boletas
                             }
                             else
                             {
-                               
+
                                 MessageBox.Show("Rol no reconocido");
                             }
                         }
 
-                       
+
                         MessageBox.Show($"¡Bienvenido {nombreUsuario}!\nRol: {rolDisplay}",
                                        "Inicio de sesión exitoso",
                                        MessageBoxButtons.OK,
@@ -76,7 +80,7 @@ namespace Proyecto_Boletas
                         MessageBox.Show("Usuario o contraseña incorrectos");
                         txtbox_usuario.Clear();
                         txtbox_contrasena.Clear();
-                        txtbox_usuario.Focus(); 
+                        txtbox_usuario.Focus();
                     }
                 }
                 catch (Exception ex)
@@ -121,6 +125,35 @@ namespace Proyecto_Boletas
         }
 
         private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtbox_usuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnMostrarContrasena_Click(object sender, EventArgs e)
+        {
+            if (contrasenaVisible)
+            {
+                // Estado: Contraseña VISIBLE → Cambiar a OCULTA
+                txtbox_contrasena.UseSystemPasswordChar = true;
+                btnMostrarContrasena.Text = "👁️"; // Ojo para "mostrar"
+                contrasenaVisible = false;
+            }
+            else
+            {
+                // Estado: Contraseña OCULTA → Cambiar a VISIBLE
+                txtbox_contrasena.UseSystemPasswordChar = false;
+                txtbox_contrasena.PasswordChar = '\0';
+                btnMostrarContrasena.Text = "🔒"; // Candado para "ocultar"
+                contrasenaVisible = true;
+            }
+        }
+
+        private void txtbox_contrasena_TextChanged(object sender, EventArgs e)
         {
 
         }
