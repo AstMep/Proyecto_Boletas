@@ -59,10 +59,15 @@ namespace Proyecto_Boletas
             // Cargar grupos
             grupo_alumno.Items.Clear();
             grupo_alumno.Items.AddRange(new object[] {
-                "1°A", "1°B", 
-                "2°A", "2°B", 
+                "1°A", "1°B",
+                "2°A", "2°B",
                 "3°A", "3°B"
             });
+
+            combosgenero.Items.Clear();
+            combosgenero.Items.Add("Masculino");
+            combosgenero.Items.Add("Femenino");
+            combosgenero.SelectedIndex = -1;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -92,6 +97,8 @@ namespace Proyecto_Boletas
             curp = Regex.Replace(curp, @"\s+", "");  // ← Limpiar curp
 
 
+
+
             // ========== VALIDACIONES DEL ALUMNO ==========
             if (string.IsNullOrWhiteSpace(nombres) || string.IsNullOrWhiteSpace(apellidoP) ||
                 string.IsNullOrWhiteSpace(apellidoM))
@@ -115,7 +122,7 @@ namespace Proyecto_Boletas
                 return;
             }
 
-           
+
 
             // Validar nombres y apellidos del alumno (solo letras y espacios, mínimo 2 letras)
             if (!Regex.IsMatch(nombres, @"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,}$") ||
@@ -138,7 +145,7 @@ namespace Proyecto_Boletas
 
             // Preparar datos
             string nombreCompletoAlumno = $"{nombres.ToLower()} {apellidoP.ToLower()} {apellidoM.ToLower()}";
-            
+
             int edad = Convert.ToInt32(edad_alumno.SelectedItem);
             string grupo = grupo_alumno.SelectedItem.ToString();
             string mensajeError;
@@ -163,7 +170,7 @@ namespace Proyecto_Boletas
         }
 
 
-        
+
 
         // Método para validar formato de CURP (18 caracteres)
         private bool ValidarFormatoCURP(string curp)
@@ -260,9 +267,7 @@ namespace Proyecto_Boletas
             return true;
         }
 
-
-
-        // Método para verificar si el alumno ya existe
+        // Verificar si el alumno ya existe por nombre completo
         private bool AlumnoExistente(string nombreCompleto)
         {
             try
@@ -272,7 +277,7 @@ namespace Proyecto_Boletas
                 {
                     conn.Open();
                     string query = "SELECT COUNT(*) FROM alumnos WHERE " +
-                                   "LOWER(CONCAT(Nombres, ' ', ApellidoPaterno, ' ', ApellidoMaterno)) = @nombreCompleto";
+                                   "LOWER(CONCAT(Nombre, ' ', ApellidoPaterno, ' ', ApellidoMaterno)) = @nombreCompleto";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@nombreCompleto", nombreCompleto);
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
@@ -285,6 +290,31 @@ namespace Proyecto_Boletas
                 return false;
             }
         }
+
+        // Verificar si la CURP ya existe
+        private bool AlumnoCURPExistente(string curp)
+        {
+            try
+            {
+                Conexion conexion = new Conexion();
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM alumnos WHERE CURP = @curp";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@curp", curp);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al verificar CURP: " + ex.Message);
+                return false;
+            }
+        }
+
+
 
         // Método para verificar si el correo del tutor ya existe
         private bool TutorCorreoExistente(string correo)
@@ -432,7 +462,7 @@ namespace Proyecto_Boletas
 
             string nombreCompletoTutor = $"{tutorNombre.ToLower()} {tutorApellidoP.ToLower()} {tutorApellidoM.ToLower()}";
 
-            // Verificar duplicados del tutor
+            
             if (TutorCorreoExistente(tutorCorreo.ToLower()))
             {
                 MessageBox.Show("El correo del tutor ya está registrado. Usa otro.", "Duplicado",
@@ -443,6 +473,144 @@ namespace Proyecto_Boletas
         }
 
         private void btnalta_inscripcion_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+               
+                if (string.IsNullOrWhiteSpace(nombre_alumno.Text) ||
+                    string.IsNullOrWhiteSpace(apellidoP_alumno.Text) ||
+                    string.IsNullOrWhiteSpace(apellidoM_alumno.Text) ||
+                    string.IsNullOrWhiteSpace(txtCurp.Text) ||
+                    edad_alumno.SelectedIndex == -1 ||
+                    combosgenero.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Por favor, completa todos los campos del alumno.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string generoSeleccionado = combosgenero.SelectedItem?.ToString();
+                if (generoSeleccionado == null)
+                {
+                    MessageBox.Show("Selecciona el género del alumno.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+
+
+
+
+                if (string.IsNullOrWhiteSpace(nombre_tutor.Text) ||
+                    string.IsNullOrWhiteSpace(apellidoP_tutor.Text) ||
+                    string.IsNullOrWhiteSpace(apellidoM_tutor.Text) ||
+                    string.IsNullOrWhiteSpace(telefono_tutor.Text) ||
+                    string.IsNullOrWhiteSpace(correo_tutor.Text))
+                {
+                    MessageBox.Show("Por favor, completa todos los campos del tutor.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+              
+                string nombreTutor = nombre_tutor.Text.Trim();
+                string apellidoPTutor = apellidoP_tutor.Text.Trim();
+                string apellidoMTutor = apellidoM_tutor.Text.Trim();
+                string telefonoTutor = telefono_tutor.Text.Trim();
+                string correoTutor = correo_tutor.Text.Trim().ToLower();
+
+                int tutorID = 0;
+
+                Conexion conexion = new Conexion();
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    conn.Open();
+
+                   
+                    string queryVerificarTutor = "SELECT TutorID FROM tutores WHERE LOWER(Correo) = @correo";
+                    MySqlCommand cmdVerificarTutor = new MySqlCommand(queryVerificarTutor, conn);
+                    cmdVerificarTutor.Parameters.AddWithValue("@correo", correoTutor);
+                    object result = cmdVerificarTutor.ExecuteScalar();
+
+                    if (result != null) 
+                    {
+                        tutorID = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+
+                        string queryInsertTutor = @"INSERT INTO tutores (Nombre, ApellidoPaterno, ApellidoMaterno, Telefono, Correo)
+                            VALUES (@nombre, @apellidoP, @apellidoM, @telefono, @correo);";
+
+                        MySqlCommand cmdInsertTutor = new MySqlCommand(queryInsertTutor, conn);
+                        cmdInsertTutor.Parameters.AddWithValue("@nombre", nombreTutor);
+                        cmdInsertTutor.Parameters.AddWithValue("@apellidoP", apellidoPTutor);
+                        cmdInsertTutor.Parameters.AddWithValue("@apellidoM", apellidoMTutor);
+                        cmdInsertTutor.Parameters.AddWithValue("@telefono", telefonoTutor);
+                        cmdInsertTutor.Parameters.AddWithValue("@correo", correoTutor);
+
+                        cmdInsertTutor.ExecuteNonQuery(); // Ejecuta inserción
+                        tutorID = (int)cmdInsertTutor.LastInsertedId; // Captura ID generado
+
+
+                    }
+
+
+
+
+                    string nombreAlumno = nombre_alumno.Text.Trim();
+                    string apellidoPAlumno = apellidoP_alumno.Text.Trim();
+                    string apellidoMAlumno = apellidoM_alumno.Text.Trim();
+                    string curp = txtCurp.Text.Trim().ToUpper();
+                    int edad = Convert.ToInt32(edad_alumno.SelectedItem);
+                    DateTime fechaNac = nacimiento_alumno.Value;
+                    string genero = combosgenero.SelectedItem.ToString();
+
+                    string queryInsertAlumno = @"INSERT INTO alumnos
+                (id_grupo, Nombre, ApellidoPaterno, ApellidoMaterno, CURP, Edad, FechaNacimiento, TutorID, genero)
+                VALUES (NULL, @nombre, @apellidoP, @apellidoM, @curp, @edad, @fechaNac, @tutorID, @genero)";
+
+                    MySqlCommand cmdInsertAlumno = new MySqlCommand(queryInsertAlumno, conn);
+                    cmdInsertAlumno.Parameters.AddWithValue("@nombre", nombreAlumno);
+                    cmdInsertAlumno.Parameters.AddWithValue("@apellidoP", apellidoPAlumno);
+                    cmdInsertAlumno.Parameters.AddWithValue("@apellidoM", apellidoMAlumno);
+                    cmdInsertAlumno.Parameters.AddWithValue("@curp", curp);
+                    cmdInsertAlumno.Parameters.AddWithValue("@edad", edad);
+                    cmdInsertAlumno.Parameters.AddWithValue("@fechaNac", fechaNac);
+                    cmdInsertAlumno.Parameters.AddWithValue("@tutorID", tutorID);
+                    cmdInsertAlumno.Parameters.AddWithValue("@genero", generoSeleccionado);
+
+                    cmdInsertAlumno.ExecuteNonQuery();
+
+                    MessageBox.Show("Alumno registrado correctamente.", "Éxito",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    nombre_alumno.Clear();
+                    apellidoP_alumno.Clear();
+                    apellidoM_alumno.Clear();
+                    txtCurp.Clear();
+                    edad_alumno.SelectedIndex = -1;
+                //    grupo_alumno.SelectedIndex = -1;
+                    combosgenero.SelectedIndex = -1;
+                    nombre_tutor.Clear();
+                    apellidoP_tutor.Clear();
+                    apellidoM_tutor.Clear();
+                    telefono_tutor.Clear();
+                    correo_tutor.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al registrar el alumno: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+        }
+
+        private void combosgenero_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

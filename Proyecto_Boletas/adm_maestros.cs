@@ -17,11 +17,21 @@ namespace Proyecto_Boletas
         public adm_maestros()
         {
             InitializeComponent();
+            // Limitar longitud de TextBox
             txtammaestro.MaxLength = 50;
             txtnombremaestro.MaxLength = 50;
             txtcorreomaestro.MaxLength = 50;
             txtapmaestro.MaxLength = 50;
+
+            // Llenar ComboBox de grados
+            LlenarComboGrados();
+
+            // Mostrar maestros existentes
+            MostrarMaestros();
         }
+
+
+        
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
@@ -32,25 +42,46 @@ namespace Proyecto_Boletas
                 this.Hide();
             }
         }
-
-        private void adm_maestros_Load(object sender, EventArgs e)
+        public class ComboboxItem
         {
-            MostrarMaestros();
+            public string Text { get; set; }
+            public string Value { get; set; }
+            public override string ToString() => Text;
         }
 
+        private void LlenarComboGrados()
+        {
+            grupo_asignado.Items.Clear();
+            string[] grados = { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" };
+
+            foreach (string g in grados)
+            {
+                ComboboxItem item = new ComboboxItem { Text = g, Value = g };
+                grupo_asignado.Items.Add(item);
+            }
+
+            grupo_asignado.DisplayMember = "Text";
+            grupo_asignado.ValueMember = "Value";
+
+            if (grupo_asignado.Items.Count > 0)
+                grupo_asignado.SelectedIndex = 0;
+        }
 
         private void MostrarMaestros()
         {
             try
             {
                 flowMaestros.Controls.Clear();
-
                 Conexion conexion = new Conexion();
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
-
-                    string query = "SELECT id_maestro, NombreMaestro, ApellidoPMaestro, ApellidoMMaestro, Correo_maestro FROM maestro";
+                    string query = @"
+                        SELECT m.id_maestro, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro, m.Correo_maestro,
+                               g.nombre_grupo
+                        FROM maestro m
+                        LEFT JOIN grupo g ON g.id_maestro = m.id_maestro
+                        ORDER BY m.id_maestro";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -61,14 +92,14 @@ namespace Proyecto_Boletas
                         string apPTemp = reader["ApellidoPMaestro"].ToString();
                         string apMTemp = reader["ApellidoMMaestro"].ToString();
                         string correoTemp = reader["Correo_maestro"].ToString();
+                        string grupoTemp = reader["nombre_grupo"] == DBNull.Value ? "Sin grupo" : reader["nombre_grupo"].ToString();
 
                         string nombreCompleto = $"{nombreTemp} {apPTemp} {apMTemp}";
 
-                        // Tarjeta visual
                         Panel card = new Panel
                         {
-                            Width = 280,
-                            Height = 100,
+                            Width = 300,
+                            Height = 120,
                             Margin = new Padding(10),
                             BackColor = Color.Bisque,
                             BorderStyle = BorderStyle.FixedSingle,
@@ -87,7 +118,7 @@ namespace Proyecto_Boletas
                         {
                             Text = nombreCompleto,
                             Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                            Location = new Point(45, 10),
+                            Location = new Point(50, 10),
                             AutoSize = true
                         };
 
@@ -95,7 +126,7 @@ namespace Proyecto_Boletas
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\correo45.png"),
                             SizeMode = PictureBoxSizeMode.Zoom,
-                            Location = new Point(10, 45),
+                            Location = new Point(10, 50),
                             Size = new Size(32, 32)
                         };
 
@@ -103,14 +134,31 @@ namespace Proyecto_Boletas
                         {
                             Text = correoTemp,
                             Font = new Font("Segoe UI", 9),
-                            Location = new Point(45, 47),
+                            Location = new Point(50, 52),
                             AutoSize = true
+                        };
+
+                        PictureBox picGrupo = new PictureBox
+                        {
+                            Image = Image.FromFile(Application.StartupPath + @"\Iconos\grupo45.png"),
+                            SizeMode = PictureBoxSizeMode.Zoom,
+                            Location = new Point(10, 85),
+                            Size = new Size(32, 32)
+                        };
+
+                        Label lblGrupo = new Label
+                        {
+                            Text = grupoTemp,
+                            Font = new Font("Segoe UI", 9, FontStyle.Italic),
+                            Location = new Point(50, 87),
+                            AutoSize = true,
+                            ForeColor = Color.DarkBlue
                         };
 
                         Button btnEditar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(200, 10),
+                            Location = new Point(220, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.SandyBrown,
                             BackgroundImageLayout = ImageLayout.Zoom,
@@ -121,7 +169,7 @@ namespace Proyecto_Boletas
                         Button btnEliminar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(240, 10),
+                            Location = new Point(260, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.IndianRed,
                             BackgroundImageLayout = ImageLayout.Zoom,
@@ -133,12 +181,13 @@ namespace Proyecto_Boletas
                         card.Controls.Add(lblNombre);
                         card.Controls.Add(picCorreo);
                         card.Controls.Add(lblCorreo);
+                        card.Controls.Add(picGrupo);
+                        card.Controls.Add(lblGrupo);
                         card.Controls.Add(btnEditar);
                         card.Controls.Add(btnEliminar);
 
                         flowMaestros.Controls.Add(card);
                     }
-
                     reader.Close();
                 }
             }
@@ -147,6 +196,8 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al mostrar maestros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+ 
 
         private void EditarMaestro(string nombre, string apP, string apM, string correo)
         {
@@ -222,69 +273,43 @@ namespace Proyecto_Boletas
 
         private void btnAltaMaestros_Click_1(object sender, EventArgs e)
         {
-
             string nombre = txtnombremaestro.Text.Trim();
             string apellidoP = txtapmaestro.Text.Trim();
             string apellidoM = txtammaestro.Text.Trim();
             string correo = txtcorreomaestro.Text.Trim();
 
-            // Eliminar espacios dobles
-            nombre = Regex.Replace(nombre, @"\s+", " ");
-            apellidoP = Regex.Replace(apellidoP, @"\s+", " ");
-            apellidoM = Regex.Replace(apellidoM, @"\s+", " ");
-            correo = Regex.Replace(correo, @"\s+", "");
-
-            // Validar campos vacíos
+            // Validaciones
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellidoP) ||
                 string.IsNullOrWhiteSpace(apellidoM) || string.IsNullOrWhiteSpace(correo))
             {
-                MessageBox.Show("Por favor, completa todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Completa todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validar nombres y apellidos (solo letras y espacios, mínimo 2 letras)
             if (!Regex.IsMatch(nombre, @"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,}$") ||
                 !Regex.IsMatch(apellidoP, @"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,}$") ||
                 !Regex.IsMatch(apellidoM, @"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,}$"))
             {
-                MessageBox.Show("Los nombres y apellidos deben tener al menos 2 letras y solo pueden contener letras y espacios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Los nombres y apellidos solo letras y mínimo 2 caracteres.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Validar longitud
-            if (nombre.Length > 50 || apellidoP.Length > 50 || apellidoM.Length > 50)
-            {
-                MessageBox.Show("Los nombres y apellidos no pueden tener más de 50 caracteres.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (correo.Length > 65)
-            {
-                MessageBox.Show("El correo no puede tener más de 65 caracteres.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Validar correo
             if (!Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
-                MessageBox.Show("Ingresa un correo electrónico válido (ejemplo: nombre@dominio.com).", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Correo inválido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // Obtener grupo seleccionado de forma segura
+            ComboboxItem grupoItem = grupo_asignado.SelectedItem as ComboboxItem;
+            if (grupoItem == null)
+            {
+                MessageBox.Show("Selecciona un grupo.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string grupoSeleccionado = grupoItem.Value;
 
             string nombreCompleto = $"{nombre.ToLower()} {apellidoP.ToLower()} {apellidoM.ToLower()}";
-
-            // Verificar duplicados
-            if (DatoExistenteNombreCompleto(nombreCompleto))
-            {
-                MessageBox.Show("Ya existe un maestro con ese nombre completo.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (DatoExistenteCorreo(correo.ToLower()))
-            {
-                MessageBox.Show("El correo ya está registrado. Usa otro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             try
             {
@@ -293,35 +318,81 @@ namespace Proyecto_Boletas
                 {
                     conn.Open();
 
-                    // Verificar límite de 9 maestros
-                    string queryCount = "SELECT COUNT(*) FROM maestro";
-                    MySqlCommand cmdCount = new MySqlCommand(queryCount, conn);
-                    int cantidadMaestros = Convert.ToInt32(cmdCount.ExecuteScalar());
+                    // Validar duplicados por nombre completo
+                    MySqlCommand cmdNombre = new MySqlCommand(
+                        "SELECT COUNT(*) FROM maestro WHERE CONCAT(LOWER(NombreMaestro),' ',LOWER(ApellidoPMaestro),' ',LOWER(ApellidoMMaestro))=@nombre", conn);
+                    cmdNombre.Parameters.AddWithValue("@nombre", nombreCompleto);
+                    if (Convert.ToInt32(cmdNombre.ExecuteScalar()) > 0)
+                    {
+                        MessageBox.Show("Ya existe un maestro con ese nombre completo.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
+                    // Validar duplicado por correo
+                    MySqlCommand cmdCorreo = new MySqlCommand(
+                        "SELECT COUNT(*) FROM maestro WHERE LOWER(Correo_maestro)=@correo", conn);
+                    cmdCorreo.Parameters.AddWithValue("@correo", correo.ToLower());
+                    if (Convert.ToInt32(cmdCorreo.ExecuteScalar()) > 0)
+                    {
+                        MessageBox.Show("Correo ya registrado.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Límite de 9 maestros
+                    MySqlCommand cmdCount = new MySqlCommand("SELECT COUNT(*) FROM maestro", conn);
+                    int cantidadMaestros = Convert.ToInt32(cmdCount.ExecuteScalar());
                     if (cantidadMaestros >= 9)
                     {
                         MessageBox.Show("Ya no puedes registrar más maestros. El límite es 9.", "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    // Insertar nuevo maestro
-                    string query = "INSERT INTO maestro (NombreMaestro, ApellidoPMaestro, ApellidoMMaestro, Correo_maestro) " +
-                                   "VALUES (@nombre, @apP, @apM, @correo)";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@nombre", nombre);
-                    cmd.Parameters.AddWithValue("@apP", apellidoP);
-                    cmd.Parameters.AddWithValue("@apM", apellidoM);
-                    cmd.Parameters.AddWithValue("@correo", correo);
-                    cmd.ExecuteNonQuery();
+                    // Insertar maestro
+                    MySqlCommand cmdInsert = new MySqlCommand(
+                        "INSERT INTO maestro (NombreMaestro, ApellidoPMaestro, ApellidoMMaestro, Correo_maestro) " +
+                        "VALUES (@nombre, @apP, @apM, @correo); SELECT LAST_INSERT_ID();", conn);
+                    cmdInsert.Parameters.AddWithValue("@nombre", nombre);
+                    cmdInsert.Parameters.AddWithValue("@apP", apellidoP);
+                    cmdInsert.Parameters.AddWithValue("@apM", apellidoM);
+                    cmdInsert.Parameters.AddWithValue("@correo", correo);
+                    int idMaestro = Convert.ToInt32(cmdInsert.ExecuteScalar());
 
-                    MessageBox.Show("Maestro registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Asignar grupo
+                    MySqlCommand cmdCheckGrupo = new MySqlCommand("SELECT id_grupo FROM grupo WHERE nombre_grupo=@grupo", conn);
+                    cmdCheckGrupo.Parameters.AddWithValue("@grupo", grupoSeleccionado);
+                    object result = cmdCheckGrupo.ExecuteScalar();
+                    int idGrupo;
+
+                    if (result == null)
+                    {
+                        // Crear grupo nuevo
+                        MySqlCommand cmdInsertGrupo = new MySqlCommand(
+                            "INSERT INTO grupo (nombre_grupo, id_maestro) VALUES (@grupo, @idMaestro); SELECT LAST_INSERT_ID();", conn);
+                        cmdInsertGrupo.Parameters.AddWithValue("@grupo", grupoSeleccionado);
+                        cmdInsertGrupo.Parameters.AddWithValue("@idMaestro", idMaestro);
+                        idGrupo = Convert.ToInt32(cmdInsertGrupo.ExecuteScalar());
+                    }
+                    else
+                    {
+                        // Actualizar grupo existente
+                        idGrupo = Convert.ToInt32(result);
+                        MySqlCommand cmdUpdateGrupo = new MySqlCommand(
+                            "UPDATE grupo SET id_maestro=@idMaestro WHERE id_grupo=@idGrupo", conn);
+                        cmdUpdateGrupo.Parameters.AddWithValue("@idMaestro", idMaestro);
+                        cmdUpdateGrupo.Parameters.AddWithValue("@idGrupo", idGrupo);
+                        cmdUpdateGrupo.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show($"Maestro registrado y asignado al grupo {grupoSeleccionado}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Limpiar campos
                     txtnombremaestro.Clear();
                     txtapmaestro.Clear();
                     txtammaestro.Clear();
                     txtcorreomaestro.Clear();
+                    grupo_asignado.SelectedIndex = 0;
 
+                    // Actualizar FlowLayoutPanel
                     MostrarMaestros();
                 }
             }
@@ -330,6 +401,10 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al registrar maestro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    
+
+    
+
 
         private void txtnombremaestro_TextChanged(object sender, EventArgs e)
         {
@@ -337,6 +412,11 @@ namespace Proyecto_Boletas
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grupo_asignado_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
