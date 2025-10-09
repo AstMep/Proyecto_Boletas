@@ -10,7 +10,7 @@ namespace Proyecto_Boletas
             txtbox_usuario.MaxLength = 100;
             txtbox_contrasena.MaxLength = 10;
             txtbox_contrasena.UseSystemPasswordChar = true;
-            
+
             btnMostrarContrasena.Text = "👁️";
         }
 
@@ -154,6 +154,11 @@ namespace Proyecto_Boletas
         }
 
         private void txtbox_contrasena_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

@@ -29,14 +29,14 @@ namespace Proyecto_Boletas
         }
 
 
-        
+
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
             if (btnVolver.Enabled)
             {
-                Menu_principal nuevoFormulario = new Menu_principal(); 
-                nuevoFormulario.Show();              
+                Menu_principal nuevoFormulario = new Menu_principal();
+                nuevoFormulario.Show();
                 this.Hide();
             }
         }
@@ -195,7 +195,7 @@ namespace Proyecto_Boletas
             }
         }
 
- 
+
 
         private void EditarMaestro(string nombre, string apP, string apM, string correo)
         {
@@ -410,6 +410,11 @@ namespace Proyecto_Boletas
         }
 
         private void grupo_asignado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void adm_maestros_Load(object sender, EventArgs e)
         {
 
         }

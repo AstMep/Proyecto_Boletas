@@ -269,6 +269,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
+            BackColor = Color.FromArgb(63, 75, 92);
             ClientSize = new Size(933, 502);
             Controls.Add(flowMaestros);
             Controls.Add(groupBox1);
@@ -276,6 +277,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "adm_maestros";
             Text = "adm_maestros";
+            Load += adm_maestros_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
