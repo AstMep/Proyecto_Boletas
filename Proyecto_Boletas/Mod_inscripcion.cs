@@ -83,6 +83,81 @@ namespace Proyecto_Boletas
             combosgenero.SelectedIndex = -1;
         }
 
+        private void AsignarGradoPorEdad(int edad)
+        {
+            string grado = "";
+
+            if (edad == 6)
+                grado = "primero";
+            else if (edad == 7)
+                grado = "segundo";
+            else if (edad == 8)
+                grado = "tercero";
+            else if (edad == 9)
+                grado = "cuarto";
+            else if (edad == 10)
+                grado = "quinto";
+            else if (edad == 11)
+                grado = "sexto";
+            else
+            {
+                grupo_alumno.SelectedIndex = -1;
+                MessageBox.Show("No hay un grado asignado para esta edad.", "Advertencia",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Buscar el grupo que coincida con el grado (por nombre)
+            for (int i = 0; i < grupo_alumno.Items.Count; i++)
+            {
+                string nombreGrupo = grupo_alumno.Items[i].ToString().ToLower();
+                if (nombreGrupo.Contains(grado))
+                {
+                    grupo_alumno.SelectedIndex = i;
+                    return;
+                }
+            }
+
+            MessageBox.Show($"No se encontró un grupo disponible para el grado '{grado}'.",
+                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+
+            for (int i = 0; i < grupo_alumno.Items.Count; i++)
+            {
+                string nombreGrupo = grupo_alumno.Items[i].ToString().ToLower();
+                if (nombreGrupo.Contains(grado))
+                {
+                    grupo_alumno.SelectedIndex = i;
+
+                    string grupoSeleccionado = grupo_alumno.SelectedItem.ToString();
+                    Conexion conexion = new Conexion();
+                    using (MySqlConnection conn = conexion.GetConnection())
+                    {
+                        conn.Open();
+                        string query = "SELECT id_grupo FROM grupo WHERE nombre_grupo = @nombre";
+                        MySqlCommand cmd = new MySqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@nombre", grupoSeleccionado);
+                        object result = cmd.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            int idGrupo = Convert.ToInt32(result);
+                            MostrarMateriasDeGrupo(idGrupo);
+                        }
+                    }
+
+                    return;
+                }
+            }
+
+
+
+
+        }
+
+
+
+
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
@@ -323,13 +398,92 @@ namespace Proyecto_Boletas
 
         private void edad_alumno_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (edad_alumno.SelectedItem != null)
+            {
+                int edadSeleccionada = Convert.ToInt32(edad_alumno.SelectedItem);
+                AsignarGradoPorEdad(edadSeleccionada);
+            }
         }
 
         private void grupo_alumno_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (grupo_alumno.SelectedItem == null)
+                return;
+
+            try
+            {
+                string nombreGrupo = grupo_alumno.SelectedItem.ToString();
+
+                Conexion conexion = new Conexion();
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    conn.Open();
+
+                    // 1️⃣ Obtener el ID del grupo seleccionado
+                    string queryId = "SELECT id_grupo FROM grupo WHERE nombre_grupo = @nombre";
+                    MySqlCommand cmdId = new MySqlCommand(queryId, conn);
+                    cmdId.Parameters.AddWithValue("@nombre", nombreGrupo);
+
+                    object result = cmdId.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        int idGrupo = Convert.ToInt32(result);
+
+                        // 2️⃣ Mostrar las materias existentes de ese grupo
+                        MostrarMateriasDeGrupo(idGrupo);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el grupo seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar materias: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
         }
+
+        private void MostrarMateriasDeGrupo(int idGrupo)
+        {
+            try
+            {
+                Conexion conexion = new Conexion();
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    conn.Open();
+
+                    string query = @"SELECT Nombre AS 'Materia', Campo_formativo AS 'Campo formativo'
+                             FROM materias
+                             WHERE id_grupo = @idGrupo";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@idGrupo", idGrupo);
+
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dgvMateriasAlumno.DataSource = dt;
+
+                    // Opcional: hacer que sea solo lectura
+                    dgvMateriasAlumno.ReadOnly = true;
+                    dgvMateriasAlumno.AllowUserToAddRows = false;
+                    dgvMateriasAlumno.AllowUserToDeleteRows = false;
+                    dgvMateriasAlumno.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al mostrar materias: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
 
         private void nombre_tutor_TextChanged(object sender, EventArgs e)
         {
@@ -499,7 +653,7 @@ namespace Proyecto_Boletas
                 {
                     conn.Open();
 
-                    // Validar cupo
+
                     if (!GrupoConCupo(grupoSeleccionado, conn))
                     {
                         MessageBox.Show("El grupo seleccionado ya está lleno (25 alumnos).", "Cupo lleno", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -577,6 +731,7 @@ namespace Proyecto_Boletas
 
 
 
+
         private void combosgenero_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -584,6 +739,24 @@ namespace Proyecto_Boletas
 
         private void groupBox2_Enter(object sender, EventArgs e)
         {
+
+        }
+
+        private void dgvMateriasAlumno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Mod_inscripcion_Load(object sender, EventArgs e)
+        {
+            // Ajustes visuales del DataGridView
+            dgvMateriasAlumno.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMateriasAlumno.ReadOnly = true;
+            dgvMateriasAlumno.AllowUserToAddRows = false;
+            dgvMateriasAlumno.AllowUserToDeleteRows = false;
+            dgvMateriasAlumno.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMateriasAlumno.Font = new Font("Segoe UI", 10); // Cambia tamaño de letra
+            dgvMateriasAlumno.RowTemplate.Height = 30; // Aumenta altura de las filas
 
         }
     }

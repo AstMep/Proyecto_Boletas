@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mod_inscripcion));
             groupBox2 = new GroupBox();
+            pictureBox1 = new PictureBox();
             correo_tutor = new TextBox();
             label4 = new Label();
             telefono_tutor = new TextBox();
@@ -60,15 +61,16 @@
             label3 = new Label();
             grupo_alumno = new ComboBox();
             groupBox1 = new GroupBox();
+            pictureBox2 = new PictureBox();
             combosgenero = new ComboBox();
             label7 = new Label();
-            pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
+            dgvMateriasAlumno = new DataGridView();
             groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMateriasAlumno).BeginInit();
             SuspendLayout();
             // 
             // groupBox2
@@ -93,6 +95,15 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Alta de Tutor";
             groupBox2.Enter += groupBox2_Enter;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(581, 151);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(74, 64);
+            pictureBox1.TabIndex = 23;
+            pictureBox1.TabStop = false;
             // 
             // correo_tutor
             // 
@@ -229,7 +240,7 @@
             label18.BackColor = Color.Transparent;
             label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label18.ForeColor = SystemColors.ControlLightLight;
-            label18.Location = new Point(361, 723);
+            label18.Location = new Point(381, 932);
             label18.Name = "label18";
             label18.Size = new Size(114, 21);
             label18.TabIndex = 5;
@@ -242,7 +253,7 @@
             btnalta_inscripcion.FlatStyle = FlatStyle.Popup;
             btnalta_inscripcion.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnalta_inscripcion.Image = (Image)resources.GetObject("btnalta_inscripcion.Image");
-            btnalta_inscripcion.Location = new Point(361, 659);
+            btnalta_inscripcion.Location = new Point(382, 858);
             btnalta_inscripcion.Name = "btnalta_inscripcion";
             btnalta_inscripcion.Size = new Size(113, 73);
             btnalta_inscripcion.TabIndex = 3;
@@ -408,6 +419,15 @@
             groupBox1.Text = "Alta de Alumnos";
             groupBox1.Enter += groupBox1_Enter;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(584, 247);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(63, 66);
+            pictureBox2.TabIndex = 29;
+            pictureBox2.TabStop = false;
+            // 
             // combosgenero
             // 
             combosgenero.FormattingEnabled = true;
@@ -427,23 +447,15 @@
             label7.TabIndex = 27;
             label7.Text = "Género:";
             // 
-            // pictureBox1
+            // dgvMateriasAlumno
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(581, 151);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(74, 64);
-            pictureBox1.TabIndex = 23;
-            pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(584, 247);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(63, 66);
-            pictureBox2.TabIndex = 29;
-            pictureBox2.TabStop = false;
+            dgvMateriasAlumno.BackgroundColor = Color.FromArgb(212, 168, 133);
+            dgvMateriasAlumno.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMateriasAlumno.Location = new Point(72, 667);
+            dgvMateriasAlumno.Name = "dgvMateriasAlumno";
+            dgvMateriasAlumno.Size = new Size(647, 185);
+            dgvMateriasAlumno.TabIndex = 23;
+            dgvMateriasAlumno.CellContentClick += dgvMateriasAlumno_CellContentClick;
             // 
             // Mod_inscripcion
             // 
@@ -452,6 +464,7 @@
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
             ClientSize = new Size(799, 732);
+            Controls.Add(dgvMateriasAlumno);
             Controls.Add(groupBox2);
             Controls.Add(label18);
             Controls.Add(groupBox1);
@@ -459,14 +472,16 @@
             Controls.Add(panel1);
             Name = "Mod_inscripcion";
             Text = "Mod_inscripcion";
+            Load += Mod_inscripcion_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMateriasAlumno).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -508,5 +523,6 @@
         private Label label7;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
+        private DataGridView dgvMateriasAlumno;
     }
 }
