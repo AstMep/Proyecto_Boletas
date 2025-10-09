@@ -17,16 +17,14 @@ namespace Proyecto_Boletas
         public adm_maestros()
         {
             InitializeComponent();
-            // Limitar longitud de TextBox
             txtammaestro.MaxLength = 25;
             txtnombremaestro.MaxLength = 25;
             txtcorreomaestro.MaxLength = 100;
             txtapmaestro.MaxLength = 25;
 
-            // Llenar ComboBox de grados
             LlenarComboGrados();
 
-            // Mostrar maestros existentes
+
             MostrarMaestros();
         }
 
@@ -37,8 +35,8 @@ namespace Proyecto_Boletas
         {
             if (btnVolver.Enabled)
             {
-                Menu_principal nuevoFormulario = new Menu_principal(); // creas una instancia del otro form
-                nuevoFormulario.Show();              // lo muestras
+                Menu_principal nuevoFormulario = new Menu_principal(); 
+                nuevoFormulario.Show();              
                 this.Hide();
             }
         }
@@ -401,11 +399,6 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al registrar maestro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    
-
-    
-
-
         private void txtnombremaestro_TextChanged(object sender, EventArgs e)
         {
 
