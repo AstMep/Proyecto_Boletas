@@ -18,10 +18,10 @@ namespace Proyecto_Boletas
         {
             InitializeComponent();
             // Limitar longitud de TextBox
-            txtammaestro.MaxLength = 50;
-            txtnombremaestro.MaxLength = 50;
-            txtcorreomaestro.MaxLength = 50;
-            txtapmaestro.MaxLength = 50;
+            txtammaestro.MaxLength = 25;
+            txtnombremaestro.MaxLength = 25;
+            txtcorreomaestro.MaxLength = 100;
+            txtapmaestro.MaxLength = 25;
 
             // Llenar ComboBox de grados
             LlenarComboGrados();
@@ -99,7 +99,7 @@ namespace Proyecto_Boletas
                         Panel card = new Panel
                         {
                             Width = 500,
-                            Height = 120,
+                            Height = 200,
                             Margin = new Padding(10),
                             BackColor = Color.Bisque,
                             BorderStyle = BorderStyle.FixedSingle,
@@ -158,7 +158,7 @@ namespace Proyecto_Boletas
                         Button btnEditar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(360, 10),
+                            Location = new Point(400, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.SandyBrown,
                             BackgroundImageLayout = ImageLayout.Zoom,
@@ -169,7 +169,7 @@ namespace Proyecto_Boletas
                         Button btnEliminar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(400, 10),
+                            Location = new Point(450, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.IndianRed,
                             BackgroundImageLayout = ImageLayout.Zoom,
