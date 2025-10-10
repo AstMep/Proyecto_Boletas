@@ -303,6 +303,11 @@ namespace Proyecto_Boletas
                         cmd.ExecuteNonQuery();
                     }
 
+                    // **************************************************
+                    // CAMBIO CLAVE: REGISTRO DE LA ACCIÓN EN LA BITÁCORA
+                    // **************************************************
+                    BitacoraManager.RegistrarAccion($"ELIMINACIÓN: Se eliminó la secretaria con nombre '{nombre}'.");
+
                     MessageBox.Show("Secretaria eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Si estábamos editando esta secretaria, cancelar edición
@@ -319,7 +324,6 @@ namespace Proyecto_Boletas
                 }
             }
         }
-
 
         private void EditarSecretaria(string nombre)
         {

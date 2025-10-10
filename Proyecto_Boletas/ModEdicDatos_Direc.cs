@@ -8,17 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Proyecto_Boletas.adm_maestros;
 
 namespace Proyecto_Boletas
 {
-    public partial class Datos_alumnado : Form
+    public partial class ModEdicDatos_Direc : Form
     {
-        public Datos_alumnado()
+        public ModEdicDatos_Direc()
         {
             InitializeComponent();
         }
-
         public class ComboboxItem
         {
             public string Text { get; set; }
@@ -69,8 +67,11 @@ namespace Proyecto_Boletas
         }
 
 
-
-
+        private void ModEdicDatos_Direc_Load(object sender, EventArgs e)
+        {
+            LlenarComboGrupos();
+            LlenarComboMeses();
+        }
 
         private void btnGenerarListas_Click(object sender, EventArgs e)
         {
@@ -96,15 +97,29 @@ namespace Proyecto_Boletas
             }
         }
 
-        private void Datos_alumnado_Load(object sender, EventArgs e)
+        private void btnGenerarLisProf_Click(object sender, EventArgs e)
         {
-            LlenarComboGrupos();
-            LlenarComboMeses();
-        }
+            try
+            {
+                // 1. Crear el diálogo para que el usuario elija dónde guardar el archivo
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
+                saveFileDialog.FileName = "Lista_Profesores_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
+                saveFileDialog.Title = "Guardar Lista de Profesores";
 
-        private void cmbGrupo_SelectedIndexChanged(object sender, EventArgs e)
-        {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string rutaArchivo = saveFileDialog.FileName;
 
+                    // 2. Crear instancia del generador y ejecutar la generación del PDF
+                    GeneradorListaProf generador = new GeneradorListaProf();
+                    generador.GenerarLista(rutaArchivo);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al iniciar la generación de la lista de profesores: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

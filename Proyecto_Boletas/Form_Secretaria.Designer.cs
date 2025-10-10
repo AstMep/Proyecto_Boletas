@@ -115,11 +115,11 @@
             label12.AutoSize = true;
             label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(48, 162);
+            label12.Location = new Point(62, 162);
             label12.Name = "label12";
-            label12.Size = new Size(64, 21);
+            label12.Size = new Size(38, 21);
             label12.TabIndex = 5;
-            label12.Text = "Boletas";
+            label12.Text = "PDF";
             // 
             // label13
             // 
@@ -128,9 +128,9 @@
             label13.ForeColor = SystemColors.ControlLightLight;
             label13.Location = new Point(36, 144);
             label13.Name = "label13";
-            label13.Size = new Size(76, 21);
+            label13.Size = new Size(97, 21);
             label13.TabIndex = 4;
-            label13.Text = "Envio de ";
+            label13.Text = "Creación de";
             // 
             // btnEnvioBoletas
             // 
@@ -144,6 +144,7 @@
             btnEnvioBoletas.Size = new Size(121, 135);
             btnEnvioBoletas.TabIndex = 3;
             btnEnvioBoletas.UseVisualStyleBackColor = false;
+            btnEnvioBoletas.Click += btnEnvioBoletas_Click;
             // 
             // groupBox5
             // 
@@ -179,6 +180,7 @@
             btnDatosAlumnado.Size = new Size(121, 135);
             btnDatosAlumnado.TabIndex = 3;
             btnDatosAlumnado.UseVisualStyleBackColor = false;
+            btnDatosAlumnado.Click += btnDatosAlumnado_Click;
             // 
             // groupBox3
             // 
@@ -318,6 +320,7 @@
             btn_inscripcion.Size = new Size(121, 135);
             btn_inscripcion.TabIndex = 3;
             btn_inscripcion.UseVisualStyleBackColor = false;
+            btn_inscripcion.Click += btn_inscripcion_Click;
             // 
             // Form_Secretaria
             // 

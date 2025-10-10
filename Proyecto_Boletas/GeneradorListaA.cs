@@ -18,7 +18,7 @@ namespace Proyecto_Boletas
             Conexion conexion = new Conexion();
             private const string ClaveEscolar = "29DPR0035Z";
 
-            // Paleta de Colores
+      
             private static readonly BaseColor MoradoIntenso = new BaseColor(155, 89, 182);
             private static readonly BaseColor RosaClaro = new BaseColor(245, 183, 177);
             private static readonly BaseColor RosaPalido = new BaseColor(250, 219, 216);
@@ -32,12 +32,10 @@ namespace Proyecto_Boletas
                     {
                         conn.Open();
 
-                        // 1. Configuración del PDF y Writer
                         Document doc = new Document(PageSize.LETTER.Rotate(), 20f, 20f, 20f, 20f);
                         PdfWriter.GetInstance(doc, new FileStream(rutaArchivo, FileMode.Create));
                         doc.Open();
 
-                        // Carga de fuente (Solución para acentos y Ñ)
                         string pathArial = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
                         iTextSharp.text.pdf.BaseFont bf;
 
@@ -50,7 +48,6 @@ namespace Proyecto_Boletas
                             bf = iTextSharp.text.pdf.BaseFont.CreateFont(iTextSharp.text.pdf.BaseFont.HELVETICA, iTextSharp.text.pdf.BaseFont.CP1252, iTextSharp.text.pdf.BaseFont.NOT_EMBEDDED);
                         }
 
-                        // Definición de fuentes
                         iTextSharp.text.Font fontEscuela = new iTextSharp.text.Font(bf, 16f, iTextSharp.text.Font.BOLD, BaseColor.DARK_GRAY);
                         iTextSharp.text.Font fontTitulo = new iTextSharp.text.Font(bf, 14f, iTextSharp.text.Font.BOLD);
                         iTextSharp.text.Font fontSubtitulo = new iTextSharp.text.Font(bf, 10f, iTextSharp.text.Font.BOLD);
@@ -58,7 +55,7 @@ namespace Proyecto_Boletas
                         iTextSharp.text.Font fontTexto = new iTextSharp.text.Font(bf, 9f, iTextSharp.text.Font.NORMAL);
                         iTextSharp.text.Font fontMini = new iTextSharp.text.Font(bf, 7f, iTextSharp.text.Font.BOLD);
 
-                        // 2. Obtener datos del grupo y maestro
+                    
                         string queryGrupo = "SELECT g.nombre_grupo, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro, m.Correo_maestro " +
                                             "FROM grupo g JOIN maestro m ON g.id_maestro = m.id_maestro WHERE g.id_grupo = @idGrupo";
                         MySqlCommand cmdGrupo = new MySqlCommand(queryGrupo, conn);
@@ -76,12 +73,11 @@ namespace Proyecto_Boletas
                         }
                         readerGrupo.Close();
 
-                        // 3. ENCABEZADO: Logo + Membrete
                         PdfPTable headerTable = new PdfPTable(2);
                         headerTable.WidthPercentage = 100;
                         headerTable.SetWidths(new float[] { 0.15f, 0.85f });
 
-                        // Celda del Logo
+                   
                         string rutaLogo = @"C:\Users\Isis Astrid\source\repos\Proyecto_Boletas\Proyecto_Boletas\Resources\logo_escuela350.png";
                         if (File.Exists(rutaLogo))
                         {
@@ -98,7 +94,6 @@ namespace Proyecto_Boletas
                             headerTable.AddCell(new PdfPCell(new Phrase("LOGO FALTANTE", fontTexto)) { Border = 0 });
                         }
 
-                        // Celda de Datos de la Escuela
                         Paragraph datosEscuela = new Paragraph();
                         datosEscuela.Alignment = Element.ALIGN_LEFT;
                         datosEscuela.Add(new Chunk("INSTITUTO MANUEL M. ACOSTA\n\n", fontEscuela));
@@ -113,7 +108,7 @@ namespace Proyecto_Boletas
                         doc.Add(headerTable);
                         doc.Add(new Paragraph("\n"));
 
-                        // 4. Título Principal y Maestro
+                    
                         Paragraph titulo = new Paragraph($"CONTROL DE ASISTENCIA MENSUAL", fontTitulo)
                         {
                             Alignment = Element.ALIGN_CENTER
@@ -122,7 +117,7 @@ namespace Proyecto_Boletas
                         doc.Add(new Paragraph($"Ciclo Escolar {DateTime.Now.Year}-{DateTime.Now.Year + 1}", fontSubtitulo) { Alignment = Element.ALIGN_CENTER });
                         doc.Add(new Paragraph("\n"));
 
-                        // Información del mes y profesor
+                    
                         Paragraph info = new Paragraph();
                         info.Add(new Chunk($"Mes: {mes} \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0", fontSubtitulo));
                         info.Add(new Chunk($"Profesor(a): {nombreMaestro}", fontSubtitulo));
@@ -130,7 +125,6 @@ namespace Proyecto_Boletas
                         doc.Add(info);
                         doc.Add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"));
 
-                        // 5. Generación Dinámica de Días
                         int anioActual = DateTime.Now.Year;
                         int numMes = DateTime.ParseExact(mes, "MMMM", new CultureInfo("es-ES")).Month;
                         DateTime primerDiaMes = new DateTime(anioActual, numMes, 1);
@@ -150,18 +144,13 @@ namespace Proyecto_Boletas
                         int totalColumnasAsistencia = diasHabiles.Count;
                         int totalColumnasTabla = 1 + 1 + 1 + 1 + totalColumnasAsistencia; // N°, CURP, G, Alumno + días
 
-                        // 6. Crear Tabla Dinámica
+                       
                         PdfPTable tabla = new PdfPTable(totalColumnasTabla);
                         tabla.WidthPercentage = 100;
                         tabla.DefaultCell.MinimumHeight = 15f;
 
-                        // *** AJUSTE PARA BORDES FINOS Y SOLUCIÓN DE ERRORES ***
-                        tabla.DefaultCell.BorderWidth = 0f; // Eliminamos bordes de celda por defecto
+                        tabla.DefaultCell.BorderWidth = 0f; 
 
-                        // Nota: Las líneas problemáticas (tabla.Border, BorderWidth, BorderColor) han sido ELIMINADAS
-                        // ya que la configuración individual de cada celda ya provee los bordes finos deseados.
-
-                        // Definir anchos relativos (N°, CURP, G, Alumno, Días)
                         float anchoTotalFijo = 0.03f + 0.15f + 0.03f + 0.25f;
                         float anchoDia = (1f - anchoTotalFijo) / totalColumnasAsistencia;
 
@@ -176,7 +165,6 @@ namespace Proyecto_Boletas
                         }
                         tabla.SetWidths(widths);
 
-                        // Headers: Fila 1 (N°, CURP, Género y Alumnos)
                         string[] headersFijos = { "N°", "CURP", "G", "Alumno (Apellido P, M, Nombre)" };
                         foreach (string header in headersFijos)
                         {
@@ -200,7 +188,7 @@ namespace Proyecto_Boletas
                             tabla.AddCell(cellDia);
                         }
 
-                        // Headers: Fila 2 (Fechas - Días del mes)
+            
                         foreach (DateTime dia in diasHabiles)
                         {
                             PdfPCell cellFecha = new PdfPCell(new Phrase(dia.Day.ToString(), fontMini)) { BackgroundColor = RosaClaro };
@@ -210,7 +198,7 @@ namespace Proyecto_Boletas
                             tabla.AddCell(cellFecha);
                         }
 
-                        // 7. Llenar Filas de Alumnos (Orden Alfabético)
+
                         string queryAlumnos = "SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno, CURP, genero " +
                                               "FROM alumnos WHERE id_grupo = @idGrupo " +
                                               "ORDER BY ApellidoPaterno, ApellidoMaterno, Nombre";
@@ -221,32 +209,31 @@ namespace Proyecto_Boletas
                         int contador = 1;
                         while (readerAlumnos.Read())
                         {
-                            // Lógica para obtener solo 'F' o 'M'
+            
                             string generoDB = readerAlumnos["genero"].ToString();
                             string generoLetra = string.IsNullOrEmpty(generoDB) ? "" : generoDB.Substring(0, 1).ToUpper();
 
-                            // Celda N°
+          
                             PdfPCell cellContador = new PdfPCell(new Phrase(contador.ToString(), fontTexto)) { HorizontalAlignment = Element.ALIGN_CENTER, BackgroundColor = RosaPalido };
                             cellContador.BorderWidth = 0.5f; cellContador.BorderColor = NegroFino;
                             tabla.AddCell(cellContador);
 
-                            // Celda CURP
+                        
                             PdfPCell cellCurp = new PdfPCell(new Phrase(readerAlumnos["CURP"].ToString(), fontTexto)) { BackgroundColor = RosaPalido };
                             cellCurp.BorderWidth = 0.5f; cellCurp.BorderColor = NegroFino;
                             tabla.AddCell(cellCurp);
 
-                            // Celda GÉNERO
+                      
                             PdfPCell cellGenero = new PdfPCell(new Phrase(generoLetra, fontTexto)) { HorizontalAlignment = Element.ALIGN_CENTER, BackgroundColor = RosaPalido };
                             cellGenero.BorderWidth = 0.5f; cellGenero.BorderColor = NegroFino;
                             tabla.AddCell(cellGenero);
 
-                            // Celda Alumno (Apellido P, M, Nombre)
+                   
                             string nombreCompleto = $"{readerAlumnos["ApellidoPaterno"]} {readerAlumnos["ApellidoMaterno"]} {readerAlumnos["Nombre"]}";
                             PdfPCell cellNombre = new PdfPCell(new Phrase(nombreCompleto, fontTexto)) { BackgroundColor = RosaPalido };
                             cellNombre.BorderWidth = 0.5f; cellNombre.BorderColor = NegroFino;
                             tabla.AddCell(cellNombre);
 
-                            // Celdas de asistencia (Casillas Vacías)
                             for (int i = 0; i < totalColumnasAsistencia; i++)
                             {
                                 PdfPCell celdaAsis = new PdfPCell(new Phrase("", fontTexto));
@@ -262,12 +249,12 @@ namespace Proyecto_Boletas
                         readerAlumnos.Close();
                         doc.Add(tabla);
 
-                        // 8. Datos del Maestro (Abajo de la tabla)
+                  
                         doc.Add(new Paragraph("\n"));
                         doc.Add(new Paragraph($"Profesor(a) Titular: {nombreMaestro}", fontSubtitulo));
                         doc.Add(new Paragraph($"Correo de Contacto: {correoMaestro}", fontTexto));
 
-                        // Espacio para Notas de Faltas, Permisos, Enfermos, etc.
+                    
                         doc.Add(new Paragraph("\n"));
                         doc.Add(new Paragraph("F= Faltas. \u00a0\u00a0\u00a0\u00a0\u00a0 P= Permisos. \u00a0\u00a0\u00a0\u00a0\u00a0 E= Enfermos. \u00a0\u00a0\u00a0\u00a0\u00a0 A= Asistencia.", fontEncabezado));
 

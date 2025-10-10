@@ -59,5 +59,24 @@ namespace Proyecto_Boletas
             nuevoForulario.Show();              // lo muestras
             this.Hide();
         }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEnvioBoletas_Click(object sender, EventArgs e)
+        {
+            ModEdicDatos_Direc nuevoFormulario = new ModEdicDatos_Direc();
+            nuevoFormulario.Show();
+            this.Hide();
+        }
+
+        private void btnBitacora_Click(object sender, EventArgs e)
+        {
+            Bitacora nuevoFormulario = new Bitacora();
+            nuevoFormulario.Show();
+            this.Hide();
+        }
     }
 }

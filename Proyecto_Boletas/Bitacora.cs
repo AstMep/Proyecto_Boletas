@@ -1,0 +1,116 @@
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Proyecto_Boletas
+{
+    public partial class Bitacora : Form
+    {
+        public Bitacora()
+        {
+            InitializeComponent();
+            CargarRoles();
+            CargarMeses();
+        }
+
+        private void CargarRoles()
+        {
+            try
+            {
+                // 1. Instanciar la clase Conexion
+                Conexion conexion = new Conexion();
+
+                // 2. Usar GetConnection()
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    string query = "SELECT DISTINCT Rol FROM usuarios ORDER BY Rol ASC";
+                    MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                    DataTable dtRoles = new DataTable();
+
+                    conn.Open();
+                    da.Fill(dtRoles);
+
+                    // Añadir la opción "Todos" al inicio
+                    DataRow rowTodos = dtRoles.NewRow();
+                    rowTodos["Rol"] = "Todos";
+                    dtRoles.Rows.InsertAt(rowTodos, 0);
+
+                    // Asignar el DataTable al ComboBox cmbRol
+                    cmbRoles.DataSource = dtRoles;
+                    cmbRoles.DisplayMember = "Rol";
+                    cmbRoles.ValueMember = "Rol";
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al cargar los roles: " + ex.Message, "Error de BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error inesperado al cargar roles: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 2. Método para cargar los meses
+        private void CargarMeses()
+        {
+            var meses = new[]
+            {
+                new { Id = 0, Nombre = "Todos los Meses" },
+                new { Id = 1, Nombre = "Enero" },
+                new { Id = 2, Nombre = "Febrero" },
+                new { Id = 3, Nombre = "Marzo" },
+                new { Id = 4, Nombre = "Abril" },
+                new { Id = 5, Nombre = "Mayo" },
+                new { Id = 6, Nombre = "Junio" },
+                new { Id = 7, Nombre = "Julio" },
+                new { Id = 8, Nombre = "Agosto" },
+                new { Id = 9, Nombre = "Septiembre" },
+                new { Id = 10, Nombre = "Octubre" },
+                new { Id = 11, Nombre = "Noviembre" },
+                new { Id = 12, Nombre = "Diciembre" }
+            };
+
+            // Asignar los datos al ComboBox cmbMes
+            cmbMes.DataSource = meses;
+            cmbMes.DisplayMember = "Nombre";
+            cmbMes.ValueMember = "Id";
+        }
+
+        private void btnGenerarBitacora_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // La lógica del botón es correcta y llama al GenerarBitacoraPDF con los valores seleccionados.
+                string rol = cmbRoles.SelectedValue.ToString();
+                int mes = Convert.ToInt32(cmbMes.SelectedValue);
+
+                string rutaDelLogo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logo.png");
+
+                GenerarBitacoraPDF generador = new GenerarBitacoraPDF();
+                generador.GenerarPDF(rol, mes, rutaDelLogo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al intentar generar el PDF. Asegúrese de que ha seleccionado una opción en los filtros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbMes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

@@ -14,12 +14,26 @@ namespace Proyecto_Boletas
 {
     public partial class adm_maestros : Form
     {
+
+        private Conexion conexion = new Conexion();
+        private const int LIMITE_TOTAL_MAESTROS = 6;
+
+        // 1. VARIABLE GLOBAL PARA SEGUIMIENTO DEL MAESTRO EN EDICIÓN
+        private int idMaestroEditando = 0;
+
+        // Asume que tienes un botón de Guardar/Actualizar y un botón de Cancelar en tu formulario
+        // Necesitas habilitar/deshabilitar estos botones en InitializeComponent() o Load.
+
+        // Asumo la existencia de los botones: btnGuardarCambios y btnCancelarEdicion
+        // Para simplificar, asumiré que btnAltaMaestros_Click_1 ahora manejará tanto Alta como Edición.
+
+
         public adm_maestros()
         {
             InitializeComponent();
             txtammaestro.MaxLength = 25;
             txtnombremaestro.MaxLength = 25;
-            txtcorreomaestro.MaxLength = 100;
+            txtcorreomaestro.MaxLength = 65;
             txtapmaestro.MaxLength = 25;
 
             LlenarComboGrados();
@@ -70,13 +84,13 @@ namespace Proyecto_Boletas
             try
             {
                 flowMaestros.Controls.Clear();
-                Conexion conexion = new Conexion();
+
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
                     string query = @"
                         SELECT m.id_maestro, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro, m.Correo_maestro,
-                               g.nombre_grupo
+                                g.nombre_grupo
                         FROM maestro m
                         LEFT JOIN grupo g ON g.id_maestro = m.id_maestro
                         ORDER BY m.id_maestro";
@@ -90,25 +104,33 @@ namespace Proyecto_Boletas
                         string apPTemp = reader["ApellidoPMaestro"].ToString();
                         string apMTemp = reader["ApellidoMMaestro"].ToString();
                         string correoTemp = reader["Correo_maestro"].ToString();
+
+                        // Si id_maestro es NULL, nombre_grupo será NULL, por lo que muestra "Sin grupo".
                         string grupoTemp = reader["nombre_grupo"] == DBNull.Value ? "Sin grupo" : reader["nombre_grupo"].ToString();
 
                         string nombreCompleto = $"{nombreTemp} {apPTemp} {apMTemp}";
 
+                        // Creación del Panel y controles
                         Panel card = new Panel
                         {
-                            Width = 500,
-                            Height = 200,
+                            Width = 350,
+                            Height = 120,
                             Margin = new Padding(10),
                             BackColor = Color.Bisque,
                             BorderStyle = BorderStyle.FixedSingle,
                             Cursor = Cursors.Hand
                         };
 
+                        // Configuración de controles... (Pic, Labels, Botones)
+                        // Ajuste de posiciones
+                        int offsetX = 10;
+                        int offsetY = 10;
+
                         PictureBox picMaestro = new PictureBox
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\secretaria45.png"),
                             SizeMode = PictureBoxSizeMode.Zoom,
-                            Location = new Point(10, 10),
+                            Location = new Point(offsetX, offsetY),
                             Size = new Size(32, 32)
                         };
 
@@ -116,58 +138,66 @@ namespace Proyecto_Boletas
                         {
                             Text = nombreCompleto,
                             Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                            Location = new Point(50, 10),
-                            AutoSize = true
+                            Location = new Point(offsetX + 40, offsetY + 5),
+                            AutoSize = true,
+                            MaximumSize = new Size(200, 0)
                         };
+
+                        offsetY += 40;
 
                         PictureBox picCorreo = new PictureBox
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\correo45.png"),
                             SizeMode = PictureBoxSizeMode.Zoom,
-                            Location = new Point(10, 50),
-                            Size = new Size(32, 32)
+                            Location = new Point(offsetX, offsetY),
+                            Size = new Size(20, 20)
                         };
 
                         Label lblCorreo = new Label
                         {
                             Text = correoTemp,
-                            Font = new Font("Segoe UI", 9),
-                            Location = new Point(50, 52),
-                            AutoSize = true
+                            Font = new Font("Segoe UI", 8),
+                            Location = new Point(offsetX + 30, offsetY + 2),
+                            AutoSize = true,
+                            MaximumSize = new Size(250, 0)
                         };
+
+                        offsetY += 25;
 
                         PictureBox picGrupo = new PictureBox
                         {
                             Image = Image.FromFile(Application.StartupPath + @"\Iconos\grupo45.png"),
                             SizeMode = PictureBoxSizeMode.Zoom,
-                            Location = new Point(10, 85),
-                            Size = new Size(32, 32)
+                            Location = new Point(offsetX, offsetY),
+                            Size = new Size(20, 20)
                         };
 
                         Label lblGrupo = new Label
                         {
-                            Text = grupoTemp,
+                            Text = $"Grupo: {grupoTemp}",
                             Font = new Font("Segoe UI", 9, FontStyle.Italic),
-                            Location = new Point(50, 87),
+                            Location = new Point(offsetX + 30, offsetY + 2),
                             AutoSize = true,
                             ForeColor = Color.DarkBlue
                         };
 
+                        // Botones de acción
                         Button btnEditar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(400, 10),
+                            Location = new Point(card.Width - 80, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.SandyBrown,
                             BackgroundImageLayout = ImageLayout.Zoom,
                             BackgroundImage = Image.FromFile(Application.StartupPath + @"\Iconos\editor32.png")
                         };
-                        btnEditar.Click += (s, e) => EditarMaestro(nombreTemp, apPTemp, apMTemp, correoTemp);
+                        // Se llama al método EditarMaestro con los datos del maestro y su ID
+                        btnEditar.Click += (s, e) => EditarMaestro(idTemp, nombreTemp, apPTemp, apMTemp, correoTemp, grupoTemp);
 
                         Button btnEliminar = new Button
                         {
                             Size = new Size(30, 25),
-                            Location = new Point(450, 10),
+                            Location = new Point(card.Width - 40, 10),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.IndianRed,
                             BackgroundImageLayout = ImageLayout.Zoom,
@@ -197,37 +227,118 @@ namespace Proyecto_Boletas
 
 
 
-        private void EditarMaestro(string nombre, string apP, string apM, string correo)
+        private void EditarMaestro(int id, string nombre, string apP, string apM, string correo, string grupo)
         {
+            // 2. Almacena el ID del maestro que se va a editar
+            this.idMaestroEditando = id;
+
             txtnombremaestro.Text = nombre;
             txtapmaestro.Text = apP;
             txtammaestro.Text = apM;
             txtcorreomaestro.Text = correo;
-            MessageBox.Show($"Ahora puedes editar los datos de {nombre} {apP}.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Seleccionar el grupo actual del maestro en el ComboBox
+            SeleccionarGrupoEnCombo(grupo);
+
+            // Se asume que aquí habilitas un botón de "Guardar Cambios" y deshabilitas "Alta"
+            // Ejemplo: btnAltaMaestros.Visible = false; btnGuardarCambios.Visible = true;
+            MessageBox.Show($"Modo Edición: Puedes editar los datos de {nombre} {apP} y reasignar su grupo.", "Editar Maestro", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        // Ayudante para seleccionar el grupo correcto en el ComboBox
+        private void SeleccionarGrupoEnCombo(string nombreGrupo)
+        {
+            if (nombreGrupo == "Sin grupo")
+            {
+                grupo_asignado.SelectedIndex = -1; // Deseleccionar o dejar el valor por defecto
+                return;
+            }
+
+            foreach (ComboboxItem item in grupo_asignado.Items)
+            {
+                if (item.Value == nombreGrupo)
+                {
+                    grupo_asignado.SelectedItem = item;
+                    return;
+                }
+            }
+        }
+
+        // Método de Eliminación (Lógica total de limpieza)
         private void EliminarMaestro(int id)
         {
-            if (MessageBox.Show($"¿Seguro que deseas eliminar este maestro?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            string advertencia = "¿Seguro que deseas eliminar este maestro? ATENCIÓN: Esta acción eliminará al maestro, el grupo al que está asignado y a TODOS LOS ALUMNOS Y REGISTROS asociados a ese grupo. Esta acción es irreversible.";
+
+            if (MessageBox.Show(advertencia, "Confirmar Eliminación Total", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                Conexion conexion = new Conexion();
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
-                    conn.Open();
-                    string query = "DELETE FROM maestro WHERE id_maestro=@id";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.ExecuteNonQuery();
-                }
+                    try
+                    {
+                        conn.Open();
 
-                MessageBox.Show("Maestro eliminado correctamente.", "Eliminado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MostrarMaestros();
+                        // 1. OBTENER el ID del GRUPO asignado al maestro (Si existe)
+                        string queryGetGrupo = "SELECT id_grupo FROM grupo WHERE id_maestro = @idMaestro";
+                        MySqlCommand cmdGetGrupo = new MySqlCommand(queryGetGrupo, conn);
+                        cmdGetGrupo.Parameters.AddWithValue("@idMaestro", id);
+                        object result = cmdGetGrupo.ExecuteScalar();
+
+                        int idGrupo = result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
+
+                        if (idGrupo > 0)
+                        {
+                            // 2. ELIMINAR LOS ALUMNOS (Tabla más dependiente)
+                            string queryDeleteAlumnos = "DELETE FROM alumnos WHERE id_grupo = @idGrupo";
+                            MySqlCommand cmdDeleteAlumnos = new MySqlCommand(queryDeleteAlumnos, conn);
+                            cmdDeleteAlumnos.Parameters.AddWithValue("@idGrupo", idGrupo);
+                            cmdDeleteAlumnos.ExecuteNonQuery();
+
+                            // 3. ELIMINAR EL GRUPO
+                            string queryDeleteGrupo = "DELETE FROM grupo WHERE id_grupo = @idGrupo";
+                            MySqlCommand cmdDeleteGrupo = new MySqlCommand(queryDeleteGrupo, conn);
+                            cmdDeleteGrupo.Parameters.AddWithValue("@idGrupo", idGrupo);
+                            cmdDeleteGrupo.ExecuteNonQuery();
+                        }
+
+                        // 4. ELIMINAR EL MAESTRO.
+                        string queryDeleteMaestro = "DELETE FROM maestro WHERE id_maestro=@idMaestro";
+                        MySqlCommand cmdDelete = new MySqlCommand(queryDeleteMaestro, conn);
+                        cmdDelete.Parameters.AddWithValue("@idMaestro", id);
+                        cmdDelete.ExecuteNonQuery();
+
+                        MessageBox.Show("Maestro, grupo y todos los alumnos asociados eliminados correctamente.", "Eliminación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MostrarMaestros();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error crítico al eliminar el registro: " + ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        // Método auxiliar para verificar si un grupo está ocupado
+        private int ObtenerIdMaestroAsignadoAGrupo(string nombreGrupo)
+        {
+            using (MySqlConnection conn = conexion.GetConnection())
+            {
+                conn.Open();
+                // Retorna id_maestro solo si NO es NULL
+                string query = "SELECT id_maestro FROM grupo WHERE nombre_grupo = @grupo AND id_maestro IS NOT NULL";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@grupo", nombreGrupo);
+                object result = cmd.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    return Convert.ToInt32(result);
+                }
+                return 0;
             }
         }
 
         private bool DatoExistenteNombreCompleto(string nombreCompleto)
         {
-            Conexion conexion = new Conexion();
             using (MySqlConnection conn = conexion.GetConnection())
             {
                 conn.Open();
@@ -257,7 +368,8 @@ namespace Proyecto_Boletas
         {
             int borderRadius = 25;
             System.Drawing.Drawing2D.GraphicsPath path = new System.Drawing.Drawing2D.GraphicsPath();
-            Rectangle rect = new Rectangle(0, 0, panel1.Width, panel1.Height);
+            // Usamos panel1.ClientRectangle para evitar problemas de coordenadas
+            Rectangle rect = panel1.ClientRectangle;
             int diameter = borderRadius * 2;
 
             path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
@@ -268,15 +380,15 @@ namespace Proyecto_Boletas
 
             panel1.Region = new Region(path);
         }
-
         private void btnAltaMaestros_Click_1(object sender, EventArgs e)
         {
+
+            // Validaciones iniciales (campos vacíos, formato)
             string nombre = txtnombremaestro.Text.Trim();
             string apellidoP = txtapmaestro.Text.Trim();
             string apellidoM = txtammaestro.Text.Trim();
             string correo = txtcorreomaestro.Text.Trim();
 
-            // Validaciones
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellidoP) ||
                 string.IsNullOrWhiteSpace(apellidoM) || string.IsNullOrWhiteSpace(correo))
             {
@@ -298,7 +410,6 @@ namespace Proyecto_Boletas
                 return;
             }
 
-            // Obtener grupo seleccionado de forma segura
             ComboboxItem grupoItem = grupo_asignado.SelectedItem as ComboboxItem;
             if (grupoItem == null)
             {
@@ -306,99 +417,101 @@ namespace Proyecto_Boletas
                 return;
             }
             string grupoSeleccionado = grupoItem.Value;
-
             string nombreCompleto = $"{nombre.ToLower()} {apellidoP.ToLower()} {apellidoM.ToLower()}";
 
+            // --- LÓGICA CENTRAL: ALTA vs EDICIÓN ---
             try
             {
-                Conexion conexion = new Conexion();
                 using (MySqlConnection conn = conexion.GetConnection())
                 {
                     conn.Open();
 
-                    // Validar duplicados por nombre completo
-                    MySqlCommand cmdNombre = new MySqlCommand(
-                        "SELECT COUNT(*) FROM maestro WHERE CONCAT(LOWER(NombreMaestro),' ',LOWER(ApellidoPMaestro),' ',LOWER(ApellidoMMaestro))=@nombre", conn);
+                    // 1. VALIDACIÓN DE DUPLICADOS (Nombre y Correo) - Aplica a ambos modos
+                    // Validamos que el nombre/correo no pertenezca a otro maestro (excluyendo el que se edita)
+
+                    // Nombre Completo
+                    string queryNombreDuplicado =
+                        "SELECT COUNT(*) FROM maestro WHERE CONCAT(LOWER(NombreMaestro),' ',LOWER(ApellidoPMaestro),' ',LOWER(ApellidoMMaestro))=@nombre AND id_maestro != @idActual";
+
+                    MySqlCommand cmdNombre = new MySqlCommand(queryNombreDuplicado, conn);
                     cmdNombre.Parameters.AddWithValue("@nombre", nombreCompleto);
+                    cmdNombre.Parameters.AddWithValue("@idActual", this.idMaestroEditando);
                     if (Convert.ToInt32(cmdNombre.ExecuteScalar()) > 0)
                     {
-                        MessageBox.Show("Ya existe un maestro con ese nombre completo.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Ya existe otro maestro con ese nombre completo.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    // Validar duplicado por correo
-                    MySqlCommand cmdCorreo = new MySqlCommand(
-                        "SELECT COUNT(*) FROM maestro WHERE LOWER(Correo_maestro)=@correo", conn);
+                    // Correo
+                    string queryCorreoDuplicado =
+                        "SELECT COUNT(*) FROM maestro WHERE LOWER(Correo_maestro)=@correo AND id_maestro != @idActual";
+
+                    MySqlCommand cmdCorreo = new MySqlCommand(queryCorreoDuplicado, conn);
                     cmdCorreo.Parameters.AddWithValue("@correo", correo.ToLower());
+                    cmdCorreo.Parameters.AddWithValue("@idActual", this.idMaestroEditando);
                     if (Convert.ToInt32(cmdCorreo.ExecuteScalar()) > 0)
                     {
-                        MessageBox.Show("Correo ya registrado.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Correo ya registrado por otro maestro.", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    // Límite de 9 maestros
-                    MySqlCommand cmdCount = new MySqlCommand("SELECT COUNT(*) FROM maestro", conn);
-                    int cantidadMaestros = Convert.ToInt32(cmdCount.ExecuteScalar());
-                    if (cantidadMaestros >= 9)
+                    // 2. Control de Flujo (ALTA vs. EDICIÓN)
+                    if (this.idMaestroEditando == 0)
                     {
-                        MessageBox.Show("Ya no puedes registrar más maestros. El límite es 9.", "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                        // *** MODO ALTA ***
 
-                    // Insertar maestro
-                    MySqlCommand cmdInsert = new MySqlCommand(
-                        "INSERT INTO maestro (NombreMaestro, ApellidoPMaestro, ApellidoMMaestro, Correo_maestro) " +
-                        "VALUES (@nombre, @apP, @apM, @correo); SELECT LAST_INSERT_ID();", conn);
-                    cmdInsert.Parameters.AddWithValue("@nombre", nombre);
-                    cmdInsert.Parameters.AddWithValue("@apP", apellidoP);
-                    cmdInsert.Parameters.AddWithValue("@apM", apellidoM);
-                    cmdInsert.Parameters.AddWithValue("@correo", correo);
-                    int idMaestro = Convert.ToInt32(cmdInsert.ExecuteScalar());
+                        // VALIDACIÓN LÍMITE TOTAL (6 maestros)
+                        MySqlCommand cmdCount = new MySqlCommand("SELECT COUNT(id_maestro) FROM maestro", conn);
+                        int cantidadMaestros = Convert.ToInt32(cmdCount.ExecuteScalar());
+                        if (cantidadMaestros >= LIMITE_TOTAL_MAESTROS)
+                        {
+                            MessageBox.Show($"Ya no puedes registrar más maestros. El límite es {LIMITE_TOTAL_MAESTROS}.", "Límite alcanzado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
 
-                    // Asignar grupo
-                    MySqlCommand cmdCheckGrupo = new MySqlCommand("SELECT id_grupo FROM grupo WHERE nombre_grupo=@grupo", conn);
-                    cmdCheckGrupo.Parameters.AddWithValue("@grupo", grupoSeleccionado);
-                    object result = cmdCheckGrupo.ExecuteScalar();
-                    int idGrupo;
+                        // VALIDACIÓN GRUPO OCUPADO
+                        int idMaestroExistente = ObtenerIdMaestroAsignadoAGrupo(grupoSeleccionado);
+                        if (idMaestroExistente > 0)
+                        {
+                            MySqlCommand cmdName = new MySqlCommand(
+                               "SELECT CONCAT(NombreMaestro, ' ', ApellidoPMaestro) FROM maestro WHERE id_maestro = @id", conn);
+                            cmdName.Parameters.AddWithValue("@id", idMaestroExistente);
+                            string nombreMaestroExistente = cmdName.ExecuteScalar()?.ToString() ?? "Maestro Desconocido";
 
-                    if (result == null)
-                    {
-                        // Crear grupo nuevo
-                        MySqlCommand cmdInsertGrupo = new MySqlCommand(
-                            "INSERT INTO grupo (nombre_grupo, id_maestro) VALUES (@grupo, @idMaestro); SELECT LAST_INSERT_ID();", conn);
-                        cmdInsertGrupo.Parameters.AddWithValue("@grupo", grupoSeleccionado);
-                        cmdInsertGrupo.Parameters.AddWithValue("@idMaestro", idMaestro);
-                        idGrupo = Convert.ToInt32(cmdInsertGrupo.ExecuteScalar());
+                            MessageBox.Show(
+                                $"El grupo '{grupoSeleccionado}' ya tiene un maestro asignado: {nombreMaestroExistente}.",
+                                "Límite de Grupo Alcanzado",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Ejecutar inserción
+                        InsertarNuevoMaestro(nombre, apellidoP, apellidoM, correo, grupoSeleccionado, conn);
                     }
                     else
                     {
-                        // Actualizar grupo existente
-                        idGrupo = Convert.ToInt32(result);
-                        MySqlCommand cmdUpdateGrupo = new MySqlCommand(
-                            "UPDATE grupo SET id_maestro=@idMaestro WHERE id_grupo=@idGrupo", conn);
-                        cmdUpdateGrupo.Parameters.AddWithValue("@idMaestro", idMaestro);
-                        cmdUpdateGrupo.Parameters.AddWithValue("@idGrupo", idGrupo);
-                        cmdUpdateGrupo.ExecuteNonQuery();
+                        // *** MODO EDICIÓN ***
+
+                        // VALIDACIÓN GRUPO OCUPADO (solo si el ocupante es diferente al maestro actual)
+                        int idMaestroOcupante = ObtenerIdMaestroAsignadoAGrupo(grupoSeleccionado);
+                        if (idMaestroOcupante > 0 && idMaestroOcupante != this.idMaestroEditando)
+                        {
+                            MessageBox.Show($"El grupo '{grupoSeleccionado}' ya está asignado a otro maestro. Debes reasignarlo primero.", "Grupo Ocupado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Ejecutar actualización
+                        ActualizarMaestro(nombre, apellidoP, apellidoM, correo, grupoSeleccionado, conn);
                     }
-
-                    MessageBox.Show($"Maestro registrado y asignado al grupo {grupoSeleccionado}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Limpiar campos
-                    txtnombremaestro.Clear();
-                    txtapmaestro.Clear();
-                    txtammaestro.Clear();
-                    txtcorreomaestro.Clear();
-                    grupo_asignado.SelectedIndex = 0;
-
-                    // Actualizar FlowLayoutPanel
-                    MostrarMaestros();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al registrar maestro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error en la validación o registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+ 
         private void txtnombremaestro_TextChanged(object sender, EventArgs e)
         {
 
@@ -413,7 +526,83 @@ namespace Proyecto_Boletas
         {
 
         }
+        // *******************************************************************
+        // LÓGICA DE INSERCIÓN (Ahora recibe la conexión abierta)
+        // *******************************************************************
+        private void InsertarNuevoMaestro(string nombre, string apellidoP, string apellidoM, string correo, string grupoSeleccionado, MySqlConnection conn)
+        {
+            // Nota: Las validaciones ya se hicieron en btnAltaMaestros_Click_1
 
+            // 1. Insertar maestro
+            MySqlCommand cmdInsert = new MySqlCommand(
+                "INSERT INTO maestro (NombreMaestro, ApellidoPMaestro, ApellidoMMaestro, Correo_maestro) " +
+                "VALUES (@nombre, @apP, @apM, @correo); SELECT LAST_INSERT_ID();", conn);
+            cmdInsert.Parameters.AddWithValue("@nombre", nombre);
+            cmdInsert.Parameters.AddWithValue("@apP", apellidoP);
+            cmdInsert.Parameters.AddWithValue("@apM", apellidoM);
+            cmdInsert.Parameters.AddWithValue("@correo", correo);
+            int idMaestro = Convert.ToInt32(cmdInsert.ExecuteScalar());
+
+            // 2. Asignar grupo
+            MySqlCommand cmdUpdateGrupo = new MySqlCommand(
+                "UPDATE grupo SET id_maestro=@idMaestro WHERE nombre_grupo=@grupo", conn);
+            cmdUpdateGrupo.Parameters.AddWithValue("@idMaestro", idMaestro);
+            cmdUpdateGrupo.Parameters.AddWithValue("@grupo", grupoSeleccionado);
+            cmdUpdateGrupo.ExecuteNonQuery();
+
+            MessageBox.Show($"Maestro registrado y asignado al grupo {grupoSeleccionado}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Limpiar campos y actualizar vista
+            LimpiarYRestablecerModo();
+        }
+
+        // *******************************************************************
+        // LÓGICA DE ACTUALIZACIÓN (Ahora recibe la conexión abierta)
+        // *******************************************************************
+        private void ActualizarMaestro(string nombre, string apellidoP, string apellidoM, string correo, string grupoSeleccionado, MySqlConnection conn)
+        {
+            // Nota: Las validaciones ya se hicieron en btnAltaMaestros_Click_1
+
+            // 1. Desasignar al maestro del grupo anterior (pone el id_maestro a NULL en el grupo anterior, liberándolo)
+            MySqlCommand cmdDesasignar = new MySqlCommand(
+                "UPDATE grupo SET id_maestro = NULL WHERE id_maestro = @idMaestroAntiguo", conn);
+            cmdDesasignar.Parameters.AddWithValue("@idMaestroAntiguo", this.idMaestroEditando);
+            cmdDesasignar.ExecuteNonQuery();
+
+            // 2. Actualizar los datos del maestro
+            MySqlCommand cmdUpdateMaestro = new MySqlCommand(
+                "UPDATE maestro SET NombreMaestro=@nombre, ApellidoPMaestro=@apP, ApellidoMMaestro=@apM, Correo_maestro=@correo " +
+                "WHERE id_maestro=@idMaestro", conn);
+            cmdUpdateMaestro.Parameters.AddWithValue("@nombre", nombre);
+            cmdUpdateMaestro.Parameters.AddWithValue("@apP", apellidoP);
+            cmdUpdateMaestro.Parameters.AddWithValue("@apM", apellidoM);
+            cmdUpdateMaestro.Parameters.AddWithValue("@correo", correo);
+            cmdUpdateMaestro.Parameters.AddWithValue("@idMaestro", this.idMaestroEditando);
+            cmdUpdateMaestro.ExecuteNonQuery();
+
+            // 3. Asignar el maestro al nuevo grupo
+            MySqlCommand cmdAsignar = new MySqlCommand(
+                "UPDATE grupo SET id_maestro = @idMaestro WHERE nombre_grupo = @grupo", conn);
+            cmdAsignar.Parameters.AddWithValue("@idMaestro", this.idMaestroEditando);
+            cmdAsignar.Parameters.AddWithValue("@grupo", grupoSeleccionado);
+            cmdAsignar.ExecuteNonQuery();
+
+            MessageBox.Show("Maestro actualizado y reasignado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Salir de modo edición
+            LimpiarYRestablecerModo();
+        }
+        private void LimpiarYRestablecerModo()
+        {
+            txtnombremaestro.Clear();
+            txtapmaestro.Clear();
+            txtammaestro.Clear();
+            txtcorreomaestro.Clear();
+            grupo_asignado.SelectedIndex = 0;
+            this.idMaestroEditando = 0; // Sale de modo edición
+
+            MostrarMaestros();
+        }
         private void adm_maestros_Load(object sender, EventArgs e)
         {
 

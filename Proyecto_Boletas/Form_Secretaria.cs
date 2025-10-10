@@ -23,5 +23,24 @@ namespace Proyecto_Boletas
             nuevoFormulario.Show();              // lo muestras
             this.Hide();
         }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+            Mod_inscripcion nuevoFormulario = new Mod_inscripcion("Secretaria"); // creas una instancia del otro form
+            nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void btnEnvioBoletas_Click(object sender, EventArgs e)
+        {
+            Datos_alumnado nuevoFormulario = new Datos_alumnado(); // creas una instancia del otro form
+            nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void btnDatosAlumnado_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

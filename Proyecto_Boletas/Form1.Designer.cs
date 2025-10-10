@@ -101,7 +101,7 @@
             groupBox1.Controls.Add(pictureBox2);
             groupBox1.Location = new Point(25, 32);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(868, 474);
+            groupBox1.Size = new Size(951, 479);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Inicio de Sesión";
@@ -219,7 +219,7 @@
             BackColor = Color.SlateGray;
             BackgroundImage = Properties.Resources._274259;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(932, 520);
+            ClientSize = new Size(988, 513);
             Controls.Add(groupBox1);
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");

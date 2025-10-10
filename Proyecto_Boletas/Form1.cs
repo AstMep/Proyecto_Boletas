@@ -16,10 +16,6 @@ namespace Proyecto_Boletas
 
         public void login()
         {
-
-
-
-
             Conexion conexion = new Conexion();
 
             using (MySqlConnection connection = conexion.GetConnection())
@@ -27,7 +23,8 @@ namespace Proyecto_Boletas
                 try
                 {
                     connection.Open();
-                    string query = "SELECT * FROM usuarios WHERE Nombre = @usuario AND Contrasena = @contrasena";
+                    // CAMBIO 1: Asegúrate de seleccionar el UsuarioID en la query
+                    string query = "SELECT UsuarioID, Nombre, Rol, Contrasena FROM usuarios WHERE Nombre = @usuario AND Contrasena = @contrasena";
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@usuario", txtbox_usuario.Text);
                     command.Parameters.AddWithValue("@contrasena", txtbox_contrasena.Text);
@@ -36,19 +33,27 @@ namespace Proyecto_Boletas
 
                     if (reader.HasRows)
                     {
-
                         string rolDisplay = "";
                         string nombreUsuario = "";
 
-
-                        while (reader.Read())
+                        // Necesitamos el ID para el registro. Usaremos un bucle para leerlo.
+                        if (reader.Read())
                         {
+                            // CAMBIO 2: Obtener el ID y guardarlo en BitacoraManager para la sesión
+                            int userID = reader.GetInt32("UsuarioID");
+                            BitacoraManager.UsuarioIDActual = userID;
 
                             rolDisplay = reader["Rol"].ToString();
                             nombreUsuario = reader["Nombre"].ToString();
+                            string rol = rolDisplay;
 
-                            string rol = reader["Rol"].ToString();
+                            // Cerrar el reader inmediatamente ya que terminamos de leer el registro
+                            reader.Close();
 
+                            // CAMBIO 3: Registrar la acción usando el gestor
+                            BitacoraManager.RegistrarAccion($"Inicio de sesión exitoso como {rol}.");
+
+                            // --- Lógica de Redirección ---
                             if (rol == "Secretaria")
                             {
                                 Form_Secretaria formSecretaria = new Form_Secretaria();
@@ -64,16 +69,17 @@ namespace Proyecto_Boletas
                             }
                             else
                             {
-
                                 MessageBox.Show("Rol no reconocido");
                             }
-                        }
 
+                        } // Fin del if (reader.Read())
 
+                        // Si la redirección (this.Hide()) ya ocurrió, el MessageBox no se ejecuta.
+                        // Si quisieras que el MessageBox se mostrara antes, debes ejecutarlo antes del this.Hide().
                         MessageBox.Show($"¡Bienvenido {nombreUsuario}!\nRol: {rolDisplay}",
-                                       "Inicio de sesión exitoso",
-                                       MessageBoxButtons.OK,
-                                       MessageBoxIcon.Information);
+                                        "Inicio de sesión exitoso",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information);
                     }
                     else
                     {

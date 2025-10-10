@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Datos_alumnado));
-            groupBox6 = new GroupBox();
             label12 = new Label();
             label13 = new Label();
             btnGenerarListas = new Button();
@@ -40,21 +39,10 @@
             panel1 = new Panel();
             btnVolver = new Button();
             label14 = new Label();
-            groupBox6.SuspendLayout();
+            groupBox6 = new GroupBox();
             panel1.SuspendLayout();
+            groupBox6.SuspendLayout();
             SuspendLayout();
-            // 
-            // groupBox6
-            // 
-            groupBox6.BackColor = Color.FromArgb(157, 101, 101);
-            groupBox6.Controls.Add(label12);
-            groupBox6.Controls.Add(label13);
-            groupBox6.Controls.Add(btnGenerarListas);
-            groupBox6.Location = new Point(55, 121);
-            groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(160, 199);
-            groupBox6.TabIndex = 14;
-            groupBox6.TabStop = false;
             // 
             // label12
             // 
@@ -85,7 +73,7 @@
             btnGenerarListas.FlatStyle = FlatStyle.Popup;
             btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
-            btnGenerarListas.Location = new Point(20, 8);
+            btnGenerarListas.Location = new Point(22, 16);
             btnGenerarListas.Name = "btnGenerarListas";
             btnGenerarListas.Size = new Size(121, 135);
             btnGenerarListas.TabIndex = 3;
@@ -99,6 +87,7 @@
             cmbGrupo.Name = "cmbGrupo";
             cmbGrupo.Size = new Size(133, 23);
             cmbGrupo.TabIndex = 15;
+            cmbGrupo.SelectedIndexChanged += cmbGrupo_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -169,6 +158,18 @@
             label14.TabIndex = 6;
             label14.Text = "Datos Alumnado";
             // 
+            // groupBox6
+            // 
+            groupBox6.BackColor = Color.FromArgb(157, 101, 101);
+            groupBox6.Controls.Add(label12);
+            groupBox6.Controls.Add(label13);
+            groupBox6.Controls.Add(btnGenerarListas);
+            groupBox6.Location = new Point(61, 74);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(160, 199);
+            groupBox6.TabIndex = 14;
+            groupBox6.TabStop = false;
+            // 
             // Datos_alumnado
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -184,17 +185,15 @@
             Name = "Datos_alumnado";
             Text = "Datos_alumnado";
             Load += Datos_alumnado_Load;
-            groupBox6.ResumeLayout(false);
-            groupBox6.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private GroupBox groupBox6;
         private Label label12;
         private Label label13;
         private Button btnGenerarListas;
@@ -205,5 +204,6 @@
         private Panel panel1;
         private Button btnVolver;
         private Label label14;
+        private GroupBox groupBox6;
     }
 }
