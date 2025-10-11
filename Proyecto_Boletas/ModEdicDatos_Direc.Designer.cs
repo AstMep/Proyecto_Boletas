@@ -29,150 +29,60 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModEdicDatos_Direc));
-            panel1 = new Panel();
-            btnVolver = new Button();
-            label14 = new Label();
+            panelApp = new Panelito();
+            groupBox1 = new GroupBox();
+            label5 = new Label();
+            label6 = new Label();
+            btnGenerarLisProf = new Button();
             label2 = new Label();
             cmbMes = new ComboBox();
-            label1 = new Label();
+            label3 = new Label();
             cmbGrupo = new ComboBox();
             groupBox6 = new GroupBox();
             label12 = new Label();
             label13 = new Label();
             btnGenerarListas = new Button();
-            groupBox1 = new GroupBox();
-            label5 = new Label();
-            label6 = new Label();
-            btnGenerarLisProf = new Button();
-            panel1.SuspendLayout();
-            groupBox6.SuspendLayout();
+            panel1 = new Panel();
+            label14 = new Label();
+            btn_ingresar = new Button();
+            panelMenu = new Panelito();
+            btn_admaestros = new Button();
+            label1 = new Label();
+            btnEnvioBoletas = new Button();
+            btnEdicionDatos = new Button();
+            btnBitacora = new Button();
+            btnAdmSecre = new Button();
+            btnEstadisticas = new Button();
+            btn_capturaCalif = new Button();
+            btn_inscripcion = new Button();
+            panelLogo = new Panelito();
+            label4 = new Label();
+            Logo = new PictureBox();
+            panelApp.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox6.SuspendLayout();
+            panel1.SuspendLayout();
+            panelMenu.SuspendLayout();
+            panelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             SuspendLayout();
             // 
-            // panel1
+            // panelApp
             // 
-            panel1.BackColor = Color.FromArgb(181, 131, 120);
-            panel1.Controls.Add(btnVolver);
-            panel1.Controls.Add(label14);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(800, 59);
-            panel1.TabIndex = 33;
-            // 
-            // btnVolver
-            // 
-            btnVolver.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnVolver.BackColor = Color.FromArgb(247, 189, 86);
-            btnVolver.BackgroundImage = (Image)resources.GetObject("btnVolver.BackgroundImage");
-            btnVolver.Cursor = Cursors.Hand;
-            btnVolver.FlatStyle = FlatStyle.Popup;
-            btnVolver.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.ForeColor = SystemColors.ActiveCaptionText;
-            btnVolver.Location = new Point(39, 10);
-            btnVolver.Name = "btnVolver";
-            btnVolver.RightToLeft = RightToLeft.Yes;
-            btnVolver.Size = new Size(48, 46);
-            btnVolver.TabIndex = 7;
-            btnVolver.UseVisualStyleBackColor = false;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlText;
-            label14.Location = new Point(256, 15);
-            label14.Name = "label14";
-            label14.Size = new Size(224, 32);
-            label14.TabIndex = 6;
-            label14.Text = "Creación de PDF";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(225, 161);
-            label2.Name = "label2";
-            label2.Size = new Size(128, 21);
-            label2.TabIndex = 32;
-            label2.Text = "Seleccione Mes:";
-            // 
-            // cmbMes
-            // 
-            cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
-            cmbMes.Location = new Point(374, 161);
-            cmbMes.Name = "cmbMes";
-            cmbMes.Size = new Size(133, 23);
-            cmbMes.TabIndex = 31;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(225, 106);
-            label1.Name = "label1";
-            label1.Size = new Size(143, 21);
-            label1.TabIndex = 30;
-            label1.Text = "Seleccione Grupo:";
-            // 
-            // cmbGrupo
-            // 
-            cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrupo.Location = new Point(374, 106);
-            cmbGrupo.Name = "cmbGrupo";
-            cmbGrupo.Size = new Size(133, 23);
-            cmbGrupo.TabIndex = 29;
-            // 
-            // groupBox6
-            // 
-            groupBox6.BackColor = Color.FromArgb(157, 101, 101);
-            groupBox6.Controls.Add(label12);
-            groupBox6.Controls.Add(label13);
-            groupBox6.Controls.Add(btnGenerarListas);
-            groupBox6.Location = new Point(50, 86);
-            groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(160, 199);
-            groupBox6.TabIndex = 28;
-            groupBox6.TabStop = false;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(11, 175);
-            label12.Name = "label12";
-            label12.Size = new Size(143, 21);
-            label12.TabIndex = 5;
-            label12.Text = "Lista de Asistencia";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = SystemColors.ControlLightLight;
-            label13.Location = new Point(45, 154);
-            label13.Name = "label13";
-            label13.Size = new Size(76, 21);
-            label13.TabIndex = 4;
-            label13.Text = "Generar  ";
-            // 
-            // btnGenerarListas
-            // 
-            btnGenerarListas.BackColor = Color.FromArgb(212, 168, 133);
-            btnGenerarListas.BackgroundImageLayout = ImageLayout.Center;
-            btnGenerarListas.FlatStyle = FlatStyle.Popup;
-            btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
-            btnGenerarListas.Location = new Point(21, 16);
-            btnGenerarListas.Name = "btnGenerarListas";
-            btnGenerarListas.Size = new Size(121, 135);
-            btnGenerarListas.TabIndex = 3;
-            btnGenerarListas.UseVisualStyleBackColor = false;
-            btnGenerarListas.Click += btnGenerarListas_Click;
+            panelApp.BackColor = Color.FromArgb(181, 131, 120);
+            panelApp.BorderRadius = 20;
+            panelApp.Controls.Add(groupBox1);
+            panelApp.Controls.Add(label2);
+            panelApp.Controls.Add(cmbMes);
+            panelApp.Controls.Add(label3);
+            panelApp.Controls.Add(cmbGrupo);
+            panelApp.Controls.Add(groupBox6);
+            panelApp.Controls.Add(panel1);
+            panelApp.Dock = DockStyle.Fill;
+            panelApp.Location = new Point(181, 0);
+            panelApp.Name = "panelApp";
+            panelApp.Size = new Size(795, 526);
+            panelApp.TabIndex = 3;
             // 
             // groupBox1
             // 
@@ -180,10 +90,10 @@
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(btnGenerarLisProf);
-            groupBox1.Location = new Point(587, 83);
+            groupBox1.Location = new Point(581, 91);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(160, 199);
-            groupBox1.TabIndex = 34;
+            groupBox1.TabIndex = 40;
             groupBox1.TabStop = false;
             // 
             // label5
@@ -220,7 +130,311 @@
             btnGenerarLisProf.Size = new Size(121, 135);
             btnGenerarLisProf.TabIndex = 3;
             btnGenerarLisProf.UseVisualStyleBackColor = false;
-            btnGenerarLisProf.Click += btnGenerarLisProf_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ControlLightLight;
+            label2.Location = new Point(219, 169);
+            label2.Name = "label2";
+            label2.Size = new Size(128, 21);
+            label2.TabIndex = 39;
+            label2.Text = "Seleccione Mes:";
+            // 
+            // cmbMes
+            // 
+            cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
+            cmbMes.Location = new Point(368, 169);
+            cmbMes.Name = "cmbMes";
+            cmbMes.Size = new Size(133, 23);
+            cmbMes.TabIndex = 38;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(219, 114);
+            label3.Name = "label3";
+            label3.Size = new Size(143, 21);
+            label3.TabIndex = 37;
+            label3.Text = "Seleccione Grupo:";
+            // 
+            // cmbGrupo
+            // 
+            cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGrupo.Location = new Point(368, 114);
+            cmbGrupo.Name = "cmbGrupo";
+            cmbGrupo.Size = new Size(133, 23);
+            cmbGrupo.TabIndex = 36;
+            // 
+            // groupBox6
+            // 
+            groupBox6.BackColor = Color.FromArgb(157, 101, 101);
+            groupBox6.Controls.Add(label12);
+            groupBox6.Controls.Add(label13);
+            groupBox6.Controls.Add(btnGenerarListas);
+            groupBox6.Location = new Point(44, 94);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(160, 199);
+            groupBox6.TabIndex = 35;
+            groupBox6.TabStop = false;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = SystemColors.ControlLightLight;
+            label12.Location = new Point(11, 175);
+            label12.Name = "label12";
+            label12.Size = new Size(143, 21);
+            label12.TabIndex = 5;
+            label12.Text = "Lista de Asistencia";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.ForeColor = SystemColors.ControlLightLight;
+            label13.Location = new Point(45, 154);
+            label13.Name = "label13";
+            label13.Size = new Size(76, 21);
+            label13.TabIndex = 4;
+            label13.Text = "Generar  ";
+            // 
+            // btnGenerarListas
+            // 
+            btnGenerarListas.BackColor = Color.FromArgb(212, 168, 133);
+            btnGenerarListas.BackgroundImageLayout = ImageLayout.Center;
+            btnGenerarListas.FlatStyle = FlatStyle.Popup;
+            btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
+            btnGenerarListas.Location = new Point(21, 16);
+            btnGenerarListas.Name = "btnGenerarListas";
+            btnGenerarListas.Size = new Size(121, 135);
+            btnGenerarListas.TabIndex = 3;
+            btnGenerarListas.UseVisualStyleBackColor = false;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(label14);
+            panel1.Controls.Add(btn_ingresar);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(795, 59);
+            panel1.TabIndex = 21;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlText;
+            label14.Location = new Point(279, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(224, 32);
+            label14.TabIndex = 10;
+            label14.Text = "Creación de PDF";
+            // 
+            // btn_ingresar
+            // 
+            btn_ingresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_ingresar.BackColor = Color.FromArgb(247, 189, 86);
+            btn_ingresar.Cursor = Cursors.Hand;
+            btn_ingresar.FlatStyle = FlatStyle.Popup;
+            btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
+            btn_ingresar.Location = new Point(17, 16);
+            btn_ingresar.Name = "btn_ingresar";
+            btn_ingresar.RightToLeft = RightToLeft.Yes;
+            btn_ingresar.Size = new Size(155, 29);
+            btn_ingresar.TabIndex = 9;
+            btn_ingresar.Text = "Cerrar Sesión ";
+            btn_ingresar.UseVisualStyleBackColor = false;
+            // 
+            // panelMenu
+            // 
+            panelMenu.BackColor = Color.FromArgb(39, 66, 89);
+            panelMenu.BorderRadius = 20;
+            panelMenu.Controls.Add(btn_admaestros);
+            panelMenu.Controls.Add(label1);
+            panelMenu.Controls.Add(btnEnvioBoletas);
+            panelMenu.Controls.Add(btnEdicionDatos);
+            panelMenu.Controls.Add(btnBitacora);
+            panelMenu.Controls.Add(btnAdmSecre);
+            panelMenu.Controls.Add(btnEstadisticas);
+            panelMenu.Controls.Add(btn_capturaCalif);
+            panelMenu.Controls.Add(btn_inscripcion);
+            panelMenu.Controls.Add(panelLogo);
+            panelMenu.Dock = DockStyle.Left;
+            panelMenu.Location = new Point(0, 0);
+            panelMenu.Name = "panelMenu";
+            panelMenu.Size = new Size(181, 526);
+            panelMenu.TabIndex = 2;
+            // 
+            // btn_admaestros
+            // 
+            btn_admaestros.BackgroundImageLayout = ImageLayout.None;
+            btn_admaestros.Dock = DockStyle.Top;
+            btn_admaestros.FlatAppearance.BorderSize = 0;
+            btn_admaestros.FlatStyle = FlatStyle.Flat;
+            btn_admaestros.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_admaestros.Location = new Point(0, 432);
+            btn_admaestros.Name = "btn_admaestros";
+            btn_admaestros.Size = new Size(181, 51);
+            btn_admaestros.TabIndex = 7;
+            btn_admaestros.Text = "Adm. Maestros";
+            btn_admaestros.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(-40, 65);
+            label1.Name = "label1";
+            label1.Size = new Size(262, 15);
+            label1.TabIndex = 1;
+            label1.Text = "___________________________________________________";
+            // 
+            // btnEnvioBoletas
+            // 
+            btnEnvioBoletas.BackgroundImageLayout = ImageLayout.None;
+            btnEnvioBoletas.Dock = DockStyle.Top;
+            btnEnvioBoletas.FlatAppearance.BorderSize = 0;
+            btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
+            btnEnvioBoletas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEnvioBoletas.Location = new Point(0, 381);
+            btnEnvioBoletas.Name = "btnEnvioBoletas";
+            btnEnvioBoletas.Size = new Size(181, 51);
+            btnEnvioBoletas.TabIndex = 6;
+            btnEnvioBoletas.Text = "Creación de PDFS";
+            btnEnvioBoletas.UseVisualStyleBackColor = true;
+            // 
+            // btnEdicionDatos
+            // 
+            btnEdicionDatos.BackgroundImageLayout = ImageLayout.None;
+            btnEdicionDatos.Dock = DockStyle.Top;
+            btnEdicionDatos.FlatAppearance.BorderSize = 0;
+            btnEdicionDatos.FlatStyle = FlatStyle.Flat;
+            btnEdicionDatos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEdicionDatos.Location = new Point(0, 330);
+            btnEdicionDatos.Name = "btnEdicionDatos";
+            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.TabIndex = 5;
+            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.UseVisualStyleBackColor = true;
+            // 
+            // btnBitacora
+            // 
+            btnBitacora.BackgroundImageLayout = ImageLayout.None;
+            btnBitacora.Dock = DockStyle.Top;
+            btnBitacora.FlatAppearance.BorderSize = 0;
+            btnBitacora.FlatStyle = FlatStyle.Flat;
+            btnBitacora.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBitacora.Location = new Point(0, 279);
+            btnBitacora.Name = "btnBitacora";
+            btnBitacora.Size = new Size(181, 51);
+            btnBitacora.TabIndex = 4;
+            btnBitacora.Text = "Bitacora";
+            btnBitacora.UseVisualStyleBackColor = true;
+            // 
+            // btnAdmSecre
+            // 
+            btnAdmSecre.BackgroundImageLayout = ImageLayout.None;
+            btnAdmSecre.Dock = DockStyle.Top;
+            btnAdmSecre.FlatAppearance.BorderSize = 0;
+            btnAdmSecre.FlatStyle = FlatStyle.Flat;
+            btnAdmSecre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAdmSecre.Location = new Point(0, 228);
+            btnAdmSecre.Name = "btnAdmSecre";
+            btnAdmSecre.Size = new Size(181, 51);
+            btnAdmSecre.TabIndex = 3;
+            btnAdmSecre.Text = "Adm. Secretarias";
+            btnAdmSecre.UseVisualStyleBackColor = true;
+            // 
+            // btnEstadisticas
+            // 
+            btnEstadisticas.BackgroundImageLayout = ImageLayout.None;
+            btnEstadisticas.Dock = DockStyle.Top;
+            btnEstadisticas.FlatAppearance.BorderSize = 0;
+            btnEstadisticas.FlatStyle = FlatStyle.Flat;
+            btnEstadisticas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEstadisticas.Location = new Point(0, 177);
+            btnEstadisticas.Name = "btnEstadisticas";
+            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.TabIndex = 2;
+            btnEstadisticas.Text = "Estadisticas";
+            btnEstadisticas.UseVisualStyleBackColor = true;
+            // 
+            // btn_capturaCalif
+            // 
+            btn_capturaCalif.BackgroundImageLayout = ImageLayout.None;
+            btn_capturaCalif.Dock = DockStyle.Top;
+            btn_capturaCalif.FlatAppearance.BorderSize = 0;
+            btn_capturaCalif.FlatStyle = FlatStyle.Flat;
+            btn_capturaCalif.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_capturaCalif.Location = new Point(0, 129);
+            btn_capturaCalif.Name = "btn_capturaCalif";
+            btn_capturaCalif.Size = new Size(181, 48);
+            btn_capturaCalif.TabIndex = 1;
+            btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
+            btn_capturaCalif.UseVisualStyleBackColor = true;
+            // 
+            // btn_inscripcion
+            // 
+            btn_inscripcion.BackgroundImageLayout = ImageLayout.None;
+            btn_inscripcion.Dock = DockStyle.Top;
+            btn_inscripcion.FlatAppearance.BorderSize = 0;
+            btn_inscripcion.FlatStyle = FlatStyle.Flat;
+            btn_inscripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_inscripcion.Location = new Point(0, 80);
+            btn_inscripcion.Name = "btn_inscripcion";
+            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.TabIndex = 0;
+            btn_inscripcion.Text = "Inscripción";
+            btn_inscripcion.UseVisualStyleBackColor = true;
+            // 
+            // panelLogo
+            // 
+            panelLogo.BackColor = Color.FromArgb(39, 66, 89);
+            panelLogo.BorderRadius = 20;
+            panelLogo.Controls.Add(label4);
+            panelLogo.Controls.Add(Logo);
+            panelLogo.Dock = DockStyle.Top;
+            panelLogo.Location = new Point(0, 0);
+            panelLogo.Name = "panelLogo";
+            panelLogo.Size = new Size(181, 80);
+            panelLogo.TabIndex = 0;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(12, 48);
+            label4.Name = "label4";
+            label4.Size = new Size(163, 26);
+            label4.TabIndex = 38;
+            label4.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
+            // 
+            // Logo
+            // 
+            Logo.Image = Properties.Resources.logo_escuela1;
+            Logo.Location = new Point(61, 3);
+            Logo.Name = "Logo";
+            Logo.Size = new Size(57, 47);
+            Logo.SizeMode = PictureBoxSizeMode.Zoom;
+            Logo.TabIndex = 2;
+            Logo.TabStop = false;
             // 
             // ModEdicDatos_Direc
             // 
@@ -228,45 +442,58 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(800, 450);
-            Controls.Add(groupBox1);
-            Controls.Add(panel1);
-            Controls.Add(label2);
-            Controls.Add(cmbMes);
-            Controls.Add(label1);
-            Controls.Add(cmbGrupo);
-            Controls.Add(groupBox6);
+            ClientSize = new Size(976, 526);
+            Controls.Add(panelApp);
+            Controls.Add(panelMenu);
             Name = "ModEdicDatos_Direc";
             Text = "ModEdicDatos_Direc";
             Load += ModEdicDatos_Direc_Load;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            groupBox6.ResumeLayout(false);
-            groupBox6.PerformLayout();
+            panelApp.ResumeLayout(false);
+            panelApp.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panelMenu.ResumeLayout(false);
+            panelMenu.PerformLayout();
+            panelLogo.ResumeLayout(false);
+            panelLogo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Panel panel1;
-        private Button btnVolver;
-        private Label label14;
+        private Label label3;
+        private ComboBox comboBox1;
+        private Panelito panelApp;
+        private GroupBox groupBox1;
+        private Label label5;
+        private Label label6;
+        private Button btnGenerarLisProf;
         private Label label2;
         private ComboBox cmbMes;
-        private Label label1;
         private ComboBox cmbGrupo;
         private GroupBox groupBox6;
         private Label label12;
         private Label label13;
         private Button btnGenerarListas;
-        private Label label3;
-        private ComboBox comboBox1;
-        private GroupBox groupBox1;
-        private Label label5;
-        private Label label6;
-        private Button btnGenerarLisProf;
+        private Panel panel1;
+        private Label label14;
+        private Button btn_ingresar;
+        private Panelito panelMenu;
+        private Button btn_admaestros;
+        private Label label1;
+        private Button btnEnvioBoletas;
+        private Button btnEdicionDatos;
+        private Button btnBitacora;
+        private Button btnAdmSecre;
+        private Button btnEstadisticas;
+        private Button btn_capturaCalif;
+        private Button btn_inscripcion;
+        private Panelito panelLogo;
+        private Label label4;
+        private PictureBox Logo;
     }
 }

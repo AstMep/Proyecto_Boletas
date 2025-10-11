@@ -29,58 +29,155 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mod_inscripcion));
+            btnalta_inscripcion = new Button();
+            label18 = new Label();
+            panelApp = new Panelito();
+            label1 = new Label();
+            button1 = new Button();
+            dgvMateriasAlumno = new DataGridView();
             groupBox2 = new GroupBox();
             pictureBox1 = new PictureBox();
             correo_tutor = new TextBox();
-            label4 = new Label();
+            label8 = new Label();
             telefono_tutor = new TextBox();
-            label5 = new Label();
+            label9 = new Label();
             apellidoM_tutor = new TextBox();
             apellidoP_tutor = new TextBox();
             nombre_tutor = new TextBox();
             label13 = new Label();
             label19 = new Label();
             label20 = new Label();
-            panel1 = new Panel();
-            btnVolver = new Button();
-            label14 = new Label();
-            label18 = new Label();
-            btnalta_inscripcion = new Button();
-            label1 = new Label();
-            Usuario = new Label();
-            label2 = new Label();
-            nombre_alumno = new TextBox();
-            apellidoP_alumno = new TextBox();
-            apellidoM_alumno = new TextBox();
-            label6 = new Label();
-            txtCurp = new TextBox();
-            label10 = new Label();
-            label11 = new Label();
-            nacimiento_alumno = new DateTimePicker();
-            edad_alumno = new ComboBox();
-            label3 = new Label();
-            grupo_alumno = new ComboBox();
             groupBox1 = new GroupBox();
             pictureBox2 = new PictureBox();
             combosgenero = new ComboBox();
             label7 = new Label();
-            dgvMateriasAlumno = new DataGridView();
+            grupo_alumno = new ComboBox();
+            label3 = new Label();
+            edad_alumno = new ComboBox();
+            nacimiento_alumno = new DateTimePicker();
+            label11 = new Label();
+            label10 = new Label();
+            txtCurp = new TextBox();
+            label6 = new Label();
+            apellidoM_alumno = new TextBox();
+            apellidoP_alumno = new TextBox();
+            nombre_alumno = new TextBox();
+            label2 = new Label();
+            Usuario = new Label();
+            label5 = new Label();
+            panel1 = new Panel();
+            label14 = new Label();
+            btn_ingresar = new Button();
+            panelMenu = new Panelito();
+            btn_admaestros = new Button();
+            label4 = new Label();
+            btnCreacionBoletas = new Button();
+            btnEdicionDatos = new Button();
+            btnBitacora = new Button();
+            btnAdmSecre = new Button();
+            btnEstadisticas = new Button();
+            btn_capturaCalif = new Button();
+            btn_inscripcion = new Button();
+            panelLogo = new Panelito();
+            label12 = new Label();
+            Logo = new PictureBox();
+            panelApp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMateriasAlumno).BeginInit();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel1.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvMateriasAlumno).BeginInit();
+            panel1.SuspendLayout();
+            panelMenu.SuspendLayout();
+            panelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             SuspendLayout();
+            // 
+            // btnalta_inscripcion
+            // 
+            btnalta_inscripcion.BackColor = Color.Transparent;
+            btnalta_inscripcion.BackgroundImageLayout = ImageLayout.Center;
+            btnalta_inscripcion.FlatStyle = FlatStyle.Popup;
+            btnalta_inscripcion.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnalta_inscripcion.Image = (Image)resources.GetObject("btnalta_inscripcion.Image");
+            btnalta_inscripcion.Location = new Point(382, 858);
+            btnalta_inscripcion.Name = "btnalta_inscripcion";
+            btnalta_inscripcion.Size = new Size(113, 73);
+            btnalta_inscripcion.TabIndex = 3;
+            btnalta_inscripcion.UseVisualStyleBackColor = false;
+            btnalta_inscripcion.Click += btnalta_inscripcion_Click;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.BackColor = Color.Transparent;
+            label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.ForeColor = SystemColors.ControlLightLight;
+            label18.Location = new Point(381, 932);
+            label18.Name = "label18";
+            label18.Size = new Size(114, 21);
+            label18.TabIndex = 5;
+            label18.Text = "Guardar Datos";
+            // 
+            // panelApp
+            // 
+            panelApp.AutoScroll = true;
+            panelApp.BackColor = Color.FromArgb(181, 131, 120);
+            panelApp.BorderRadius = 20;
+            panelApp.Controls.Add(label1);
+            panelApp.Controls.Add(button1);
+            panelApp.Controls.Add(dgvMateriasAlumno);
+            panelApp.Controls.Add(groupBox2);
+            panelApp.Controls.Add(groupBox1);
+            panelApp.Controls.Add(panel1);
+            panelApp.Dock = DockStyle.Fill;
+            panelApp.Location = new Point(181, 0);
+            panelApp.Name = "panelApp";
+            panelApp.Size = new Size(805, 492);
+            panelApp.TabIndex = 7;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ControlLightLight;
+            label1.Location = new Point(342, 930);
+            label1.Name = "label1";
+            label1.Size = new Size(114, 21);
+            label1.TabIndex = 26;
+            label1.Text = "Guardar Datos";
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.BackgroundImageLayout = ImageLayout.Center;
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.Location = new Point(343, 856);
+            button1.Name = "button1";
+            button1.Size = new Size(113, 73);
+            button1.TabIndex = 25;
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // dgvMateriasAlumno
+            // 
+            dgvMateriasAlumno.BackgroundColor = Color.FromArgb(212, 168, 133);
+            dgvMateriasAlumno.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMateriasAlumno.Location = new Point(68, 665);
+            dgvMateriasAlumno.Name = "dgvMateriasAlumno";
+            dgvMateriasAlumno.Size = new Size(647, 185);
+            dgvMateriasAlumno.TabIndex = 24;
             // 
             // groupBox2
             // 
             groupBox2.BackColor = Color.FromArgb(212, 168, 133);
             groupBox2.Controls.Add(pictureBox1);
             groupBox2.Controls.Add(correo_tutor);
-            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(telefono_tutor);
-            groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(apellidoM_tutor);
             groupBox2.Controls.Add(apellidoP_tutor);
             groupBox2.Controls.Add(nombre_tutor);
@@ -88,13 +185,12 @@
             groupBox2.Controls.Add(label19);
             groupBox2.Controls.Add(label20);
             groupBox2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            groupBox2.Location = new Point(72, 423);
+            groupBox2.Location = new Point(68, 423);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(647, 215);
-            groupBox2.TabIndex = 22;
+            groupBox2.TabIndex = 23;
             groupBox2.TabStop = false;
             groupBox2.Text = "Alta de Tutor";
-            groupBox2.Enter += groupBox2_Enter;
             // 
             // pictureBox1
             // 
@@ -111,17 +207,16 @@
             correo_tutor.Name = "correo_tutor";
             correo_tutor.Size = new Size(349, 26);
             correo_tutor.TabIndex = 33;
-            correo_tutor.TextChanged += correo_tutor_TextChanged;
             // 
-            // label4
+            // label8
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(39, 179);
-            label4.Name = "label4";
-            label4.Size = new Size(64, 18);
-            label4.TabIndex = 32;
-            label4.Text = "Correo:";
+            label8.AutoSize = true;
+            label8.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(39, 179);
+            label8.Name = "label8";
+            label8.Size = new Size(64, 18);
+            label8.TabIndex = 32;
+            label8.Text = "Correo:";
             // 
             // telefono_tutor
             // 
@@ -129,17 +224,16 @@
             telefono_tutor.Name = "telefono_tutor";
             telefono_tutor.Size = new Size(349, 26);
             telefono_tutor.TabIndex = 31;
-            telefono_tutor.TextChanged += telefono_tutor_TextChanged;
             // 
-            // label5
+            // label9
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(38, 147);
-            label5.Name = "label5";
-            label5.Size = new Size(75, 18);
-            label5.TabIndex = 30;
-            label5.Text = "Teléfono:";
+            label9.AutoSize = true;
+            label9.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.Location = new Point(38, 147);
+            label9.Name = "label9";
+            label9.Size = new Size(75, 18);
+            label9.TabIndex = 30;
+            label9.Text = "Teléfono:";
             // 
             // apellidoM_tutor
             // 
@@ -147,7 +241,6 @@
             apellidoM_tutor.Name = "apellidoM_tutor";
             apellidoM_tutor.Size = new Size(349, 26);
             apellidoM_tutor.TabIndex = 28;
-            apellidoM_tutor.TextChanged += apellidoM_tutor_TextChanged;
             // 
             // apellidoP_tutor
             // 
@@ -155,7 +248,6 @@
             apellidoP_tutor.Name = "apellidoP_tutor";
             apellidoP_tutor.Size = new Size(349, 26);
             apellidoP_tutor.TabIndex = 27;
-            apellidoP_tutor.TextChanged += apellidoP_tutor_TextChanged;
             // 
             // nombre_tutor
             // 
@@ -163,7 +255,6 @@
             nombre_tutor.Name = "nombre_tutor";
             nombre_tutor.Size = new Size(348, 26);
             nombre_tutor.TabIndex = 26;
-            nombre_tutor.TextChanged += nombre_tutor_TextChanged;
             // 
             // label13
             // 
@@ -195,199 +286,6 @@
             label20.TabIndex = 23;
             label20.Text = "Apellido Paterno:";
             // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(181, 131, 120);
-            panel1.Controls.Add(btnVolver);
-            panel1.Controls.Add(label14);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(782, 59);
-            panel1.TabIndex = 20;
-            // 
-            // btnVolver
-            // 
-            btnVolver.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnVolver.BackColor = Color.FromArgb(247, 189, 86);
-            btnVolver.BackgroundImage = (Image)resources.GetObject("btnVolver.BackgroundImage");
-            btnVolver.Cursor = Cursors.Hand;
-            btnVolver.FlatStyle = FlatStyle.Popup;
-            btnVolver.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.ForeColor = SystemColors.ActiveCaptionText;
-            btnVolver.Location = new Point(12, 6);
-            btnVolver.Name = "btnVolver";
-            btnVolver.RightToLeft = RightToLeft.Yes;
-            btnVolver.Size = new Size(50, 50);
-            btnVolver.TabIndex = 7;
-            btnVolver.UseVisualStyleBackColor = false;
-            btnVolver.Click += btnVolver_Click;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlLightLight;
-            label14.Location = new Point(234, 13);
-            label14.Name = "label14";
-            label14.Size = new Size(322, 32);
-            label14.TabIndex = 6;
-            label14.Text = "Inscripción de Alumnos";
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.BackColor = Color.Transparent;
-            label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.ForeColor = SystemColors.ControlLightLight;
-            label18.Location = new Point(381, 932);
-            label18.Name = "label18";
-            label18.Size = new Size(114, 21);
-            label18.TabIndex = 5;
-            label18.Text = "Guardar Datos";
-            // 
-            // btnalta_inscripcion
-            // 
-            btnalta_inscripcion.BackColor = Color.Transparent;
-            btnalta_inscripcion.BackgroundImageLayout = ImageLayout.Center;
-            btnalta_inscripcion.FlatStyle = FlatStyle.Popup;
-            btnalta_inscripcion.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnalta_inscripcion.Image = (Image)resources.GetObject("btnalta_inscripcion.Image");
-            btnalta_inscripcion.Location = new Point(382, 858);
-            btnalta_inscripcion.Name = "btnalta_inscripcion";
-            btnalta_inscripcion.Size = new Size(113, 73);
-            btnalta_inscripcion.TabIndex = 3;
-            btnalta_inscripcion.UseVisualStyleBackColor = false;
-            btnalta_inscripcion.Click += btnalta_inscripcion_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(51, 76);
-            label1.Name = "label1";
-            label1.Size = new Size(135, 18);
-            label1.TabIndex = 1;
-            label1.Text = "Apellido Paterno:";
-            // 
-            // Usuario
-            // 
-            Usuario.AutoSize = true;
-            Usuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Usuario.Location = new Point(51, 48);
-            Usuario.Name = "Usuario";
-            Usuario.Size = new Size(90, 18);
-            Usuario.TabIndex = 3;
-            Usuario.Text = "Nombre(s):";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(51, 112);
-            label2.Name = "label2";
-            label2.Size = new Size(141, 18);
-            label2.TabIndex = 2;
-            label2.Text = "Apellido Materno:";
-            // 
-            // nombre_alumno
-            // 
-            nombre_alumno.Location = new Point(227, 41);
-            nombre_alumno.Name = "nombre_alumno";
-            nombre_alumno.Size = new Size(348, 26);
-            nombre_alumno.TabIndex = 4;
-            nombre_alumno.TextChanged += nombre_alumno_TextChanged;
-            // 
-            // apellidoP_alumno
-            // 
-            apellidoP_alumno.Location = new Point(227, 72);
-            apellidoP_alumno.Name = "apellidoP_alumno";
-            apellidoP_alumno.Size = new Size(348, 26);
-            apellidoP_alumno.TabIndex = 5;
-            apellidoP_alumno.TextChanged += apellidoP_alumno_TextChanged;
-            // 
-            // apellidoM_alumno
-            // 
-            apellidoM_alumno.Location = new Point(227, 104);
-            apellidoM_alumno.Name = "apellidoM_alumno";
-            apellidoM_alumno.Size = new Size(348, 26);
-            apellidoM_alumno.TabIndex = 6;
-            apellidoM_alumno.TextChanged += apellidoM_alumno_TextChanged;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(50, 149);
-            label6.Name = "label6";
-            label6.Size = new Size(51, 18);
-            label6.TabIndex = 17;
-            label6.Text = "CURP:";
-            // 
-            // txtCurp
-            // 
-            txtCurp.Location = new Point(227, 136);
-            txtCurp.Name = "txtCurp";
-            txtCurp.Size = new Size(348, 26);
-            txtCurp.TabIndex = 18;
-            txtCurp.TextChanged += txtCurp_TextChanged;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(382, 229);
-            label10.Name = "label10";
-            label10.Size = new Size(59, 18);
-            label10.TabIndex = 19;
-            label10.Text = "Grupo:";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(51, 176);
-            label11.Name = "label11";
-            label11.Size = new Size(98, 36);
-            label11.TabIndex = 21;
-            label11.Text = "Fecha de\r\nNacimiento:";
-            // 
-            // nacimiento_alumno
-            // 
-            nacimiento_alumno.Location = new Point(227, 182);
-            nacimiento_alumno.Name = "nacimiento_alumno";
-            nacimiento_alumno.Size = new Size(348, 26);
-            nacimiento_alumno.TabIndex = 23;
-            nacimiento_alumno.ValueChanged += nacimiento_alumno_ValueChanged;
-            // 
-            // edad_alumno
-            // 
-            edad_alumno.FormattingEnabled = true;
-            edad_alumno.Location = new Point(227, 231);
-            edad_alumno.Name = "edad_alumno";
-            edad_alumno.Size = new Size(123, 26);
-            edad_alumno.TabIndex = 24;
-            edad_alumno.SelectedIndexChanged += edad_alumno_SelectedIndexChanged;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(51, 238);
-            label3.Name = "label3";
-            label3.Size = new Size(50, 18);
-            label3.TabIndex = 25;
-            label3.Text = "Edad:";
-            // 
-            // grupo_alumno
-            // 
-            grupo_alumno.FormattingEnabled = true;
-            grupo_alumno.Location = new Point(457, 226);
-            grupo_alumno.Name = "grupo_alumno";
-            grupo_alumno.Size = new Size(118, 26);
-            grupo_alumno.TabIndex = 26;
-            grupo_alumno.SelectedIndexChanged += grupo_alumno_SelectedIndexChanged;
-            // 
             // groupBox1
             // 
             groupBox1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -409,15 +307,14 @@
             groupBox1.Controls.Add(nombre_alumno);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(Usuario);
-            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(label5);
             groupBox1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            groupBox1.Location = new Point(72, 81);
+            groupBox1.Location = new Point(68, 91);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(647, 313);
-            groupBox1.TabIndex = 21;
+            groupBox1.TabIndex = 22;
             groupBox1.TabStop = false;
             groupBox1.Text = "Alta de Alumnos";
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // pictureBox2
             // 
@@ -435,7 +332,6 @@
             combosgenero.Name = "combosgenero";
             combosgenero.Size = new Size(118, 26);
             combosgenero.TabIndex = 28;
-            combosgenero.SelectedIndexChanged += combosgenero_SelectedIndexChanged;
             // 
             // label7
             // 
@@ -447,82 +343,439 @@
             label7.TabIndex = 27;
             label7.Text = "Género:";
             // 
-            // dgvMateriasAlumno
+            // grupo_alumno
             // 
-            dgvMateriasAlumno.BackgroundColor = Color.FromArgb(212, 168, 133);
-            dgvMateriasAlumno.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvMateriasAlumno.Location = new Point(72, 667);
-            dgvMateriasAlumno.Name = "dgvMateriasAlumno";
-            dgvMateriasAlumno.Size = new Size(647, 185);
-            dgvMateriasAlumno.TabIndex = 23;
-            dgvMateriasAlumno.CellContentClick += dgvMateriasAlumno_CellContentClick;
+            grupo_alumno.FormattingEnabled = true;
+            grupo_alumno.Location = new Point(457, 226);
+            grupo_alumno.Name = "grupo_alumno";
+            grupo_alumno.Size = new Size(118, 26);
+            grupo_alumno.TabIndex = 26;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(51, 238);
+            label3.Name = "label3";
+            label3.Size = new Size(50, 18);
+            label3.TabIndex = 25;
+            label3.Text = "Edad:";
+            // 
+            // edad_alumno
+            // 
+            edad_alumno.FormattingEnabled = true;
+            edad_alumno.Location = new Point(227, 231);
+            edad_alumno.Name = "edad_alumno";
+            edad_alumno.Size = new Size(123, 26);
+            edad_alumno.TabIndex = 24;
+            // 
+            // nacimiento_alumno
+            // 
+            nacimiento_alumno.Location = new Point(227, 182);
+            nacimiento_alumno.Name = "nacimiento_alumno";
+            nacimiento_alumno.Size = new Size(348, 26);
+            nacimiento_alumno.TabIndex = 23;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(51, 176);
+            label11.Name = "label11";
+            label11.Size = new Size(98, 36);
+            label11.TabIndex = 21;
+            label11.Text = "Fecha de\r\nNacimiento:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Location = new Point(382, 229);
+            label10.Name = "label10";
+            label10.Size = new Size(59, 18);
+            label10.TabIndex = 19;
+            label10.Text = "Grupo:";
+            // 
+            // txtCurp
+            // 
+            txtCurp.Location = new Point(227, 136);
+            txtCurp.Name = "txtCurp";
+            txtCurp.Size = new Size(348, 26);
+            txtCurp.TabIndex = 18;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(50, 149);
+            label6.Name = "label6";
+            label6.Size = new Size(51, 18);
+            label6.TabIndex = 17;
+            label6.Text = "CURP:";
+            // 
+            // apellidoM_alumno
+            // 
+            apellidoM_alumno.Location = new Point(227, 104);
+            apellidoM_alumno.Name = "apellidoM_alumno";
+            apellidoM_alumno.Size = new Size(348, 26);
+            apellidoM_alumno.TabIndex = 6;
+            // 
+            // apellidoP_alumno
+            // 
+            apellidoP_alumno.Location = new Point(227, 72);
+            apellidoP_alumno.Name = "apellidoP_alumno";
+            apellidoP_alumno.Size = new Size(348, 26);
+            apellidoP_alumno.TabIndex = 5;
+            // 
+            // nombre_alumno
+            // 
+            nombre_alumno.Location = new Point(227, 41);
+            nombre_alumno.Name = "nombre_alumno";
+            nombre_alumno.Size = new Size(348, 26);
+            nombre_alumno.TabIndex = 4;
+            nombre_alumno.TextChanged += nombre_alumno_TextChanged_1;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(51, 112);
+            label2.Name = "label2";
+            label2.Size = new Size(141, 18);
+            label2.TabIndex = 2;
+            label2.Text = "Apellido Materno:";
+            // 
+            // Usuario
+            // 
+            Usuario.AutoSize = true;
+            Usuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Usuario.Location = new Point(51, 48);
+            Usuario.Name = "Usuario";
+            Usuario.Size = new Size(90, 18);
+            Usuario.TabIndex = 3;
+            Usuario.Text = "Nombre(s):";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(51, 76);
+            label5.Name = "label5";
+            label5.Size = new Size(135, 18);
+            label5.TabIndex = 1;
+            label5.Text = "Apellido Paterno:";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(label14);
+            panel1.Controls.Add(btn_ingresar);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(788, 59);
+            panel1.TabIndex = 21;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlLightLight;
+            label14.Location = new Point(222, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(322, 32);
+            label14.TabIndex = 10;
+            label14.Text = "Inscripción de Alumnos";
+            // 
+            // btn_ingresar
+            // 
+            btn_ingresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_ingresar.BackColor = Color.FromArgb(247, 189, 86);
+            btn_ingresar.Cursor = Cursors.Hand;
+            btn_ingresar.FlatStyle = FlatStyle.Popup;
+            btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
+            btn_ingresar.Location = new Point(17, 16);
+            btn_ingresar.Name = "btn_ingresar";
+            btn_ingresar.RightToLeft = RightToLeft.Yes;
+            btn_ingresar.Size = new Size(155, 29);
+            btn_ingresar.TabIndex = 9;
+            btn_ingresar.Text = "Cerrar Sesión ";
+            btn_ingresar.UseVisualStyleBackColor = false;
+            // 
+            // panelMenu
+            // 
+            panelMenu.BackColor = Color.FromArgb(39, 66, 89);
+            panelMenu.BorderRadius = 20;
+            panelMenu.Controls.Add(btn_admaestros);
+            panelMenu.Controls.Add(label4);
+            panelMenu.Controls.Add(btnCreacionBoletas);
+            panelMenu.Controls.Add(btnEdicionDatos);
+            panelMenu.Controls.Add(btnBitacora);
+            panelMenu.Controls.Add(btnAdmSecre);
+            panelMenu.Controls.Add(btnEstadisticas);
+            panelMenu.Controls.Add(btn_capturaCalif);
+            panelMenu.Controls.Add(btn_inscripcion);
+            panelMenu.Controls.Add(panelLogo);
+            panelMenu.Dock = DockStyle.Left;
+            panelMenu.Location = new Point(0, 0);
+            panelMenu.Name = "panelMenu";
+            panelMenu.Size = new Size(181, 492);
+            panelMenu.TabIndex = 6;
+            // 
+            // btn_admaestros
+            // 
+            btn_admaestros.BackgroundImageLayout = ImageLayout.None;
+            btn_admaestros.Dock = DockStyle.Top;
+            btn_admaestros.FlatAppearance.BorderSize = 0;
+            btn_admaestros.FlatStyle = FlatStyle.Flat;
+            btn_admaestros.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_admaestros.Location = new Point(0, 432);
+            btn_admaestros.Name = "btn_admaestros";
+            btn_admaestros.Size = new Size(181, 51);
+            btn_admaestros.TabIndex = 7;
+            btn_admaestros.Text = "Adm. Maestros";
+            btn_admaestros.UseVisualStyleBackColor = true;
+            btn_admaestros.Click += btn_admaestros_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(-40, 65);
+            label4.Name = "label4";
+            label4.Size = new Size(262, 15);
+            label4.TabIndex = 1;
+            label4.Text = "___________________________________________________";
+            // 
+            // btnCreacionBoletas
+            // 
+            btnCreacionBoletas.BackgroundImageLayout = ImageLayout.None;
+            btnCreacionBoletas.Dock = DockStyle.Top;
+            btnCreacionBoletas.FlatAppearance.BorderSize = 0;
+            btnCreacionBoletas.FlatStyle = FlatStyle.Flat;
+            btnCreacionBoletas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreacionBoletas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCreacionBoletas.Location = new Point(0, 381);
+            btnCreacionBoletas.Name = "btnCreacionBoletas";
+            btnCreacionBoletas.Size = new Size(181, 51);
+            btnCreacionBoletas.TabIndex = 6;
+            btnCreacionBoletas.Text = "Creación de PDFS";
+            btnCreacionBoletas.UseVisualStyleBackColor = true;
+            btnCreacionBoletas.Click += btnCreacionBoletas_Click;
+            // 
+            // btnEdicionDatos
+            // 
+            btnEdicionDatos.BackgroundImageLayout = ImageLayout.None;
+            btnEdicionDatos.Dock = DockStyle.Top;
+            btnEdicionDatos.FlatAppearance.BorderSize = 0;
+            btnEdicionDatos.FlatStyle = FlatStyle.Flat;
+            btnEdicionDatos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEdicionDatos.Location = new Point(0, 330);
+            btnEdicionDatos.Name = "btnEdicionDatos";
+            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.TabIndex = 5;
+            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.UseVisualStyleBackColor = true;
+            btnEdicionDatos.Click += btnEdicionDatos_Click;
+            // 
+            // btnBitacora
+            // 
+            btnBitacora.BackgroundImageLayout = ImageLayout.None;
+            btnBitacora.Dock = DockStyle.Top;
+            btnBitacora.FlatAppearance.BorderSize = 0;
+            btnBitacora.FlatStyle = FlatStyle.Flat;
+            btnBitacora.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBitacora.Location = new Point(0, 279);
+            btnBitacora.Name = "btnBitacora";
+            btnBitacora.Size = new Size(181, 51);
+            btnBitacora.TabIndex = 4;
+            btnBitacora.Text = "Bitacora";
+            btnBitacora.UseVisualStyleBackColor = true;
+            btnBitacora.Click += btnBitacora_Click;
+            // 
+            // btnAdmSecre
+            // 
+            btnAdmSecre.BackgroundImageLayout = ImageLayout.None;
+            btnAdmSecre.Dock = DockStyle.Top;
+            btnAdmSecre.FlatAppearance.BorderSize = 0;
+            btnAdmSecre.FlatStyle = FlatStyle.Flat;
+            btnAdmSecre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAdmSecre.Location = new Point(0, 228);
+            btnAdmSecre.Name = "btnAdmSecre";
+            btnAdmSecre.Size = new Size(181, 51);
+            btnAdmSecre.TabIndex = 3;
+            btnAdmSecre.Text = "Adm. Secretarias";
+            btnAdmSecre.UseVisualStyleBackColor = true;
+            btnAdmSecre.Click += btnAdmSecre_Click;
+            // 
+            // btnEstadisticas
+            // 
+            btnEstadisticas.BackgroundImageLayout = ImageLayout.None;
+            btnEstadisticas.Dock = DockStyle.Top;
+            btnEstadisticas.FlatAppearance.BorderSize = 0;
+            btnEstadisticas.FlatStyle = FlatStyle.Flat;
+            btnEstadisticas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEstadisticas.Location = new Point(0, 177);
+            btnEstadisticas.Name = "btnEstadisticas";
+            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.TabIndex = 2;
+            btnEstadisticas.Text = "Estadisticas";
+            btnEstadisticas.UseVisualStyleBackColor = true;
+            // 
+            // btn_capturaCalif
+            // 
+            btn_capturaCalif.BackgroundImageLayout = ImageLayout.None;
+            btn_capturaCalif.Dock = DockStyle.Top;
+            btn_capturaCalif.FlatAppearance.BorderSize = 0;
+            btn_capturaCalif.FlatStyle = FlatStyle.Flat;
+            btn_capturaCalif.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_capturaCalif.Location = new Point(0, 129);
+            btn_capturaCalif.Name = "btn_capturaCalif";
+            btn_capturaCalif.Size = new Size(181, 48);
+            btn_capturaCalif.TabIndex = 1;
+            btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
+            btn_capturaCalif.UseVisualStyleBackColor = true;
+            btn_capturaCalif.Click += btn_capturaCalif_Click;
+            // 
+            // btn_inscripcion
+            // 
+            btn_inscripcion.BackgroundImageLayout = ImageLayout.None;
+            btn_inscripcion.Dock = DockStyle.Top;
+            btn_inscripcion.FlatAppearance.BorderSize = 0;
+            btn_inscripcion.FlatStyle = FlatStyle.Flat;
+            btn_inscripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_inscripcion.Location = new Point(0, 80);
+            btn_inscripcion.Name = "btn_inscripcion";
+            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.TabIndex = 0;
+            btn_inscripcion.Text = "Inscripción";
+            btn_inscripcion.UseVisualStyleBackColor = true;
+            btn_inscripcion.Click += btn_inscripcion_Click;
+            // 
+            // panelLogo
+            // 
+            panelLogo.BackColor = Color.FromArgb(39, 66, 89);
+            panelLogo.BorderRadius = 20;
+            panelLogo.Controls.Add(label12);
+            panelLogo.Controls.Add(Logo);
+            panelLogo.Dock = DockStyle.Top;
+            panelLogo.Location = new Point(0, 0);
+            panelLogo.Name = "panelLogo";
+            panelLogo.Size = new Size(181, 80);
+            panelLogo.TabIndex = 0;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.Location = new Point(12, 48);
+            label12.Name = "label12";
+            label12.Size = new Size(163, 26);
+            label12.TabIndex = 38;
+            label12.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
+            // 
+            // Logo
+            // 
+            Logo.Image = Properties.Resources.logo_escuela1;
+            Logo.Location = new Point(61, 3);
+            Logo.Name = "Logo";
+            Logo.Size = new Size(57, 47);
+            Logo.SizeMode = PictureBoxSizeMode.Zoom;
+            Logo.TabIndex = 2;
+            Logo.TabStop = false;
             // 
             // Mod_inscripcion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(799, 732);
-            Controls.Add(dgvMateriasAlumno);
-            Controls.Add(groupBox2);
+            ClientSize = new Size(986, 492);
+            Controls.Add(panelApp);
+            Controls.Add(panelMenu);
             Controls.Add(label18);
-            Controls.Add(groupBox1);
             Controls.Add(btnalta_inscripcion);
-            Controls.Add(panel1);
             Name = "Mod_inscripcion";
             Text = "Mod_inscripcion";
             Load += Mod_inscripcion_Load;
+            panelApp.ResumeLayout(false);
+            panelApp.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMateriasAlumno).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvMateriasAlumno).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panelMenu.ResumeLayout(false);
+            panelMenu.PerformLayout();
+            panelLogo.ResumeLayout(false);
+            panelLogo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
+        private Button btnalta_inscripcion;
+        private Label label18;
+        private Panelito panelApp;
+        private Label label1;
+        private Button button1;
+        private DataGridView dgvMateriasAlumno;
         private GroupBox groupBox2;
-        private Panel panel1;
-        private Button btnVolver;
-        private Label label14;
+        private PictureBox pictureBox1;
         private TextBox correo_tutor;
-        private Label label4;
+        private Label label8;
         private TextBox telefono_tutor;
-        private Label label5;
+        private Label label9;
         private TextBox apellidoM_tutor;
         private TextBox apellidoP_tutor;
         private TextBox nombre_tutor;
         private Label label13;
         private Label label19;
         private Label label20;
-        private Label label18;
-        private Button btnalta_inscripcion;
-        private Label label1;
-        private Label Usuario;
-        private Label label2;
-        private TextBox nombre_alumno;
-        private TextBox apellidoP_alumno;
-        private TextBox apellidoM_alumno;
-        private Label label6;
-        private TextBox txtCurp;
-        private Label label10;
-        private Label label11;
-        private DateTimePicker nacimiento_alumno;
-        private ComboBox edad_alumno;
-        private Label label3;
-        private ComboBox grupo_alumno;
         private GroupBox groupBox1;
+        private PictureBox pictureBox2;
         private ComboBox combosgenero;
         private Label label7;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private DataGridView dgvMateriasAlumno;
+        private ComboBox grupo_alumno;
+        private Label label3;
+        private ComboBox edad_alumno;
+        private DateTimePicker nacimiento_alumno;
+        private Label label11;
+        private Label label10;
+        private TextBox txtCurp;
+        private Label label6;
+        private TextBox apellidoM_alumno;
+        private TextBox apellidoP_alumno;
+        private TextBox nombre_alumno;
+        private Label label2;
+        private Label Usuario;
+        private Label label5;
+        private Panel panel1;
+        private Label label14;
+        private Button btn_ingresar;
+        private Panelito panelMenu;
+        private Button btn_admaestros;
+        private Label label4;
+        private Button btnCreacionBoletas;
+        private Button btnEdicionDatos;
+        private Button btnBitacora;
+        private Button btnAdmSecre;
+        private Button btnEstadisticas;
+        private Button btn_capturaCalif;
+        private Button btn_inscripcion;
+        private Panelito panelLogo;
+        private Label label12;
+        private PictureBox Logo;
     }
 }

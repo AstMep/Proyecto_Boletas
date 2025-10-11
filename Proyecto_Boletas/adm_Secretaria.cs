@@ -21,8 +21,8 @@ namespace Proyecto_Boletas
         public adm_Secretaria()
         {
             InitializeComponent();
-            txtUsuarioSecre.MaxLength = 100;
-            txtCorreoSecre.MaxLength = 100;
+            txtUsuarioSecre.MaxLength = 60;
+            txtCorreoSecre.MaxLength = 60;
             txtContrasenaSecre.MaxLength = 10;
         }
 
@@ -194,7 +194,7 @@ namespace Proyecto_Boletas
                         Panel card = new Panel
                         {
                             Width = 300,
-                            Height = 250,
+                            Height = 150,
                             Margin = new Padding(10),
                             BackColor = Color.Bisque,
                             BorderStyle = BorderStyle.FixedSingle,
@@ -240,8 +240,8 @@ namespace Proyecto_Boletas
 
                         Button btnEditar = new Button
                         {
-                            Size = new Size(35, 35),
-                            Location = new Point(195, 8),
+                            Size = new Size(25, 25),
+                            Location = new Point(215, 8),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.SandyBrown,
                             BackgroundImageLayout = ImageLayout.Zoom,
@@ -254,8 +254,8 @@ namespace Proyecto_Boletas
 
                         Button btnEliminar = new Button
                         {
-                            Size = new Size(35, 35),
-                            Location = new Point(235, 8),
+                            Size = new Size(25, 25),
+                            Location = new Point(255, 8),
                             FlatStyle = FlatStyle.Flat,
                             BackColor = Color.IndianRed,
                             BackgroundImageLayout = ImageLayout.Zoom,

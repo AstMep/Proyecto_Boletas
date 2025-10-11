@@ -42,18 +42,6 @@ namespace Proyecto_Boletas
             MostrarMaestros();
         }
 
-
-
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            if (btnVolver.Enabled)
-            {
-                Menu_principal nuevoFormulario = new Menu_principal();
-                nuevoFormulario.Show();
-                this.Hide();
-            }
-        }
         public class ComboboxItem
         {
             public string Text { get; set; }
@@ -511,7 +499,7 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error en la validación o registro: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
- 
+
         private void txtnombremaestro_TextChanged(object sender, EventArgs e)
         {
 
@@ -604,6 +592,11 @@ namespace Proyecto_Boletas
             MostrarMaestros();
         }
         private void adm_maestros_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAltaMaestros_Click(object sender, EventArgs e)
         {
 
         }

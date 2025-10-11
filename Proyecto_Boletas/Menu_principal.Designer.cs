@@ -40,7 +40,7 @@
             label7 = new Label();
             label4 = new Label();
             label3 = new Label();
-            button1 = new Button();
+            btnEstadisticas = new Button();
             groupBox4 = new GroupBox();
             label10 = new Label();
             label9 = new Label();
@@ -169,7 +169,7 @@
             groupBox3.Controls.Add(label7);
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(label3);
-            groupBox3.Controls.Add(button1);
+            groupBox3.Controls.Add(btnEstadisticas);
             groupBox3.Location = new Point(502, 76);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(160, 186);
@@ -208,18 +208,18 @@
             label3.TabIndex = 4;
             label3.Click += label3_Click;
             // 
-            // button1
+            // btnEstadisticas
             // 
-            button1.BackColor = Color.FromArgb(212, 168, 133);
-            button1.BackgroundImageLayout = ImageLayout.Center;
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(19, 9);
-            button1.Name = "button1";
-            button1.Size = new Size(121, 135);
-            button1.TabIndex = 3;
-            button1.UseVisualStyleBackColor = false;
+            btnEstadisticas.BackColor = Color.FromArgb(212, 168, 133);
+            btnEstadisticas.BackgroundImageLayout = ImageLayout.Center;
+            btnEstadisticas.FlatStyle = FlatStyle.Popup;
+            btnEstadisticas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
+            btnEstadisticas.Location = new Point(19, 9);
+            btnEstadisticas.Name = "btnEstadisticas";
+            btnEstadisticas.Size = new Size(121, 135);
+            btnEstadisticas.TabIndex = 3;
+            btnEstadisticas.UseVisualStyleBackColor = false;
             // 
             // groupBox4
             // 
@@ -605,7 +605,7 @@
         private Button btn_capturaCalif;
         private GroupBox groupBox3;
         private Label label3;
-        private Button button1;
+        private Button btnEstadisticas;
         private Label label4;
         private GroupBox groupBox4;
         private Label label5;

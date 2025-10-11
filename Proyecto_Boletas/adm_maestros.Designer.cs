@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(adm_maestros));
+            panelApp = new Panelito();
             flowMaestros = new FlowLayoutPanel();
             groupBox1 = new GroupBox();
             grupo_asignado = new ComboBox();
@@ -44,22 +45,50 @@
             txtnombremaestro = new TextBox();
             label2 = new Label();
             Usuario = new Label();
-            label1 = new Label();
+            label4 = new Label();
             panel1 = new Panel();
-            btnVolver = new Button();
-            label14 = new Label();
+            btn_ingresar = new Button();
+            panelMenu = new Panelito();
+            btn_admaestros = new Button();
+            btnCreacionPDF = new Button();
+            btnEdicionDatos = new Button();
+            btnBitacora = new Button();
+            btnAdmSecre = new Button();
+            btnEstadisticas = new Button();
+            btn_capturaCalif = new Button();
+            btn_inscripcion = new Button();
+            panelLogo = new Panelito();
+            label1 = new Label();
+            Logo = new PictureBox();
+            panelApp.SuspendLayout();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
+            panelMenu.SuspendLayout();
+            panelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             SuspendLayout();
+            // 
+            // panelApp
+            // 
+            panelApp.BackColor = Color.FromArgb(181, 131, 120);
+            panelApp.BorderRadius = 20;
+            panelApp.Controls.Add(flowMaestros);
+            panelApp.Controls.Add(groupBox1);
+            panelApp.Controls.Add(panel1);
+            panelApp.Dock = DockStyle.Fill;
+            panelApp.Location = new Point(181, 0);
+            panelApp.Name = "panelApp";
+            panelApp.Size = new Size(835, 493);
+            panelApp.TabIndex = 3;
             // 
             // flowMaestros
             // 
             flowMaestros.AutoScroll = true;
             flowMaestros.BackColor = Color.FromArgb(63, 75, 92);
-            flowMaestros.Location = new Point(60, 448);
+            flowMaestros.Location = new Point(93, 372);
             flowMaestros.Name = "flowMaestros";
-            flowMaestros.Size = new Size(783, 187);
-            flowMaestros.TabIndex = 28;
+            flowMaestros.Size = new Size(620, 170);
+            flowMaestros.TabIndex = 29;
             // 
             // groupBox1
             // 
@@ -77,14 +106,13 @@
             groupBox1.Controls.Add(txtnombremaestro);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(Usuario);
-            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(label4);
             groupBox1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            groupBox1.Location = new Point(72, 82);
+            groupBox1.Location = new Point(68, 80);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(772, 294);
-            groupBox1.TabIndex = 27;
+            groupBox1.Size = new Size(645, 272);
+            groupBox1.TabIndex = 28;
             groupBox1.TabStop = false;
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // grupo_asignado
             // 
@@ -93,7 +121,6 @@
             grupo_asignado.Name = "grupo_asignado";
             grupo_asignado.Size = new Size(121, 26);
             grupo_asignado.TabIndex = 0;
-            grupo_asignado.SelectedIndexChanged += grupo_asignado_SelectedIndexChanged;
             // 
             // label3
             // 
@@ -185,7 +212,7 @@
             btnAltaMaestros.Size = new Size(52, 52);
             btnAltaMaestros.TabIndex = 3;
             btnAltaMaestros.UseVisualStyleBackColor = false;
-            btnAltaMaestros.Click += btnAltaMaestros_Click_1;
+            btnAltaMaestros.Click += btnAltaMaestros_Click;
             // 
             // txtnombremaestro
             // 
@@ -194,7 +221,6 @@
             txtnombremaestro.Name = "txtnombremaestro";
             txtnombremaestro.Size = new Size(258, 26);
             txtnombremaestro.TabIndex = 4;
-            txtnombremaestro.TextChanged += txtnombremaestro_TextChanged;
             // 
             // label2
             // 
@@ -215,54 +241,211 @@
             Usuario.TabIndex = 3;
             Usuario.Text = "Nombre:";
             // 
-            // label1
+            // label4
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(28, 82);
-            label1.Name = "label1";
-            label1.Size = new Size(71, 36);
-            label1.TabIndex = 1;
-            label1.Text = "Apellido\r\nPaterno:";
+            label4.AutoSize = true;
+            label4.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(28, 82);
+            label4.Name = "label4";
+            label4.Size = new Size(71, 36);
+            label4.TabIndex = 1;
+            label4.Text = "Apellido\r\nPaterno:";
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(181, 131, 120);
-            panel1.Controls.Add(btnVolver);
-            panel1.Controls.Add(label14);
+            panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(916, 59);
-            panel1.TabIndex = 26;
+            panel1.Size = new Size(835, 59);
+            panel1.TabIndex = 21;
             // 
-            // btnVolver
+            // btn_ingresar
             // 
-            btnVolver.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnVolver.BackColor = Color.FromArgb(247, 189, 86);
-            btnVolver.BackgroundImage = (Image)resources.GetObject("btnVolver.BackgroundImage");
-            btnVolver.Cursor = Cursors.Hand;
-            btnVolver.FlatStyle = FlatStyle.Popup;
-            btnVolver.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnVolver.ForeColor = SystemColors.ActiveCaptionText;
-            btnVolver.Location = new Point(39, 10);
-            btnVolver.Name = "btnVolver";
-            btnVolver.RightToLeft = RightToLeft.Yes;
-            btnVolver.Size = new Size(48, 46);
-            btnVolver.TabIndex = 7;
-            btnVolver.UseVisualStyleBackColor = false;
-            btnVolver.Click += btnVolver_Click;
+            btn_ingresar.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_ingresar.BackColor = Color.FromArgb(247, 189, 86);
+            btn_ingresar.Cursor = Cursors.Hand;
+            btn_ingresar.FlatStyle = FlatStyle.Popup;
+            btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
+            btn_ingresar.Location = new Point(17, 16);
+            btn_ingresar.Name = "btn_ingresar";
+            btn_ingresar.RightToLeft = RightToLeft.Yes;
+            btn_ingresar.Size = new Size(155, 29);
+            btn_ingresar.TabIndex = 9;
+            btn_ingresar.Text = "Cerrar Sesión ";
+            btn_ingresar.UseVisualStyleBackColor = false;
             // 
-            // label14
+            // panelMenu
             // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlText;
-            label14.Location = new Point(190, 9);
-            label14.Name = "label14";
-            label14.Size = new Size(378, 32);
-            label14.TabIndex = 6;
-            label14.Text = "Administración de Maestros";
+            panelMenu.BackColor = Color.FromArgb(39, 66, 89);
+            panelMenu.BorderRadius = 20;
+            panelMenu.Controls.Add(btn_admaestros);
+            panelMenu.Controls.Add(btnCreacionPDF);
+            panelMenu.Controls.Add(btnEdicionDatos);
+            panelMenu.Controls.Add(btnBitacora);
+            panelMenu.Controls.Add(btnAdmSecre);
+            panelMenu.Controls.Add(btnEstadisticas);
+            panelMenu.Controls.Add(btn_capturaCalif);
+            panelMenu.Controls.Add(btn_inscripcion);
+            panelMenu.Controls.Add(panelLogo);
+            panelMenu.Dock = DockStyle.Left;
+            panelMenu.Location = new Point(0, 0);
+            panelMenu.Name = "panelMenu";
+            panelMenu.Size = new Size(181, 493);
+            panelMenu.TabIndex = 2;
+            // 
+            // btn_admaestros
+            // 
+            btn_admaestros.BackgroundImageLayout = ImageLayout.None;
+            btn_admaestros.Dock = DockStyle.Top;
+            btn_admaestros.FlatAppearance.BorderSize = 0;
+            btn_admaestros.FlatStyle = FlatStyle.Flat;
+            btn_admaestros.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_admaestros.Location = new Point(0, 432);
+            btn_admaestros.Name = "btn_admaestros";
+            btn_admaestros.Size = new Size(181, 51);
+            btn_admaestros.TabIndex = 7;
+            btn_admaestros.Text = "Adm. Maestros";
+            btn_admaestros.UseVisualStyleBackColor = true;
+            // 
+            // btnCreacionPDF
+            // 
+            btnCreacionPDF.BackgroundImageLayout = ImageLayout.None;
+            btnCreacionPDF.Dock = DockStyle.Top;
+            btnCreacionPDF.FlatAppearance.BorderSize = 0;
+            btnCreacionPDF.FlatStyle = FlatStyle.Flat;
+            btnCreacionPDF.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCreacionPDF.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCreacionPDF.Location = new Point(0, 381);
+            btnCreacionPDF.Name = "btnCreacionPDF";
+            btnCreacionPDF.Size = new Size(181, 51);
+            btnCreacionPDF.TabIndex = 6;
+            btnCreacionPDF.Text = "Creación de PDFS";
+            btnCreacionPDF.UseVisualStyleBackColor = true;
+            // 
+            // btnEdicionDatos
+            // 
+            btnEdicionDatos.BackgroundImageLayout = ImageLayout.None;
+            btnEdicionDatos.Dock = DockStyle.Top;
+            btnEdicionDatos.FlatAppearance.BorderSize = 0;
+            btnEdicionDatos.FlatStyle = FlatStyle.Flat;
+            btnEdicionDatos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEdicionDatos.Location = new Point(0, 330);
+            btnEdicionDatos.Name = "btnEdicionDatos";
+            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.TabIndex = 5;
+            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.UseVisualStyleBackColor = true;
+            // 
+            // btnBitacora
+            // 
+            btnBitacora.BackgroundImageLayout = ImageLayout.None;
+            btnBitacora.Dock = DockStyle.Top;
+            btnBitacora.FlatAppearance.BorderSize = 0;
+            btnBitacora.FlatStyle = FlatStyle.Flat;
+            btnBitacora.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBitacora.Location = new Point(0, 279);
+            btnBitacora.Name = "btnBitacora";
+            btnBitacora.Size = new Size(181, 51);
+            btnBitacora.TabIndex = 4;
+            btnBitacora.Text = "Bitacora";
+            btnBitacora.UseVisualStyleBackColor = true;
+            // 
+            // btnAdmSecre
+            // 
+            btnAdmSecre.BackgroundImageLayout = ImageLayout.None;
+            btnAdmSecre.Dock = DockStyle.Top;
+            btnAdmSecre.FlatAppearance.BorderSize = 0;
+            btnAdmSecre.FlatStyle = FlatStyle.Flat;
+            btnAdmSecre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAdmSecre.Location = new Point(0, 228);
+            btnAdmSecre.Name = "btnAdmSecre";
+            btnAdmSecre.Size = new Size(181, 51);
+            btnAdmSecre.TabIndex = 3;
+            btnAdmSecre.Text = "Adm. Secretarias";
+            btnAdmSecre.UseVisualStyleBackColor = true;
+            // 
+            // btnEstadisticas
+            // 
+            btnEstadisticas.BackgroundImageLayout = ImageLayout.None;
+            btnEstadisticas.Dock = DockStyle.Top;
+            btnEstadisticas.FlatAppearance.BorderSize = 0;
+            btnEstadisticas.FlatStyle = FlatStyle.Flat;
+            btnEstadisticas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEstadisticas.Location = new Point(0, 177);
+            btnEstadisticas.Name = "btnEstadisticas";
+            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.TabIndex = 2;
+            btnEstadisticas.Text = "Estadisticas";
+            btnEstadisticas.UseVisualStyleBackColor = true;
+            // 
+            // btn_capturaCalif
+            // 
+            btn_capturaCalif.BackgroundImageLayout = ImageLayout.None;
+            btn_capturaCalif.Dock = DockStyle.Top;
+            btn_capturaCalif.FlatAppearance.BorderSize = 0;
+            btn_capturaCalif.FlatStyle = FlatStyle.Flat;
+            btn_capturaCalif.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_capturaCalif.Location = new Point(0, 129);
+            btn_capturaCalif.Name = "btn_capturaCalif";
+            btn_capturaCalif.Size = new Size(181, 48);
+            btn_capturaCalif.TabIndex = 1;
+            btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
+            btn_capturaCalif.UseVisualStyleBackColor = true;
+            // 
+            // btn_inscripcion
+            // 
+            btn_inscripcion.BackgroundImageLayout = ImageLayout.None;
+            btn_inscripcion.Dock = DockStyle.Top;
+            btn_inscripcion.FlatAppearance.BorderSize = 0;
+            btn_inscripcion.FlatStyle = FlatStyle.Flat;
+            btn_inscripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_inscripcion.Location = new Point(0, 80);
+            btn_inscripcion.Name = "btn_inscripcion";
+            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.TabIndex = 0;
+            btn_inscripcion.Text = "Inscripción";
+            btn_inscripcion.UseVisualStyleBackColor = true;
+            // 
+            // panelLogo
+            // 
+            panelLogo.BackColor = Color.FromArgb(39, 66, 89);
+            panelLogo.BorderRadius = 20;
+            panelLogo.Controls.Add(label1);
+            panelLogo.Controls.Add(Logo);
+            panelLogo.Dock = DockStyle.Top;
+            panelLogo.Location = new Point(0, 0);
+            panelLogo.Name = "panelLogo";
+            panelLogo.Size = new Size(181, 80);
+            panelLogo.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(-19, 63);
+            label1.Name = "label1";
+            label1.Size = new Size(262, 15);
+            label1.TabIndex = 1;
+            label1.Text = "___________________________________________________";
+            // 
+            // Logo
+            // 
+            Logo.Image = Properties.Resources.logo_escuela1;
+            Logo.Location = new Point(3, 0);
+            Logo.Name = "Logo";
+            Logo.Size = new Size(65, 60);
+            Logo.SizeMode = PictureBoxSizeMode.Zoom;
+            Logo.TabIndex = 2;
+            Logo.TabStop = false;
             // 
             // adm_maestros
             // 
@@ -270,25 +453,34 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(933, 502);
-            Controls.Add(flowMaestros);
-            Controls.Add(groupBox1);
-            Controls.Add(panel1);
+            ClientSize = new Size(1016, 493);
+            Controls.Add(panelApp);
+            Controls.Add(panelMenu);
             Margin = new Padding(3, 2, 3, 2);
             Name = "adm_maestros";
             Text = "adm_maestros";
             Load += adm_maestros_Load;
+            panelApp.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panelMenu.ResumeLayout(false);
+            panelLogo.ResumeLayout(false);
+            panelLogo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
+        private Panelito panelApp;
         private FlowLayoutPanel flowMaestros;
         private GroupBox groupBox1;
+        private ComboBox grupo_asignado;
+        private Label label3;
+        private Label label6;
+        private TextBox txtcorreomaestro;
+        private Label label5;
         private Label label18;
         private TextBox txtammaestro;
         private TextBox txtapmaestro;
@@ -297,14 +489,20 @@
         private TextBox txtnombremaestro;
         private Label label2;
         private Label Usuario;
-        private Label label1;
+        private Label label4;
         private Panel panel1;
-        private Button btnVolver;
-        private Label label14;
-        private TextBox txtcorreomaestro;
-        private Label label5;
-        private Label label6;
-        private Label label3;
-        private ComboBox grupo_asignado;
+        private Button btn_ingresar;
+        private Panelito panelMenu;
+        private Button btn_admaestros;
+        private Button btnCreacionPDF;
+        private Button btnEdicionDatos;
+        private Button btnBitacora;
+        private Button btnAdmSecre;
+        private Button btnEstadisticas;
+        private Button btn_capturaCalif;
+        private Button btn_inscripcion;
+        private Panelito panelLogo;
+        private Label label1;
+        private PictureBox Logo;
     }
 }

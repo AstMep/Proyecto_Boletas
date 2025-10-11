@@ -18,9 +18,6 @@ namespace Proyecto_Boletas
         private const string NombreEscuela = "INSTITUTO MANUEL M. ACOSTA"; // Nombre actualizado
         private const string ClaveEscolar = "29DPR0035Z";
 
-        // ****************************************************
-        // CAMBIO 1: Paleta de Colores morado/rosa
-        // ****************************************************
         private static readonly iTextSharp.text.BaseColor MoradoIntenso = new iTextSharp.text.BaseColor(155, 89, 182);
         private static readonly iTextSharp.text.BaseColor RosaClaro = new iTextSharp.text.BaseColor(245, 183, 177);
         private static readonly iTextSharp.text.BaseColor RosaPalido = new iTextSharp.text.BaseColor(250, 219, 216); // Para filas alternadas si se desea

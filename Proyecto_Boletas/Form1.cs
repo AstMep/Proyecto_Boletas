@@ -7,7 +7,7 @@ namespace Proyecto_Boletas
         public Form1()
         {
             InitializeComponent();
-            txtbox_usuario.MaxLength = 100;
+            txtbox_usuario.MaxLength = 30;
             txtbox_contrasena.MaxLength = 10;
             txtbox_contrasena.UseSystemPasswordChar = true;
 
