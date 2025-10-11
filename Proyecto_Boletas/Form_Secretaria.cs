@@ -42,5 +42,15 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelApp_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

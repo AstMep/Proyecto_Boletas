@@ -41,18 +41,16 @@
             panel1 = new Panel();
             btn_ingresar = new Button();
             panelMenu = new Panelito();
-            btn_admaestros = new Button();
             label1 = new Label();
             btnEnvioBoletas = new Button();
-            btnEdicionDatosD = new Button();
-            btnBitacora = new Button();
-            btnAdmSecre = new Button();
+            btnDatosAlumnado = new Button();
             btnEstadisticas = new Button();
             btn_capturaCalif = new Button();
             btn_inscripcion = new Button();
             panelLogo = new Panelito();
             label4 = new Label();
             Logo = new PictureBox();
+            label14 = new Label();
             panelApp.SuspendLayout();
             groupBox6.SuspendLayout();
             panel1.SuspendLayout();
@@ -168,6 +166,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -195,12 +194,9 @@
             // 
             panelMenu.BackColor = Color.FromArgb(39, 66, 89);
             panelMenu.BorderRadius = 20;
-            panelMenu.Controls.Add(btn_admaestros);
             panelMenu.Controls.Add(label1);
             panelMenu.Controls.Add(btnEnvioBoletas);
-            panelMenu.Controls.Add(btnEdicionDatosD);
-            panelMenu.Controls.Add(btnBitacora);
-            panelMenu.Controls.Add(btnAdmSecre);
+            panelMenu.Controls.Add(btnDatosAlumnado);
             panelMenu.Controls.Add(btnEstadisticas);
             panelMenu.Controls.Add(btn_capturaCalif);
             panelMenu.Controls.Add(btn_inscripcion);
@@ -210,21 +206,6 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(181, 498);
             panelMenu.TabIndex = 2;
-            // 
-            // btn_admaestros
-            // 
-            btn_admaestros.BackgroundImageLayout = ImageLayout.None;
-            btn_admaestros.Dock = DockStyle.Top;
-            btn_admaestros.FlatAppearance.BorderSize = 0;
-            btn_admaestros.FlatStyle = FlatStyle.Flat;
-            btn_admaestros.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_admaestros.Location = new Point(0, 432);
-            btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(181, 51);
-            btn_admaestros.TabIndex = 7;
-            btn_admaestros.Text = "Adm. Maestros";
-            btn_admaestros.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -243,57 +224,27 @@
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
             btnEnvioBoletas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 381);
+            btnEnvioBoletas.Location = new Point(0, 279);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
             btnEnvioBoletas.Size = new Size(181, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
             // 
-            // btnEdicionDatosD
+            // btnDatosAlumnado
             // 
-            btnEdicionDatosD.BackgroundImageLayout = ImageLayout.None;
-            btnEdicionDatosD.Dock = DockStyle.Top;
-            btnEdicionDatosD.FlatAppearance.BorderSize = 0;
-            btnEdicionDatosD.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatosD.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEdicionDatosD.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatosD.Location = new Point(0, 330);
-            btnEdicionDatosD.Name = "btnEdicionDatosD";
-            btnEdicionDatosD.Size = new Size(181, 51);
-            btnEdicionDatosD.TabIndex = 5;
-            btnEdicionDatosD.Text = "Edición de Datos";
-            btnEdicionDatosD.UseVisualStyleBackColor = true;
-            // 
-            // btnBitacora
-            // 
-            btnBitacora.BackgroundImageLayout = ImageLayout.None;
-            btnBitacora.Dock = DockStyle.Top;
-            btnBitacora.FlatAppearance.BorderSize = 0;
-            btnBitacora.FlatStyle = FlatStyle.Flat;
-            btnBitacora.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBitacora.Location = new Point(0, 279);
-            btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(181, 51);
-            btnBitacora.TabIndex = 4;
-            btnBitacora.Text = "Bitacora";
-            btnBitacora.UseVisualStyleBackColor = true;
-            // 
-            // btnAdmSecre
-            // 
-            btnAdmSecre.BackgroundImageLayout = ImageLayout.None;
-            btnAdmSecre.Dock = DockStyle.Top;
-            btnAdmSecre.FlatAppearance.BorderSize = 0;
-            btnAdmSecre.FlatStyle = FlatStyle.Flat;
-            btnAdmSecre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdmSecre.Location = new Point(0, 228);
-            btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(181, 51);
-            btnAdmSecre.TabIndex = 3;
-            btnAdmSecre.Text = "Adm. Secretarias";
-            btnAdmSecre.UseVisualStyleBackColor = true;
+            btnDatosAlumnado.BackgroundImageLayout = ImageLayout.None;
+            btnDatosAlumnado.Dock = DockStyle.Top;
+            btnDatosAlumnado.FlatAppearance.BorderSize = 0;
+            btnDatosAlumnado.FlatStyle = FlatStyle.Flat;
+            btnDatosAlumnado.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDatosAlumnado.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDatosAlumnado.Location = new Point(0, 228);
+            btnDatosAlumnado.Name = "btnDatosAlumnado";
+            btnDatosAlumnado.Size = new Size(181, 51);
+            btnDatosAlumnado.TabIndex = 5;
+            btnDatosAlumnado.Text = "Datos Alumnado";
+            btnDatosAlumnado.UseVisualStyleBackColor = true;
             // 
             // btnEstadisticas
             // 
@@ -372,6 +323,17 @@
             Logo.TabIndex = 2;
             Logo.TabStop = false;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlText;
+            label14.Location = new Point(336, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(210, 32);
+            label14.TabIndex = 11;
+            label14.Text = "Datos Alumnado";
+            // 
             // Datos_alumnado
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -389,6 +351,7 @@
             groupBox6.ResumeLayout(false);
             groupBox6.PerformLayout();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panelMenu.ResumeLayout(false);
             panelMenu.PerformLayout();
             panelLogo.ResumeLayout(false);
@@ -411,17 +374,15 @@
         private Panel panel1;
         private Button btn_ingresar;
         private Panelito panelMenu;
-        private Button btn_admaestros;
         private Label label1;
         private Button btnEnvioBoletas;
-        private Button btnEdicionDatosD;
-        private Button btnBitacora;
-        private Button btnAdmSecre;
+        private Button btnDatosAlumnado;
         private Button btnEstadisticas;
         private Button btn_capturaCalif;
         private Button btn_inscripcion;
         private Panelito panelLogo;
         private Label label4;
         private PictureBox Logo;
+        private Label label14;
     }
 }

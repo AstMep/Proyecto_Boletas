@@ -44,6 +44,7 @@
             panelApp = new Panelito();
             panel1 = new Panel();
             btn_ingresar = new Button();
+            label14 = new Label();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
@@ -249,6 +250,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -272,6 +274,17 @@
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlLightLight;
+            label14.Location = new Point(206, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(406, 32);
+            label14.TabIndex = 10;
+            label14.Text = "Bienvenido al Sistema FAY JC";
+            // 
             // MenuLateral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -292,6 +305,7 @@
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             panelApp.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -313,5 +327,6 @@
         private Panel panel1;
         private Button btn_ingresar;
         private Label label4;
+        private Label label14;
     }
 }
