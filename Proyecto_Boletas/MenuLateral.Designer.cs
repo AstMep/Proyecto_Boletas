@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuLateral));
             panelMenu = new Panelito();
             btn_admaestros = new Button();
-            label1 = new Label();
             btnEnvioBoletas = new Button();
-            btnEdicionDatosD = new Button();
+            btnEdicionDatos = new Button();
             btnBitacora = new Button();
             btnAdmSecre = new Button();
             btnEstadisticas = new Button();
@@ -41,14 +41,17 @@
             panelLogo = new Panelito();
             label4 = new Label();
             Logo = new PictureBox();
+            label1 = new Label();
             panelApp = new Panelito();
+            pictureBox1 = new PictureBox();
             panel1 = new Panel();
-            btn_ingresar = new Button();
             label14 = new Label();
+            btn_ingresar = new Button();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             panelApp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,9 +60,8 @@
             panelMenu.BackColor = Color.FromArgb(39, 66, 89);
             panelMenu.BorderRadius = 20;
             panelMenu.Controls.Add(btn_admaestros);
-            panelMenu.Controls.Add(label1);
             panelMenu.Controls.Add(btnEnvioBoletas);
-            panelMenu.Controls.Add(btnEdicionDatosD);
+            panelMenu.Controls.Add(btnEdicionDatos);
             panelMenu.Controls.Add(btnBitacora);
             panelMenu.Controls.Add(btnAdmSecre);
             panelMenu.Controls.Add(btnEstadisticas);
@@ -70,7 +72,7 @@
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(181, 490);
-            panelMenu.TabIndex = 0;
+            panelMenu.TabIndex = 3;
             // 
             // btn_admaestros
             // 
@@ -78,23 +80,16 @@
             btn_admaestros.Dock = DockStyle.Top;
             btn_admaestros.FlatAppearance.BorderSize = 0;
             btn_admaestros.FlatStyle = FlatStyle.Flat;
-            btn_admaestros.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_admaestros.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_admaestros.ForeColor = SystemColors.ControlLightLight;
+            btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_admaestros.Location = new Point(0, 432);
+            btn_admaestros.Location = new Point(0, 445);
             btn_admaestros.Name = "btn_admaestros";
             btn_admaestros.Size = new Size(181, 51);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(-40, 65);
-            label1.Name = "label1";
-            label1.Size = new Size(262, 15);
-            label1.TabIndex = 1;
-            label1.Text = "___________________________________________________";
             // 
             // btnEnvioBoletas
             // 
@@ -102,30 +97,33 @@
             btnEnvioBoletas.Dock = DockStyle.Top;
             btnEnvioBoletas.FlatAppearance.BorderSize = 0;
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
-            btnEnvioBoletas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
+            btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 381);
+            btnEnvioBoletas.Location = new Point(0, 394);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
             btnEnvioBoletas.Size = new Size(181, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
             // 
-            // btnEdicionDatosD
+            // btnEdicionDatos
             // 
-            btnEdicionDatosD.BackgroundImageLayout = ImageLayout.None;
-            btnEdicionDatosD.Dock = DockStyle.Top;
-            btnEdicionDatosD.FlatAppearance.BorderSize = 0;
-            btnEdicionDatosD.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatosD.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEdicionDatosD.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatosD.Location = new Point(0, 330);
-            btnEdicionDatosD.Name = "btnEdicionDatosD";
-            btnEdicionDatosD.Size = new Size(181, 51);
-            btnEdicionDatosD.TabIndex = 5;
-            btnEdicionDatosD.Text = "Edición de Datos";
-            btnEdicionDatosD.UseVisualStyleBackColor = true;
-            btnEdicionDatosD.Click += btnEdicionDatosD_Click;
+            btnEdicionDatos.BackgroundImageLayout = ImageLayout.None;
+            btnEdicionDatos.Dock = DockStyle.Top;
+            btnEdicionDatos.FlatAppearance.BorderSize = 0;
+            btnEdicionDatos.FlatStyle = FlatStyle.Flat;
+            btnEdicionDatos.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEdicionDatos.ForeColor = SystemColors.ControlLight;
+            btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
+            btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEdicionDatos.Location = new Point(0, 343);
+            btnEdicionDatos.Name = "btnEdicionDatos";
+            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.TabIndex = 5;
+            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.UseVisualStyleBackColor = true;
             // 
             // btnBitacora
             // 
@@ -133,9 +131,11 @@
             btnBitacora.Dock = DockStyle.Top;
             btnBitacora.FlatAppearance.BorderSize = 0;
             btnBitacora.FlatStyle = FlatStyle.Flat;
-            btnBitacora.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBitacora.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnBitacora.ForeColor = SystemColors.ControlLight;
+            btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBitacora.Location = new Point(0, 279);
+            btnBitacora.Location = new Point(0, 292);
             btnBitacora.Name = "btnBitacora";
             btnBitacora.Size = new Size(181, 51);
             btnBitacora.TabIndex = 4;
@@ -148,9 +148,11 @@
             btnAdmSecre.Dock = DockStyle.Top;
             btnAdmSecre.FlatAppearance.BorderSize = 0;
             btnAdmSecre.FlatStyle = FlatStyle.Flat;
-            btnAdmSecre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAdmSecre.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnAdmSecre.ForeColor = SystemColors.ControlLight;
+            btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdmSecre.Location = new Point(0, 228);
+            btnAdmSecre.Location = new Point(0, 241);
             btnAdmSecre.Name = "btnAdmSecre";
             btnAdmSecre.Size = new Size(181, 51);
             btnAdmSecre.TabIndex = 3;
@@ -163,9 +165,11 @@
             btnEstadisticas.Dock = DockStyle.Top;
             btnEstadisticas.FlatAppearance.BorderSize = 0;
             btnEstadisticas.FlatStyle = FlatStyle.Flat;
-            btnEstadisticas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEstadisticas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEstadisticas.ForeColor = SystemColors.ControlLight;
+            btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstadisticas.Location = new Point(0, 177);
+            btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
             btnEstadisticas.Size = new Size(181, 51);
             btnEstadisticas.TabIndex = 2;
@@ -178,11 +182,13 @@
             btn_capturaCalif.Dock = DockStyle.Top;
             btn_capturaCalif.FlatAppearance.BorderSize = 0;
             btn_capturaCalif.FlatStyle = FlatStyle.Flat;
-            btn_capturaCalif.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_capturaCalif.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_capturaCalif.ForeColor = SystemColors.ControlLight;
+            btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
             btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(181, 48);
+            btn_capturaCalif.Size = new Size(181, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -193,7 +199,9 @@
             btn_inscripcion.Dock = DockStyle.Top;
             btn_inscripcion.FlatAppearance.BorderSize = 0;
             btn_inscripcion.FlatStyle = FlatStyle.Flat;
-            btn_inscripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_inscripcion.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
+            btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
             btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
@@ -208,6 +216,7 @@
             panelLogo.BorderRadius = 20;
             panelLogo.Controls.Add(label4);
             panelLogo.Controls.Add(Logo);
+            panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
@@ -218,34 +227,53 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(12, 48);
+            label4.Location = new Point(9, 50);
             label4.Name = "label4";
             label4.Size = new Size(163, 26);
-            label4.TabIndex = 38;
+            label4.TabIndex = 40;
             label4.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
-            label4.Click += label4_Click;
             // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(61, 3);
+            Logo.Location = new Point(58, 5);
             Logo.Name = "Logo";
             Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
-            Logo.TabIndex = 2;
+            Logo.TabIndex = 39;
             Logo.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(-19, 63);
+            label1.Name = "label1";
+            label1.Size = new Size(262, 15);
+            label1.TabIndex = 1;
+            label1.Text = "___________________________________________________";
             // 
             // panelApp
             // 
             panelApp.AutoScroll = true;
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
+            panelApp.Controls.Add(pictureBox1);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
             panelApp.Size = new Size(818, 490);
-            panelApp.TabIndex = 1;
+            panelApp.TabIndex = 6;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.logo_escuela1;
+            pictureBox1.Location = new Point(191, 80);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(373, 228);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 22;
+            pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -257,6 +285,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(818, 59);
             panel1.TabIndex = 21;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlText;
+            label14.Location = new Point(246, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(392, 32);
+            label14.TabIndex = 12;
+            label14.Text = "Bienvenido al Sitema FAY JC";
             // 
             // btn_ingresar
             // 
@@ -274,17 +313,6 @@
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = SystemColors.ControlLightLight;
-            label14.Location = new Point(206, 13);
-            label14.Name = "label14";
-            label14.Size = new Size(406, 32);
-            label14.TabIndex = 10;
-            label14.Text = "Bienvenido al Sistema FAY JC";
-            // 
             // MenuLateral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -299,11 +327,11 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MenuLateral";
             panelMenu.ResumeLayout(false);
-            panelMenu.PerformLayout();
             panelLogo.ResumeLayout(false);
             panelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             panelApp.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -312,21 +340,22 @@
         #endregion
 
         private Panelito panelMenu;
-        private Panelito panelLogo;
-        private Panelito panelApp;
-        private PictureBox Logo;
-        private Label label1;
-        private Button btn_inscripcion;
+        private Button btn_admaestros;
+        private Button btnEnvioBoletas;
+        private Button btnEdicionDatos;
+        private Button btnBitacora;
+        private Button btnAdmSecre;
         private Button btnEstadisticas;
         private Button btn_capturaCalif;
-        private Button btnAdmSecre;
-        private Button btnEdicionDatosD;
-        private Button btnBitacora;
-        private Button btnEnvioBoletas;
-        private Button btn_admaestros;
-        private Panel panel1;
-        private Button btn_ingresar;
+        private Button btn_inscripcion;
+        private Panelito panelLogo;
         private Label label4;
+        private PictureBox Logo;
+        private Label label1;
+        private Panelito panelApp;
+        private PictureBox pictureBox1;
+        private Panel panel1;
         private Label label14;
+        private Button btn_ingresar;
     }
 }

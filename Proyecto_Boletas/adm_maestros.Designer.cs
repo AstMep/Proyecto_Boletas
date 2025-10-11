@@ -59,6 +59,7 @@
             btn_inscripcion = new Button();
             panelLogo = new Panelito();
             label1 = new Label();
+            label7 = new Label();
             Logo = new PictureBox();
             panelApp.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -422,8 +423,9 @@
             // 
             panelLogo.BackColor = Color.FromArgb(39, 66, 89);
             panelLogo.BorderRadius = 20;
-            panelLogo.Controls.Add(label1);
+            panelLogo.Controls.Add(label7);
             panelLogo.Controls.Add(Logo);
+            panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
@@ -439,14 +441,24 @@
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Location = new Point(9, 50);
+            label7.Name = "label7";
+            label7.Size = new Size(163, 26);
+            label7.TabIndex = 40;
+            label7.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
+            // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(3, 0);
+            Logo.Location = new Point(58, 5);
             Logo.Name = "Logo";
-            Logo.Size = new Size(65, 60);
+            Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
-            Logo.TabIndex = 2;
+            Logo.TabIndex = 39;
             Logo.TabStop = false;
             // 
             // adm_maestros
@@ -505,6 +517,7 @@
         private Button btn_inscripcion;
         private Panelito panelLogo;
         private Label label1;
+        private Label label7;
         private PictureBox Logo;
     }
 }
