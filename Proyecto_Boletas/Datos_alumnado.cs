@@ -70,9 +70,18 @@ namespace Proyecto_Boletas
 
 
 
+        private void Datos_alumnado_Load(object sender, EventArgs e)
+        {
+            LlenarComboGrupos();
+            LlenarComboMeses();
+        }
 
+        private void cmbGrupo_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-        private void btnGenerarListas_Click(object sender, EventArgs e)
+        }
+
+        private void btnGenerarListas_Click_1(object sender, EventArgs e)
         {
             if (cmbGrupo.SelectedItem == null || cmbMes.SelectedItem == null)
             {
@@ -94,17 +103,6 @@ namespace Proyecto_Boletas
                 GeneradorListaA generador = new GeneradorListaA();
                 generador.GenerarListasMensuales(saveDialog.FileName, idGrupo, mesSeleccionado);
             }
-        }
-
-        private void Datos_alumnado_Load(object sender, EventArgs e)
-        {
-            LlenarComboGrupos();
-            LlenarComboMeses();
-        }
-
-        private void cmbGrupo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

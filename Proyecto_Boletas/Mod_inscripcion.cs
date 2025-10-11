@@ -14,6 +14,7 @@ namespace Proyecto_Boletas
 {
     public partial class Mod_inscripcion : Form
     {
+        private List<string> todosLosGrupos = new List<string>();
         private string rolUsuario;
         public Mod_inscripcion(string rol)
         {
@@ -27,6 +28,7 @@ namespace Proyecto_Boletas
             apellidoP_tutor.MaxLength = 30;
             apellidoM_tutor.MaxLength = 30;
             telefono_tutor.MaxLength = 10;
+            telefono_tutor.KeyPress += telefono_tutor_KeyPress;
             correo_tutor.MaxLength = 50;
             txtCurp.CharacterCasing = CharacterCasing.Upper;
             nombre_alumno.CharacterCasing = CharacterCasing.Upper;
@@ -35,6 +37,7 @@ namespace Proyecto_Boletas
             nombre_tutor.CharacterCasing = CharacterCasing.Upper;
             apellidoP_tutor.CharacterCasing = CharacterCasing.Upper;
             apellidoM_tutor.CharacterCasing = CharacterCasing.Upper;
+
             this.
 
             rolUsuario = rol;
@@ -75,6 +78,8 @@ namespace Proyecto_Boletas
 
             // Grupos
             grupo_alumno.Items.Clear();
+            // Ya NO es necesario usar todosLosGrupos si no se va a filtrar,
+            // simplemente llenaremos el ComboBox como estaba originalmente.
             try
             {
                 Conexion conexion = new Conexion();
@@ -86,7 +91,7 @@ namespace Proyecto_Boletas
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
-                            grupo_alumno.Items.Add(reader.GetString("nombre_grupo"));
+                            grupo_alumno.Items.Add(reader.GetString("nombre_grupo")); // ⭐ Se llena el ComboBox
                     }
                 }
             }
@@ -101,11 +106,20 @@ namespace Proyecto_Boletas
             combosgenero.Items.Add("Femenino");
             combosgenero.SelectedIndex = -1;
         }
+        private void telefono_tutor_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir solo números y teclas de control (como Backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Bloquea el carácter no permitido
+            }
+        }
 
         private void AsignarGradoPorEdad(int edad)
         {
             string grado = "";
 
+            // 1. Determinar el grado según la edad
             if (edad == 6)
                 grado = "primero";
             else if (edad == 7)
@@ -126,56 +140,26 @@ namespace Proyecto_Boletas
                 return;
             }
 
-            // Buscar el grupo que coincida con el grado (por nombre)
+            // 2. Buscar el grupo que coincida con el grado y seleccionarlo
             for (int i = 0; i < grupo_alumno.Items.Count; i++)
             {
                 string nombreGrupo = grupo_alumno.Items[i].ToString().ToLower();
+
+                // La búsqueda se basa en que el nombre del grupo contenga la palabra clave del grado.
                 if (nombreGrupo.Contains(grado))
                 {
                     grupo_alumno.SelectedIndex = i;
+                    // Al cambiar el SelectedIndex, se dispara grupo_alumno_SelectedIndexChanged,
+                    // que obtiene el ID y muestra las materias (la lógica de la BD).
                     return;
                 }
             }
 
+            // 3. Mensaje si no se encuentra el grupo
+            grupo_alumno.SelectedIndex = -1;
             MessageBox.Show($"No se encontró un grupo disponible para el grado '{grado}'.",
                 "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-
-            for (int i = 0; i < grupo_alumno.Items.Count; i++)
-            {
-                string nombreGrupo = grupo_alumno.Items[i].ToString().ToLower();
-                if (nombreGrupo.Contains(grado))
-                {
-                    grupo_alumno.SelectedIndex = i;
-
-                    string grupoSeleccionado = grupo_alumno.SelectedItem.ToString();
-                    Conexion conexion = new Conexion();
-                    using (MySqlConnection conn = conexion.GetConnection())
-                    {
-                        conn.Open();
-                        string query = "SELECT id_grupo FROM grupo WHERE nombre_grupo = @nombre";
-                        MySqlCommand cmd = new MySqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@nombre", grupoSeleccionado);
-                        object result = cmd.ExecuteScalar();
-
-                        if (result != null)
-                        {
-                            int idGrupo = Convert.ToInt32(result);
-                            MostrarMateriasDeGrupo(idGrupo);
-                        }
-                    }
-
-                    return;
-                }
-            }
-
-
-
-
         }
-
-
-
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -463,92 +447,18 @@ namespace Proyecto_Boletas
 
         private void txtCurp_TextChanged(object sender, EventArgs e)
         {
-            string curp = txtCurp.Text.Trim().ToUpper();
-
-            // Solo procesar si tiene los 18 caracteres válidos
-            if (curp.Length == 18)
-            {
-                // Obtener la fecha desde la CURP
-                DateTime? fechaCURP = ObtenerFechaDesCURP(curp);
-
-                if (fechaCURP != null)
-                {
-                    nacimiento_alumno.Value = fechaCURP.Value;
-
-                    int edadCalculada = CalcularEdad(fechaCURP.Value);
-                    if (edadCalculada >= 6 && edadCalculada <= 14)
-                        edad_alumno.SelectedItem = edadCalculada;
-                }
-
-                // 🔹 Obtener género desde la CURP
-                string generoCURP = ObtenerGeneroDesdeCURP(curp);
-
-                if (generoCURP != null)
-                {
-                    // Si no hay selección, asigna automáticamente
-                    if (combosgenero.SelectedIndex == -1)
-                    {
-                        combosgenero.SelectedItem = generoCURP;
-                    }
-                    else
-                    {
-                        // Si ya hay un valor seleccionado, verificar coincidencia
-                        string generoSeleccionado = combosgenero.SelectedItem.ToString();
-                        if (generoSeleccionado != generoCURP)
-                        {
-                            MessageBox.Show(
-                                $"⚠ El género seleccionado ({generoSeleccionado}) no coincide con el género indicado en la CURP ({generoCURP}).",
-                                "Inconsistencia de género",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning
-                            );
-
-                            // Opcional: corregir automáticamente
-                            combosgenero.SelectedItem = generoCURP;
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("La CURP ingresada tiene un formato incorrecto para determinar el género.",
-                        "Error en CURP", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            
         }
 
 
         private void nacimiento_alumno_ValueChanged(object sender, EventArgs e)
         {
-            // Calcular edad automáticamente
-            DateTime fechaNac = nacimiento_alumno.Value;
-            int edadCalculada = CalcularEdad(fechaNac);
 
-            // Seleccionar la edad en el ComboBox si está en el rango válido
-            if (edadCalculada >= 5 && edadCalculada <= 18)
-            {
-                edad_alumno.SelectedItem = edadCalculada;
-            }
-            else
-            {
-                edad_alumno.SelectedIndex = -1;
-                MessageBox.Show($"La edad calculada ({edadCalculada} años) está fuera del rango permitido (5-18 años).",
-                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void edad_alumno_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (edad_alumno.SelectedItem != null)
-            {
-                int edadSeleccionada = Convert.ToInt32(edad_alumno.SelectedItem);
-                AsignarGradoPorEdad(edadSeleccionada);
 
-                if (nacimiento_alumno.Value.Date == DateTime.Now.Date)
-                {
-                    DateTime fechaAproximada = DateTime.Now.AddYears(-edadSeleccionada);
-                    nacimiento_alumno.Value = fechaAproximada;
-                }
-            }
         }
 
 
@@ -557,42 +467,6 @@ namespace Proyecto_Boletas
 
         private void grupo_alumno_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (grupo_alumno.SelectedItem == null)
-                return;
-
-            try
-            {
-                string nombreGrupo = grupo_alumno.SelectedItem.ToString();
-
-                Conexion conexion = new Conexion();
-                using (MySqlConnection conn = conexion.GetConnection())
-                {
-                    conn.Open();
-
-                    // 1️⃣ Obtener el ID del grupo seleccionado
-                    string queryId = "SELECT id_grupo FROM grupo WHERE nombre_grupo = @nombre";
-                    MySqlCommand cmdId = new MySqlCommand(queryId, conn);
-                    cmdId.Parameters.AddWithValue("@nombre", nombreGrupo);
-
-                    object result = cmdId.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        int idGrupo = Convert.ToInt32(result);
-
-                        // 2️⃣ Mostrar las materias existentes de ese grupo
-                        MostrarMateriasDeGrupo(idGrupo);
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se encontró el grupo seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar materias: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
 
         }
@@ -813,6 +687,89 @@ namespace Proyecto_Boletas
         private void btnalta_inscripcion_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void combosgenero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvMateriasAlumno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Mod_inscripcion_Load(object sender, EventArgs e)
+        {
+            // Ajustes visuales del DataGridView
+            dgvMateriasAlumno.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMateriasAlumno.ReadOnly = true;
+            dgvMateriasAlumno.AllowUserToAddRows = false;
+            dgvMateriasAlumno.AllowUserToDeleteRows = false;
+            dgvMateriasAlumno.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMateriasAlumno.Font = new Font("Segoe UI", 10); // Cambia tamaño de letra
+            dgvMateriasAlumno.RowTemplate.Height = 30; // Aumenta altura de las filas
+
+        }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+            Mod_inscripcion nuevoFormulario = new Mod_inscripcion("Director"); // creas una instancia del otro form
+            nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdmSecre_Click(object sender, EventArgs e)
+        {
+            adm_Secretaria nuevoFormulario = new adm_Secretaria(); // creas una instancia del otro form
+            nuevoFormulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void btnBitacora_Click(object sender, EventArgs e)
+        {
+            Bitacora nuevoFormulario = new Bitacora();
+            nuevoFormulario.Show();
+            this.Hide();
+        }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCreacionBoletas_Click(object sender, EventArgs e)
+        {
+            ModEdicDatos_Direc nuevoFormulario = new ModEdicDatos_Direc();
+            nuevoFormulario.Show();
+            this.Hide();
+        }
+
+        private void btn_admaestros_Click(object sender, EventArgs e)
+        {
+            adm_maestros nuevoForulario = new adm_maestros(); // creas una instancia del otro form
+            nuevoForulario.Show();              // lo muestras
+            this.Hide();
+        }
+
+        private void nombre_alumno_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnalta_inscripcion2_Click(object sender, EventArgs e)
+        {
+
 
             try
             {
@@ -997,86 +954,138 @@ namespace Proyecto_Boletas
             }
         }
 
-
-
-
-
-        private void combosgenero_SelectedIndexChanged(object sender, EventArgs e)
+        private void txtCurp_TextChanged_1(object sender, EventArgs e)
         {
+            string curp = txtCurp.Text.Trim().ToUpper();
 
+            // Solo procesar si tiene los 18 caracteres válidos
+            if (curp.Length == 18)
+            {
+                // Obtener la fecha desde la CURP
+                DateTime? fechaCURP = ObtenerFechaDesCURP(curp);
+
+                if (fechaCURP != null)
+                {
+                    nacimiento_alumno.Value = fechaCURP.Value;
+
+                    int edadCalculada = CalcularEdad(fechaCURP.Value);
+                    if (edadCalculada >= 6 && edadCalculada <= 14)
+                        edad_alumno.SelectedItem = edadCalculada;
+                }
+
+                // 🔹 Obtener género desde la CURP
+                string generoCURP = ObtenerGeneroDesdeCURP(curp);
+
+                if (generoCURP != null)
+                {
+                    // Si no hay selección, asigna automáticamente
+                    if (combosgenero.SelectedIndex == -1)
+                    {
+                        combosgenero.SelectedItem = generoCURP;
+                    }
+                    else
+                    {
+                        // Si ya hay un valor seleccionado, verificar coincidencia
+                        string generoSeleccionado = combosgenero.SelectedItem.ToString();
+                        if (generoSeleccionado != generoCURP)
+                        {
+                            MessageBox.Show(
+                                $"⚠ El género seleccionado ({generoSeleccionado}) no coincide con el género indicado en la CURP ({generoCURP}).",
+                                "Inconsistencia de género",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+
+                            // Opcional: corregir automáticamente
+                            combosgenero.SelectedItem = generoCURP;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La CURP ingresada tiene un formato incorrecto para determinar el género.",
+                        "Error en CURP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
+        private void edad_alumno_SelectedIndexChanged_1(object sender, EventArgs e)
         {
+            if (edad_alumno.SelectedItem != null)
+            {
+                int edadSeleccionada = Convert.ToInt32(edad_alumno.SelectedItem);
+                AsignarGradoPorEdad(edadSeleccionada);
 
+                if (nacimiento_alumno.Value.Date == DateTime.Now.Date)
+                {
+                    DateTime fechaAproximada = DateTime.Now.AddYears(-edadSeleccionada);
+                    nacimiento_alumno.Value = fechaAproximada;
+                }
+            }
         }
 
-        private void dgvMateriasAlumno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void nacimiento_alumno_ValueChanged_1(object sender, EventArgs e)
         {
+            // Calcular edad automáticamente
+            DateTime fechaNac = nacimiento_alumno.Value;
+            int edadCalculada = CalcularEdad(fechaNac);
 
+            // Seleccionar la edad en el ComboBox si está en el rango válido
+            if (edadCalculada >= 5 && edadCalculada <= 18)
+            {
+                edad_alumno.SelectedItem = edadCalculada;
+            }
+            else
+            {
+                edad_alumno.SelectedIndex = -1;
+                MessageBox.Show($"La edad calculada ({edadCalculada} años) está fuera del rango permitido (5-18 años).",
+                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-        private void Mod_inscripcion_Load(object sender, EventArgs e)
+        private void grupo_alumno_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            // Ajustes visuales del DataGridView
-            dgvMateriasAlumno.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvMateriasAlumno.ReadOnly = true;
-            dgvMateriasAlumno.AllowUserToAddRows = false;
-            dgvMateriasAlumno.AllowUserToDeleteRows = false;
-            dgvMateriasAlumno.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvMateriasAlumno.Font = new Font("Segoe UI", 10); // Cambia tamaño de letra
-            dgvMateriasAlumno.RowTemplate.Height = 30; // Aumenta altura de las filas
+            if (grupo_alumno.SelectedItem == null)
+                return;
 
+            try
+            {
+                string nombreGrupo = grupo_alumno.SelectedItem.ToString();
+
+                Conexion conexion = new Conexion();
+                using (MySqlConnection conn = conexion.GetConnection())
+                {
+                    conn.Open();
+
+                    // 1️⃣ Obtener el ID del grupo seleccionado
+                    string queryId = "SELECT id_grupo FROM grupo WHERE nombre_grupo = @nombre";
+                    MySqlCommand cmdId = new MySqlCommand(queryId, conn);
+                    cmdId.Parameters.AddWithValue("@nombre", nombreGrupo);
+
+                    object result = cmdId.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        int idGrupo = Convert.ToInt32(result);
+
+                        // 2️⃣ Mostrar las materias existentes de ese grupo
+                        MostrarMateriasDeGrupo(idGrupo);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el grupo seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar materias: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btn_inscripcion_Click(object sender, EventArgs e)
+        private void txtCurp_Leave(object sender, EventArgs e)
         {
-            Mod_inscripcion nuevoFormulario = new Mod_inscripcion("Director"); // creas una instancia del otro form
-            nuevoFormulario.Show();              // lo muestras
-            this.Hide();
-        }
-
-        private void btn_capturaCalif_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAdmSecre_Click(object sender, EventArgs e)
-        {
-            adm_Secretaria nuevoFormulario = new adm_Secretaria(); // creas una instancia del otro form
-            nuevoFormulario.Show();              // lo muestras
-            this.Hide();
-        }
-
-        private void btnBitacora_Click(object sender, EventArgs e)
-        {
-            Bitacora nuevoFormulario = new Bitacora();
-            nuevoFormulario.Show();
-            this.Hide();
-        }
-
-        private void btnEdicionDatos_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCreacionBoletas_Click(object sender, EventArgs e)
-        {
-            ModEdicDatos_Direc nuevoFormulario = new ModEdicDatos_Direc();
-            nuevoFormulario.Show();
-            this.Hide();
-        }
-
-        private void btn_admaestros_Click(object sender, EventArgs e)
-        {
-            adm_maestros nuevoForulario = new adm_maestros(); // creas una instancia del otro form
-            nuevoForulario.Show();              // lo muestras
-            this.Hide();
-        }
-
-        private void nombre_alumno_TextChanged_1(object sender, EventArgs e)
-        {
-
+            
         }
     }
 }

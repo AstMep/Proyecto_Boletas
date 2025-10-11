@@ -163,6 +163,7 @@
             btnGenerarBitacora.Size = new Size(121, 135);
             btnGenerarBitacora.TabIndex = 3;
             btnGenerarBitacora.UseVisualStyleBackColor = false;
+            btnGenerarBitacora.Click += btnGenerarBitacora_Click_1;
             // 
             // panel1
             // 

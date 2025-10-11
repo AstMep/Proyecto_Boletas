@@ -33,7 +33,7 @@
             label18 = new Label();
             panelApp = new Panelito();
             label1 = new Label();
-            button1 = new Button();
+            btnalta_inscripcion2 = new Button();
             dgvMateriasAlumno = new DataGridView();
             groupBox2 = new GroupBox();
             pictureBox1 = new PictureBox();
@@ -125,7 +125,7 @@
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
             panelApp.Controls.Add(label1);
-            panelApp.Controls.Add(button1);
+            panelApp.Controls.Add(btnalta_inscripcion2);
             panelApp.Controls.Add(dgvMateriasAlumno);
             panelApp.Controls.Add(groupBox2);
             panelApp.Controls.Add(groupBox1);
@@ -148,18 +148,19 @@
             label1.TabIndex = 26;
             label1.Text = "Guardar Datos";
             // 
-            // button1
+            // btnalta_inscripcion2
             // 
-            button1.BackColor = Color.Transparent;
-            button1.BackgroundImageLayout = ImageLayout.Center;
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(343, 856);
-            button1.Name = "button1";
-            button1.Size = new Size(113, 73);
-            button1.TabIndex = 25;
-            button1.UseVisualStyleBackColor = false;
+            btnalta_inscripcion2.BackColor = Color.Transparent;
+            btnalta_inscripcion2.BackgroundImageLayout = ImageLayout.Center;
+            btnalta_inscripcion2.FlatStyle = FlatStyle.Popup;
+            btnalta_inscripcion2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnalta_inscripcion2.Image = (Image)resources.GetObject("btnalta_inscripcion2.Image");
+            btnalta_inscripcion2.Location = new Point(343, 856);
+            btnalta_inscripcion2.Name = "btnalta_inscripcion2";
+            btnalta_inscripcion2.Size = new Size(113, 73);
+            btnalta_inscripcion2.TabIndex = 25;
+            btnalta_inscripcion2.UseVisualStyleBackColor = false;
+            btnalta_inscripcion2.Click += btnalta_inscripcion2_Click;
             // 
             // dgvMateriasAlumno
             // 
@@ -224,6 +225,7 @@
             telefono_tutor.Name = "telefono_tutor";
             telefono_tutor.Size = new Size(349, 26);
             telefono_tutor.TabIndex = 31;
+            telefono_tutor.KeyPress += telefono_tutor_KeyPress;
             // 
             // label9
             // 
@@ -350,6 +352,7 @@
             grupo_alumno.Name = "grupo_alumno";
             grupo_alumno.Size = new Size(118, 26);
             grupo_alumno.TabIndex = 26;
+            grupo_alumno.SelectedIndexChanged += grupo_alumno_SelectedIndexChanged_1;
             // 
             // label3
             // 
@@ -368,6 +371,7 @@
             edad_alumno.Name = "edad_alumno";
             edad_alumno.Size = new Size(123, 26);
             edad_alumno.TabIndex = 24;
+            edad_alumno.SelectedIndexChanged += edad_alumno_SelectedIndexChanged_1;
             // 
             // nacimiento_alumno
             // 
@@ -375,6 +379,7 @@
             nacimiento_alumno.Name = "nacimiento_alumno";
             nacimiento_alumno.Size = new Size(348, 26);
             nacimiento_alumno.TabIndex = 23;
+            nacimiento_alumno.ValueChanged += nacimiento_alumno_ValueChanged_1;
             // 
             // label11
             // 
@@ -402,6 +407,8 @@
             txtCurp.Name = "txtCurp";
             txtCurp.Size = new Size(348, 26);
             txtCurp.TabIndex = 18;
+            txtCurp.TextChanged += txtCurp_TextChanged_1;
+            txtCurp.Leave += txtCurp_Leave;
             // 
             // label6
             // 
@@ -729,7 +736,7 @@
         private Label label18;
         private Panelito panelApp;
         private Label label1;
-        private Button button1;
+        private Button btnalta_inscripcion2;
         private DataGridView dgvMateriasAlumno;
         private GroupBox groupBox2;
         private PictureBox pictureBox1;

@@ -84,11 +84,23 @@ namespace Proyecto_Boletas
             cmbMes.ValueMember = "Id";
         }
 
-        private void btnGenerarBitacora_Click(object sender, EventArgs e)
+ 
+
+        private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbMes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGenerarBitacora_Click_1(object sender, EventArgs e)
         {
             try
             {
-                // La lógica del botón es correcta y llama al GenerarBitacoraPDF con los valores seleccionados.
+                
                 string rol = cmbRoles.SelectedValue.ToString();
                 int mes = Convert.ToInt32(cmbMes.SelectedValue);
 
@@ -101,16 +113,6 @@ namespace Proyecto_Boletas
             {
                 MessageBox.Show("Error al intentar generar el PDF. Asegúrese de que ha seleccionado una opción en los filtros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbMes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

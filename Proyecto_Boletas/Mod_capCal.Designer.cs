@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_Boletas
 {
-    partial class Datos_alumnado
+    partial class Mod_capCal
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Datos_alumnado));
             panelApp = new Panelito();
-            groupBox6 = new GroupBox();
-            label12 = new Label();
-            label13 = new Label();
-            btnGenerarListas = new Button();
-            label2 = new Label();
-            cmbGrupo = new ComboBox();
-            cmbMes = new ComboBox();
-            label3 = new Label();
             panel1 = new Panel();
             btn_ingresar = new Button();
             panelMenu = new Panelito();
@@ -53,8 +44,12 @@
             panelLogo = new Panelito();
             label4 = new Label();
             Logo = new PictureBox();
+            label14 = new Label();
+            Usuario = new Label();
+            label2 = new Label();
+            cmbGrado = new ComboBox();
+            cmbAlumno = new ComboBox();
             panelApp.SuspendLayout();
-            groupBox6.SuspendLayout();
             panel1.SuspendLayout();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
@@ -66,113 +61,26 @@
             panelApp.AutoScroll = true;
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
-            panelApp.Controls.Add(groupBox6);
+            panelApp.Controls.Add(cmbAlumno);
+            panelApp.Controls.Add(cmbGrado);
             panelApp.Controls.Add(label2);
-            panelApp.Controls.Add(cmbGrupo);
+            panelApp.Controls.Add(Usuario);
             panelApp.Controls.Add(panel1);
-            panelApp.Controls.Add(cmbMes);
-            panelApp.Controls.Add(label3);
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(798, 498);
+            panelApp.Size = new Size(803, 508);
             panelApp.TabIndex = 3;
-            // 
-            // groupBox6
-            // 
-            groupBox6.BackColor = Color.FromArgb(157, 101, 101);
-            groupBox6.Controls.Add(label12);
-            groupBox6.Controls.Add(label13);
-            groupBox6.Controls.Add(btnGenerarListas);
-            groupBox6.Location = new Point(93, 104);
-            groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(160, 199);
-            groupBox6.TabIndex = 14;
-            groupBox6.TabStop = false;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(11, 175);
-            label12.Name = "label12";
-            label12.Size = new Size(143, 21);
-            label12.TabIndex = 5;
-            label12.Text = "Lista de Asistencia";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = SystemColors.ControlLightLight;
-            label13.Location = new Point(45, 154);
-            label13.Name = "label13";
-            label13.Size = new Size(76, 21);
-            label13.TabIndex = 4;
-            label13.Text = "Generar  ";
-            // 
-            // btnGenerarListas
-            // 
-            btnGenerarListas.BackColor = Color.FromArgb(212, 168, 133);
-            btnGenerarListas.BackgroundImageLayout = ImageLayout.Center;
-            btnGenerarListas.FlatStyle = FlatStyle.Popup;
-            btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
-            btnGenerarListas.Location = new Point(22, 16);
-            btnGenerarListas.Name = "btnGenerarListas";
-            btnGenerarListas.Size = new Size(121, 135);
-            btnGenerarListas.TabIndex = 3;
-            btnGenerarListas.UseVisualStyleBackColor = false;
-            btnGenerarListas.Click += btnGenerarListas_Click_1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(287, 184);
-            label2.Name = "label2";
-            label2.Size = new Size(128, 21);
-            label2.TabIndex = 18;
-            label2.Text = "Seleccione Mes:";
-            // 
-            // cmbGrupo
-            // 
-            cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrupo.Location = new Point(436, 129);
-            cmbGrupo.Name = "cmbGrupo";
-            cmbGrupo.Size = new Size(133, 23);
-            cmbGrupo.TabIndex = 15;
-            // 
-            // cmbMes
-            // 
-            cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
-            cmbMes.Location = new Point(436, 184);
-            cmbMes.Name = "cmbMes";
-            cmbMes.Size = new Size(133, 23);
-            cmbMes.TabIndex = 17;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(287, 129);
-            label3.Name = "label3";
-            label3.Size = new Size(143, 21);
-            label3.TabIndex = 16;
-            label3.Text = "Seleccione Grupo:";
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(39, 66, 89);
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(798, 59);
+            panel1.Size = new Size(803, 59);
             panel1.TabIndex = 21;
             // 
             // btn_ingresar
@@ -208,7 +116,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(181, 498);
+            panelMenu.Size = new Size(181, 508);
             panelMenu.TabIndex = 2;
             // 
             // btn_admaestros
@@ -372,23 +280,67 @@
             Logo.TabIndex = 2;
             Logo.TabStop = false;
             // 
-            // Datos_alumnado
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = SystemColors.ControlLightLight;
+            label14.Location = new Point(198, 13);
+            label14.Name = "label14";
+            label14.Size = new Size(364, 32);
+            label14.TabIndex = 11;
+            label14.Text = "Captura de Calificaciones";
+            // 
+            // Usuario
+            // 
+            Usuario.AutoSize = true;
+            Usuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Usuario.Location = new Point(54, 80);
+            Usuario.Name = "Usuario";
+            Usuario.Size = new Size(149, 18);
+            Usuario.TabIndex = 22;
+            Usuario.Text = "Seleccione Grado:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(45, 111);
+            label2.Name = "label2";
+            label2.Size = new Size(158, 18);
+            label2.TabIndex = 23;
+            label2.Text = "Seleccione Alumno:";
+            // 
+            // cmbGrado
+            // 
+            cmbGrado.FormattingEnabled = true;
+            cmbGrado.Location = new Point(209, 80);
+            cmbGrado.Name = "cmbGrado";
+            cmbGrado.Size = new Size(547, 23);
+            cmbGrado.TabIndex = 24;
+            // 
+            // cmbAlumno
+            // 
+            cmbAlumno.FormattingEnabled = true;
+            cmbAlumno.Location = new Point(209, 111);
+            cmbAlumno.Name = "cmbAlumno";
+            cmbAlumno.Size = new Size(547, 23);
+            cmbAlumno.TabIndex = 25;
+            // 
+            // Mod_capCal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoScroll = true;
-            BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(979, 498);
+            BackColor = Color.FromArgb(39, 66, 89);
+            ClientSize = new Size(984, 508);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Name = "Datos_alumnado";
-            Text = "Datos_alumnado";
-            Load += Datos_alumnado_Load;
+            Name = "Mod_capCal";
+            Text = "Mod_capCal";
             panelApp.ResumeLayout(false);
             panelApp.PerformLayout();
-            groupBox6.ResumeLayout(false);
-            groupBox6.PerformLayout();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panelMenu.ResumeLayout(false);
             panelMenu.PerformLayout();
             panelLogo.ResumeLayout(false);
@@ -400,14 +352,6 @@
         #endregion
 
         private Panelito panelApp;
-        private GroupBox groupBox6;
-        private Label label12;
-        private Label label13;
-        private Button btnGenerarListas;
-        private Label label2;
-        private ComboBox cmbGrupo;
-        private ComboBox cmbMes;
-        private Label label3;
         private Panel panel1;
         private Button btn_ingresar;
         private Panelito panelMenu;
@@ -423,5 +367,10 @@
         private Panelito panelLogo;
         private Label label4;
         private PictureBox Logo;
+        private Label label14;
+        private Label label2;
+        private Label Usuario;
+        private ComboBox cmbAlumno;
+        private ComboBox cmbGrado;
     }
 }

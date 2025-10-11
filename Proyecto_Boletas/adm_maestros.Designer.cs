@@ -89,6 +89,7 @@
             flowMaestros.Name = "flowMaestros";
             flowMaestros.Size = new Size(620, 170);
             flowMaestros.TabIndex = 29;
+            flowMaestros.Paint += flowMaestros_Paint;
             // 
             // groupBox1
             // 
@@ -121,6 +122,7 @@
             grupo_asignado.Name = "grupo_asignado";
             grupo_asignado.Size = new Size(121, 26);
             grupo_asignado.TabIndex = 0;
+            grupo_asignado.SelectedIndexChanged += grupo_asignado_SelectedIndexChanged_1;
             // 
             // label3
             // 

@@ -73,7 +73,8 @@ namespace Proyecto_Boletas
             LlenarComboMeses();
         }
 
-        private void btnGenerarListas_Click(object sender, EventArgs e)
+
+        private void btnGenerarListas_Click_1(object sender, EventArgs e)
         {
             if (cmbGrupo.SelectedItem == null || cmbMes.SelectedItem == null)
             {
@@ -97,8 +98,14 @@ namespace Proyecto_Boletas
             }
         }
 
-        private void btnGenerarLisProf_Click(object sender, EventArgs e)
+        private void panelApp_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void btnGenerarLisProf_Click_1(object sender, EventArgs e)
+        {
+
             try
             {
                 // 1. Crear el diálogo para que el usuario elija dónde guardar el archivo
