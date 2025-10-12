@@ -67,7 +67,7 @@ namespace Proyecto_Boletas
 
         private void btnEnvioBoletas_Click(object sender, EventArgs e)
         {
-            ModEdicDatos_Direc nuevoFormulario = new ModEdicDatos_Direc();
+            CreacionPDF_Direc nuevoFormulario = new CreacionPDF_Direc();
             nuevoFormulario.Show();
             this.Hide();
         }

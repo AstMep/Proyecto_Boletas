@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Proyecto_Boletas
 {
-    public partial class ModEdicDatos_Direc : Form
+    public partial class CreacionPDF_Direc : Form
     {
-        public ModEdicDatos_Direc()
+        public CreacionPDF_Direc()
         {
             InitializeComponent();
         }

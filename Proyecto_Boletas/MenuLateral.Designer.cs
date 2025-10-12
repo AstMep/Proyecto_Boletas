@@ -43,16 +43,38 @@
             Logo = new PictureBox();
             label1 = new Label();
             panelApp = new Panelito();
-            pictureBox1 = new PictureBox();
             panel1 = new Panel();
             label14 = new Label();
             btn_ingresar = new Button();
+            cmbTrimestre = new ComboBox();
+            label10 = new Label();
+            label9 = new Label();
+            cmbGrup = new ComboBox();
+            cmbAlumno = new ComboBox();
+            label8 = new Label();
+            groupBox2 = new GroupBox();
+            label7 = new Label();
+            btnGenerarBoletas = new Button();
+            groupBox1 = new GroupBox();
+            label5 = new Label();
+            label6 = new Label();
+            btnGenerarLisProf = new Button();
+            label2 = new Label();
+            cmbMes = new ComboBox();
+            label3 = new Label();
+            cmbGrupo = new ComboBox();
+            groupBox6 = new GroupBox();
+            label12 = new Label();
+            label13 = new Label();
+            btnGenerarListas = new Button();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             panelApp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox6.SuspendLayout();
             SuspendLayout();
             // 
             // panelMenu
@@ -71,7 +93,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(181, 490);
+            panelMenu.Size = new Size(181, 529);
             panelMenu.TabIndex = 3;
             // 
             // btn_admaestros
@@ -257,23 +279,25 @@
             panelApp.AutoScroll = true;
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
-            panelApp.Controls.Add(pictureBox1);
+            panelApp.Controls.Add(cmbTrimestre);
             panelApp.Controls.Add(panel1);
+            panelApp.Controls.Add(label10);
+            panelApp.Controls.Add(groupBox6);
+            panelApp.Controls.Add(label9);
+            panelApp.Controls.Add(cmbGrupo);
+            panelApp.Controls.Add(cmbGrup);
+            panelApp.Controls.Add(label3);
+            panelApp.Controls.Add(cmbAlumno);
+            panelApp.Controls.Add(cmbMes);
+            panelApp.Controls.Add(label8);
+            panelApp.Controls.Add(label2);
+            panelApp.Controls.Add(groupBox2);
+            panelApp.Controls.Add(groupBox1);
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(818, 490);
+            panelApp.Size = new Size(818, 529);
             panelApp.TabIndex = 6;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.logo_escuela1;
-            pictureBox1.Location = new Point(191, 80);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(373, 228);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 22;
-            pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -313,13 +337,238 @@
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
             // 
+            // cmbTrimestre
+            // 
+            cmbTrimestre.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbTrimestre.Location = new Point(379, 405);
+            cmbTrimestre.Name = "cmbTrimestre";
+            cmbTrimestre.Size = new Size(379, 23);
+            cmbTrimestre.TabIndex = 60;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = SystemColors.ControlLightLight;
+            label10.Location = new Point(214, 403);
+            label10.Name = "label10";
+            label10.Size = new Size(165, 21);
+            label10.TabIndex = 59;
+            label10.Text = "Seleccione Trimestre:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = SystemColors.ControlLightLight;
+            label9.Location = new Point(225, 319);
+            label9.Name = "label9";
+            label9.Size = new Size(143, 21);
+            label9.TabIndex = 58;
+            label9.Text = "Seleccione Grupo:";
+            // 
+            // cmbGrup
+            // 
+            cmbGrup.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGrup.Location = new Point(379, 317);
+            cmbGrup.Name = "cmbGrup";
+            cmbGrup.Size = new Size(379, 23);
+            cmbGrup.TabIndex = 57;
+            // 
+            // cmbAlumno
+            // 
+            cmbAlumno.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbAlumno.Location = new Point(379, 357);
+            cmbAlumno.Name = "cmbAlumno";
+            cmbAlumno.Size = new Size(379, 23);
+            cmbAlumno.TabIndex = 56;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = SystemColors.ControlLightLight;
+            label8.Location = new Point(214, 359);
+            label8.Name = "label8";
+            label8.Size = new Size(154, 21);
+            label8.TabIndex = 55;
+            label8.Text = "Seleccione Alumno:";
+            // 
+            // groupBox2
+            // 
+            groupBox2.BackColor = Color.FromArgb(157, 101, 101);
+            groupBox2.Controls.Add(label7);
+            groupBox2.Controls.Add(btnGenerarBoletas);
+            groupBox2.Location = new Point(39, 286);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(160, 199);
+            groupBox2.TabIndex = 54;
+            groupBox2.TabStop = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = SystemColors.ControlLightLight;
+            label7.Location = new Point(41, 154);
+            label7.Name = "label7";
+            label7.Size = new Size(101, 42);
+            label7.TabIndex = 5;
+            label7.Text = "Creación de \r\n    Boleta";
+            // 
+            // btnGenerarBoletas
+            // 
+            btnGenerarBoletas.BackColor = Color.FromArgb(212, 168, 133);
+            btnGenerarBoletas.BackgroundImageLayout = ImageLayout.Center;
+            btnGenerarBoletas.FlatStyle = FlatStyle.Popup;
+            btnGenerarBoletas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarBoletas.Image = (Image)resources.GetObject("btnGenerarBoletas.Image");
+            btnGenerarBoletas.Location = new Point(21, 16);
+            btnGenerarBoletas.Name = "btnGenerarBoletas";
+            btnGenerarBoletas.Size = new Size(121, 135);
+            btnGenerarBoletas.TabIndex = 3;
+            btnGenerarBoletas.UseVisualStyleBackColor = false;
+            // 
+            // groupBox1
+            // 
+            groupBox1.BackColor = Color.FromArgb(157, 101, 101);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(btnGenerarLisProf);
+            groupBox1.Location = new Point(576, 62);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(160, 199);
+            groupBox1.TabIndex = 53;
+            groupBox1.TabStop = false;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ControlLightLight;
+            label5.Location = new Point(11, 175);
+            label5.Name = "label5";
+            label5.Size = new Size(138, 21);
+            label5.TabIndex = 5;
+            label5.Text = "Lista de Maestros";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = SystemColors.ControlLightLight;
+            label6.Location = new Point(45, 154);
+            label6.Name = "label6";
+            label6.Size = new Size(76, 21);
+            label6.TabIndex = 4;
+            label6.Text = "Generar  ";
+            // 
+            // btnGenerarLisProf
+            // 
+            btnGenerarLisProf.BackColor = Color.FromArgb(212, 168, 133);
+            btnGenerarLisProf.BackgroundImageLayout = ImageLayout.Center;
+            btnGenerarLisProf.FlatStyle = FlatStyle.Popup;
+            btnGenerarLisProf.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarLisProf.Image = (Image)resources.GetObject("btnGenerarLisProf.Image");
+            btnGenerarLisProf.Location = new Point(21, 16);
+            btnGenerarLisProf.Name = "btnGenerarLisProf";
+            btnGenerarLisProf.Size = new Size(121, 135);
+            btnGenerarLisProf.TabIndex = 3;
+            btnGenerarLisProf.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ControlLightLight;
+            label2.Location = new Point(214, 140);
+            label2.Name = "label2";
+            label2.Size = new Size(128, 21);
+            label2.TabIndex = 52;
+            label2.Text = "Seleccione Mes:";
+            // 
+            // cmbMes
+            // 
+            cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
+            cmbMes.Location = new Point(363, 140);
+            cmbMes.Name = "cmbMes";
+            cmbMes.Size = new Size(133, 23);
+            cmbMes.TabIndex = 51;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(214, 85);
+            label3.Name = "label3";
+            label3.Size = new Size(143, 21);
+            label3.TabIndex = 50;
+            label3.Text = "Seleccione Grupo:";
+            // 
+            // cmbGrupo
+            // 
+            cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGrupo.Location = new Point(363, 85);
+            cmbGrupo.Name = "cmbGrupo";
+            cmbGrupo.Size = new Size(133, 23);
+            cmbGrupo.TabIndex = 49;
+            // 
+            // groupBox6
+            // 
+            groupBox6.BackColor = Color.FromArgb(157, 101, 101);
+            groupBox6.Controls.Add(label12);
+            groupBox6.Controls.Add(label13);
+            groupBox6.Controls.Add(btnGenerarListas);
+            groupBox6.Location = new Point(39, 65);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(160, 199);
+            groupBox6.TabIndex = 48;
+            groupBox6.TabStop = false;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = SystemColors.ControlLightLight;
+            label12.Location = new Point(11, 175);
+            label12.Name = "label12";
+            label12.Size = new Size(143, 21);
+            label12.TabIndex = 5;
+            label12.Text = "Lista de Asistencia";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.ForeColor = SystemColors.ControlLightLight;
+            label13.Location = new Point(45, 154);
+            label13.Name = "label13";
+            label13.Size = new Size(76, 21);
+            label13.TabIndex = 4;
+            label13.Text = "Generar  ";
+            // 
+            // btnGenerarListas
+            // 
+            btnGenerarListas.BackColor = Color.FromArgb(212, 168, 133);
+            btnGenerarListas.BackgroundImageLayout = ImageLayout.Center;
+            btnGenerarListas.FlatStyle = FlatStyle.Popup;
+            btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
+            btnGenerarListas.Location = new Point(21, 16);
+            btnGenerarListas.Name = "btnGenerarListas";
+            btnGenerarListas.Size = new Size(121, 135);
+            btnGenerarListas.TabIndex = 3;
+            btnGenerarListas.UseVisualStyleBackColor = false;
+            // 
             // MenuLateral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(39, 66, 89);
-            ClientSize = new Size(999, 490);
+            ClientSize = new Size(999, 529);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -331,9 +580,15 @@
             panelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             panelApp.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelApp.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -353,9 +608,29 @@
         private PictureBox Logo;
         private Label label1;
         private Panelito panelApp;
-        private PictureBox pictureBox1;
         private Panel panel1;
         private Label label14;
         private Button btn_ingresar;
+        private ComboBox cmbTrimestre;
+        private Label label10;
+        private GroupBox groupBox6;
+        private Label label12;
+        private Label label13;
+        private Button btnGenerarListas;
+        private Label label9;
+        private ComboBox cmbGrupo;
+        private ComboBox cmbGrup;
+        private Label label3;
+        private ComboBox cmbAlumno;
+        private ComboBox cmbMes;
+        private Label label8;
+        private Label label2;
+        private GroupBox groupBox2;
+        private Label label7;
+        private Button btnGenerarBoletas;
+        private GroupBox groupBox1;
+        private Label label5;
+        private Label label6;
+        private Button btnGenerarLisProf;
     }
 }

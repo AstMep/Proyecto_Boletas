@@ -104,5 +104,10 @@ namespace Proyecto_Boletas
                 generador.GenerarListasMensuales(saveDialog.FileName, idGrupo, mesSeleccionado);
             }
         }
+
+        private void panelMenu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
