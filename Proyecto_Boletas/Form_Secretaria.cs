@@ -52,5 +52,32 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void btn_ingresar_Click_1(object sender, EventArgs e)
+        {
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
+            this.Close();
+        }
+
+        private void btn_inscripcion_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+            Mod_capCal cap_calificacion = new Mod_capCal("Secretaria");  // ⭐ Pasar "Secretaria"
+            cap_calificacion.Show();
+            this.Hide();
+
+        }
+
+        private void btnEnvioBoletas_Click_1(object sender, EventArgs e)
+        {
+            CreacionPDF_Direc formularioPDF = new CreacionPDF_Direc("Secretaria");  // ⭐ Pasar "Secretaria"
+            formularioPDF.Show();
+            this.Hide();
+        }
     }
 }

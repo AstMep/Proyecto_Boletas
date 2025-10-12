@@ -42,6 +42,26 @@ namespace Proyecto_Boletas
 
             rolUsuario = rol;
             CargarCombos();
+            OcultarBotonesPorRol();
+        }
+
+        // ⭐ NUEVO: Método para ocultar botones según el rol
+        private void OcultarBotonesPorRol()
+        {
+            if (rolUsuario == "Secretaria")
+            {
+                // Ocultar botones solo para secretaria
+                btnAdmSecre.Visible = false;
+                btnBitacora.Visible = false;
+                btn_admaestros.Visible = false;
+            }
+            else if (rolUsuario == "Director")
+            {
+                // Mostrar todos los botones para director
+                btnAdmSecre.Visible = true;
+                btnBitacora.Visible = true;
+                btn_admaestros.Visible = true;
+            }
         }
 
 
@@ -447,7 +467,7 @@ namespace Proyecto_Boletas
 
         private void txtCurp_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
 
@@ -1085,7 +1105,64 @@ namespace Proyecto_Boletas
 
         private void txtCurp_Leave(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void btn_ingresar_Click(object sender, EventArgs e)
+        {
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
+            this.Close();
+        }
+
+        private void btn_inscripcion_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_capturaCalif_Click_1(object sender, EventArgs e)
+        {
+            Mod_capCal cap_calificacion = new Mod_capCal(rolUsuario);
+            cap_calificacion.Show();
+            this.Hide();
+        }
+
+        private void btnAdmSecre_Click_1(object sender, EventArgs e)
+        {
+            adm_Secretaria administrar_secre = new adm_Secretaria();
+            administrar_secre.Show();
+            this.Hide();
+        }
+
+        private void btnBitacora_Click_1(object sender, EventArgs e)
+        {
+            Bitacora bitacora = new Bitacora();
+            bitacora.Show();
+            this.Hide();
+        }
+
+        private void btnEnvioBoletas_Click(object sender, EventArgs e)
+        {
+            CreacionPDF_Direc pdf_director = new CreacionPDF_Direc(rolUsuario);
+            pdf_director.Show();
+            this.Hide();
+        }
+
+        private void btn_admaestros_Click_1(object sender, EventArgs e)
+        {
+            adm_maestros administrar_maestros = new adm_maestros();
+            administrar_maestros.Show();
+            this.Hide();
+        }
+
+        private void panelApp_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -78,5 +78,63 @@ namespace Proyecto_Boletas
             nuevoFormulario.Show();
             this.Hide();
         }
+
+        private void btn_ingresar_Click_1(object sender, EventArgs e)
+        {
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
+            this.Close();
+        }
+
+        private void btn_inscripcion_Click_1(object sender, EventArgs e)
+        {
+            Mod_inscripcion inscripcion = new Mod_inscripcion("Director");
+            inscripcion.Show();
+            this.Hide();
+        }
+
+        private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+            Mod_capCal cap_calificacion = new Mod_capCal("Director");
+            cap_calificacion.Show();
+            this.Hide();
+        }
+
+        private void btnAdmSecre_Click_1(object sender, EventArgs e)
+        {
+            adm_Secretaria administrar_secre = new adm_Secretaria();
+            administrar_secre.Show();
+            this.Hide();
+
+        }
+
+        private void btnBitacora_Click_1(object sender, EventArgs e)
+        {
+            Bitacora bitacora = new Bitacora();
+            bitacora.Show();
+            this.Hide();
+
+        }
+
+        private void btnEnvioBoletas_Click_1(object sender, EventArgs e)
+        {
+            CreacionPDF_Direc pdf_director = new CreacionPDF_Direc();
+            pdf_director.Show();
+            this.Hide();
+
+        }
+
+        private void btn_admaestros_Click_1(object sender, EventArgs e)
+        {
+            adm_maestros administrar_maestros = new adm_maestros();
+            administrar_maestros.Show();
+            this.Hide();
+
+        }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

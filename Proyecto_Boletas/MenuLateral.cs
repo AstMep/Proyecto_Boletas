@@ -31,5 +31,10 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

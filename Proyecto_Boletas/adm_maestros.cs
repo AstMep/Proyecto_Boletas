@@ -388,7 +388,7 @@ namespace Proyecto_Boletas
 
             MessageBox.Show($"Maestro registrado y asignado al grupo {grupoSeleccionado}.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-   
+
             LimpiarYRestablecerModo();
         }
 
@@ -420,7 +420,7 @@ namespace Proyecto_Boletas
 
             MessageBox.Show("Maestro actualizado y reasignado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
- 
+
             LimpiarYRestablecerModo();
         }
         private void LimpiarYRestablecerModo()
@@ -498,7 +498,7 @@ namespace Proyecto_Boletas
                         return;
                     }
 
-     
+
                     string queryCorreoDuplicado =
                         "SELECT COUNT(*) FROM maestro WHERE LOWER(Correo_maestro)=@correo AND id_maestro != @idActual";
 
@@ -511,10 +511,10 @@ namespace Proyecto_Boletas
                         return;
                     }
 
-    
+
                     if (this.idMaestroEditando == 0)
                     {
-         
+
                         MySqlCommand cmdCount = new MySqlCommand("SELECT COUNT(id_maestro) FROM maestro", conn);
                         int cantidadMaestros = Convert.ToInt32(cmdCount.ExecuteScalar());
                         if (cantidadMaestros >= LIMITE_TOTAL_MAESTROS)
@@ -539,12 +539,12 @@ namespace Proyecto_Boletas
                             return;
                         }
 
-             
+
                         InsertarNuevoMaestro(nombre, apellidoP, apellidoM, correo, grupoSeleccionado, conn);
                     }
                     else
                     {
-     
+
                         int idMaestroOcupante = ObtenerIdMaestroAsignadoAGrupo(grupoSeleccionado);
                         if (idMaestroOcupante > 0 && idMaestroOcupante != this.idMaestroEditando)
                         {
@@ -552,7 +552,7 @@ namespace Proyecto_Boletas
                             return;
                         }
 
-          
+
                         ActualizarMaestro(nombre, apellidoP, apellidoM, correo, grupoSeleccionado, conn);
                     }
                 }
@@ -571,6 +571,49 @@ namespace Proyecto_Boletas
         private void flowMaestros_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btn_ingresar_Click(object sender, EventArgs e)
+        {
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
+            this.Close();
+        }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+            Mod_inscripcion inscripcion = new Mod_inscripcion("Director");
+            inscripcion.Show();
+            this.Hide();
+
+        }
+
+        private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+            Mod_capCal cap_calificacion = new Mod_capCal("Director");
+            cap_calificacion.Show();
+            this.Hide();
+        }
+
+        private void btnAdmSecre_Click(object sender, EventArgs e)
+        {
+            adm_Secretaria administrar_secre = new adm_Secretaria();
+            administrar_secre.Show();
+            this.Hide();
+        }
+
+        private void btnBitacora_Click(object sender, EventArgs e)
+        {
+            Bitacora bitacora = new Bitacora();
+            bitacora.Show();
+            this.Hide();
+        }
+
+        private void btnEnvioBoletas_Click(object sender, EventArgs e)
+        {
+            CreacionPDF_Direc pdf_director = new CreacionPDF_Direc();
+            pdf_director.Show();
+            this.Hide();
         }
     }
 

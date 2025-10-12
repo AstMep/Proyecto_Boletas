@@ -84,7 +84,7 @@ namespace Proyecto_Boletas
             cmbMes.ValueMember = "Id";
         }
 
- 
+
 
         private void cmbRoles_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -100,7 +100,7 @@ namespace Proyecto_Boletas
         {
             try
             {
-                
+
                 string rol = cmbRoles.SelectedValue.ToString();
                 int mes = Convert.ToInt32(cmbMes.SelectedValue);
 
@@ -113,6 +113,48 @@ namespace Proyecto_Boletas
             {
                 MessageBox.Show("Error al intentar generar el PDF. Asegúrese de que ha seleccionado una opción en los filtros: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btn_ingresar_Click(object sender, EventArgs e)
+        {
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
+            this.Close();
+        }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+            Mod_inscripcion inscripcion = new Mod_inscripcion("Director");
+            inscripcion.Show();
+            this.Hide();
+        }
+
+        private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+            Mod_capCal cap_calificacion = new Mod_capCal("Director");
+            cap_calificacion.Show();
+            this.Hide();
+        }
+
+        private void btnAdmSecre_Click(object sender, EventArgs e)
+        {
+            adm_Secretaria administrar_secre = new adm_Secretaria();
+            administrar_secre.Show();
+            this.Hide();
+        }
+
+        private void btnEnvioBoletas_Click(object sender, EventArgs e)
+        {
+            CreacionPDF_Direc pdf_director = new CreacionPDF_Direc();
+            pdf_director.Show();
+            this.Hide();
+        }
+
+        private void btn_admaestros_Click(object sender, EventArgs e)
+        {
+            adm_maestros administrar_maestros = new adm_maestros();
+            administrar_maestros.Show();
+            this.Hide();
         }
     }
 }
