@@ -99,31 +99,29 @@
             panelApp.Controls.Add(groupBox6);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(336, 0);
-            panelApp.Margin = new Padding(6);
+            panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1477, 1143);
+            panelApp.Size = new Size(814, 517);
             panelApp.TabIndex = 3;
             panelApp.Paint += panelApp_Paint;
             // 
             // cmbTrimestre
             // 
             cmbTrimestre.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbTrimestre.Location = new Point(713, 926);
-            cmbTrimestre.Margin = new Padding(6);
+            cmbTrimestre.Location = new Point(384, 434);
             cmbTrimestre.Name = "cmbTrimestre";
-            cmbTrimestre.Size = new Size(700, 40);
+            cmbTrimestre.Size = new Size(379, 23);
             cmbTrimestre.TabIndex = 47;
+            cmbTrimestre.SelectedIndexChanged += cmbTrimestre_SelectedIndexChanged;
             // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = SystemColors.ControlLightLight;
-            label10.Location = new Point(407, 922);
-            label10.Margin = new Padding(6, 0, 6, 0);
+            label10.Location = new Point(219, 432);
             label10.Name = "label10";
-            label10.Size = new Size(324, 45);
+            label10.Size = new Size(165, 21);
             label10.TabIndex = 46;
             label10.Text = "Seleccione Trimestre:";
             // 
@@ -132,40 +130,38 @@
             label9.AutoSize = true;
             label9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ControlLightLight;
-            label9.Location = new Point(427, 742);
-            label9.Margin = new Padding(6, 0, 6, 0);
+            label9.Location = new Point(230, 348);
             label9.Name = "label9";
-            label9.Size = new Size(280, 45);
+            label9.Size = new Size(143, 21);
             label9.TabIndex = 45;
             label9.Text = "Seleccione Grupo:";
             // 
             // cmbGrup
             // 
             cmbGrup.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrup.Location = new Point(713, 738);
-            cmbGrup.Margin = new Padding(6);
+            cmbGrup.Location = new Point(384, 346);
             cmbGrup.Name = "cmbGrup";
-            cmbGrup.Size = new Size(700, 40);
+            cmbGrup.Size = new Size(379, 23);
             cmbGrup.TabIndex = 44;
+            cmbGrup.SelectedIndexChanged += cmbGrup_SelectedIndexChanged;
             // 
             // cmbAlumno
             // 
             cmbAlumno.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbAlumno.Location = new Point(713, 823);
-            cmbAlumno.Margin = new Padding(6);
+            cmbAlumno.Location = new Point(384, 386);
             cmbAlumno.Name = "cmbAlumno";
-            cmbAlumno.Size = new Size(700, 40);
+            cmbAlumno.Size = new Size(379, 23);
             cmbAlumno.TabIndex = 43;
+            cmbAlumno.SelectedIndexChanged += cmbAlumno_SelectedIndexChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = SystemColors.ControlLightLight;
-            label8.Location = new Point(407, 828);
-            label8.Margin = new Padding(6, 0, 6, 0);
+            label8.Location = new Point(219, 388);
             label8.Name = "label8";
-            label8.Size = new Size(303, 45);
+            label8.Size = new Size(154, 21);
             label8.TabIndex = 42;
             label8.Text = "Seleccione Alumno:";
             // 
@@ -174,11 +170,9 @@
             groupBox2.BackColor = Color.FromArgb(157, 101, 101);
             groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(btnGenerarBoletas);
-            groupBox2.Location = new Point(82, 672);
-            groupBox2.Margin = new Padding(6);
+            groupBox2.Location = new Point(44, 315);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(6);
-            groupBox2.Size = new Size(297, 425);
+            groupBox2.Size = new Size(160, 199);
             groupBox2.TabIndex = 41;
             groupBox2.TabStop = false;
             // 
@@ -187,10 +181,9 @@
             label7.AutoSize = true;
             label7.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.ControlLightLight;
-            label7.Location = new Point(76, 329);
-            label7.Margin = new Padding(6, 0, 6, 0);
+            label7.Location = new Point(41, 154);
             label7.Name = "label7";
-            label7.Size = new Size(201, 90);
+            label7.Size = new Size(101, 42);
             label7.TabIndex = 5;
             label7.Text = "Creación de \r\n    Boleta";
             // 
@@ -201,12 +194,12 @@
             btnGenerarBoletas.FlatStyle = FlatStyle.Popup;
             btnGenerarBoletas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerarBoletas.Image = (Image)resources.GetObject("btnGenerarBoletas.Image");
-            btnGenerarBoletas.Location = new Point(39, 34);
-            btnGenerarBoletas.Margin = new Padding(6);
+            btnGenerarBoletas.Location = new Point(21, 16);
             btnGenerarBoletas.Name = "btnGenerarBoletas";
-            btnGenerarBoletas.Size = new Size(225, 288);
+            btnGenerarBoletas.Size = new Size(121, 135);
             btnGenerarBoletas.TabIndex = 3;
             btnGenerarBoletas.UseVisualStyleBackColor = false;
+            btnGenerarBoletas.Click += btnGenerarBoletas_Click;
             // 
             // groupBox1
             // 
@@ -214,11 +207,9 @@
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(btnGenerarLisProf);
-            groupBox1.Location = new Point(1079, 194);
-            groupBox1.Margin = new Padding(6);
+            groupBox1.Location = new Point(581, 91);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(6);
-            groupBox1.Size = new Size(297, 425);
+            groupBox1.Size = new Size(160, 199);
             groupBox1.TabIndex = 40;
             groupBox1.TabStop = false;
             // 
@@ -227,10 +218,9 @@
             label5.AutoSize = true;
             label5.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(20, 373);
-            label5.Margin = new Padding(6, 0, 6, 0);
+            label5.Location = new Point(11, 175);
             label5.Name = "label5";
-            label5.Size = new Size(276, 45);
+            label5.Size = new Size(138, 21);
             label5.TabIndex = 5;
             label5.Text = "Lista de Maestros";
             // 
@@ -239,10 +229,9 @@
             label6.AutoSize = true;
             label6.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(84, 329);
-            label6.Margin = new Padding(6, 0, 6, 0);
+            label6.Location = new Point(45, 154);
             label6.Name = "label6";
-            label6.Size = new Size(154, 45);
+            label6.Size = new Size(76, 21);
             label6.TabIndex = 4;
             label6.Text = "Generar  ";
             // 
@@ -253,10 +242,9 @@
             btnGenerarLisProf.FlatStyle = FlatStyle.Popup;
             btnGenerarLisProf.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerarLisProf.Image = (Image)resources.GetObject("btnGenerarLisProf.Image");
-            btnGenerarLisProf.Location = new Point(39, 34);
-            btnGenerarLisProf.Margin = new Padding(6);
+            btnGenerarLisProf.Location = new Point(21, 16);
             btnGenerarLisProf.Name = "btnGenerarLisProf";
-            btnGenerarLisProf.Size = new Size(225, 288);
+            btnGenerarLisProf.Size = new Size(121, 135);
             btnGenerarLisProf.TabIndex = 3;
             btnGenerarLisProf.UseVisualStyleBackColor = false;
             btnGenerarLisProf.Click += btnGenerarLisProf_Click_1;
@@ -266,10 +254,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(407, 361);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(219, 169);
             label2.Name = "label2";
-            label2.Size = new Size(250, 45);
+            label2.Size = new Size(128, 21);
             label2.TabIndex = 39;
             label2.Text = "Seleccione Mes:";
             // 
@@ -277,10 +264,9 @@
             // 
             cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
-            cmbMes.Location = new Point(683, 361);
-            cmbMes.Margin = new Padding(6);
+            cmbMes.Location = new Point(368, 169);
             cmbMes.Name = "cmbMes";
-            cmbMes.Size = new Size(244, 40);
+            cmbMes.Size = new Size(133, 23);
             cmbMes.TabIndex = 38;
             // 
             // label3
@@ -288,20 +274,18 @@
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(407, 243);
-            label3.Margin = new Padding(6, 0, 6, 0);
+            label3.Location = new Point(219, 114);
             label3.Name = "label3";
-            label3.Size = new Size(280, 45);
+            label3.Size = new Size(143, 21);
             label3.TabIndex = 37;
             label3.Text = "Seleccione Grupo:";
             // 
             // cmbGrupo
             // 
             cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrupo.Location = new Point(683, 243);
-            cmbGrupo.Margin = new Padding(6);
+            cmbGrupo.Location = new Point(368, 114);
             cmbGrupo.Name = "cmbGrupo";
-            cmbGrupo.Size = new Size(244, 40);
+            cmbGrupo.Size = new Size(133, 23);
             cmbGrupo.TabIndex = 36;
             // 
             // groupBox6
@@ -310,11 +294,9 @@
             groupBox6.Controls.Add(label12);
             groupBox6.Controls.Add(label13);
             groupBox6.Controls.Add(btnGenerarListas);
-            groupBox6.Location = new Point(82, 201);
-            groupBox6.Margin = new Padding(6);
+            groupBox6.Location = new Point(44, 94);
             groupBox6.Name = "groupBox6";
-            groupBox6.Padding = new Padding(6);
-            groupBox6.Size = new Size(297, 425);
+            groupBox6.Size = new Size(160, 199);
             groupBox6.TabIndex = 35;
             groupBox6.TabStop = false;
             // 
@@ -323,10 +305,9 @@
             label12.AutoSize = true;
             label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(20, 373);
-            label12.Margin = new Padding(6, 0, 6, 0);
+            label12.Location = new Point(11, 175);
             label12.Name = "label12";
-            label12.Size = new Size(286, 45);
+            label12.Size = new Size(143, 21);
             label12.TabIndex = 5;
             label12.Text = "Lista de Asistencia";
             // 
@@ -335,10 +316,9 @@
             label13.AutoSize = true;
             label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = SystemColors.ControlLightLight;
-            label13.Location = new Point(84, 329);
-            label13.Margin = new Padding(6, 0, 6, 0);
+            label13.Location = new Point(45, 154);
             label13.Name = "label13";
-            label13.Size = new Size(154, 45);
+            label13.Size = new Size(76, 21);
             label13.TabIndex = 4;
             label13.Text = "Generar  ";
             // 
@@ -349,10 +329,9 @@
             btnGenerarListas.FlatStyle = FlatStyle.Popup;
             btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
-            btnGenerarListas.Location = new Point(39, 34);
-            btnGenerarListas.Margin = new Padding(6);
+            btnGenerarListas.Location = new Point(21, 16);
             btnGenerarListas.Name = "btnGenerarListas";
-            btnGenerarListas.Size = new Size(225, 288);
+            btnGenerarListas.Size = new Size(121, 135);
             btnGenerarListas.TabIndex = 3;
             btnGenerarListas.UseVisualStyleBackColor = false;
             btnGenerarListas.Click += btnGenerarListas_Click_1;
@@ -364,9 +343,8 @@
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1477, 126);
+            panel1.Size = new Size(814, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -374,10 +352,9 @@
             label14.AutoSize = true;
             label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = SystemColors.ControlText;
-            label14.Location = new Point(518, 28);
-            label14.Margin = new Padding(6, 0, 6, 0);
+            label14.Location = new Point(279, 13);
             label14.Name = "label14";
-            label14.Size = new Size(447, 63);
+            label14.Size = new Size(224, 32);
             label14.TabIndex = 10;
             label14.Text = "Creación de PDF";
             // 
@@ -389,11 +366,10 @@
             btn_ingresar.FlatStyle = FlatStyle.Popup;
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(32, 34);
-            btn_ingresar.Margin = new Padding(6);
+            btn_ingresar.Location = new Point(17, 16);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(288, 62);
+            btn_ingresar.Size = new Size(155, 29);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -406,9 +382,8 @@
             panelMenu.Controls.Add(panelito1);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(6);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(336, 1143);
+            panelMenu.Size = new Size(181, 517);
             panelMenu.TabIndex = 2;
             // 
             // panelito1
@@ -426,9 +401,8 @@
             panelito1.Controls.Add(panelLogo);
             panelito1.Dock = DockStyle.Left;
             panelito1.Location = new Point(0, 0);
-            panelito1.Margin = new Padding(6);
             panelito1.Name = "panelito1";
-            panelito1.Size = new Size(336, 1143);
+            panelito1.Size = new Size(181, 517);
             panelito1.TabIndex = 4;
             // 
             // btn_admaestros
@@ -441,10 +415,9 @@
             btn_admaestros.ForeColor = SystemColors.ControlLightLight;
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_admaestros.Location = new Point(0, 951);
-            btn_admaestros.Margin = new Padding(6);
+            btn_admaestros.Location = new Point(0, 445);
             btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(336, 109);
+            btn_admaestros.Size = new Size(181, 51);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
@@ -460,10 +433,9 @@
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 842);
-            btnEnvioBoletas.Margin = new Padding(6);
+            btnEnvioBoletas.Location = new Point(0, 394);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(336, 109);
+            btnEnvioBoletas.Size = new Size(181, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
@@ -479,10 +451,9 @@
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatos.Location = new Point(0, 733);
-            btnEdicionDatos.Margin = new Padding(6);
+            btnEdicionDatos.Location = new Point(0, 343);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(336, 109);
+            btnEdicionDatos.Size = new Size(181, 51);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
@@ -497,10 +468,9 @@
             btnBitacora.ForeColor = SystemColors.ControlLight;
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBitacora.Location = new Point(0, 624);
-            btnBitacora.Margin = new Padding(6);
+            btnBitacora.Location = new Point(0, 292);
             btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(336, 109);
+            btnBitacora.Size = new Size(181, 51);
             btnBitacora.TabIndex = 4;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
@@ -516,10 +486,9 @@
             btnAdmSecre.ForeColor = SystemColors.ControlLight;
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdmSecre.Location = new Point(0, 515);
-            btnAdmSecre.Margin = new Padding(6);
+            btnAdmSecre.Location = new Point(0, 241);
             btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(336, 109);
+            btnAdmSecre.Size = new Size(181, 51);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.Text = "Adm. Secretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
@@ -535,10 +504,9 @@
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstadisticas.Location = new Point(0, 406);
-            btnEstadisticas.Margin = new Padding(6);
+            btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(336, 109);
+            btnEstadisticas.Size = new Size(181, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -553,10 +521,9 @@
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_capturaCalif.Location = new Point(0, 276);
-            btn_capturaCalif.Margin = new Padding(6);
+            btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(336, 130);
+            btn_capturaCalif.Size = new Size(181, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -572,10 +539,9 @@
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_inscripcion.Location = new Point(0, 171);
-            btn_inscripcion.Margin = new Padding(6);
+            btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(336, 105);
+            btn_inscripcion.Size = new Size(181, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -590,29 +556,26 @@
             panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(6);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(336, 171);
+            panelLogo.Size = new Size(181, 80);
             panelLogo.TabIndex = 0;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(17, 107);
-            label4.Margin = new Padding(6, 0, 6, 0);
+            label4.Location = new Point(9, 50);
             label4.Name = "label4";
-            label4.Size = new Size(324, 52);
+            label4.Size = new Size(163, 26);
             label4.TabIndex = 40;
             label4.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
             // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(108, 11);
-            Logo.Margin = new Padding(6);
+            Logo.Location = new Point(58, 5);
             Logo.Name = "Logo";
-            Logo.Size = new Size(106, 100);
+            Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 39;
             Logo.TabStop = false;
@@ -620,23 +583,21 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(-35, 134);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(-19, 63);
             label1.Name = "label1";
-            label1.Size = new Size(524, 32);
+            label1.Size = new Size(262, 15);
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
             // CreacionPDF_Direc
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(1813, 1143);
+            ClientSize = new Size(995, 517);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Margin = new Padding(6);
             Name = "CreacionPDF_Direc";
             Text = "ModEdicDatos_Direc";
             Load += ModEdicDatos_Direc_Load;

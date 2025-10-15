@@ -75,6 +75,36 @@ namespace Proyecto_Boletas
             LlenarComboGrupos();
             LlenarComboMeses();
             OcultarBotonesPorRol();
+            CargarGrupos();
+            cmbTrimestre.Items.AddRange(new string[] { "1er Trimestre", "2do Trimestre", "3er Trimestre" });
+        }
+
+        private void CargarGrupos()
+        {
+            try
+            {
+                using (MySqlConnection conn = new Conexion().GetConnection())
+                {
+                    conn.Open();
+                    string query = "SELECT id_grupo, nombre_grupo FROM grupo";
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cmbGrup.Items.Add(new ComboboxItem
+                            {
+                                Text = dr["nombre_grupo"].ToString(),
+                                Value = dr["id_grupo"]
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar grupos: " + ex.Message);
+            }
         }
 
         private void OcultarBotonesPorRol()
@@ -196,6 +226,103 @@ namespace Proyecto_Boletas
         private void btnEnvioBoletas_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmbGrup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbAlumno.Items.Clear();
+
+            if (cmbGrup.SelectedItem != null)
+            {
+                int idGrupo = (int)((ComboboxItem)cmbGrup.SelectedItem).Value;
+
+                try
+                {
+                    using (MySqlConnection conn = new Conexion().GetConnection())
+                    {
+                        conn.Open();
+                        string query = "SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno FROM alumnos WHERE id_grupo = @idGrupo";
+                        using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@idGrupo", idGrupo);
+
+                            using (MySqlDataReader dr = cmd.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    string nombreCompleto = $"{dr["ApellidoPaterno"]} {dr["ApellidoMaterno"]} {dr["Nombre"]}";
+                                    cmbAlumno.Items.Add(new ComboboxItem
+                                    {
+                                        Text = nombreCompleto,
+                                        Value = dr["AlumnoID"]
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar alumnos: " + ex.Message);
+                }
+            }
+        }
+
+        private void cmbAlumno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbAlumno.SelectedItem != null && cmbTrimestre.SelectedItem != null)
+            {
+                int idAlumno = (int)((ComboboxItem)cmbAlumno.SelectedItem).Value;
+                string trimestre = cmbTrimestre.SelectedItem.ToString();
+
+                GeneradorBoletaT generador = new GeneradorBoletaT();
+                generador.CrearBoleta(idAlumno, trimestre); // Solo se llama sin asignar
+            }
+        }
+
+        private void cmbTrimestre_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGenerarBoletas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 🧩 Validar selección
+                if (cmbAlumno.SelectedItem == null)
+                {
+                    MessageBox.Show("Selecciona un alumno.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbTrimestre.SelectedItem == null)
+                {
+                    MessageBox.Show("Selecciona un trimestre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 🧩 Obtener datos seleccionados
+                int idAlumno = Convert.ToInt32(((ComboboxItem)cmbAlumno.SelectedItem).Value);
+                string trimestre = cmbTrimestre.SelectedItem.ToString();
+
+                // 🧩 Generar la boleta
+                GeneradorBoletaT generador = new GeneradorBoletaT();
+
+                // ❌ ELIMINA CUALQUIER INTENTO DE ASIGNACIÓN COMO: 
+                // string rutaArchivo = generador.CrearBoleta(idAlumno, trimestre);
+
+                // ✅ SOLO SE LLAMA AL MÉTODO VOID
+                generador.CrearBoleta(idAlumno, trimestre);
+
+                // 🧩 Confirmar al usuario (El mensaje de éxito ya está dentro de CrearBoleta)
+                // Puedes dejar este mensaje o eliminarlo si el mensaje dentro de CrearBoleta es suficiente.
+                MessageBox.Show("Boleta generada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar la boleta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

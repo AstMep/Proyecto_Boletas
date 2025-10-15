@@ -30,7 +30,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mod_capCal));
-            panelApp = new Panelito();
             cmbAlumno = new ComboBox();
             cmbGrado = new ComboBox();
             label2 = new Label();
@@ -38,7 +37,6 @@
             panel1 = new Panel();
             label14 = new Label();
             btn_ingresar = new Button();
-            panelMenu = new Panelito();
             btn_admaestros = new Button();
             btnEnvioBoletas = new Button();
             btnEdicionDatos = new Button();
@@ -47,34 +45,12 @@
             btnEstadisticas = new Button();
             btn_capturaCalif = new Button();
             btn_inscripcion = new Button();
-            panelLogo = new Panelito();
             label4 = new Label();
             Logo = new PictureBox();
             label1 = new Label();
-            panelApp.SuspendLayout();
             panel1.SuspendLayout();
-            panelMenu.SuspendLayout();
-            panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             SuspendLayout();
-            // 
-            // panelApp
-            // 
-            panelApp.AutoScroll = true;
-            panelApp.BackColor = Color.FromArgb(181, 131, 120);
-            panelApp.BorderRadius = 20;
-            panelApp.Controls.Add(cmbAlumno);
-            panelApp.Controls.Add(cmbGrado);
-            panelApp.Controls.Add(label2);
-            panelApp.Controls.Add(Usuario);
-            panelApp.Controls.Add(panel1);
-            panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(336, 0);
-            panelApp.Margin = new Padding(6);
-            panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1491, 1131);
-            panelApp.TabIndex = 8;
-            panelApp.Paint += panelApp_Paint;
             // 
             // cmbAlumno
             // 
@@ -82,7 +58,7 @@
             cmbAlumno.Location = new Point(381, 233);
             cmbAlumno.Margin = new Padding(6);
             cmbAlumno.Name = "cmbAlumno";
-            cmbAlumno.Size = new Size(1012, 40);
+            cmbAlumno.Size = new Size(1012, 23);
             cmbAlumno.TabIndex = 29;
             cmbAlumno.SelectedIndexChanged += cmbAlumno_SelectedIndexChanged;
             // 
@@ -92,7 +68,7 @@
             cmbGrado.Location = new Point(381, 166);
             cmbGrado.Margin = new Padding(6);
             cmbGrado.Name = "cmbGrado";
-            cmbGrado.Size = new Size(1012, 40);
+            cmbGrado.Size = new Size(1012, 23);
             cmbGrado.TabIndex = 28;
             // 
             // label2
@@ -137,7 +113,7 @@
             label14.Location = new Point(457, 28);
             label14.Margin = new Padding(6, 0, 6, 0);
             label14.Name = "label14";
-            label14.Size = new Size(783, 63);
+            label14.Size = new Size(392, 32);
             label14.TabIndex = 12;
             label14.Text = "Bienvenido al Sitema FAY JC";
             // 
@@ -158,26 +134,6 @@
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
             btn_ingresar.Click += btn_ingresar_Click;
-            // 
-            // panelMenu
-            // 
-            panelMenu.BackColor = Color.FromArgb(39, 66, 89);
-            panelMenu.BorderRadius = 20;
-            panelMenu.Controls.Add(btn_admaestros);
-            panelMenu.Controls.Add(btnEnvioBoletas);
-            panelMenu.Controls.Add(btnEdicionDatos);
-            panelMenu.Controls.Add(btnBitacora);
-            panelMenu.Controls.Add(btnAdmSecre);
-            panelMenu.Controls.Add(btnEstadisticas);
-            panelMenu.Controls.Add(btn_capturaCalif);
-            panelMenu.Controls.Add(btn_inscripcion);
-            panelMenu.Controls.Add(panelLogo);
-            panelMenu.Dock = DockStyle.Left;
-            panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(6);
-            panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(336, 1131);
-            panelMenu.TabIndex = 7;
             // 
             // btn_admaestros
             // 
@@ -329,20 +285,6 @@
             btn_inscripcion.UseVisualStyleBackColor = true;
             btn_inscripcion.Click += btn_inscripcion_Click;
             // 
-            // panelLogo
-            // 
-            panelLogo.BackColor = Color.FromArgb(39, 66, 89);
-            panelLogo.BorderRadius = 20;
-            panelLogo.Controls.Add(label4);
-            panelLogo.Controls.Add(Logo);
-            panelLogo.Controls.Add(label1);
-            panelLogo.Dock = DockStyle.Top;
-            panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(6);
-            panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(336, 171);
-            panelLogo.TabIndex = 0;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -377,22 +319,14 @@
             // 
             // Mod_capCal
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(39, 66, 89);
-            ClientSize = new Size(1827, 1131);
-            Controls.Add(panelApp);
-            Controls.Add(panelMenu);
-            Margin = new Padding(6);
+            ClientSize = new Size(953, 506);
             Name = "Mod_capCal";
             Text = "Mod_capCal";
-            panelApp.ResumeLayout(false);
-            panelApp.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panelMenu.ResumeLayout(false);
-            panelLogo.ResumeLayout(false);
-            panelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             ResumeLayout(false);
         }
