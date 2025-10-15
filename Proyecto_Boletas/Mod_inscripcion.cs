@@ -228,12 +228,57 @@ namespace Proyecto_Boletas
                 return false;
 
             return true;
+
+        }
+
+        // ⭐ NUEVA VALIDACIÓN: Solo Gmail, Yahoo y Outlook
+        private bool ValidarCorreoPermitido(string correo, out string mensajeError)
+        {
+            mensajeError = "";
+
+            // Convertir a minúsculas para comparación
+            correo = correo.ToLower().Trim();
+
+            // Validar formato básico de correo
+            if (!Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                mensajeError = "El formato del correo no es válido.";
+                return false;
+            }
+
+            // Lista de dominios permitidos
+            string[] dominiosPermitidos = { "@gmail.com", "@yahoo.com", "@yahoo.com.mx", "@outlook.com", "@hotmail.com" };
+
+            // Verificar si el correo termina con alguno de los dominios permitidos
+            bool esPermitido = false;
+            foreach (string dominio in dominiosPermitidos)
+            {
+                if (correo.EndsWith(dominio))
+                {
+                    esPermitido = true;
+                    break;
+                }
+            }
+
+            if (!esPermitido)
+            {
+                mensajeError = "Solo se permiten correos de Gmail, Yahoo, Outlook o Hotmail.\n\n" +
+                              "Dominios válidos:\n" +
+                              "• @gmail.com\n" +
+                              "• @yahoo.com o @yahoo.com.mx\n" +
+                              "• @outlook.com\n" +
+                              "• @hotmail.com";
+                return false;
+            }
+
+            return true;
         }
 
         // -------- VALIDACIONES DE TUTOR ----------
         private bool ValidarTutor(string nombre, string apellidoP, string apellidoM, string telefono, string correo, out string mensajeError)
         {
             mensajeError = "";
+            
 
             // Campos vacíos
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellidoP) ||
@@ -241,6 +286,18 @@ namespace Proyecto_Boletas
                 string.IsNullOrWhiteSpace(correo))
             {
                 mensajeError = "Completa todos los campos del tutor.";
+                return false;
+            }
+
+            // ⭐ NUEVA: Validar teléfono mexicano
+            if (!ValidarTelefonoMexicano(telefono, out mensajeError))
+            {
+                return false;
+            }
+
+            // ⭐ NUEVA: Validar correo permitido (Gmail, Yahoo, Outlook)
+            if (!ValidarCorreoPermitido(correo, out mensajeError))
+            {
                 return false;
             }
 
@@ -272,6 +329,8 @@ namespace Proyecto_Boletas
                 mensajeError = "Los campos no pueden superar los 100 caracteres.";
                 return false;
             }
+
+
 
             return true;
         }
@@ -394,6 +453,128 @@ namespace Proyecto_Boletas
             return true;
         }
 
+        private bool ValidarTelefonoMexicano(string telefono, out string mensajeError)
+        {
+            mensajeError = "";
+
+            // Eliminar espacios y guiones
+            telefono = telefono.Replace(" ", "").Replace("-", "");
+
+            // Debe tener exactamente 10 dígitos
+            if (telefono.Length != 10)
+            {
+                mensajeError = "El teléfono debe tener exactamente 10 dígitos.";
+                return false;
+            }
+
+            // Solo números
+            if (!Regex.IsMatch(telefono, @"^\d{10}$"))
+            {
+                mensajeError = "El teléfono solo puede contener números.";
+                return false;
+            }
+
+            // Validar que no inicie con 0 o 1
+            if (telefono[0] == '0' || telefono[0] == '1')
+            {
+                mensajeError = "El teléfono no puede iniciar con 0 o 1.";
+                return false;
+            }
+
+            // Validar que no todos los dígitos sean iguales (ej: 1111111111)
+            if (telefono.Distinct().Count() == 1)
+            {
+                mensajeError = "El teléfono no puede tener todos los dígitos iguales.";
+                return false;
+            }
+
+            // ⭐ NUEVO: Validar patrones repetitivos (ej: 0101010101, 123123123, etc.)
+            if (TienePatronRepetitivo(telefono))
+            {
+                mensajeError = "El teléfono no puede tener patrones repetitivos (ej: 0101010101).";
+                return false;
+            }
+
+            // Validar que no sea una secuencia ascendente (ej: 1234567890)
+            if (EsSecuenciaAscendente(telefono))
+            {
+                mensajeError = "El teléfono no puede ser una secuencia numérica.";
+                return false;
+            }
+
+            // Validar que no sea una secuencia descendente (ej: 9876543210)
+            if (EsSecuenciaDescendente(telefono))
+            {
+                mensajeError = "El teléfono no puede ser una secuencia numérica.";
+                return false;
+            }
+
+            return true;
+        }
+
+        // ⭐ NUEVO: Método para detectar patrones repetitivos
+        private bool TienePatronRepetitivo(string telefono)
+        {
+            // Verificar patrones de 2 dígitos repetidos (ej: 0101010101, 1212121212)
+            for (int longitud = 2; longitud <= 5; longitud++)
+            {
+                if (telefono.Length % longitud == 0)
+                {
+                    string patron = telefono.Substring(0, longitud);
+                    bool esRepetitivo = true;
+
+                    for (int i = longitud; i < telefono.Length; i += longitud)
+                    {
+                        string segmento = telefono.Substring(i, longitud);
+                        if (segmento != patron)
+                        {
+                            esRepetitivo = false;
+                            break;
+                        }
+                    }
+
+                    if (esRepetitivo)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        // ⭐ NUEVO: Método para detectar secuencias ascendentes
+        private bool EsSecuenciaAscendente(string telefono)
+        {
+            for (int i = 0; i < telefono.Length - 1; i++)
+            {
+                int digito1 = int.Parse(telefono[i].ToString());
+                int digito2 = int.Parse(telefono[i + 1].ToString());
+
+                // Verificar si no sigue la secuencia (permitir el ciclo 9->0)
+                if (digito2 != (digito1 + 1) % 10)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // ⭐ NUEVO: Método para detectar secuencias descendentes
+        private bool EsSecuenciaDescendente(string telefono)
+        {
+            for (int i = 0; i < telefono.Length - 1; i++)
+            {
+                int digito1 = int.Parse(telefono[i].ToString());
+                int digito2 = int.Parse(telefono[i + 1].ToString());
+
+                // Verificar si no sigue la secuencia descendente (permitir el ciclo 0->9)
+                if (digito2 != (digito1 - 1 + 10) % 10)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private bool AlumnoExistente(string nombreCompleto)
         {
             try
@@ -512,32 +693,7 @@ namespace Proyecto_Boletas
         }
 
 
-        private bool ValidarApellidosCoinciden(string apellidoPAlumno, string apellidoMAlumno,
-                                       string apellidoPTutor, string apellidoMTutor,
-                                       out string mensajeError)
-        {
-            mensajeError = "";
-
-            // Convertir a minúsculas para comparación
-            string apPAlumno = apellidoPAlumno.ToLower().Trim();
-            string apMAlumno = apellidoMAlumno.ToLower().Trim();
-            string apPTutor = apellidoPTutor.ToLower().Trim();
-            string apMTutor = apellidoMTutor.ToLower().Trim();
-
-            // Verificar si al menos un apellido del tutor coincide con algún apellido del alumno
-            bool coincide = (apPAlumno == apPTutor) || (apPAlumno == apMTutor) ||
-                            (apMAlumno == apPTutor) || (apMAlumno == apMTutor);
-
-            if (!coincide)
-            {
-                mensajeError = "Al menos uno de los apellidos del tutor debe coincidir con los apellidos del alumno.\n\n" +
-                              $"Apellidos del alumno: {apellidoPAlumno} {apellidoMAlumno}\n" +
-                              $"Apellidos del tutor: {apellidoPTutor} {apellidoMTutor}";
-                return false;
-            }
-
-            return true;
-        }
+       
 
         private void MostrarMateriasDeGrupo(int idGrupo)
         {
@@ -838,7 +994,7 @@ namespace Proyecto_Boletas
 
                 if (!EsNombreValido(nombreTutor))
                 {
-                    MessageBox.Show("El nombre del tutor no es válido. Debe contener al menos dos palabras, cada una con al menos dos letras distintas y solo caracteres alfabéticos.",
+                    MessageBox.Show("El nombre del tutor no es válido. Al menos dos letras distintas y solo caracteres alfabéticos.",
                         "Error en nombre del tutor", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     nombre_tutor.Focus();
                     return;
@@ -851,15 +1007,7 @@ namespace Proyecto_Boletas
                     return;
                 }
 
-                // ========== ⭐ NUEVA VALIDACIÓN: APELLIDOS COINCIDAN ==========
-                if (!ValidarApellidosCoinciden(apellidoPAlumno, apellidoMAlumno,
-                                               apellidoPTutor, apellidoMTutor,
-                                               out string msgApellidos))
-                {
-                    MessageBox.Show(msgApellidos, "Error - Apellidos no Coinciden",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                
 
                 if (!ValidarTutor(nombreTutor, apellidoPTutor, apellidoMTutor, telefonoTutor, correoTutor, out string msgTutor))
                 {
