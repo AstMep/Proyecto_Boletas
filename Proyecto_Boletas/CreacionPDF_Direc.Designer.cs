@@ -30,6 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreacionPDF_Direc));
             panelApp = new Panelito();
+            panelito5 = new Panelito();
+            btnGenerarLisProf = new Button();
+            label6 = new Label();
+            label5 = new Label();
+            panelito4 = new Panelito();
+            label12 = new Label();
+            label13 = new Label();
+            label3 = new Label();
+            btnGenerarListas = new Button();
+            cmbGrupo = new ComboBox();
+            cmbMes = new ComboBox();
+            label2 = new Label();
             panelito3 = new Panelito();
             btnGenerarBP = new Button();
             label11 = new Label();
@@ -46,16 +58,6 @@
             cmbGrup = new ComboBox();
             cmbTrimestreGrup = new ComboBox();
             label10 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            btnGenerarLisProf = new Button();
-            label2 = new Label();
-            cmbMes = new ComboBox();
-            label3 = new Label();
-            cmbGrupo = new ComboBox();
-            label12 = new Label();
-            label13 = new Label();
-            btnGenerarListas = new Button();
             panel1 = new Panel();
             label14 = new Label();
             btn_ingresar = new Button();
@@ -73,9 +75,9 @@
             label4 = new Label();
             Logo = new PictureBox();
             label1 = new Label();
-            panelito4 = new Panelito();
-            panelito5 = new Panelito();
             panelApp.SuspendLayout();
+            panelito5.SuspendLayout();
+            panelito4.SuspendLayout();
             panelito3.SuspendLayout();
             panelito2.SuspendLayout();
             panel1.SuspendLayout();
@@ -83,8 +85,6 @@
             panelito1.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
-            panelito4.SuspendLayout();
-            panelito5.SuspendLayout();
             SuspendLayout();
             // 
             // panelApp
@@ -103,6 +103,146 @@
             panelApp.Size = new Size(814, 517);
             panelApp.TabIndex = 3;
             panelApp.Paint += panelApp_Paint;
+            // 
+            // panelito5
+            // 
+            panelito5.BackColor = Color.FromArgb(157, 101, 101);
+            panelito5.BorderRadius = 20;
+            panelito5.Controls.Add(btnGenerarLisProf);
+            panelito5.Controls.Add(label6);
+            panelito5.Controls.Add(label5);
+            panelito5.Location = new Point(542, 80);
+            panelito5.Name = "panelito5";
+            panelito5.Size = new Size(224, 237);
+            panelito5.TabIndex = 58;
+            // 
+            // btnGenerarLisProf
+            // 
+            btnGenerarLisProf.BackColor = Color.FromArgb(212, 168, 133);
+            btnGenerarLisProf.BackgroundImageLayout = ImageLayout.Center;
+            btnGenerarLisProf.FlatStyle = FlatStyle.Popup;
+            btnGenerarLisProf.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarLisProf.Image = (Image)resources.GetObject("btnGenerarLisProf.Image");
+            btnGenerarLisProf.Location = new Point(77, 49);
+            btnGenerarLisProf.Name = "btnGenerarLisProf";
+            btnGenerarLisProf.Size = new Size(92, 95);
+            btnGenerarLisProf.TabIndex = 3;
+            btnGenerarLisProf.UseVisualStyleBackColor = false;
+            btnGenerarLisProf.Click += btnGenerarLisProf_Click_1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = SystemColors.ControlLightLight;
+            label6.Location = new Point(77, 151);
+            label6.Name = "label6";
+            label6.Size = new Size(76, 21);
+            label6.TabIndex = 4;
+            label6.Text = "Generar  ";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ControlLightLight;
+            label5.Location = new Point(52, 176);
+            label5.Name = "label5";
+            label5.Size = new Size(138, 21);
+            label5.TabIndex = 5;
+            label5.Text = "Lista de Maestros";
+            // 
+            // panelito4
+            // 
+            panelito4.BackColor = Color.FromArgb(157, 101, 101);
+            panelito4.BorderRadius = 20;
+            panelito4.Controls.Add(label12);
+            panelito4.Controls.Add(label13);
+            panelito4.Controls.Add(label3);
+            panelito4.Controls.Add(btnGenerarListas);
+            panelito4.Controls.Add(cmbGrupo);
+            panelito4.Controls.Add(cmbMes);
+            panelito4.Controls.Add(label2);
+            panelito4.Location = new Point(31, 81);
+            panelito4.Name = "panelito4";
+            panelito4.Size = new Size(491, 233);
+            panelito4.TabIndex = 57;
+            panelito4.Paint += panelito4_Paint;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = SystemColors.ControlLightLight;
+            label12.Location = new Point(47, 169);
+            label12.Name = "label12";
+            label12.Size = new Size(143, 21);
+            label12.TabIndex = 5;
+            label12.Text = "Lista de Asistencia";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.ForeColor = SystemColors.ControlLightLight;
+            label13.Location = new Point(69, 150);
+            label13.Name = "label13";
+            label13.Size = new Size(76, 21);
+            label13.TabIndex = 4;
+            label13.Text = "Generar  ";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(173, 68);
+            label3.Name = "label3";
+            label3.Size = new Size(143, 21);
+            label3.TabIndex = 37;
+            label3.Text = "Seleccione Grupo:";
+            // 
+            // btnGenerarListas
+            // 
+            btnGenerarListas.BackColor = Color.FromArgb(212, 168, 133);
+            btnGenerarListas.BackgroundImageLayout = ImageLayout.Center;
+            btnGenerarListas.FlatStyle = FlatStyle.Flat;
+            btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
+            btnGenerarListas.Location = new Point(60, 61);
+            btnGenerarListas.Name = "btnGenerarListas";
+            btnGenerarListas.Size = new Size(95, 86);
+            btnGenerarListas.TabIndex = 3;
+            btnGenerarListas.UseVisualStyleBackColor = false;
+            btnGenerarListas.Click += btnGenerarListas_Click_1;
+            // 
+            // cmbGrupo
+            // 
+            cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGrupo.Location = new Point(322, 68);
+            cmbGrupo.Name = "cmbGrupo";
+            cmbGrupo.Size = new Size(133, 23);
+            cmbGrupo.TabIndex = 36;
+            // 
+            // cmbMes
+            // 
+            cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
+            cmbMes.Location = new Point(322, 123);
+            cmbMes.Name = "cmbMes";
+            cmbMes.Size = new Size(133, 23);
+            cmbMes.TabIndex = 38;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ControlLightLight;
+            label2.Location = new Point(173, 123);
+            label2.Name = "label2";
+            label2.Size = new Size(128, 21);
+            label2.TabIndex = 39;
+            label2.Text = "Seleccione Mes:";
             // 
             // panelito3
             // 
@@ -285,117 +425,6 @@
             label10.Size = new Size(165, 21);
             label10.TabIndex = 46;
             label10.Text = "Seleccione Trimestre:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(52, 176);
-            label5.Name = "label5";
-            label5.Size = new Size(138, 21);
-            label5.TabIndex = 5;
-            label5.Text = "Lista de Maestros";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(77, 151);
-            label6.Name = "label6";
-            label6.Size = new Size(76, 21);
-            label6.TabIndex = 4;
-            label6.Text = "Generar  ";
-            // 
-            // btnGenerarLisProf
-            // 
-            btnGenerarLisProf.BackColor = Color.FromArgb(212, 168, 133);
-            btnGenerarLisProf.BackgroundImageLayout = ImageLayout.Center;
-            btnGenerarLisProf.FlatStyle = FlatStyle.Popup;
-            btnGenerarLisProf.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGenerarLisProf.Image = (Image)resources.GetObject("btnGenerarLisProf.Image");
-            btnGenerarLisProf.Location = new Point(77, 49);
-            btnGenerarLisProf.Name = "btnGenerarLisProf";
-            btnGenerarLisProf.Size = new Size(92, 95);
-            btnGenerarLisProf.TabIndex = 3;
-            btnGenerarLisProf.UseVisualStyleBackColor = false;
-            btnGenerarLisProf.Click += btnGenerarLisProf_Click_1;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(173, 123);
-            label2.Name = "label2";
-            label2.Size = new Size(128, 21);
-            label2.TabIndex = 39;
-            label2.Text = "Seleccione Mes:";
-            // 
-            // cmbMes
-            // 
-            cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
-            cmbMes.Location = new Point(322, 123);
-            cmbMes.Name = "cmbMes";
-            cmbMes.Size = new Size(133, 23);
-            cmbMes.TabIndex = 38;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(173, 68);
-            label3.Name = "label3";
-            label3.Size = new Size(143, 21);
-            label3.TabIndex = 37;
-            label3.Text = "Seleccione Grupo:";
-            // 
-            // cmbGrupo
-            // 
-            cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrupo.Location = new Point(322, 68);
-            cmbGrupo.Name = "cmbGrupo";
-            cmbGrupo.Size = new Size(133, 23);
-            cmbGrupo.TabIndex = 36;
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(47, 169);
-            label12.Name = "label12";
-            label12.Size = new Size(143, 21);
-            label12.TabIndex = 5;
-            label12.Text = "Lista de Asistencia";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = SystemColors.ControlLightLight;
-            label13.Location = new Point(69, 150);
-            label13.Name = "label13";
-            label13.Size = new Size(76, 21);
-            label13.TabIndex = 4;
-            label13.Text = "Generar  ";
-            // 
-            // btnGenerarListas
-            // 
-            btnGenerarListas.BackColor = Color.FromArgb(212, 168, 133);
-            btnGenerarListas.BackgroundImageLayout = ImageLayout.Center;
-            btnGenerarListas.FlatStyle = FlatStyle.Flat;
-            btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
-            btnGenerarListas.Location = new Point(60, 61);
-            btnGenerarListas.Name = "btnGenerarListas";
-            btnGenerarListas.Size = new Size(95, 86);
-            btnGenerarListas.TabIndex = 3;
-            btnGenerarListas.UseVisualStyleBackColor = false;
-            btnGenerarListas.Click += btnGenerarListas_Click_1;
             // 
             // panel1
             // 
@@ -650,35 +679,6 @@
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
-            // panelito4
-            // 
-            panelito4.BackColor = Color.FromArgb(157, 101, 101);
-            panelito4.BorderRadius = 20;
-            panelito4.Controls.Add(label12);
-            panelito4.Controls.Add(label13);
-            panelito4.Controls.Add(label3);
-            panelito4.Controls.Add(btnGenerarListas);
-            panelito4.Controls.Add(cmbGrupo);
-            panelito4.Controls.Add(cmbMes);
-            panelito4.Controls.Add(label2);
-            panelito4.Location = new Point(31, 81);
-            panelito4.Name = "panelito4";
-            panelito4.Size = new Size(491, 233);
-            panelito4.TabIndex = 57;
-            panelito4.Paint += panelito4_Paint;
-            // 
-            // panelito5
-            // 
-            panelito5.BackColor = Color.FromArgb(157, 101, 101);
-            panelito5.BorderRadius = 20;
-            panelito5.Controls.Add(btnGenerarLisProf);
-            panelito5.Controls.Add(label6);
-            panelito5.Controls.Add(label5);
-            panelito5.Location = new Point(542, 80);
-            panelito5.Name = "panelito5";
-            panelito5.Size = new Size(224, 237);
-            panelito5.TabIndex = 58;
-            // 
             // CreacionPDF_Direc
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -692,6 +692,10 @@
             Text = "ModEdicDatos_Direc";
             Load += ModEdicDatos_Direc_Load;
             panelApp.ResumeLayout(false);
+            panelito5.ResumeLayout(false);
+            panelito5.PerformLayout();
+            panelito4.ResumeLayout(false);
+            panelito4.PerformLayout();
             panelito3.ResumeLayout(false);
             panelito3.PerformLayout();
             panelito2.ResumeLayout(false);
@@ -703,10 +707,6 @@
             panelLogo.ResumeLayout(false);
             panelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
-            panelito4.ResumeLayout(false);
-            panelito4.PerformLayout();
-            panelito5.ResumeLayout(false);
-            panelito5.PerformLayout();
             ResumeLayout(false);
         }
 
