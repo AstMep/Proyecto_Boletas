@@ -36,5 +36,10 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void MenuLateral_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

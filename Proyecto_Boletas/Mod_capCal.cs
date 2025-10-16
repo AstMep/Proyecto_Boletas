@@ -37,7 +37,7 @@ namespace Proyecto_Boletas
                 btn_admaestros.Visible = true;
             }
         }
-        
+
 
         private void Mod_capCal_Load(object sender, EventArgs e)
         {
@@ -98,6 +98,11 @@ namespace Proyecto_Boletas
         }
 
         private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelApp_Paint_1(object sender, PaintEventArgs e)
         {
 
         }

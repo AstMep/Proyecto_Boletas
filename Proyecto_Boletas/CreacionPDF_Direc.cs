@@ -13,7 +13,7 @@ namespace Proyecto_Boletas
 {
     public partial class CreacionPDF_Direc : Form
     {
-        private string rolUsuario;  // ⭐ Variable para almacenar el rol
+        private string rolUsuario;
 
         public CreacionPDF_Direc(string rol = "Director")
         {
@@ -76,7 +76,8 @@ namespace Proyecto_Boletas
             LlenarComboMeses();
             OcultarBotonesPorRol();
             CargarGrupos();
-            cmbTrimestre.Items.AddRange(new string[] { "1er Trimestre", "2do Trimestre", "3er Trimestre" });
+            cmbTrimestreGrup.Items.AddRange(new string[] { "1er Trimestre", "2do Trimestre", "3er Trimestre" });
+            LlenarComboTrimestres();
         }
 
         private void CargarGrupos()
@@ -90,13 +91,20 @@ namespace Proyecto_Boletas
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
+                        // 🎯 Limpiamos y llenamos AMBOS ComboBoxes de grupo
+                        cmbGrup.Items.Clear();      // ComboBox de Boleta Grupal
+                        cbGrupoPer.Items.Clear();   // ComboBox de Boleta Personal
+
                         while (dr.Read())
                         {
-                            cmbGrup.Items.Add(new ComboboxItem
+                            ComboboxItem item = new ComboboxItem
                             {
                                 Text = dr["nombre_grupo"].ToString(),
                                 Value = dr["id_grupo"]
-                            });
+                            };
+
+                            cmbGrup.Items.Add(item);
+                            cbGrupoPer.Items.Add(item);
                         }
                     }
                 }
@@ -160,7 +168,7 @@ namespace Proyecto_Boletas
 
             try
             {
-                // 1. Crear el diálogo para que el usuario elija dónde guardar el archivo
+
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
                 saveFileDialog.FileName = "Lista_Profesores_" + DateTime.Now.ToString("yyyyMMdd") + ".pdf";
@@ -228,10 +236,10 @@ namespace Proyecto_Boletas
 
         }
 
+
+
         private void cmbGrup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbAlumno.Items.Clear();
-
             if (cmbGrup.SelectedItem != null)
             {
                 int idGrupo = (int)((ComboboxItem)cmbGrup.SelectedItem).Value;
@@ -248,15 +256,16 @@ namespace Proyecto_Boletas
 
                             using (MySqlDataReader dr = cmd.ExecuteReader())
                             {
-                                while (dr.Read())
-                                {
-                                    string nombreCompleto = $"{dr["ApellidoPaterno"]} {dr["ApellidoMaterno"]} {dr["Nombre"]}";
-                                    cmbAlumno.Items.Add(new ComboboxItem
-                                    {
-                                        Text = nombreCompleto,
-                                        Value = dr["AlumnoID"]
-                                    });
-                                }
+                                // ❌ Delete or comment out the entire 'while' loop if cmbAlumno is no longer on the form.
+                                // while (dr.Read())
+                                // {
+                                //     string nombreCompleto = $"{dr["ApellidoPaterno"]} {dr["ApellidoMaterno"]} {dr["Nombre"]}";
+                                //     cmbAlumno.Items.Add(new ComboboxItem
+                                //     {
+                                //         Text = nombreCompleto,
+                                //         Value = dr["AlumnoID"]
+                                //     });
+                                // }
                             }
                         }
                     }
@@ -268,17 +277,8 @@ namespace Proyecto_Boletas
             }
         }
 
-        private void cmbAlumno_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbAlumno.SelectedItem != null && cmbTrimestre.SelectedItem != null)
-            {
-                int idAlumno = (int)((ComboboxItem)cmbAlumno.SelectedItem).Value;
-                string trimestre = cmbTrimestre.SelectedItem.ToString();
 
-                GeneradorBoletaT generador = new GeneradorBoletaT();
-                generador.CrearBoleta(idAlumno, trimestre); // Solo se llama sin asignar
-            }
-        }
+
 
         private void cmbTrimestre_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -289,34 +289,111 @@ namespace Proyecto_Boletas
         {
             try
             {
-                // 🧩 Validar selección
-                if (cmbAlumno.SelectedItem == null)
+                if (cmbGrup.SelectedItem == null)
                 {
-                    MessageBox.Show("Selecciona un alumno.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Selecciona un grupo para generar la boleta grupal.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (cmbTrimestre.SelectedItem == null)
+                if (cmbTrimestreGrup.SelectedItem == null)
                 {
                     MessageBox.Show("Selecciona un trimestre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // 🧩 Obtener datos seleccionados
-                int idAlumno = Convert.ToInt32(((ComboboxItem)cmbAlumno.SelectedItem).Value);
-                string trimestre = cmbTrimestre.SelectedItem.ToString();
+                int idGrupo = (int)((ComboboxItem)cmbGrup.SelectedItem).Value;
+                string trimestre = cmbTrimestreGrup.SelectedItem.ToString();
 
-                // 🧩 Generar la boleta
+                // Generar Boleta Grupal (Asumo que esta clase es la que creamos antes: GeneradorBoletaT)
                 GeneradorBoletaT generador = new GeneradorBoletaT();
+                generador.CrearBoletaGrupal(idGrupo, trimestre);
 
-                // ❌ ELIMINA CUALQUIER INTENTO DE ASIGNACIÓN COMO: 
-                // string rutaArchivo = generador.CrearBoleta(idAlumno, trimestre);
+                MessageBox.Show("Boleta grupal generada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar la boleta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                // ✅ SOLO SE LLAMA AL MÉTODO VOID
-                generador.CrearBoleta(idAlumno, trimestre);
+        private void cbGrupoPer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbAlumno.Items.Clear();
 
-                // 🧩 Confirmar al usuario (El mensaje de éxito ya está dentro de CrearBoleta)
-                // Puedes dejar este mensaje o eliminarlo si el mensaje dentro de CrearBoleta es suficiente.
+            if (cbGrupoPer.SelectedItem != null)
+            {
+                int idGrupo = (int)((ComboboxItem)cbGrupoPer.SelectedItem).Value;
+
+                try
+                {
+                    using (MySqlConnection conn = new Conexion().GetConnection())
+                    {
+                        conn.Open();
+                        string query = "SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno FROM alumnos WHERE id_grupo = @idGrupo ORDER BY ApellidoPaterno";
+
+                        using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@idGrupo", idGrupo);
+
+                            using (MySqlDataReader dr = cmd.ExecuteReader())
+                            {
+                                while (dr.Read())
+                                {
+                                    string nombreCompleto = $"{dr["ApellidoPaterno"]} {dr["ApellidoMaterno"]} {dr["Nombre"]}";
+
+                                    cbAlumno.Items.Add(new ComboboxItem
+                                    {
+                                        Text = nombreCompleto,
+                                        Value = dr["AlumnoID"]
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar alumnos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LlenarComboTrimestres()
+        {
+            // Aseguramos que solo llenamos el ComboBox de la Boleta Personal
+            cbTrimestrePer.Items.Clear();
+            cbTrimestrePer.Items.AddRange(new string[] { "1er Trimestre", "2do Trimestre", "3er Trimestre" });
+        }
+
+        private void cbAlumno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbTrimestrePer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cbGrupoPer.SelectedItem == null || cbAlumno.SelectedItem == null || cbTrimestrePer.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, selecciona Grupo, Alumno y Trimestre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                int idAlumno = (int)((ComboboxItem)cbAlumno.SelectedItem).Value;
+                string trimestre = cbTrimestrePer.SelectedItem.ToString();
+
+                // Crear el generador de boleta
+                GeneradorBoletaP generador = new GeneradorBoletaP();
+
+                // Genera la boleta personal del alumno seleccionado
+                generador.CrearBoletaPersonal(idAlumno, trimestre);
+
                 MessageBox.Show("Boleta generada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -324,5 +401,11 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al generar la boleta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void panelito4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
+ 
