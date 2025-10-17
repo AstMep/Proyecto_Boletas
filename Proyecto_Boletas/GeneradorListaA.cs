@@ -78,7 +78,7 @@ namespace Proyecto_Boletas
                         headerTable.SetWidths(new float[] { 0.15f, 0.85f });
 
                    
-                        string rutaLogo = @"C:\Users\Isis Astrid\source\repos\Proyecto_Boletas\Proyecto_Boletas\Resources\logo_escuela350.png";
+                        string rutaLogo = @"C:\Users\eugen\Source\Repos\Proyecto_Boletas\Proyecto_Boletas\Resources\logo_escuela350.png";
                         if (File.Exists(rutaLogo))
                         {
                             iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaLogo);

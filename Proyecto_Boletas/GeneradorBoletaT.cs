@@ -33,7 +33,7 @@ namespace Proyecto_Boletas
         private string[] materiasBase;
 
         // 🎯 RUTA DEL LOGO: Ahora definida aquí para un solo punto de control.
-        private const string RUTA_LOGO = "logo_escuela350.png"; // Asume que está en la carpeta de ejecución (bin/Debug o Release)
+        private const string RUTA_LOGO = "C:\\Users\\eugen\\Source\\Repos\\Proyecto_Boletas\\Proyecto_Boletas\\Resources\\logo_escuela350.png"; // Asume que está en la carpeta de ejecución (bin/Debug o Release)
 
         // Lógica para obtener los nombres de los meses por trimestre
         private string[] ObtenerMeses(string trimestre)

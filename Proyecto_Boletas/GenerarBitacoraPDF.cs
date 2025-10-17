@@ -108,7 +108,7 @@ namespace Proyecto_Boletas
                 // ****************************************************
                 // CAMBIO 2: Lógica del logo y ruta fija
                 // ****************************************************
-                string rutaLogoFija = @"C:\Users\Isis Astrid\source\repos\Proyecto_Boletas\Proyecto_Boletas\Resources\logo_escuela350.png";
+                string rutaLogoFija = @"C:\Users\eugen\Source\Repos\Proyecto_Boletas\Proyecto_Boletas\Resources\logo_escuela350.png";
 
                 if (File.Exists(rutaLogoFija))
                 {

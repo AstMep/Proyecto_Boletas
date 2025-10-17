@@ -406,6 +406,11 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void cmbGrupo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
  

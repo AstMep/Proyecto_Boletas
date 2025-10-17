@@ -229,6 +229,7 @@
             cmbGrupo.Name = "cmbGrupo";
             cmbGrupo.Size = new Size(151, 28);
             cmbGrupo.TabIndex = 36;
+            cmbGrupo.SelectedIndexChanged += cmbGrupo_SelectedIndexChanged;
             // 
             // cmbMes
             // 

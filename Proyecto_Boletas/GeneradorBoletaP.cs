@@ -65,7 +65,7 @@ namespace Proyecto_Boletas
         private string[] materiasBase;
 
         // 🎯 RUTA DEL LOGO: Asume que está en la carpeta de ejecución
-        private const string RUTA_LOGO = "logo_escuela350.png";
+        private const string RUTA_LOGO = "C:\\Users\\eugen\\Source\\Repos\\Proyecto_Boletas\\Proyecto_Boletas\\Resources\\logo_escuela350.png";
 
         private MySqlConnection GetConnection()
         {
@@ -99,10 +99,7 @@ namespace Proyecto_Boletas
             return new DatosBoleta();
         }
 
-        // ----------------------------------------------------------------------
-        // --- MÉTODO PRINCIPAL ---
-        // ----------------------------------------------------------------------
-
+       
         public void CrearBoletaPersonal(int idAlumno, string trimestre)
         {
             string nombreAlumno = "", nombreGrupo = "", nombreMaestro = "";
@@ -222,12 +219,11 @@ namespace Proyecto_Boletas
                 doc.Add(new Paragraph($"ALUMNO (A): {nombreAlumno}", fontClave));
                 doc.Add(new Paragraph("\n"));
 
-                // 🎯 TABLA PRINCIPAL UNIFICADA
+              
                 doc.Add(CrearTablaPrincipalCalificaciones(datosDelAlumno));
 
                 doc.Add(new Paragraph("\n"));
 
-                // 🎯 TABLA DE INASISTENCIAS ALINEADA
                 doc.Add(CrearTablaInasistenciasNiveles(datosDelAlumno));
 
                 doc.Add(new Paragraph("\n"));
@@ -235,7 +231,7 @@ namespace Proyecto_Boletas
 
                 doc.Close();
 
-                // CORRECTO ✅
+
                 MessageBox.Show($"Boleta Personal generada correctamente en:\n{rutaSalida}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Abrir el PDF correctamente en Windows
@@ -259,9 +255,7 @@ namespace Proyecto_Boletas
             }
         }
 
-        // ----------------------------------------------------------------------
-        // --- MÉTODOS AUXILIARES ---
-        // ----------------------------------------------------------------------
+     
 
         private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int bordeEstilo)
         {
