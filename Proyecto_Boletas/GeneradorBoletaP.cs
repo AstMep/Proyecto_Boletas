@@ -44,12 +44,11 @@ namespace Proyecto_Boletas
             "CIENCIAS NATURALES", "FORMACIÓN CÍVICA Y ÉTICA", "ED. FÍSICA"
         };
 
-        // Asumiendo que esta clase existe y proporciona la conexión.
-        public MySqlConnection GetConnection()
+        
+        private MySqlConnection GetConnection()
         {
-            // Implementación simulada, DEBES usar tu clase real
-            // Ejemplo: return new MySqlConnection("server=localhost;database=midb;uid=user;pwd=pass;");
-            throw new NotImplementedException("Debes usar la clase Conexion existente en tu proyecto.");
+            Conexion conexion = new Conexion();
+            return conexion.GetConnection();
         }
 
         // ----------------------------------------------------------------------
@@ -175,8 +174,23 @@ namespace Proyecto_Boletas
 
                 doc.Close();
 
+                // CORRECTO ✅
                 MessageBox.Show($"Boleta Personal generada correctamente en:\n{rutaSalida}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                System.Diagnostics.Process.Start(rutaSalida);
+
+                // Abrir el PDF correctamente en Windows
+                try
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = rutaSalida,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception exOpen)
+                {
+                    MessageBox.Show($"El PDF se generó correctamente, pero no se pudo abrir automáticamente.\n\nPuedes encontrarlo en:\n{rutaSalida}",
+                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
