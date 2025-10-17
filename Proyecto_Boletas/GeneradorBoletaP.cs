@@ -83,9 +83,9 @@ namespace Proyecto_Boletas
                 return "Conoc. del Medio";
             }
             else if (nombreNormalizado.Contains("tercero") ||
-                      nombreNormalizado.Contains("cuarto") ||
-                      nombreNormalizado.Contains("quinto") ||
-                      nombreNormalizado.Contains("sexto"))
+                     nombreNormalizado.Contains("cuarto") ||
+                     nombreNormalizado.Contains("quinto") ||
+                     nombreNormalizado.Contains("sexto"))
             {
                 return "C. Naturales";
             }
@@ -99,12 +99,13 @@ namespace Proyecto_Boletas
             return new DatosBoleta();
         }
 
-       
+
         public void CrearBoletaPersonal(int idAlumno, string trimestre)
         {
             string nombreAlumno = "", nombreGrupo = "", nombreMaestro = "";
             string cicloEscolar = "2024-2025";
             string noLista = "S/N";
+            string rutaSalida = string.Empty; // Inicializar rutaSalida
 
             AlumnoInfo alumnoObjetivo = null;
             int? idGrupo = null;
@@ -117,7 +118,7 @@ namespace Proyecto_Boletas
                     conn.Open();
                     string queryGrupo = @"
                         SELECT a.id_grupo, a.Nombre, a.ApellidoPaterno, a.ApellidoMaterno, 
-                                 g.nombre_grupo, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro
+                                g.nombre_grupo, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro
                         FROM alumnos a
                         INNER JOIN grupo g ON a.id_grupo = g.id_grupo
                         INNER JOIN maestro m ON g.id_maestro = m.id_maestro
@@ -207,9 +208,31 @@ namespace Proyecto_Boletas
                 // 🎯 OBTENER DATOS VACÍOS
                 DatosBoleta datosDelAlumno = ObtenerDatosBoletaDummy();
 
+                // ----------------------------------------------------------------------------------
+                // 🎯 INICIO DE MODIFICACIÓN: Uso de SaveFileDialog
+                // ----------------------------------------------------------------------------------
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    // Nombre sugerido por defecto
+                    saveFileDialog.FileName = $"Boleta_Personal_{idAlumno}_{trimestre}.pdf";
+                    saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
+                    saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                    if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                    {
+                        // Si el usuario cancela, simplemente terminamos la función
+                        return;
+                    }
+
+                    rutaSalida = saveFileDialog.FileName;
+                }
+                // ----------------------------------------------------------------------------------
+                // 🎯 FIN DE MODIFICACIÓN
+                // ----------------------------------------------------------------------------------
+
+
                 // --- Configuración y Generación del PDF (Tamaño Carta Vertical) ---
                 Document doc = new Document(PageSize.LETTER, 30, 30, 30, 30);
-                string rutaSalida = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"Boleta_Personal_{idAlumno}_{trimestre}.pdf");
                 PdfWriter.GetInstance(doc, new FileStream(rutaSalida, FileMode.Create));
                 doc.Open();
 
@@ -219,7 +242,7 @@ namespace Proyecto_Boletas
                 doc.Add(new Paragraph($"ALUMNO (A): {nombreAlumno}", fontClave));
                 doc.Add(new Paragraph("\n"));
 
-              
+
                 doc.Add(CrearTablaPrincipalCalificaciones(datosDelAlumno));
 
                 doc.Add(new Paragraph("\n"));
@@ -255,7 +278,7 @@ namespace Proyecto_Boletas
             }
         }
 
-     
+
 
         private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int bordeEstilo)
         {
@@ -374,10 +397,10 @@ namespace Proyecto_Boletas
 
             // Anchos de columna que suman 1.0f:
             float[] widths = { 0.10f, 0.10f,  // A, B (Campos Formativos)
-                               0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, // C-L (Meses)
-                               0.06f, 0.06f, 0.06f, // M, N, O (Trimestres)
-                               0.10f // P (P. Final)
-                               };
+                                 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, // C-L (Meses)
+                                 0.06f, 0.06f, 0.06f, // M, N, O (Trimestres)
+                                 0.10f // P (P. Final)
+                                 };
             tablaBase.SetWidths(widths);
 
             // --- FILA 1: TÍTULOS DE ENCABEZADO SUPERIOR (Rows 1 & 2 en el Excel) ---

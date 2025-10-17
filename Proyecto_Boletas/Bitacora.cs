@@ -156,5 +156,10 @@ namespace Proyecto_Boletas
             administrar_maestros.Show();
             this.Hide();
         }
+
+        private void panelApp_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
