@@ -29,8 +29,7 @@ namespace Proyecto_Boletas
         private readonly BaseColor colorGrisClaro = new BaseColor(230, 230, 230);
         private readonly BaseColor colorEncabezadoMateria = new BaseColor(2, 60, 102);
 
-        // Nombres de las materias base (usadas en la Fila 3 y bucles)
-        // **EL ARREGLO materiasBase YA NO ES READONLY GLOBAL** para poder modificar el nombre de la materia.
+        // Nombres de las materias base (Ya no es readonly, se inicializa en CrearBoletaGrupal)
         private string[] materiasBase;
 
         // 🎯 RUTA DEL LOGO: Ahora definida aquí para un solo punto de control.
@@ -49,31 +48,29 @@ namespace Proyecto_Boletas
         }
 
         // Nuevo método para determinar el nombre de la materia de Ciencias/Conocimiento
+        // Basado en el nombre completo del grupo (ej. "Primero", "Segundo", etc.)
         private string ObtenerNombreMateriaCiencias(string nombreGrupo)
         {
-            // Intentamos obtener el primer dígito del nombre del grupo (ej. de "1A" obtenemos 1)
-            if (nombreGrupo.Length > 0 && char.IsDigit(nombreGrupo[0]))
+            // Normalizamos el nombre del grupo para asegurar la comparación (quitamos espacios y pasamos a minúsculas)
+            string nombreNormalizado = nombreGrupo.ToLower().Trim();
+
+            // Lógica: Si es Primero o Segundo, usamos "Con. del Medio"
+            if (nombreNormalizado.Contains("primero") || nombreNormalizado.Contains("segundo"))
             {
-                if (int.TryParse(nombreGrupo[0].ToString(), out int grado))
-                {
-                    // Si el grado es 1 o 2, usamos "Con. del Medio"
-                    if (grado <= 2)
-                    {
-                        return "Con. del Medio";
-                    }
-                    // Si el grado es 3, 4, 5 o 6, usamos "C. Naturales"
-                    else if (grado >= 3)
-                    {
-                        // Se puede ajustar para 3ro si aún es 'Con. del Medio', pero por tu instrucción es para 4, 5, 6
-                        // Si es para 3ro en adelante, cambia a: else if (grado >= 3)
-                        return "C. Naturales";
-                    }
-                }
+                return "Con. del Medio";
             }
-            // Valor por defecto si el nombre del grupo no tiene el formato esperado
+            // Lógica: Si es Tercero, Cuarto, Quinto o Sexto, usamos "C. Naturales"
+            else if (nombreNormalizado.Contains("tercero") ||
+                     nombreNormalizado.Contains("cuarto") ||
+                     nombreNormalizado.Contains("quinto") ||
+                     nombreNormalizado.Contains("sexto"))
+            {
+                return "C. Naturales";
+            }
+
+            // Retorno de seguridad (por si el nombre del grupo no encaja)
             return "Con. del Medio";
         }
-
 
         public void CrearBoletaGrupal(int idGrupo, string trimestre)
         {
@@ -84,10 +81,8 @@ namespace Proyecto_Boletas
 
             try
             {
-                // ... (Se mantiene el código de SaveFileDialog sin cambios) ...
-
                 // ===== 1. SELECCIONAR RUTA DE GUARDADO (SaveFileDialog) =====
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
                 saveFileDialog.Title = "Guardar Boleta Grupal";
                 saveFileDialog.FileName = $"Boleta_Grupo_{idGrupo}_{trimestre}.pdf";
@@ -123,17 +118,25 @@ namespace Proyecto_Boletas
                     }
                 }
 
-                // 🎯 INICIO DEL CAMBIO: Determinar el nombre de la materia de ciencias basado en el grupo.
+                // 🎯 INICIO DEL CAMBIO: Determinar el nombre de la materia de ciencias basado en el nombre completo del grupo.
                 string nombreMateriaCiencias = ObtenerNombreMateriaCiencias(nombreGrupo);
 
-                // 🎯 INICIO DEL CAMBIO: Inicializar el array materiasBase con el nombre correcto.
-                materiasBase = new[] { "Español", "Inglés", "Artes", "Matemáticas", "Tecnología", nombreMateriaCiencias, "F. Cívica y Ética", "Ed. Física", "Promedio" };
+                // Inicializar el array materiasBase con el nombre correcto.
+                materiasBase = new[] {
+                    "Español",
+                    "Inglés",
+                    "Artes",
+                    "Matemáticas",
+                    "Tecnología",
+                    nombreMateriaCiencias, // ¡Aquí está el cambio!
+                    "F. Cívica y Ética",
+                    "Ed. Física",
+                    "Promedio"
+                };
                 // 🎯 FIN DEL CAMBIO.
 
-                // ... (El resto del código se mantiene sin cambios) ...
-
                 // ===== 3. EXTRAER ALUMNOS Y ORDENAR ALFABÉTICAMENTE =====
-                using (MySqlConnection conn = new Conexion().GetConnection())
+                using (MySqlConnection conn = new Conexion().GetConnection())
                 {
                     conn.Open();
                     string queryAlumnos = "SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno, Genero FROM alumnos WHERE id_grupo = @idGrupo";
@@ -158,23 +161,23 @@ namespace Proyecto_Boletas
                 }
 
                 alumnos = alumnos.OrderBy(a => a.ApellidoPaterno)
-                        .ThenBy(a => a.ApellidoMaterno)
-                        .ThenBy(a => a.Nombre)
-                        .ToList();
+                                 .ThenBy(a => a.ApellidoMaterno)
+                                 .ThenBy(a => a.Nombre)
+                                 .ToList();
 
-                // ===== 4. CREAR PDF (INICIO) =====
-                string[] meses = ObtenerMeses(trimestre); // Obtiene los 3 meses
+                // ===== 4. CREAR PDF (INICIO) =====
+                string[] meses = ObtenerMeses(trimestre); // Obtiene los 3 meses
 
-                Document doc = new Document(PageSize.A4.Rotate(), 15, 15, 40, 20);
+                Document doc = new Document(PageSize.A4.Rotate(), 15, 15, 40, 20);
                 PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(rutaSalida, FileMode.Create));
                 doc.Open();
 
-                // --- CABECERA DE DATOS GENERALES ---
-                PdfPTable encabezado = new PdfPTable(2) { WidthPercentage = 100 };
+                // --- CABECERA DE DATOS GENERALES ---
+                PdfPTable encabezado = new PdfPTable(2) { WidthPercentage = 100 };
                 encabezado.SetWidths(new float[] { 20, 80 });
 
-                // 🎯 LÓGICA DEL LOGO MEJORADA
-                if (File.Exists(RUTA_LOGO))
+                // 🎯 LÓGICA DEL LOGO MEJORADA
+                if (File.Exists(RUTA_LOGO))
                 {
                     try
                     {
@@ -188,8 +191,8 @@ namespace Proyecto_Boletas
                     }
                     catch (Exception ex)
                     {
-                        // Si hay un error al cargar la imagen (ej. corrupción), mostrará "ERROR LOGO"
-                        encabezado.AddCell(CrearCelda("ERROR LOGO\n" + ex.Message.Substring(0, Math.Min(ex.Message.Length, 50)), fontNormal, Element.ALIGN_CENTER));
+                        // Si hay un error al cargar la imagen (ej. corrupción), mostrará "ERROR LOGO"
+                        encabezado.AddCell(CrearCelda("ERROR LOGO\n" + ex.Message.Substring(0, Math.Min(ex.Message.Length, 50)), fontNormal, Element.ALIGN_CENTER));
                     }
                 }
                 else
@@ -199,45 +202,45 @@ namespace Proyecto_Boletas
 
                 PdfPCell celdaTexto = new PdfPCell();
                 celdaTexto.AddElement(new Paragraph("INSTITUTO MANUEL M. ACOSTA", fontTitulo) { Alignment = Element.ALIGN_CENTER }); // 🎯 Nombre de la escuela cambiado
-                celdaTexto.AddElement(new Paragraph("BOLETA INTERNA TRIMESTRAL", fontSubtitulo) { Alignment = Element.ALIGN_CENTER });
-                celdaTexto.AddElement(new Paragraph($"Grupo: {nombreGrupo}      Maestro: {nombreMaestro}      Trimestre: {trimestre}", fontNormal) { Alignment = Element.ALIGN_CENTER });
+                celdaTexto.AddElement(new Paragraph("BOLETA INTERNA TRIMESTRAL", fontSubtitulo) { Alignment = Element.ALIGN_CENTER });
+                celdaTexto.AddElement(new Paragraph($"Grupo: {nombreGrupo}      Maestro: {nombreMaestro}      Trimestre: {trimestre}", fontNormal) { Alignment = Element.ALIGN_CENTER });
                 celdaTexto.Border = PdfRectangle.NO_BORDER;
                 encabezado.AddCell(celdaTexto);
 
                 doc.Add(encabezado);
                 doc.Add(new Paragraph(" "));
 
-                // --- TABLA PRINCIPAL DE CALIFICACIONES (34 COLUMNAS) ---
+                // --- TABLA PRINCIPAL DE CALIFICACIONES (34 COLUMNAS) ---
 
-                int totalColumnas = 3 + (meses.Length * materiasBase.Length) + 1; // 3 + (3 * 9) + 1 = 31
+                int totalColumnas = 3 + (meses.Length * materiasBase.Length) + 1; // 3 + (3 * 9) + 1 = 31
 
-                PdfPTable tablaCalificaciones = new PdfPTable(31) { WidthPercentage = 100, HeaderRows = 2 }; // HeaderRows ayuda a repetir el encabezado en nuevas páginas
+                PdfPTable tablaCalificaciones = new PdfPTable(31) { WidthPercentage = 100, HeaderRows = 2 }; // HeaderRows ayuda a repetir el encabezado en nuevas páginas
 
-                // Definición de anchos (sin cambios)
-                float[] widths = new float[31];
+                // Definición de anchos (sin cambios)
+                float[] widths = new float[31];
                 widths[0] = 0.02f; widths[1] = 0.02f; widths[2] = 0.15f;
                 float smallWidth = (1.00f - 0.19f) / 28f;
                 for (int i = 3; i < 31; i++) { widths[i] = smallWidth; }
                 tablaCalificaciones.SetWidths(widths);
 
-                // Fila 1: Cabeceras Principales (Horizontal y Rotadas)
-                // 🎯 No. LISTA y SEXO - Celdas rotadas que cubren 2 filas
-                tablaCalificaciones.AddCell(CreateRotatedHeaderCell("NO. LISTA", fontEncabezadoRotado, 2, colorEncabezadoFijo));
+                // Fila 1: Cabeceras Principales (Horizontal y Rotadas)
+                // 🎯 No. LISTA y SEXO - Celdas rotadas que cubren 2 filas
+                tablaCalificaciones.AddCell(CreateRotatedHeaderCell("NO. LISTA", fontEncabezadoRotado, 2, colorEncabezadoFijo));
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("SEXO", fontEncabezadoRotado, 2, colorEncabezadoFijo));
 
-                // NOMBRE DEL ALUMNO - Celda horizontal que cubre 2 filas
-                tablaCalificaciones.AddCell(CreateHeaderCell("NOMBRE DEL ALUMNO", fontSubtitulo, 2, 1, colorEncabezadoFijo));
+                // NOMBRE DEL ALUMNO - Celda horizontal que cubre 2 filas
+                tablaCalificaciones.AddCell(CreateHeaderCell("NOMBRE DEL ALUMNO", fontSubtitulo, 2, 1, colorEncabezadoFijo));
 
                 foreach (string mes in meses)
                 {
                     tablaCalificaciones.AddCell(CrearCelda(mes, fontSubtitulo, Element.ALIGN_CENTER, 1, materiasBase.Length, colorEncabezadoMateria)); // ColSpan 9
-                }
-                // 🎯 PROM. TRIMESTRAL - Celda rotada que cubre 2 filas
-                tablaCalificaciones.AddCell(CreateRotatedHeaderCell("PROMEDIO\nTRIMESTRAL", fontEncabezadoRotado, 2, colorPromedio));
+                }
+                // 🎯 PROM. TRIMESTRAL - Celda rotada que cubre 2 filas
+                tablaCalificaciones.AddCell(CreateRotatedHeaderCell("PROMEDIO\nTRIMESTRAL", fontEncabezadoRotado, 2, colorPromedio));
 
-                // Fila 2: Nombres de Materias (Esta fila se salta 3 celdas iniciales y la final debido al Rowspan 2)
+                // Fila 2: Nombres de Materias (Esta fila se salta 3 celdas iniciales y la final debido al Rowspan 2)
 
-                for (int m = 0; m < meses.Length; m++)
+                for (int m = 0; m < meses.Length; m++)
                 {
                     foreach (string materia in materiasBase)
                     {
@@ -246,8 +249,8 @@ namespace Proyecto_Boletas
                     }
                 }
 
-                // --- RELLENO DE DATOS DE CADA ALUMNO (ORDENADO) ---
-                int listaContador = 1;
+                // --- RELLENO DE DATOS DE CADA ALUMNO (ORDENADO) ---
+                int listaContador = 1;
                 foreach (var alumno in alumnos)
                 {
                     tablaCalificaciones.AddCell(CrearCelda((listaContador++).ToString(), fontNormal, Element.ALIGN_CENTER));
@@ -274,11 +277,11 @@ namespace Proyecto_Boletas
                     }
                 }
 
-                // Fila de Promedio Final del Grupo 
-                tablaCalificaciones.AddCell(CrearCelda("PROMEDIO GRUPAL", fontSubtitulo, Element.ALIGN_CENTER, 1, 3, colorBorde));
+                // Fila de Promedio Final del Grupo 
+                tablaCalificaciones.AddCell(CrearCelda("PROMEDIO GRUPAL", fontSubtitulo, Element.ALIGN_CENTER, 1, 3, colorBorde));
 
                 for (int i = 0; i < 28; i++) // 28 celdas de promedios de grupo
-                {
+                {
                     if (i % 9 == 8 || i == 27)
                     {
                         tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, colorPromedio));
@@ -301,7 +304,6 @@ namespace Proyecto_Boletas
             }
         }
 
-        // ... (El resto de los métodos auxiliares se mantienen sin cambios) ...
 
         // --- MÉTODOS AUXILIARES ---
 
