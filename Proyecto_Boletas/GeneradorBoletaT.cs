@@ -1,4 +1,6 @@
-﻿using iTextSharp.text;
+﻿using System.Drawing;
+using System.Drawing.Imaging; // Necesario para el MemoryStream
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
 using System;
@@ -20,7 +22,6 @@ namespace Proyecto_Boletas
         private readonly PdfFont fontSubtitulo = new PdfFont(PdfFont.FontFamily.HELVETICA, 8, PdfFont.BOLD);
         private readonly PdfFont fontNormal = new PdfFont(PdfFont.FontFamily.HELVETICA, 8, PdfFont.NORMAL);
         private readonly PdfFont fontAlumnoNombreLargo = new PdfFont(PdfFont.FontFamily.HELVETICA, 6, PdfFont.NORMAL);
-        // Fuente para encabezados rotados, un poco más grande para mejor legibilidad
         private readonly PdfFont fontEncabezadoRotado = new PdfFont(PdfFont.FontFamily.HELVETICA, 8, PdfFont.BOLD, BaseColor.WHITE);
 
         private readonly BaseColor colorBorde = BaseColor.BLACK;
@@ -32,8 +33,8 @@ namespace Proyecto_Boletas
         // Nombres de las materias base (Ya no es readonly, se inicializa en CrearBoletaGrupal)
         private string[] materiasBase;
 
-        // 🎯 RUTA DEL LOGO: Ahora definida aquí para un solo punto de control.
-        private const string RUTA_LOGO = "C:\\Users\\eugen\\Source\\Repos\\Proyecto_Boletas\\Proyecto_Boletas\\Resources\\logo_escuela350.png"; // Asume que está en la carpeta de ejecución (bin/Debug o Release)
+        // ❌ ELIMINADA la constante RUTA_LOGO, se cargará desde memoria.
+        // private const string RUTA_LOGO = "..."; 
 
         // Lógica para obtener los nombres de los meses por trimestre
         private string[] ObtenerMeses(string trimestre)
@@ -48,18 +49,14 @@ namespace Proyecto_Boletas
         }
 
         // Nuevo método para determinar el nombre de la materia de Ciencias/Conocimiento
-        // Basado en el nombre completo del grupo (ej. "Primero", "Segundo", etc.)
         private string ObtenerNombreMateriaCiencias(string nombreGrupo)
         {
-            // Normalizamos el nombre del grupo para asegurar la comparación (quitamos espacios y pasamos a minúsculas)
             string nombreNormalizado = nombreGrupo.ToLower().Trim();
 
-            // Lógica: Si es Primero o Segundo, usamos "Con. del Medio"
             if (nombreNormalizado.Contains("primero") || nombreNormalizado.Contains("segundo"))
             {
                 return "Con. del Medio";
             }
-            // Lógica: Si es Tercero, Cuarto, Quinto o Sexto, usamos "C. Naturales"
             else if (nombreNormalizado.Contains("tercero") ||
                      nombreNormalizado.Contains("cuarto") ||
                      nombreNormalizado.Contains("quinto") ||
@@ -68,7 +65,6 @@ namespace Proyecto_Boletas
                 return "C. Naturales";
             }
 
-            // Retorno de seguridad (por si el nombre del grupo no encaja)
             return "Con. del Medio";
         }
 
@@ -176,42 +172,58 @@ namespace Proyecto_Boletas
                 PdfPTable encabezado = new PdfPTable(2) { WidthPercentage = 100 };
                 encabezado.SetWidths(new float[] { 20, 80 });
 
-                // 🎯 LÓGICA DEL LOGO MEJORADA
-                if (File.Exists(RUTA_LOGO))
+                // 🚀 LÓGICA DEL LOGO MEJORADA (SIN RUTA) 🚀
+                PdfImage logo = null;
+                try
                 {
-                    try
+                    // Carga la imagen desde los recursos internos del proyecto (NO NECESITA RUTA)
+                    // **ASEGÚRATE de que 'logo_escuela350' esté en Properties -> Resources**
+                    System.Drawing.Image imageFromResources = Proyecto_Boletas.Properties.Resources.logo_escuela350;
+
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        PdfImage logo = PdfImage.GetInstance(RUTA_LOGO);
-                        logo.ScaleToFit(70f, 70f);
-                        PdfPCell logoCell = new PdfPCell(logo, false);
-                        logoCell.Border = PdfRectangle.NO_BORDER;
-                        logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        logoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                        encabezado.AddCell(logoCell);
+                        // Transfiere la imagen al stream de memoria
+                        imageFromResources.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                        // iTextSharp toma los datos de la imagen directamente desde el array de bytes en memoria
+                        logo = PdfImage.GetInstance(ms.ToArray());
                     }
-                    catch (Exception ex)
-                    {
-                        // Si hay un error al cargar la imagen (ej. corrupción), mostrará "ERROR LOGO"
-                        encabezado.AddCell(CrearCelda("ERROR LOGO\n" + ex.Message.Substring(0, Math.Min(ex.Message.Length, 50)), fontNormal, Element.ALIGN_CENTER));
-                    }
+                }
+                catch (Exception ex)
+                {
+                    // Si hay un error al cargar el recurso (p. ej. el recurso no existe), 'logo' será null.
+                    Console.WriteLine("Error al cargar el logo desde recursos internos: " + ex.Message);
+                }
+
+                if (logo != null)
+                {
+                    logo.ScaleToFit(70f, 70f);
+                    PdfPCell logoCell = new PdfPCell(logo, false);
+                    logoCell.Border = PdfRectangle.NO_BORDER;
+                    logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    logoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    encabezado.AddCell(logoCell);
                 }
                 else
                 {
-                    encabezado.AddCell(CrearCelda("LOGO FALTANTE", fontNormal, Element.ALIGN_CENTER));
+                    // Si la carga falló, inserta el texto de "LOGO FALTANTE"
+                    encabezado.AddCell(CrearCelda("LOGO FALTANTE\n(Verificar Recursos)", fontNormal, Element.ALIGN_CENTER));
                 }
+                // 🚀 FIN LÓGICA LOGO SIN RUTA 🚀
 
                 PdfPCell celdaTexto = new PdfPCell();
-                celdaTexto.AddElement(new Paragraph("INSTITUTO MANUEL M. ACOSTA", fontTitulo) { Alignment = Element.ALIGN_CENTER }); // 🎯 Nombre de la escuela cambiado
+                celdaTexto.AddElement(new Paragraph("INSTITUTO MANUEL M. ACOSTA", fontTitulo) { Alignment = Element.ALIGN_CENTER });
                 celdaTexto.AddElement(new Paragraph("BOLETA INTERNA TRIMESTRAL", fontSubtitulo) { Alignment = Element.ALIGN_CENTER });
-                celdaTexto.AddElement(new Paragraph($"Grupo: {nombreGrupo}      Maestro: {nombreMaestro}      Trimestre: {trimestre}", fontNormal) { Alignment = Element.ALIGN_CENTER });
+                celdaTexto.AddElement(new Paragraph($"Grupo: {nombreGrupo}       Maestro: {nombreMaestro}       Trimestre: {trimestre}", fontNormal) { Alignment = Element.ALIGN_CENTER });
                 celdaTexto.Border = PdfRectangle.NO_BORDER;
                 encabezado.AddCell(celdaTexto);
 
                 doc.Add(encabezado);
                 doc.Add(new Paragraph(" "));
 
-                // --- TABLA PRINCIPAL DE CALIFICACIONES (34 COLUMNAS) ---
+                // --- TABLA PRINCIPAL DE CALIFICACIONES (31 COLUMNAS) ---
 
+                // ... (El resto de la generación de la tabla permanece igual)
                 int totalColumnas = 3 + (meses.Length * materiasBase.Length) + 1; // 3 + (3 * 9) + 1 = 31
 
                 PdfPTable tablaCalificaciones = new PdfPTable(31) { WidthPercentage = 100, HeaderRows = 2 }; // HeaderRows ayuda a repetir el encabezado en nuevas páginas
@@ -224,7 +236,6 @@ namespace Proyecto_Boletas
                 tablaCalificaciones.SetWidths(widths);
 
                 // Fila 1: Cabeceras Principales (Horizontal y Rotadas)
-                // 🎯 No. LISTA y SEXO - Celdas rotadas que cubren 2 filas
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("NO. LISTA", fontEncabezadoRotado, 2, colorEncabezadoFijo));
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("SEXO", fontEncabezadoRotado, 2, colorEncabezadoFijo));
 
@@ -235,7 +246,7 @@ namespace Proyecto_Boletas
                 {
                     tablaCalificaciones.AddCell(CrearCelda(mes, fontSubtitulo, Element.ALIGN_CENTER, 1, materiasBase.Length, colorEncabezadoMateria)); // ColSpan 9
                 }
-                // 🎯 PROM. TRIMESTRAL - Celda rotada que cubre 2 filas
+                // PROM. TRIMESTRAL - Celda rotada que cubre 2 filas
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("PROMEDIO\nTRIMESTRAL", fontEncabezadoRotado, 2, colorPromedio));
 
                 // Fila 2: Nombres de Materias (Esta fila se salta 3 celdas iniciales y la final debido al Rowspan 2)
@@ -305,9 +316,8 @@ namespace Proyecto_Boletas
         }
 
 
-        // --- MÉTODOS AUXILIARES ---
+        // --- MÉTODOS AUXILIARES (Sin Cambios) ---
 
-        // 🎯 Aumento MinimumHeight y ajuste de font para los encabezados rotados
         private PdfPCell CreateRotatedHeaderCell(string text, PdfFont font, int rowspan, BaseColor background)
         {
             return new PdfPCell(new Phrase(text, font))
@@ -317,7 +327,7 @@ namespace Proyecto_Boletas
                 Rowspan = rowspan,
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
-                MinimumHeight = 70f, // Aumentado para dar más espacio
+                MinimumHeight = 70f,
                 Padding = 2f
             };
         }
@@ -330,7 +340,7 @@ namespace Proyecto_Boletas
                 Rotation = 90,
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
-                MinimumHeight = 50f // Asegura que las letras quepan
+                MinimumHeight = 50f
             };
         }
 
@@ -343,7 +353,7 @@ namespace Proyecto_Boletas
                 Colspan = colspan,
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
-                MinimumHeight = 70f // Aumentado para que coincida con las celdas rotadas
+                MinimumHeight = 70f
             };
         }
 

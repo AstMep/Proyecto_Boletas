@@ -101,7 +101,7 @@
             groupBox1.Controls.Add(pictureBox2);
             groupBox1.Location = new Point(25, 32);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(951, 479);
+            groupBox1.Size = new Size(978, 479);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Inicio de Sesión";
@@ -110,10 +110,10 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Bernard MT Condensed", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Microsoft Sans Serif", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(429, 37);
             label3.Name = "label3";
-            label3.Size = new Size(391, 38);
+            label3.Size = new Size(541, 37);
             label3.TabIndex = 9;
             label3.Text = "INSTITUTO MANUEL M. ACOSTA";
             label3.Click += label3_Click;
@@ -219,7 +219,7 @@
             BackColor = Color.SlateGray;
             BackgroundImage = Properties.Resources._274259;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(988, 513);
+            ClientSize = new Size(1015, 513);
             Controls.Add(groupBox1);
             DoubleBuffered = true;
             Icon = (Icon)resources.GetObject("$this.Icon");

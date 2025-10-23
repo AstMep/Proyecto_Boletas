@@ -33,9 +33,9 @@ namespace Proyecto_Boletas
 
         private void btnEnvioBoletas_Click(object sender, EventArgs e)
         {
-            Datos_alumnado nuevoFormulario = new Datos_alumnado(); // creas una instancia del otro form
-            nuevoFormulario.Show();              // lo muestras
-            this.Hide();
+            CreacionPDF_Direc formularioPDF = new CreacionPDF_Direc("Secretaria");  // ⭐ Pasar "Secretaria"
+            formularioPDF.Show();
+            this.Hide(); ;
         }
 
         private void btnDatosAlumnado_Click(object sender, EventArgs e)
@@ -62,7 +62,9 @@ namespace Proyecto_Boletas
 
         private void btn_inscripcion_Click_1(object sender, EventArgs e)
         {
-
+            Mod_inscripcion nuevoFormulario = new Mod_inscripcion("Secretaria");
+            nuevoFormulario.Show();
+            this.Close();
         }
 
         private void btn_capturaCalif_Click(object sender, EventArgs e)

@@ -43,11 +43,13 @@
             label4 = new Label();
             Logo = new PictureBox();
             label1 = new Label();
+            pictureBox1 = new PictureBox();
             panelApp.SuspendLayout();
             panel1.SuspendLayout();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panelApp
@@ -55,11 +57,12 @@
             panelApp.AutoScroll = true;
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
+            panelApp.Controls.Add(pictureBox1);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(181, 0);
+            panelApp.Location = new Point(178, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(793, 496);
+            panelApp.Size = new Size(796, 496);
             panelApp.TabIndex = 5;
             panelApp.Paint += panelApp_Paint;
             // 
@@ -71,7 +74,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(793, 59);
+            panel1.Size = new Size(796, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -115,7 +118,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(181, 496);
+            panelMenu.Size = new Size(178, 496);
             panelMenu.TabIndex = 4;
             // 
             // btnEnvioBoletas
@@ -124,15 +127,15 @@
             btnEnvioBoletas.Dock = DockStyle.Top;
             btnEnvioBoletas.FlatAppearance.BorderSize = 0;
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
-            btnEnvioBoletas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEnvioBoletas.Location = new Point(0, 292);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(181, 51);
+            btnEnvioBoletas.Size = new Size(178, 51);
             btnEnvioBoletas.TabIndex = 12;
-            btnEnvioBoletas.Text = "Creación de PDFS";
+            btnEnvioBoletas.Text = "Creación \r\nde PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
             btnEnvioBoletas.Click += btnEnvioBoletas_Click_1;
             // 
@@ -142,15 +145,15 @@
             btnEdicionDatos.Dock = DockStyle.Top;
             btnEdicionDatos.FlatAppearance.BorderSize = 0;
             btnEdicionDatos.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatos.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEdicionDatos.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdicionDatos.Location = new Point(0, 241);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.Size = new Size(178, 51);
             btnEdicionDatos.TabIndex = 11;
-            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.Text = "Edición \r\nde Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
             // 
             // btnEstadisticas
@@ -159,13 +162,13 @@
             btnEstadisticas.Dock = DockStyle.Top;
             btnEstadisticas.FlatAppearance.BorderSize = 0;
             btnEstadisticas.FlatStyle = FlatStyle.Flat;
-            btnEstadisticas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEstadisticas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.Size = new Size(178, 51);
             btnEstadisticas.TabIndex = 10;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -176,13 +179,13 @@
             btn_capturaCalif.Dock = DockStyle.Top;
             btn_capturaCalif.FlatAppearance.BorderSize = 0;
             btn_capturaCalif.FlatStyle = FlatStyle.Flat;
-            btn_capturaCalif.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_capturaCalif.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
             btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(181, 61);
+            btn_capturaCalif.Size = new Size(178, 61);
             btn_capturaCalif.TabIndex = 9;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -194,13 +197,13 @@
             btn_inscripcion.Dock = DockStyle.Top;
             btn_inscripcion.FlatAppearance.BorderSize = 0;
             btn_inscripcion.FlatStyle = FlatStyle.Flat;
-            btn_inscripcion.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_inscripcion.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
             btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.Size = new Size(178, 49);
             btn_inscripcion.TabIndex = 7;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -216,7 +219,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(181, 80);
+            panelLogo.Size = new Size(178, 80);
             panelLogo.TabIndex = 8;
             // 
             // label4
@@ -248,6 +251,16 @@
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(246, 80);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(335, 328);
+            pictureBox1.TabIndex = 22;
+            pictureBox1.TabStop = false;
+            // 
             // Form_Secretaria
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -265,6 +278,7 @@
             panelLogo.ResumeLayout(false);
             panelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -284,5 +298,6 @@
         private Label label4;
         private PictureBox Logo;
         private Label label1;
+        private PictureBox pictureBox1;
     }
 }

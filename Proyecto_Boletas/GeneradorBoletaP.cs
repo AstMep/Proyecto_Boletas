@@ -1,4 +1,6 @@
-﻿using iTextSharp.text;
+﻿using System.Drawing;
+using System.Drawing.Imaging; // Necesario para el MemoryStream
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
 using System;
@@ -12,11 +14,6 @@ namespace Proyecto_Boletas
     // Alias para evitar ambigüedad
     using PdfRectangle = iTextSharp.text.Rectangle;
 
-    // -----------------------------------------------------------
-    // CLASES DE SOPORTE PARA DATOS
-    // -----------------------------------------------------------
-
-    // Clase auxiliar para guardar temporalmente los datos del alumno y ordenar.
     internal class AlumnoInfo
     {
         public int AlumnoID { get; set; }
@@ -64,8 +61,8 @@ namespace Proyecto_Boletas
         // Nombres base de las materias (se inicializa en CrearBoletaPersonal)
         private string[] materiasBase;
 
-        // 🎯 RUTA DEL LOGO: Asume que está en la carpeta de ejecución
-        private const string RUTA_LOGO = "C:\\Users\\eugen\\Source\\Repos\\Proyecto_Boletas\\Proyecto_Boletas\\Resources\\logo_escuela350.png";
+        // ❌ RUTA DEL LOGO ELIMINADA para usar recursos en memoria
+        // private const string RUTA_LOGO = "C:\\Users\\eugen\\Source\\Repos\\Proyecto_Boletas\\Proyecto_Boletas\\Resources\\logo_escuela350.png";
 
         private MySqlConnection GetConnection()
         {
@@ -92,10 +89,9 @@ namespace Proyecto_Boletas
             return "Conoc. del Medio";
         }
 
-        // 🎯 FUNCIÓN DE DATOS VACÍA (Dummy para evitar datos "WTF")
+        // FUNCIÓN DE DATOS VACÍA (Dummy para evitar datos "WTF")
         private DatosBoleta ObtenerDatosBoletaDummy()
         {
-            // Retorna una estructura con todos los valores nulos, como se solicitó.
             return new DatosBoleta();
         }
 
@@ -118,7 +114,7 @@ namespace Proyecto_Boletas
                     conn.Open();
                     string queryGrupo = @"
                         SELECT a.id_grupo, a.Nombre, a.ApellidoPaterno, a.ApellidoMaterno, 
-                                g.nombre_grupo, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro
+                                 g.nombre_grupo, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro
                         FROM alumnos a
                         INNER JOIN grupo g ON a.id_grupo = g.id_grupo
                         INNER JOIN maestro m ON g.id_maestro = m.id_maestro
@@ -179,10 +175,10 @@ namespace Proyecto_Boletas
 
                     // PASO 3: Ordenar y calcular No. Lista
                     var listaOrdenada = listaCompletaAlumnos
-                                                .OrderBy(a => a.ApellidoPaterno)
-                                                .ThenBy(a => a.ApellidoMaterno)
-                                                .ThenBy(a => a.Nombre)
-                                                .ToList();
+                                                   .OrderBy(a => a.ApellidoPaterno)
+                                                   .ThenBy(a => a.ApellidoMaterno)
+                                                   .ThenBy(a => a.Nombre)
+                                                   .ToList();
 
                     int indiceAlumno = listaOrdenada.FindIndex(a => a.AlumnoID == idAlumno);
 
@@ -205,12 +201,10 @@ namespace Proyecto_Boletas
                     "ED. FISICA"
                 };
 
-                // 🎯 OBTENER DATOS VACÍOS
+                // OBTENER DATOS VACÍOS
                 DatosBoleta datosDelAlumno = ObtenerDatosBoletaDummy();
 
-                // ----------------------------------------------------------------------------------
-                // 🎯 INICIO DE MODIFICACIÓN: Uso de SaveFileDialog
-                // ----------------------------------------------------------------------------------
+                // USO DE SaveFileDialog
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
                     // Nombre sugerido por defecto
@@ -226,10 +220,6 @@ namespace Proyecto_Boletas
 
                     rutaSalida = saveFileDialog.FileName;
                 }
-                // ----------------------------------------------------------------------------------
-                // 🎯 FIN DE MODIFICACIÓN
-                // ----------------------------------------------------------------------------------
-
 
                 // --- Configuración y Generación del PDF (Tamaño Carta Vertical) ---
                 Document doc = new Document(PageSize.LETTER, 30, 30, 30, 30);
@@ -237,7 +227,9 @@ namespace Proyecto_Boletas
                 doc.Open();
 
                 // --- Agregar secciones al PDF ---
+                // 🎯 LLAMADA A LA FUNCIÓN MODIFICADA
                 doc.Add(CrearEncabezadoSuperior(nombreGrupo, nombreMaestro, cicloEscolar, noLista));
+
                 doc.Add(new Paragraph("\n"));
                 doc.Add(new Paragraph($"ALUMNO (A): {nombreAlumno}", fontClave));
                 doc.Add(new Paragraph("\n"));
@@ -279,6 +271,74 @@ namespace Proyecto_Boletas
         }
 
 
+        // ----------------------------------------------------------------------
+        // --- FUNCIÓN MODIFICADA PARA CARGAR LOGO SIN RUTA ---
+        // ----------------------------------------------------------------------
+        private PdfPTable CrearEncabezadoSuperior(string grupo, string maestro, string ciclo, string lista)
+        {
+            PdfPTable table = new PdfPTable(4) { WidthPercentage = 100 };
+            table.SetWidths(new float[] { 0.2f, 0.4f, 0.2f, 0.2f });
+
+            // Logo Placeholder
+            PdfPCell logoCell;
+            iTextSharp.text.Image logo = null;
+
+            try
+            {
+                // 1. Carga la imagen desde los recursos internos del proyecto (NO NECESITA RUTA)
+                System.Drawing.Image imageFromResources = Proyecto_Boletas.Properties.Resources.logo_escuela350;
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // 2. Transfiere la imagen al stream de memoria
+                    imageFromResources.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    // 3. iTextSharp toma los datos de la imagen directamente desde el array de bytes en memoria
+                    logo = iTextSharp.text.Image.GetInstance(ms.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejo de error si la imagen no se carga del recurso.
+                Console.WriteLine("Error al cargar el logo desde recursos internos: " + ex.Message);
+            }
+
+
+            if (logo != null)
+            {
+                logo.ScaleToFit(70f, 70f);
+                logoCell = new PdfPCell(logo, false) { Border = PdfRectangle.NO_BORDER };
+            }
+            else
+            {
+                // Si la carga falló, inserta el texto de "LOGO FALTANTE"
+                logoCell = CrearCelda("LOGO FALTANTE\n(Verificar Recursos)", fontTexto, Element.ALIGN_CENTER, PdfRectangle.NO_BORDER);
+            }
+
+            logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            logoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            table.AddCell(logoCell);
+            // ----------------------------------------------------------------------
+            // --- FIN DE MODIFICACIÓN ---
+            // ----------------------------------------------------------------------
+
+            // Título central
+            PdfPCell titleCell = new PdfPCell { Border = PdfRectangle.NO_BORDER };
+            titleCell.AddElement(new Paragraph("INSTITUTO MANUEL M. ACOSTA", fontTitulo) { Alignment = Element.ALIGN_CENTER });
+            titleCell.AddElement(new Paragraph("BOLETA INTERNA TRIMESTRAL", fontTexto) { Alignment = Element.ALIGN_CENTER });
+            titleCell.AddElement(new Paragraph($"Grupo: {grupo} - Maestro: {maestro}", fontTexto) { Alignment = Element.ALIGN_CENTER });
+            table.AddCell(titleCell);
+
+            // Claves
+            table.AddCell(CrearCelda("SECCIÓN: PRIMARIA\nGRADO Y GRUPO:\nNO. DE LISTA:\nCICLO ESCOLAR:", fontClave, Element.ALIGN_RIGHT, PdfRectangle.NO_BORDER));
+            table.AddCell(CrearCelda($"CLAVE:\n{grupo}\n{lista}\n{ciclo}", fontClave, Element.ALIGN_LEFT, PdfRectangle.NO_BORDER));
+
+            return table;
+        }
+
+        // ----------------------------------------------------------------------
+        // --- MÉTODOS AUXILIARES Y DE TABLA (Sin Cambios Relevantes) ---
+        // ----------------------------------------------------------------------
 
         private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int bordeEstilo)
         {
@@ -342,52 +402,6 @@ namespace Proyecto_Boletas
             };
             return cell;
         }
-
-        private PdfPTable CrearEncabezadoSuperior(string grupo, string maestro, string ciclo, string lista)
-        {
-            PdfPTable table = new PdfPTable(4) { WidthPercentage = 100 };
-            table.SetWidths(new float[] { 0.2f, 0.4f, 0.2f, 0.2f });
-
-            // Logo Placeholder
-            PdfPCell logoCell;
-            if (File.Exists(RUTA_LOGO))
-            {
-                try
-                {
-                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(RUTA_LOGO);
-                    logo.ScaleToFit(70f, 70f);
-                    logoCell = new PdfPCell(logo, false) { Border = PdfRectangle.NO_BORDER };
-                }
-                catch
-                {
-                    logoCell = CrearCelda("LOGO FALTANTE", fontTexto, Element.ALIGN_CENTER, PdfRectangle.NO_BORDER);
-                }
-            }
-            else
-            {
-                logoCell = CrearCelda("LOGO FALTANTE", fontTexto, Element.ALIGN_CENTER, PdfRectangle.NO_BORDER);
-            }
-            logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            logoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
-            table.AddCell(logoCell);
-
-            // Título central
-            PdfPCell titleCell = new PdfPCell { Border = PdfRectangle.NO_BORDER };
-            titleCell.AddElement(new Paragraph("INSTITUTO MANUEL M. ACOSTA", fontTitulo) { Alignment = Element.ALIGN_CENTER });
-            titleCell.AddElement(new Paragraph("BOLETA INTERNA TRIMESTRAL", fontTexto) { Alignment = Element.ALIGN_CENTER });
-            titleCell.AddElement(new Paragraph($"Grupo: {grupo} - Maestro: {maestro}", fontTexto) { Alignment = Element.ALIGN_CENTER });
-            table.AddCell(titleCell);
-
-            // Claves
-            table.AddCell(CrearCelda("SECCIÓN: PRIMARIA\nGRADO Y GRUPO:\nNO. DE LISTA:\nCICLO ESCOLAR:", fontClave, Element.ALIGN_RIGHT, PdfRectangle.NO_BORDER));
-            table.AddCell(CrearCelda($"CLAVE:\n{grupo}\n{lista}\n{ciclo}", fontClave, Element.ALIGN_LEFT, PdfRectangle.NO_BORDER));
-
-            return table;
-        }
-
-        // ----------------------------------------------------------------------
-        // --- MÉTODOS DE TABLA UNIFICADOS ---
-        // ----------------------------------------------------------------------
 
         // 🎯 1. TABLA PRINCIPAL UNIFICADA (16 columnas) - Acepta DatosBoleta
         private PdfPTable CrearTablaPrincipalCalificaciones(DatosBoleta datos)

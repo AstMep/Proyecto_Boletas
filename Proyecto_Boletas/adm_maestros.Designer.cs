@@ -79,9 +79,9 @@
             panelApp.Controls.Add(groupBox1);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(181, 0);
+            panelApp.Location = new Point(206, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(804, 510);
+            panelApp.Size = new Size(825, 564);
             panelApp.TabIndex = 3;
             // 
             // flowMaestros
@@ -263,7 +263,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(804, 59);
+            panel1.Size = new Size(825, 59);
             panel1.TabIndex = 21;
             // 
             // btn_ingresar
@@ -291,7 +291,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(181, 510);
+            panelMenu.Size = new Size(206, 564);
             panelMenu.TabIndex = 2;
             // 
             // panelito1
@@ -310,7 +310,7 @@
             panelito1.Dock = DockStyle.Left;
             panelito1.Location = new Point(0, 0);
             panelito1.Name = "panelito1";
-            panelito1.Size = new Size(181, 510);
+            panelito1.Size = new Size(227, 564);
             panelito1.TabIndex = 4;
             // 
             // btn_admaestros
@@ -319,13 +319,13 @@
             btn_admaestros.Dock = DockStyle.Top;
             btn_admaestros.FlatAppearance.BorderSize = 0;
             btn_admaestros.FlatStyle = FlatStyle.Flat;
-            btn_admaestros.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_admaestros.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_admaestros.ForeColor = SystemColors.ControlLightLight;
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
             btn_admaestros.Location = new Point(0, 445);
             btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(181, 51);
+            btn_admaestros.Size = new Size(227, 51);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
@@ -336,13 +336,13 @@
             btnEnvioBoletas.Dock = DockStyle.Top;
             btnEnvioBoletas.FlatAppearance.BorderSize = 0;
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
-            btnEnvioBoletas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEnvioBoletas.Location = new Point(0, 394);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(181, 51);
+            btnEnvioBoletas.Size = new Size(227, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
@@ -354,13 +354,13 @@
             btnEdicionDatos.Dock = DockStyle.Top;
             btnEdicionDatos.FlatAppearance.BorderSize = 0;
             btnEdicionDatos.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatos.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEdicionDatos.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdicionDatos.Location = new Point(0, 343);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.Size = new Size(227, 51);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
@@ -371,13 +371,13 @@
             btnBitacora.Dock = DockStyle.Top;
             btnBitacora.FlatAppearance.BorderSize = 0;
             btnBitacora.FlatStyle = FlatStyle.Flat;
-            btnBitacora.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnBitacora.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnBitacora.ForeColor = SystemColors.ControlLight;
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
             btnBitacora.Location = new Point(0, 292);
             btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(181, 51);
+            btnBitacora.Size = new Size(227, 51);
             btnBitacora.TabIndex = 4;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
@@ -389,13 +389,13 @@
             btnAdmSecre.Dock = DockStyle.Top;
             btnAdmSecre.FlatAppearance.BorderSize = 0;
             btnAdmSecre.FlatStyle = FlatStyle.Flat;
-            btnAdmSecre.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnAdmSecre.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnAdmSecre.ForeColor = SystemColors.ControlLight;
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdmSecre.Location = new Point(0, 241);
             btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(181, 51);
+            btnAdmSecre.Size = new Size(227, 51);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.Text = "Adm. Secretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
@@ -407,13 +407,13 @@
             btnEstadisticas.Dock = DockStyle.Top;
             btnEstadisticas.FlatAppearance.BorderSize = 0;
             btnEstadisticas.FlatStyle = FlatStyle.Flat;
-            btnEstadisticas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEstadisticas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.Size = new Size(227, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -424,13 +424,13 @@
             btn_capturaCalif.Dock = DockStyle.Top;
             btn_capturaCalif.FlatAppearance.BorderSize = 0;
             btn_capturaCalif.FlatStyle = FlatStyle.Flat;
-            btn_capturaCalif.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_capturaCalif.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
             btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(181, 61);
+            btn_capturaCalif.Size = new Size(227, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -442,13 +442,13 @@
             btn_inscripcion.Dock = DockStyle.Top;
             btn_inscripcion.FlatAppearance.BorderSize = 0;
             btn_inscripcion.FlatStyle = FlatStyle.Flat;
-            btn_inscripcion.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_inscripcion.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
             btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.Size = new Size(227, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -464,7 +464,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(181, 80);
+            panelLogo.Size = new Size(227, 80);
             panelLogo.TabIndex = 0;
             // 
             // label1
@@ -502,7 +502,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(985, 510);
+            ClientSize = new Size(1031, 564);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
             Margin = new Padding(3, 2, 3, 2);

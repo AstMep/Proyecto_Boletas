@@ -1,4 +1,6 @@
-﻿using iTextSharp.text;
+﻿using System.Drawing;
+using System.Drawing.Imaging; // Necesario para el MemoryStream
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
 using System;
@@ -58,11 +60,32 @@ namespace Proyecto_Boletas
                     headerTable.WidthPercentage = 100;
                     headerTable.SetWidths(new float[] { 0.15f, 0.85f });
 
-                    // Celda del Logo
-                    string rutaLogo = @"C:\Users\eugen\Source\Repos\Proyecto_Boletas\Proyecto_Boletas\Resources\logo_escuela350.png";
-                    if (File.Exists(rutaLogo))
+                    // INICIO DE REEMPLAZO (Carga desde memoria)
+                    iTextSharp.text.Image logo = null;
+
+                    try
                     {
-                        iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(rutaLogo);
+                        // 1. Carga la imagen desde los recursos internos del proyecto (NO NECESITA RUTA)
+                        System.Drawing.Image imageFromResources = Proyecto_Boletas.Properties.Resources.logo_escuela350;
+
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            // 2. Transfiere la imagen al stream de memoria
+                            imageFromResources.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                            // 3. iTextSharp toma los datos de la imagen directamente desde el array de bytes en memoria
+                            logo = iTextSharp.text.Image.GetInstance(ms.ToArray());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Si la imagen no se encuentra en los recursos (p. ej., olvido al configurar)
+                        Console.WriteLine("Error al cargar el logo desde recursos internos: " + ex.Message);
+                    }
+
+                    // Bloque que añade el logo a la tabla (ya no necesita verificar File.Exists)
+                    if (logo != null)
+                    {
                         logo.ScaleToFit(70f, 70f);
                         PdfPCell logoCell = new PdfPCell(logo, false);
                         logoCell.Border = 0;
@@ -72,8 +95,10 @@ namespace Proyecto_Boletas
                     }
                     else
                     {
+                        // Si la carga falló, inserta el texto de "LOGO FALTANTE"
                         headerTable.AddCell(new PdfPCell(new Phrase("LOGO FALTANTE", fontTexto)) { Border = 0 });
                     }
+                    // FIN DE REEMPLAZO
 
                     // Celda de Datos de la Escuela
                     Paragraph datosEscuela = new Paragraph();

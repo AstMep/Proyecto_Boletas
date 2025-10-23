@@ -256,16 +256,7 @@ namespace Proyecto_Boletas
 
                             using (MySqlDataReader dr = cmd.ExecuteReader())
                             {
-                                // ❌ Delete or comment out the entire 'while' loop if cmbAlumno is no longer on the form.
-                                // while (dr.Read())
-                                // {
-                                //     string nombreCompleto = $"{dr["ApellidoPaterno"]} {dr["ApellidoMaterno"]} {dr["Nombre"]}";
-                                //     cmbAlumno.Items.Add(new ComboboxItem
-                                //     {
-                                //         Text = nombreCompleto,
-                                //         Value = dr["AlumnoID"]
-                                //     });
-                                // }
+   
                             }
                         }
                     }

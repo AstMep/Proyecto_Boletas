@@ -73,8 +73,8 @@ namespace Proyecto_Boletas
                     // Agrega otros meses si son necesarios
                 };
 
-                        cbmes.DataSource = meses;
-                        cbmes.SelectedIndex = -1; // Ningún mes seleccionado por defecto
+            cbmes.DataSource = meses;
+            cbmes.SelectedIndex = -1; // Ningún mes seleccionado por defecto
         }
         private List<Grupo> ObtenerGruposDeDB()
         {
@@ -189,7 +189,7 @@ namespace Proyecto_Boletas
             // 7. AÑADIR EL GROUPBOX AL FORMULARIO
             this.Controls.Add(groupBoxMateriaDinamica);
 
-          
+
         }
         private List<string> ObtenerAlumnosPorGrupo(int idGrupo)
         {
@@ -257,10 +257,10 @@ namespace Proyecto_Boletas
 
         {
             OcultarBotonesPorRol(); // Mantenemos la lógica de roles
-            
+
         }
 
-        
+
         private void btn_ingresar_Click(object sender, EventArgs e)
         {
             Form1 nuevoFormulario = new Form1();
@@ -328,7 +328,7 @@ namespace Proyecto_Boletas
             if (cmbGrup.SelectedItem == null)
             {
                 cbAlumno.DataSource = null; // 
-                ActualizarControlesMateria(0); 
+                ActualizarControlesMateria(0);
                 return;
             }
 
@@ -354,22 +354,27 @@ namespace Proyecto_Boletas
             }
         }
 
- 
+
 
         private void cbAlumno_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
-            
+
+
         }
 
 
-        
+
         private void cbmes_SelectedIndexChanged(object sender, EventArgs e)
         {
-   
+
         }
 
         private void Mod_capCal_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
         {
 
         }
