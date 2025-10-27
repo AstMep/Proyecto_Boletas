@@ -50,7 +50,6 @@
             label1 = new Label();
             panelApp = new Panelito();
             label21 = new Label();
-            label20 = new Label();
             btnalta_inscripcion2 = new Button();
             panelito5 = new Panelito();
             label24 = new Label();
@@ -382,7 +381,6 @@
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
             panelApp.Controls.Add(label21);
-            panelApp.Controls.Add(label20);
             panelApp.Controls.Add(btnalta_inscripcion2);
             panelApp.Controls.Add(panelito5);
             panelApp.Controls.Add(panelito4);
@@ -403,23 +401,11 @@
             label21.BackColor = Color.Transparent;
             label21.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label21.ForeColor = SystemColors.ActiveCaptionText;
-            label21.Location = new Point(335, 655);
+            label21.Location = new Point(336, 668);
             label21.Name = "label21";
             label21.Size = new Size(114, 21);
             label21.TabIndex = 62;
             label21.Text = "Guardar Datos";
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.BackColor = Color.Transparent;
-            label20.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label20.ForeColor = SystemColors.ActiveCaptionText;
-            label20.Location = new Point(336, 715);
-            label20.Name = "label20";
-            label20.Size = new Size(114, 21);
-            label20.TabIndex = 61;
-            label20.Text = "Guardar Datos";
             // 
             // btnalta_inscripcion2
             // 
@@ -1086,7 +1072,6 @@
         private Panelito panelito3;
         private Panelito panelito4;
         private Label label16;
-        private Label label20;
         private Label label15;
         private Label label17;
         private Label label18;
