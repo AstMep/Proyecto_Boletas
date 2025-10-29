@@ -114,5 +114,10 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
