@@ -8,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Proyecto_Boletas.Mod_capCal;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto_Boletas
 {
     public partial class Mod_capCal : Form
     {
         private string rolUsuario;
-        private System.Windows.Forms.GroupBox groupBoxMateriaDinamica;
+        private int idGrupoSeleccionado;
         public Mod_capCal(string rol = "Director")
         {
             InitializeComponent();
@@ -22,7 +24,8 @@ namespace Proyecto_Boletas
             OcultarBotonesPorRol();
             CargarMeses();
             CargarGrupos();
-            OcultarBotonesPorRol();
+            CargarCalificaciones();
+            CargarInasistencias();
 
         }
 
@@ -44,6 +47,26 @@ namespace Proyecto_Boletas
             }
         }
 
+        private string MapearMateriaCienciasParaDB(string nombreInterfaz)
+        {
+            string limpio = nombreInterfaz.ToUpper().Replace(".", "").Trim();
+
+            if (limpio.Contains("DEL MEDIO"))
+            {
+                return "CONOCIMIENTO DEL MEDIO";
+            }
+            else if (limpio.Contains("NATURALES"))
+            {
+                return "CIENCIAS NATURALES";
+            }
+            else if (limpio.Contains("FORM CÍV Y ÉTICA"))
+            {
+                return "FORM. CÍV Y ÉTICA";
+            }
+            // Añade cualquier otra abreviatura que uses si no es Ciencias/F. Civica
+
+            return nombreInterfaz; // Devolver el original si no se encuentra
+        }
         public class Grupo
         {
             public int IdGrupo { get; set; }
@@ -60,7 +83,7 @@ namespace Proyecto_Boletas
         {
             List<string> meses = new List<string>
                 {
-                    "DIAGNÓSTICO", // Tu valor agregado en mayúsculas
+                    "AGOSTO (DIAGNÓSTICO)", // Tu valor agregado en mayúsculas
                     "SEPTIEMBRE",
                     "OCTUBRE",
                     "NOVIEMBRE",
@@ -77,6 +100,47 @@ namespace Proyecto_Boletas
             cbmes.DataSource = meses;
             cbmes.SelectedIndex = -1; // Ningún mes seleccionado por defecto
         }
+
+        private void CargarCalificaciones()
+        { List<int> calificaciones = new List<int>
+    {
+        10, 9, 8, 7, 6, 5,
+    };
+            cbC.DataSource = new List<int>(calificaciones); 
+            cbC.SelectedIndex = -1;
+
+            cbArtes.DataSource = new List<int>(calificaciones);
+            cbArtes.SelectedIndex = -1;
+
+            cbEspanol.DataSource = new List<int>(calificaciones);
+            cbEspanol.SelectedIndex = -1;
+
+            cbFormacion.DataSource = new List<int>(calificaciones);
+            cbFormacion.SelectedIndex = -1;
+
+            cbIngles.DataSource = new List<int>(calificaciones);
+            cbIngles.SelectedIndex = -1;
+
+            cbMatematicas.DataSource = new List<int>(calificaciones);
+            cbMatematicas.SelectedIndex = -1;
+
+            cbEducacinF.DataSource = new List<int>(calificaciones);
+            cbEducacinF.SelectedIndex = -1;
+
+            cbTecnologias.DataSource = new List<int>(calificaciones);
+            cbTecnologias.SelectedIndex = -1;
+        }
+
+        private void CargarInasistencias()
+        {
+            List<int> calificaciones = new List<int>
+                {
+                    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,
+                };
+
+            cbInasistencias.DataSource = calificaciones;
+            cbInasistencias.SelectedIndex = -1;
+        }
         private List<Grupo> ObtenerGruposDeDB()
         {
             List<Grupo> grupos = new List<Grupo>();
@@ -86,7 +150,7 @@ namespace Proyecto_Boletas
 
             try
             {
-                // 💡 Usamos tu método GetConnection() para obtener la conexión
+         
                 using (MySqlConnection connection = db.GetConnection())
                 {
                     MySqlCommand command = new MySqlCommand(query, connection);
@@ -119,97 +183,29 @@ namespace Proyecto_Boletas
             return grupos;
         }
 
-        private void ActualizarControlesMateria(int idGrupo)
-        {
-            // 1. ELIMINAR EL CONTENEDOR ANTERIOR (si existe)
-            if (groupBoxMateriaDinamica != null && this.Controls.Contains(groupBoxMateriaDinamica))
-            {
-                this.Controls.Remove(groupBoxMateriaDinamica);
-                groupBoxMateriaDinamica.Dispose();
-                groupBoxMateriaDinamica = null;
-            }
 
-            // 2. DETERMINAR EL TEXTO Y NOMBRE DEL CONTROL BASADO EN EL ID
-            string textoLabel;
-            string nombreComboBox;
-
-            // Grados 1 y 2 (IDs 2 y 3)
-            if (idGrupo >= 2 && idGrupo <= 3)
-            {
-                textoLabel = "Conoc. del Med.";
-                nombreComboBox = "cmbConoc";
-            }
-            // Grados 3 a 6 (IDs 4 a 7)
-            else if (idGrupo >= 4 && idGrupo <= 7)
-            {
-                textoLabel = "Ciencias N";
-                nombreComboBox = "cmbCien";
-            }
-            else
-            {
-                // ID fuera de rango (1, 0, o mayor a 7). Solo limpiamos y salimos.
-                return;
-            }
-
-            // 3. CREAR EL GROUPBOX CONTENEDOR 
-            groupBoxMateriaDinamica = new GroupBox();
-            groupBoxMateriaDinamica.Text = "Materia Específica"; // Título visible
-            groupBoxMateriaDinamica.Size = new Size(330, 80);
-            // ⚠️ POSICIÓN CLAVE: Ajusta estas coordenadas si el GroupBox colisiona con otros elementos.
-            // Lo colocaremos debajo de los GroupBox existentes. Asumo que están cerca de (20, 300).
-            groupBoxMateriaDinamica.Location = new Point(20, 450);
-            groupBoxMateriaDinamica.Name = nombreComboBox.Replace("cmb", "gb"); // "gbConoc" o "gbCien"
-            groupBoxMateriaDinamica.ForeColor = SystemColors.ControlLightLight; // Asegura que el título sea visible
-
-            // 4. CREAR LABEL DINÁMICO (Propiedades de tu ejemplo)
-            Label lbMateria = new Label();
-            lbMateria.AutoSize = true;
-            lbMateria.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            // Aseguramos un color de texto contrastante
-            lbMateria.ForeColor = Color.White;
-            // Posición (25, 31) relativa al GroupBox
-            lbMateria.Location = new Point(25, 31);
-            lbMateria.Name = "lbMateria";
-            lbMateria.Text = textoLabel;
-            lbMateria.TabIndex = 62;
-
-            // 5. CREAR COMBOBOX DINÁMICO (Propiedades de tu ejemplo)
-            ComboBox cmbMateria = new ComboBox();
-            cmbMateria.DropDownStyle = ComboBoxStyle.DropDownList;
-            // Posición (205, 31) relativa al GroupBox
-            cmbMateria.Location = new Point(205, 31);
-            cmbMateria.Margin = new Padding(3, 4, 3, 4);
-            cmbMateria.Name = nombreComboBox; // cmbConoc o cmbCien
-            cmbMateria.Size = new Size(91, 28);
-            cmbMateria.TabIndex = 63;
-
-            // 6. AÑADIR LOS CONTROLES AL GROUPBOX
-            groupBoxMateriaDinamica.Controls.Add(lbMateria);
-            groupBoxMateriaDinamica.Controls.Add(cmbMateria);
-
-            // 7. AÑADIR EL GROUPBOX AL FORMULARIO
-            this.Controls.Add(groupBoxMateriaDinamica);
-
-
-        }
-        private List<string> ObtenerAlumnosPorGrupo(int idGrupo)
+        private List<string> ObtenerAlumnosPorGrupo(int idGrupo, string periodo) // Correcto: DOS PARÁMETROS
         {
             List<string> nombresCompletos = new List<string>();
-            // 💡 Instanciamos tu clase Conexion
             Conexion db = new Conexion();
 
-            string query = "SELECT Nombre, ApellidoPaterno, ApellidoMaterno " +
-                           "FROM alumnos " +
-                           "WHERE id_grupo = @idGrupo " +
-                           "ORDER BY ApellidoPaterno, ApellidoMaterno, Nombre";
+            // Consulta SQL con la cláusula NOT IN para excluir alumnos ya calificados en este período
+            string query = "SELECT a.Nombre, a.ApellidoPaterno, a.ApellidoMaterno " +
+                           "FROM alumnos a " +
+                           "WHERE a.id_grupo = @idGrupo " +
+                           "AND a.AlumnoID NOT IN (" +
+                           "    SELECT c.AlumnoID FROM calificaciones c " +
+                           "    WHERE c.Periodo = @periodo" +
+                           ") " +
+                           "ORDER BY a.ApellidoPaterno, a.ApellidoMaterno, a.Nombre";
 
             try
             {
-                // 💡 Usamos tu método GetConnection() para obtener la conexión
                 using (MySqlConnection connection = db.GetConnection())
                 {
                     MySqlCommand command = new MySqlCommand(query, connection);
                     command.Parameters.AddWithValue("@idGrupo", idGrupo);
+                    command.Parameters.AddWithValue("@periodo", periodo); // Parámetro necesario para el filtro
                     connection.Open();
 
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -224,27 +220,58 @@ namespace Proyecto_Boletas
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Error de DB al cargar alumnos: " + ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error de DB al cargar alumnos filtrados: " + ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error general al cargar alumnos: " + ex.Message, "Error General", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error general al cargar alumnos filtrados: " + ex.Message, "Error General", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return nombresCompletos;
         }
+
+
+        private void CargarAlumnosFiltrados()
+        {
+            // Asegurarse de que el grupo y el mes estén seleccionados
+            if (cmbGrup.SelectedItem == null || cbmes.SelectedItem == null)
+            {
+                cbAlumno.DataSource = null;
+                return;
+            }
+
+            // 1. Obtener los IDs y Periodo
+            // idGrupoSeleccionado ya debe estar actualizado por el evento cmbGrup_SelectedIndexChanged
+            string mesSeleccionadoApp = cbmes.SelectedItem.ToString();
+            string periodoBD = ConvertirMesParaBD(mesSeleccionadoApp);
+
+            if (idGrupoSeleccionado > 0)
+            {
+                try
+                {
+                    // 2. Obtener los alumnos EXCLUYENDO a los ya capturados
+                    List<string> alumnosPendientes = ObtenerAlumnosPorGrupo(idGrupoSeleccionado, periodoBD);
+
+                    // 3. Cargar el ComboBox de Alumnos
+                    cbAlumno.DataSource = alumnosPendientes;
+                    cbAlumno.SelectedIndex = -1;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar alumnos: " + ex.Message);
+                }
+            }
+        }
+
         private void CargarGrupos()
         {
             try
             {
                 List<Grupo> grupos = ObtenerGruposDeDB();
                 cmbGrup.DataSource = grupos;
-                // El DisplayMember se usará si no has sobreescrito ToString() en la clase Grupo.
-                // Como sí lo hicimos, no es estrictamente necesario, pero es buena práctica:
-                cmbGrup.DisplayMember = "NombreGrupo";
-                cmbGrup.ValueMember = "IdGrupo"; // Esto no se usará directamente en el evento si usamos el objeto 'Grupo'
 
-                // Asegúrate de que el primer elemento no esté seleccionado si quieres forzar una elección
+                cmbGrup.DisplayMember = "NombreGrupo";
+                cmbGrup.ValueMember = "IdGrupo";
                 cmbGrup.SelectedIndex = -1;
             }
             catch (Exception ex)
@@ -252,6 +279,307 @@ namespace Proyecto_Boletas
                 MessageBox.Show("Error al cargar grupos: " + ex.Message);
             }
         }
+
+
+        private void GuardarCalificacionesMensuales(object sender, EventArgs e)
+        {
+
+
+            if (cmbGrup.SelectedItem == null || cbAlumno.SelectedItem == null || cbmes.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, selecciona un Grupo, un Alumno y un Mes.", "Datos Faltantes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            string mesSeleccionadoApp = cbmes.SelectedItem.ToString();
+
+            string periodoBD = ConvertirMesParaBD(mesSeleccionadoApp);
+
+
+            int alumnoId = ObtenerAlumnoIdPorNombre(cbAlumno.SelectedItem.ToString());
+
+            if (alumnoId == 0)
+            {
+                MessageBox.Show("No se pudo identificar al AlumnoID.", "Error Interno", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            int inasistenciasMensuales = (int)cbInasistencias.SelectedItem;
+
+
+            var materiasACapturar = new List<(System.Windows.Forms.ComboBox cbCal, string nombreMateria)>
+    {
+        (cbEspanol, "ESPAÑOL"),
+        (cbIngles, "INGLÉS"),
+        (cbArtes, "ARTES"),
+        (cbMatematicas, "MATEMÁTICAS"),
+        (cbTecnologias, "TECNOLOGÍA"),
+        (cbFormacion, "FORM. CÍV Y ÉTICA"),
+        (cbEducacinF, "ED. FISICA"),
+        (cbC, lbC.Text.ToUpper())  };
+
+            bool capturaExitosa = true;
+            int idGrupoActual = idGrupoSeleccionado;
+
+            foreach (var materia in materiasACapturar)
+            {
+                if (materia.cbCal.SelectedItem != null)
+                {
+                    int calificacion = (int)materia.cbCal.SelectedItem;
+
+                    // 💡 SOLUCIÓN CLAVE: Convertir el nombre de la interfaz al nombre que espera la BD
+                    string nombreMateriaBD;
+
+                    if (materia.nombreMateria == lbC.Text.ToUpper())
+                    {
+                        // Si es la materia condicional (usando lbC.Text) o Formación Cívica
+                        nombreMateriaBD = MapearMateriaCienciasParaDB(materia.nombreMateria);
+                    }
+                    else
+                    {
+                        // Para las materias normales (Español, Matemáticas, etc.)
+                        nombreMateriaBD = materia.nombreMateria;
+                    }
+
+                    // --- El guardado usa el nombre mapeado y limpio ---
+                    int materiaId = ObtenerMateriaIdPorNombre(nombreMateriaBD, idGrupoActual);
+
+                    if (materiaId > 0)
+                    {
+                        if (!InsertarOActualizarCalificacion(alumnoId, materiaId, calificacion, inasistenciasMensuales, periodoBD))
+                        {
+                            capturaExitosa = false;
+                            MessageBox.Show($"Error al guardar la calificación para la materia: {materia.nombreMateria}.", "Error de DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Advertencia: No se encontró el ID para la materia: {materia.nombreMateria}. Verifique que el nombre '{nombreMateriaBD}' exista en la tabla materias para el grupo {idGrupoActual}.", "Advertencia de DB", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                // Si materia.cbCal.SelectedItem es null, simplemente pasa a la siguiente materia sin generar error.
+            }
+
+            if (capturaExitosa)
+            {
+                // ... (Código de mensaje de éxito y limpieza)
+                MessageBox.Show("¡Captura de calificaciones e inasistencias mensuales completada!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarCamposDeCaptura();
+
+                // Y recargar la lista de alumnos
+                CargarAlumnosFiltrados();
+            }
+        }
+
+        private bool InsertarOActualizarCalificacion(int alumnoId, int materiaId, int calificacion, int inasistencias, string periodo)
+        {
+            Conexion db = new Conexion();
+            MySqlConnection connection = null;
+
+            try
+            {
+                // 💡 Usamos tu método GetConnection() para obtener la conexión
+                using (MySqlConnection connection = db.GetConnection())
+                {
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@idGrupo", idGrupo);
+                    connection.Open();
+
+
+                string checkQuery = "SELECT CalificacionID FROM calificaciones " +
+                                    "WHERE AlumnoID = @alumnoId AND MateriaID = @materiaId AND Periodo = @periodo LIMIT 1";
+
+                MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection);
+                checkCommand.Parameters.AddWithValue("@alumnoId", alumnoId);
+                checkCommand.Parameters.AddWithValue("@materiaId", materiaId);
+                checkCommand.Parameters.AddWithValue("@periodo", periodo);
+
+                object existingId = checkCommand.ExecuteScalar();
+
+                string sql;
+                if (existingId != null)
+                {
+    
+                    sql = "UPDATE calificaciones SET Calificacion = @calif, Inasistencias = @inasis, FechaRegistro = NOW() " +
+                          "WHERE CalificacionID = @calificacionId";
+                }
+                else
+                {
+
+                    sql = "INSERT INTO calificaciones (AlumnoID, MateriaID, Calificacion, Periodo, Inasistencias, FechaRegistro) " +
+                          "VALUES (@alumnoId, @materiaId, @calif, @periodo, @inasis, NOW())";
+                }
+
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@calif", calificacion); // Ya validado como entero 5-10
+                command.Parameters.AddWithValue("@inasis", inasistencias); // Ya validado como entero >= 0
+
+                // Parámetros comunes para INSERT y UPDATE
+                if (existingId == null)
+                {
+                    command.Parameters.AddWithValue("@alumnoId", alumnoId);
+                    command.Parameters.AddWithValue("@materiaId", materiaId);
+                    command.Parameters.AddWithValue("@periodo", periodo);
+                }
+                else
+                {
+                    // Parámetro específico para UPDATE
+                    command.Parameters.AddWithValue("@calificacionId", existingId);
+                }
+
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (MySqlException ex)
+            {
+                // Esto captura errores de la BD, como IDs no existentes o problemas de sintaxis.
+                MessageBox.Show($"Error de BD: {ex.Message}", "Error de Guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        private void LimpiarCamposDeCaptura()
+        {
+            // Calificaciones de las Materias
+            cbEspanol.SelectedIndex = -1;
+            cbIngles.SelectedIndex = -1;
+            cbArtes.SelectedIndex = -1;
+            cbMatematicas.SelectedIndex = -1;
+            cbTecnologias.SelectedIndex = -1;
+            cbC.SelectedIndex = -1; // Materia Condicional (C. Naturales / C. del Medio)
+            cbFormacion.SelectedIndex = -1;
+            cbEducacinF.SelectedIndex = -1;
+
+  
+            cbInasistencias.SelectedIndex = -1;
+          cbAlumno.SelectedIndex = -1;
+
+        }
+
+        private string ConvertirMesParaBD(string mesCompleto)
+        {
+            switch (mesCompleto.ToUpper())
+            {
+                case "AGOSTO (DIAGNÓSTICO)":
+                    return "DIAGNOSTICO"; 
+                case "SEPTIEMBRE":
+                    return "SEP";
+                case "OCTUBRE":
+                    return "OCT";
+                case "NOVIEMBRE":
+                    return "NOV";
+                case "DICIEMBRE":
+                    return "DIC";
+                case "ENERO":
+                    return "ENE";
+                case "FEBRERO":
+                    return "FEB";
+                case "MARZO":
+                    return "MAR";
+                case "ABRIL":
+                    return "ABR";
+                case "MAYO":
+                    return "MAY";
+                case "JUNIO":
+                    return "JUN";
+                default:
+                    return mesCompleto.ToUpper(); // Devuelve el valor por si hay otro mes no mapeado
+            }
+        }
+
+        private int ObtenerAlumnoIdPorNombre(string nombreCompleto)
+        {
+
+            string[] partes = nombreCompleto.Split(' ');
+
+            if (partes.Length < 3)
+            {
+                MessageBox.Show("El formato del nombre del alumno es incorrecto.", "Error de Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+
+            string nombre = partes[0];
+            string apPaterno = partes[1];
+            string apMaterno = partes[2];
+            int alumnoId = 0;
+
+            Conexion db = new Conexion();
+            string query = "SELECT AlumnoID FROM alumnos " +
+                           "WHERE Nombre = @nombre AND ApellidoPaterno = @apPaterno AND ApellidoMaterno = @apMaterno LIMIT 1";
+
+            try
+            {
+                using (MySqlConnection connection = db.GetConnection())
+                {
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nombre", nombre);
+                    command.Parameters.AddWithValue("@apPaterno", apPaterno);
+                    command.Parameters.AddWithValue("@apMaterno", apMaterno);
+                    connection.Open();
+
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        alumnoId = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener AlumnoID: " + ex.Message, "Error de DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return alumnoId;
+        }
+
+        private int ObtenerMateriaIdPorNombre(string nombreMateria, int idGrupo)
+        {
+            int materiaId = 0;
+            Conexion db = new Conexion();
+
+            // Filtramos por Nombre y id_grupo para manejar materias condicionales (ej. Conoc. del Medio vs. C. Naturales)
+            string query = "SELECT MateriaID FROM materias " +
+                           "WHERE Nombre = @nombreMateria AND id_grupo = @idGrupo LIMIT 1";
+
+            try
+            {
+                using (MySqlConnection connection = db.GetConnection())
+                {
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nombreMateria", nombreMateria);
+                    command.Parameters.AddWithValue("@idGrupo", idGrupo);
+                    connection.Open();
+
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        materiaId = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener MateriaID: " + ex.Message, "Error de DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return materiaId;
+        }
+
+
+
+
+
+
 
         // Llama a CargarGrupos() en el constructor de tu formulario o en el evento Load.
         private void Mod_capCal_Load(object sender, EventArgs e)
@@ -328,34 +656,34 @@ namespace Proyecto_Boletas
         private void cmbGrup_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            // Evita ejecutar código si no hay un elemento seleccionado o si el cambio es por la carga inicial.
+            cbAlumno.DataSource = null;
             if (cmbGrup.SelectedItem == null)
             {
-                cbAlumno.DataSource = null; // 
-                ActualizarControlesMateria(0);
                 return;
             }
 
-            // 1. Obtener el ID del grupo seleccionado
+            // 2. OBTENER Y GUARDAR EL ID DEL GRUPO SELECCIONADO (Variable de clase)
             Grupo grupoSeleccionado = (Grupo)cmbGrup.SelectedItem;
-            int idGrupo = grupoSeleccionado.IdGrupo;
+            idGrupoSeleccionado = grupoSeleccionado.IdGrupo;
 
-            // 💡 3. LLAMADA PARA CREAR O ELIMINAR EL GROUPBOX DE MATERIA
-            ActualizarControlesMateria(idGrupo);
-
-            try
+            // 3. LÓGICA DE LA MATERIA CONDICIONAL (Determinar el nombre de la materia de ciencias según el GRADO)
+            // El nombre de la materia condicional DEPENDE del grado (idGrupo), NO de la calificación seleccionada.
+            if (idGrupoSeleccionado == 2 || idGrupoSeleccionado == 3) // 1º y 2º grado
             {
-                // 2. Obtener los alumnos filtrados
-                List<string> alumnos = ObtenerAlumnosPorGrupo(idGrupo);
-
-                // 3. Cargar el ComboBox de Alumnos
-                cbAlumno.DataSource = alumnos;
-                cbAlumno.SelectedIndex = -1; // Deseleccionar el primer alumno
+                lbC.Text = "Conoc. Del Medio";
             }
-            catch (Exception ex)
+            else if (idGrupoSeleccionado >= 4 && idGrupoSeleccionado <= 7) // 3º a 6º grado
             {
-                MessageBox.Show("Error al cargar alumnos: " + ex.Message);
+                lbC.Text = "C. Naturales";
             }
+            else
+            {
+                lbC.Text = "MATERIA DE CIENCIAS"; // Contingencia
+            }
+
+            // 4. CARGAR ALUMNOS FILTRADOS
+            // Llama a la función unificada que usa idGrupoSeleccionado y cbmes.SelectedItem
+            CargarAlumnosFiltrados();
         }
 
 
@@ -370,7 +698,7 @@ namespace Proyecto_Boletas
 
         private void cbmes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            CargarAlumnosFiltrados();
         }
 
         private void Mod_capCal_Load_1(object sender, EventArgs e)
@@ -381,6 +709,8 @@ namespace Proyecto_Boletas
         private void label19_Click(object sender, EventArgs e)
         {
 
+            // Opcional: Recargar los datos para ver que se hayan guardado o resetear la interfaz.
+            // RecargarDatosDeCaptura();
         }
 
         private void btn_inscripcion_Click_1(object sender, EventArgs e)
