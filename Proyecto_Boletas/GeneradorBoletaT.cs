@@ -17,17 +17,19 @@ namespace Proyecto_Boletas
 
     internal class GeneradorBoletaT
     {
-        // Definiciones de fuentes
+        // ====================================================================
+        // PROPIEDADES, FUENTES Y COLORES (TUS DEFINICIONES ORIGINALES)
+        // ====================================================================
         private readonly PdfFont fontTitulo = new PdfFont(PdfFont.FontFamily.HELVETICA, 12, PdfFont.BOLD);
         private readonly PdfFont fontSubtitulo = new PdfFont(PdfFont.FontFamily.HELVETICA, 8, PdfFont.BOLD);
         private readonly PdfFont fontNormal = new PdfFont(PdfFont.FontFamily.HELVETICA, 7, PdfFont.NORMAL);
         private readonly PdfFont fontAlumnoNombreLargo = new PdfFont(PdfFont.FontFamily.HELVETICA, 6, PdfFont.NORMAL);
         private readonly PdfFont fontEncabezadoRotado = new PdfFont(PdfFont.FontFamily.HELVETICA, 7, PdfFont.BOLD, BaseColor.BLACK);
 
-        // Colores del diseño (según tu imagen)
         private readonly BaseColor colorBorde = BaseColor.BLACK;
         private readonly BaseColor colorEncabezadoFijo = BaseColor.WHITE;
         private readonly BaseColor colorAmarillo = new BaseColor(255, 255, 153); // Promedio
+
         private readonly BaseColor colorCeleste = new BaseColor(173, 216, 230); // Inglés
         private readonly BaseColor colorRosa = new BaseColor(255, 182, 193); // Matemáticas
         private readonly BaseColor colorVerde = new BaseColor(255, 200, 124); // F. Cívica
@@ -35,7 +37,7 @@ namespace Proyecto_Boletas
         private readonly BaseColor colorMorado = new BaseColor(173, 216, 230); // Artes
         private readonly BaseColor colorAzulClaro = new BaseColor(255, 182, 193); // C. Naturales/Con. del Medio
         private readonly BaseColor colorVerdeOscuro = new BaseColor(152, 251, 152); // Ed. Física
-        private readonly BaseColor colorGrisClaro= new BaseColor(173, 216, 230); // Español
+        private readonly BaseColor colorGrisClaro = new BaseColor(173, 216, 230); // Español
         private readonly BaseColor colorLenguaje = new BaseColor(255, 192, 203); // Rosa Claro
         private readonly BaseColor colorMatematicasF = new BaseColor(173, 216, 230); // Celeste
         private readonly BaseColor colorExploracion = new BaseColor(189, 252, 177); // Verde Claro
@@ -43,6 +45,40 @@ namespace Proyecto_Boletas
 
         private string[] materiasBase;
         private string nombreMateriaCiencias;
+
+        // Lista de Campos Formativos para el cálculo consolidado
+        private readonly string[] camposConsolidados = new[] {
+            "LENGUAJES",
+            "SABERES Y PENSAMIENTO CIENTÍFICO",
+            "ÉTICA, NATURALEZA Y SOCIEDADES",
+            "DE LO HUMANO Y LO COMUNITARIO"
+        };
+
+        // ====================================================================
+        // ESTRUCTURAS DE DATOS DE ALUMNOS Y RESULTADOS
+        // ====================================================================
+
+        public class Alumno
+        {
+            public int AlumnoID { get; set; }
+            public string Nombre { get; set; }
+            public string ApellidoPaterno { get; set; }
+            public string ApellidoMaterno { get; set; }
+            public string Genero { get; set; }
+            public Dictionary<string, double> Notas { get; set; } = new Dictionary<string, double>();
+            public double PromedioFinalTrimestral { get; set; } = 0.0;
+        }
+
+        public class PromediosGrupales
+        {
+            public Dictionary<string, double> Mensuales { get; set; } = new Dictionary<string, double>();
+            public Dictionary<string, double> Consolidados { get; set; } = new Dictionary<string, double>();
+            public double PromedioFinalTrimestral { get; set; } = 0.0;
+        }
+
+        // ====================================================================
+        // FUNCIONES DE UTILIDAD (CONVERSIÓN Y MAPEO)
+        // ====================================================================
 
         private string[] ObtenerMeses(string trimestre)
         {
@@ -55,96 +91,250 @@ namespace Proyecto_Boletas
             };
         }
 
+        private string ConvertirMesParaBD(string mesCompleto)
+        {
+            // La BD usa SEP, OCT, NOV, etc., que es el código que el sistema de captura debe usar.
+            string limpio = mesCompleto.ToUpper().Trim();
+            if (limpio.Contains("AGOSTO")) return "DIAGNOSTICO"; // Por si se llega a usar
+            return limpio.Substring(0, 3);
+        }
+
         private string ObtenerNombreMateriaCiencias(string nombreGrupo)
         {
             string nombreNormalizado = nombreGrupo.ToLower().Trim();
 
             if (nombreNormalizado.Contains("primero") || nombreNormalizado.Contains("segundo"))
-            {
-                return "Con. del Medio";
-            }
-            else if (nombreNormalizado.Contains("tercero") ||
-                      nombreNormalizado.Contains("cuarto") ||
-                      nombreNormalizado.Contains("quinto") ||
-                      nombreNormalizado.Contains("sexto"))
-            {
-                return "C. Naturales";
-            }
-
-            return "Con. del Medio";
+            { return "CONOCIMIENTO DEL MEDIO"; } // Nombre completo para los cálculos
+            else if (nombreNormalizado.Contains("tercero") || nombreNormalizado.Contains("cuarto") || nombreNormalizado.Contains("quinto") || nombreNormalizado.Contains("sexto"))
+            { return "CIENCIAS NATURALES"; } // Nombre completo para los cálculos
+            return "CONOCIMIENTO DEL MEDIO";
         }
-
         private BaseColor ObtenerColorMateria(string materia)
         {
-            return materia switch
+            return materia.ToUpper().Trim() switch
             {
-                "Español" => colorGrisClaro,
-                "Inglés" => colorCeleste,
-                "Artes" => colorMorado,
-                "Matemáticas" => colorRosa,
-                "Tecnología" => colorNaranja,
-                "C. Naturales" => colorAzulClaro,
-                "Con. del Medio" => colorAzulClaro,
-                "F. Cívica y Ética" => colorVerde,
-                "Ed. Física" => colorVerdeOscuro,
-                "Promedio" => colorAmarillo,
+                "ESPAÑOL" => colorGrisClaro,
+                "INGLÉS" => colorCeleste,
+                "ARTES" => colorMorado,
+                "MATEMÁTICAS" => colorRosa,
+                "TECNOLOGÍA" => colorNaranja,
+                // Usar los nombres completos aquí también para el mapeo de color
+                "CIENCIAS NATURALES" => colorAzulClaro,
+                "CONOCIMIENTO DEL MEDIO" => colorAzulClaro,
+                "FORM. CÍV Y ÉTICA" => colorVerde,
+                "ED. FISICA" => colorVerdeOscuro,
+                "PROMEDIO" => colorAmarillo,
                 _ => BaseColor.WHITE
             };
         }
 
-        private void AddPromedioCampoFormativoRow(PdfPTable table, string campo, string[] materiasDelCampo, string[] meses)
+        private string ObtenerCampoFormativo(string nombreMateria)
         {
-            // Este método se mantiene sin cambios, aunque no es usado en el cuerpo de CrearBoletaGrupal,
-            // y su lógica de llenado es inconsistente con la nueva estructura de 40 columnas.
-            // Se deja como estaba en la base original, ya que no se pidió su modificación explícita.
-            BaseColor colorFondo = BaseColor.WHITE;
-            switch (campo)
+            string materia = nombreMateria.ToUpper().Trim();
+            return materia switch
             {
-                case "Lenguaje y Comunicación": colorFondo = colorLenguaje; break;
-                case "Pensamiento Matemático": colorFondo = colorMatematicasF; break;
-                case "Exploración y Comprensión": colorFondo = colorExploracion; break;
-                case "Desarrollo Físico": colorFondo = colorDesarrollo; break;
-            }
+                "ESPAÑOL" or "INGLÉS" or "ARTES" => "LENGUAJES",
+                "MATEMÁTICAS" or "TECNOLOGÍA" or "CIENCIAS NATURALES" or "CONOCIMIENTO DEL MEDIO" => "SABERES Y PENSAMIENTO CIENTÍFICO",
+                "FORM. CÍV Y ÉTICA" => "ÉTICA, NATURALEZA Y SOCIEDADES",
+                "ED. FISICA" => "DE LO HUMANO Y LO COMUNITARIO",
+                _ => "SIN CAMPO"
+            };
+        }
 
-            table.AddCell(CrearCelda(campo.ToUpper(), fontSubtitulo, Element.ALIGN_CENTER, 1, 3, colorFondo));
+        // ====================================================================
+        // FUNCIONES DE EXTRACCIÓN Y CÁLCULO
+        // ====================================================================
 
-            for (int m = 0; m < meses.Length; m++)
+        private Dictionary<int, Alumno> ObtenerCalificacionesTrimestrales(List<Alumno> alumnos, string[] periodosBD, string periodoFinalBD)
+        {
+            var resultados = alumnos.ToDictionary(a => a.AlumnoID, a => a);
+            Conexion db = new Conexion();
+
+            string alumnoIds = string.Join(",", alumnos.Select(a => a.AlumnoID));
+            List<string> periodos = periodosBD.ToList();
+            periodos.Add(periodoFinalBD);
+            string periodosIn = string.Join(",", periodos.Select(p => $"'{p}'"));
+
+            string query = $@"
+                SELECT c.AlumnoID, m.Nombre AS NombreMateria, c.Calificacion, c.Periodo 
+                FROM calificaciones c 
+                INNER JOIN materias m ON c.MateriaID = m.MateriaID 
+                WHERE c.AlumnoID IN ({alumnoIds}) AND c.Periodo IN ({periodosIn})";
+
+            try
             {
-                int contadorMaterias = 0;
-                // Itera sobre todas las materias para el mes actual
-                foreach (string materiaBase in materiasBase)
+                using (MySqlConnection conn = db.GetConnection())
                 {
-                    if (materiasDelCampo.Contains(materiaBase))
+                    conn.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
                     {
-                        // Celda de promedio de campo formativo (donde debería ir el promedio)
-                        table.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, colorFondo));
-                        contadorMaterias++;
+                        while (dr.Read())
+                        {
+                            int alumnoId = dr.GetInt32("AlumnoID");
+                            string materia = dr.GetString("NombreMateria").ToUpper().Trim();
+                            string periodo = dr.GetString("Periodo").ToUpper().Trim();
+                            double calificacion = dr.GetDouble("Calificacion");
+
+                            if (resultados.TryGetValue(alumnoId, out Alumno alumno))
+                            {
+                                if (periodo == periodoFinalBD)
+                                {
+                                    alumno.PromedioFinalTrimestral = calificacion;
+                                }
+                                else
+                                {
+                                    // Clave de almacenamiento: MATERIA_PERIODO (Ej: ESPAÑOL_SEP)
+                                    string clave = $"{materia}_{periodo}";
+                                    alumno.Notas[clave] = calificacion;
+                                }
+                            }
+                        }
                     }
-                    else
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener calificaciones trimestrales: " + ex.Message);
+            }
+            return resultados;
+        }
+
+        private double CalcularPromedioTrimestralCampo(Dictionary<string, double> calificaciones, string[] materiasBase, string[] periodosBD, string campoObjetivo)
+        {
+            double sumaPromediosMensuales = 0;
+            int contadorMateriasEncontradas = 0;
+
+            foreach (string nombreMateria in materiasBase)
+            {
+                if (nombreMateria.ToUpper() == "PROMEDIO") continue;
+
+                if (ObtenerCampoFormativo(nombreMateria.ToUpper().Trim()) == campoObjetivo)
+                {
+                    double sumaMensual = 0;
+                    int contadorMeses = 0;
+
+                    foreach (string periodo in periodosBD)
                     {
-                        // Celda de relleno (para materias que NO pertenecen a este campo)
-                        PdfPCell emptyCell = CrearCelda("", fontNormal, Element.ALIGN_CENTER, BaseColor.WHITE);
-                        emptyCell.BorderColor = new BaseColor(200, 200, 200); // Borde más suave para relleno
-                        emptyCell.BorderWidth = 0.2f;
-                        table.AddCell(emptyCell);
+                        string clave = $"{nombreMateria.ToUpper().Trim()}_{periodo.ToUpper().Trim()}";
+                        if (calificaciones.TryGetValue(clave, out double calif))
+                        {
+                            sumaMensual += calif;
+                            contadorMeses++;
+                        }
+                    }
+
+                    if (contadorMeses > 0)
+                    {
+                        sumaPromediosMensuales += sumaMensual / contadorMeses;
+                        contadorMateriasEncontradas++;
                     }
                 }
             }
 
-            // Celda final del promedio trimestral del Campo Formativo
-            table.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, colorFondo));
+            if (contadorMateriasEncontradas == 0) return 0.0;
+            return Math.Round(sumaPromediosMensuales / contadorMateriasEncontradas, 1);
         }
 
-        public void CrearBoletaGrupal(int idGrupo, string trimestre)
+        private PromediosGrupales CalcularPromediosGrupales(Dictionary<int, Alumno> resultadosAlumnos, string[] materiasBase, string[] periodosBD)
         {
+            var promedios = new PromediosGrupales();
+            int totalAlumnos = resultadosAlumnos.Count;
+            if (totalAlumnos == 0) return promedios;
+
+            var sumasMensuales = new Dictionary<string, double>();
+            var sumasConsolidadas = new Dictionary<string, double>();
+            double sumaFinalTrimestral = 0;
+
+            foreach (var alumno in resultadosAlumnos.Values)
+            {
+                // 1. Suma de Calificaciones Mensuales (Materia por Mes)
+                foreach (var kvp in alumno.Notas)
+                {
+                    if (!sumasMensuales.ContainsKey(kvp.Key)) sumasMensuales[kvp.Key] = 0;
+                    sumasMensuales[kvp.Key] += kvp.Value;
+                }
+
+                // 2. Cálculo de Promedios Consolidados por Campo Formativo (por alumno)
+                foreach (var campo in camposConsolidados)
+                {
+                    double promCampo = CalcularPromedioTrimestralCampo(alumno.Notas, materiasBase, periodosBD, campo);
+
+                    if (!sumasConsolidadas.ContainsKey(campo)) sumasConsolidadas[campo] = 0;
+                    sumasConsolidadas[campo] += promCampo;
+                }
+
+                // 3. Suma del Promedio Final Trimestral (el que está guardado en la BD)
+                sumaFinalTrimestral += alumno.PromedioFinalTrimestral;
+            }
+
+            // 4. CALCULAR PROMEDIO FINAL DIVIDIENDO POR EL TOTAL DE ALUMNOS
+            foreach (var kvp in sumasMensuales)
+            { promedios.Mensuales[kvp.Key] = Math.Round(kvp.Value / totalAlumnos, 1); }
+
+            foreach (var kvp in sumasConsolidadas)
+            { promedios.Consolidados[kvp.Key] = Math.Round(kvp.Value / totalAlumnos, 1); }
+
+            promedios.PromedioFinalTrimestral = Math.Round(sumaFinalTrimestral / totalAlumnos, 1);
+
+            return promedios;
+        }
+
+        private void RegistrarGeneracionBoletaGrupal(int idGrupo, string trimestre, string rutaArchivo)
+        {
+            Conexion db = new Conexion();
+            string periodoBD = $"{trimestre.Replace(" ", "_").ToUpper()}";
+
+            // Asume que AlumnoID en la tabla boletas puede usarse para guardar el GroupID para registros grupales
+            string query = "INSERT INTO boletas (AlumnoID, CalificaionID, Periodo, RutaArchivo, FechaGeneracion) " +
+                           "VALUES (@idGrupo, NULL, @periodo, @ruta, NOW())";
+
+            try
+            {
+                using (MySqlConnection conn = db.GetConnection())
+                {
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@idGrupo", idGrupo);
+                    cmd.Parameters.AddWithValue("@periodo", periodoBD);
+                    cmd.Parameters.AddWithValue("@ruta", rutaArchivo);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al registrar boleta en BD: {ex.Message}");
+            }
+        }
+
+        // ====================================================================
+        // FUNCIÓN PRINCIPAL: CREAR BOLETA GRUPAL (COMPLETA)
+        // ====================================================================
+
+public void CrearBoletaGrupal(int idGrupo, string trimestre)
+{
             string nombreGrupo = "";
             string nombreMaestro = "";
             List<Alumno> alumnos = new List<Alumno>();
             string rutaSalida = "";
 
+            // 1. DEFINICIÓN DE PARÁMETROS TRIMESTRALES
+            string[] meses = ObtenerMeses(trimestre);
+            string[] periodosBD = meses.Select(m => ConvertirMesParaBD(m)).ToArray();
+            string periodoFinalBD = $"{trimestre.Replace(" ", "_").ToUpper()}_FINAL";
+
+            // Variables de configuración de PDF
+            int numMeses = meses.Length;
+            int numGrupos = meses.Length + 1;
+            int numMaterias = 0;
+            int totalColumnas = 0;
+
+            Document doc = null;
+            PdfWriter writer = null;
+
             try
             {
-                // 1. SELECCIONAR RUTA DE GUARDADO
+                // 2. SELECCIONAR RUTA DE GUARDADO
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
                 saveFileDialog.Title = "Guardar Boleta Grupal";
@@ -153,16 +343,13 @@ namespace Proyecto_Boletas
                 if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                 rutaSalida = saveFileDialog.FileName;
 
-                // 2. EXTRAER DATOS DEL GRUPO Y MAESTRO (Manteniendo la lógica de BD)
+                // 3. EXTRAER DATOS DEL GRUPO, MAESTRO, ALUMNOS
                 using (MySqlConnection conn = new Conexion().GetConnection())
                 {
                     conn.Open();
-                    string queryGrupo = "SELECT g.nombre_grupo, g.id_maestro, " +
-                                            "m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro " +
-                                            "FROM grupo g " +
-                                            "INNER JOIN maestro m ON g.id_maestro = m.id_maestro " +
-                                            "WHERE g.id_grupo = @idGrupo";
 
+                    // Obtener Grupo y Maestro
+                    string queryGrupo = "SELECT g.nombre_grupo, g.id_maestro, m.NombreMaestro, m.ApellidoPMaestro, m.ApellidoMMaestro FROM grupo g INNER JOIN maestro m ON g.id_maestro = m.id_maestro WHERE g.id_grupo = @idGrupo";
                     using (MySqlCommand cmd = new MySqlCommand(queryGrupo, conn))
                     {
                         cmd.Parameters.AddWithValue("@idGrupo", idGrupo);
@@ -176,23 +363,9 @@ namespace Proyecto_Boletas
                             dr.Close();
                         }
                     }
-                }
 
-                // Determinar el nombre de la materia de ciencias
-                nombreMateriaCiencias = ObtenerNombreMateriaCiencias(nombreGrupo);
-
-                // Inicializar materias (9 materias base)
-                materiasBase = new[] {
-                    "Español", "Inglés", "Artes", "Matemáticas", "Tecnología",
-                    nombreMateriaCiencias, "F. Cívica y Ética", "Ed. Física", "Promedio"
-                };
-
-                // 3. EXTRAER ALUMNOS Y ORDENAR (Manteniendo la lógica de BD)
-                using (MySqlConnection conn = new Conexion().GetConnection())
-                {
-                    conn.Open();
+                    // Obtener Alumnos
                     string queryAlumnos = "SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno, Genero FROM alumnos WHERE id_grupo = @idGrupo";
-
                     using (MySqlCommand cmd = new MySqlCommand(queryAlumnos, conn))
                     {
                         cmd.Parameters.AddWithValue("@idGrupo", idGrupo);
@@ -202,6 +375,7 @@ namespace Proyecto_Boletas
                             {
                                 alumnos.Add(new Alumno
                                 {
+                                    AlumnoID = dr.GetInt32("AlumnoID"),
                                     ApellidoPaterno = dr["ApellidoPaterno"].ToString(),
                                     ApellidoMaterno = dr["ApellidoMaterno"].ToString(),
                                     Nombre = dr["Nombre"].ToString(),
@@ -212,25 +386,35 @@ namespace Proyecto_Boletas
                     }
                 }
 
-                alumnos = alumnos.OrderBy(a => a.ApellidoPaterno)
-                                     .ThenBy(a => a.ApellidoMaterno)
-                                     .ThenBy(a => a.Nombre)
-                                     .ToList();
+                alumnos = alumnos.OrderBy(a => a.ApellidoPaterno).ThenBy(a => a.ApellidoMaterno).ThenBy(a => a.Nombre).ToList();
 
+                // Aquí nombreMateriaCiencias se usará internamente con el nombre completo
+                nombreMateriaCiencias = ObtenerNombreMateriaCiencias(nombreGrupo);
 
-                // 4. CREAR PDF
-                string[] meses = ObtenerMeses(trimestre);
-                int numGrupos = meses.Length + 1; // 3 Meses + 1 Trimestre
-                int numMaterias = materiasBase.Length; // 9 materias
+                materiasBase = new[] {
+            "ESPAÑOL", "INGLÉS", "ARTES", "MATEMÁTICAS", "TECNOLOGÍA",
+            // Usa el nombre completo aquí para que las funciones de cálculo y extracción funcionen correctamente
+            nombreMateriaCiencias,
+            "FORM. CÍV Y ÉTICA", "ED. FISICA", "PROMEDIO"
+        };
+                numMaterias = materiasBase.Length;
+                totalColumnas = 3 + ((numMeses + 1) * numMaterias) + 1;
 
-                // Total de columnas: 3 (fijas) + 4 (grupos) * 9 (materias) + 1 (promedio final) = 40
-                int totalColumnas = 3 + (numGrupos * numMaterias) + 1;
+                // 4. EXTRAER CALIFICACIONES TRIMESTRALES DE TODOS LOS ALUMNOS
+                var resultadosAlumnos = ObtenerCalificacionesTrimestrales(alumnos, periodosBD, periodoFinalBD);
 
-                Document doc = new Document(PageSize.A4.Rotate(), 15, 15, 40, 20);
-                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(rutaSalida, FileMode.Create));
+                // 5. CÁLCULO DE PROMEDIOS GRUPALES
+                var promediosGrupo = CalcularPromediosGrupales(resultadosAlumnos, materiasBase, periodosBD);
+
+                // 6. CONFIGURACIÓN DEL PDF
+                // Ajustamos los márgenes para que haya menos espacio arriba si es necesario
+                doc = new Document(PageSize.A4.Rotate(), 15, 15, 20, 20); // Margen superior de 20 (antes 40)
+                writer = PdfWriter.GetInstance(doc, new FileStream(rutaSalida, FileMode.Create));
                 doc.Open();
 
-                // CABECERA (Manteniendo la lógica de logo)
+                // ====================================================================
+                // CABECERA 
+                // ====================================================================
                 PdfPTable encabezado = new PdfPTable(2) { WidthPercentage = 100 };
                 encabezado.SetWidths(new float[] { 20, 80 });
 
@@ -244,10 +428,7 @@ namespace Proyecto_Boletas
                         logo = PdfImage.GetInstance(ms.ToArray());
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al cargar el logo: " + ex.Message);
-                }
+                catch { /* Manejo de error de logo */ }
 
                 if (logo != null)
                 {
@@ -256,6 +437,7 @@ namespace Proyecto_Boletas
                     logoCell.Border = PdfRectangle.NO_BORDER;
                     logoCell.HorizontalAlignment = Element.ALIGN_CENTER;
                     logoCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    logoCell.PaddingBottom = 5f; // Ajuste para subir un poco el logo
                     encabezado.AddCell(logoCell);
                 }
                 else
@@ -271,162 +453,210 @@ namespace Proyecto_Boletas
                 encabezado.AddCell(celdaTexto);
 
                 doc.Add(encabezado);
-                doc.Add(new Paragraph(" "));
+                // Eliminamos el Paragraph(" ") para reducir el espacio y subir la tabla
+                // doc.Add(new Paragraph(" ")); 
+                // ====================================================================
 
-                // TABLA PRINCIPAL (40 COLUMNAS)
+                // TABLA PRINCIPAL 
                 PdfPTable tablaCalificaciones = new PdfPTable(totalColumnas) { WidthPercentage = 100, HeaderRows = 2 };
 
                 float[] widths = new float[totalColumnas];
                 widths[0] = 0.02f; widths[1] = 0.02f; widths[2] = 0.15f;
-                float smallWidth = (1.00f - 0.19f) / 37f; // 37 celdas de datos/promedio
+                float smallWidth = (1.00f - 0.19f) / 37f;
                 for (int i = 3; i < totalColumnas; i++) { widths[i] = smallWidth; }
                 tablaCalificaciones.SetWidths(widths);
 
                 // ====================================================================
-                // FILA 1: Encabezados principales
+                // FILA 1 & 2: Encabezados (Meses, Materias y Trimestre)
                 // ====================================================================
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("NO.\nLISTA", fontEncabezadoRotado, 2, colorEncabezadoFijo));
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("SEXO", fontEncabezadoRotado, 2, colorEncabezadoFijo));
                 tablaCalificaciones.AddCell(CreateHeaderCell("NOMBRE DEL ALUMNO", fontSubtitulo, 2, 1, colorEncabezadoFijo));
 
-                // 1. Encabezados de los Meses (colspan = 9)
-                BaseColor colorMeses = BaseColor.WHITE;
                 foreach (string mes in meses)
-                {
-                    tablaCalificaciones.AddCell(CrearCelda(mes.ToUpper(), fontSubtitulo, Element.ALIGN_CENTER, 1, numMaterias, colorMeses));
-                }
+                { tablaCalificaciones.AddCell(CrearCelda(mes.ToUpper(), fontSubtitulo, Element.ALIGN_CENTER, 1, numMaterias, colorEncabezadoFijo)); }
 
-                // 2. Encabezado "TRIMESTRE" GRANDE (colspan = 9)
-                BaseColor colorEncabezadoTrimestre = new BaseColor(50, 150, 250);
-
-                // CELDA ÚNICA para el bloque TRIMESTRE, abarcando las 9 columnas (40 - 3 - 27 - 1 = 9)
                 string textoTrimestre = $"TRIMESTRE ({trimestre.ToUpper()}) 2025";
                 tablaCalificaciones.AddCell(CrearCelda(textoTrimestre, fontSubtitulo, Element.ALIGN_CENTER, 1, numMaterias, colorEncabezadoFijo));
 
-                // Celda de Promedio Trimestral (Final)
                 tablaCalificaciones.AddCell(CreateRotatedHeaderCell("PROMEDIO\nTRIMESTRAL", fontEncabezadoRotado, 2, colorAmarillo));
 
-                // ====================================================================
-                // FILA 2: Nombres de materias con colores (TODAS INDIVIDUALES, 9 por grupo)
-                // ====================================================================
-                // Materias de los Meses (3 * 9 = 27 celdas)
+                // FILA 2: Nombres de materias con colores (con abreviación para la impresión)
                 for (int m = 0; m < meses.Length; m++)
                 {
                     foreach (string materia in materiasBase)
                     {
+                        string textoCelda = materia;
+
+                        // APLICAR ABREVIATURA PARA LA IMPRESIÓN ROTADA
+                        if (materia == "CONOCIMIENTO DEL MEDIO")
+                        {
+                            textoCelda = "CON. DEL MEDIO";
+                        }
+                        else if (materia == "CIENCIAS NATURALES")
+                        {
+                            textoCelda = "C. NATURALES";
+                        }
+
                         BaseColor fondo = ObtenerColorMateria(materia);
-                        tablaCalificaciones.AddCell(CreateRotatedCell(materia, fontNormal, fondo));
+                        tablaCalificaciones.AddCell(CreateRotatedCell(textoCelda, fontNormal, fondo));
                     }
                 }
-
-                // Materias del TRIMESTRE (9 celdas rotadas individuales, IGUAL QUE LOS MESES)
+                // Materias del TRIMESTRE (igual, con abreviación)
                 foreach (string materia in materiasBase)
                 {
+                    string textoCelda = materia;
+
+                    if (materia == "CONOCIMIENTO DEL MEDIO")
+                    {
+                        textoCelda = "CON. DEL MEDIO";
+                    }
+                    else if (materia == "CIENCIAS NATURALES")
+                    {
+                        textoCelda = "C. NATURALES";
+                    }
+
                     BaseColor fondo = ObtenerColorMateria(materia);
-                    tablaCalificaciones.AddCell(CreateRotatedCell(materia, fontNormal, fondo));
+                    tablaCalificaciones.AddCell(CreateRotatedCell(textoCelda, fontNormal, fondo));
                 }
 
+                // ====================================================================
+                // LLENADO DE DATOS POR ALUMNO
+                // ====================================================================
+
                 int listaContador = 1;
+                double promGeneralTrimestre = 0;
+                int contadorCampos = 0;
+                string promFinalDB = "";
 
                 foreach (var alumno in alumnos)
                 {
+                    promGeneralTrimestre = 0;
+                    contadorCampos = 0;
+
                     // Columnas fijas
                     tablaCalificaciones.AddCell(CrearCelda(listaContador++.ToString(), fontNormal, Element.ALIGN_CENTER));
                     tablaCalificaciones.AddCell(CrearCelda(alumno.Genero.Substring(0, 1), fontNormal, Element.ALIGN_CENTER));
                     string nombreCompleto = $"{alumno.ApellidoPaterno} {alumno.ApellidoMaterno} {alumno.Nombre}";
                     tablaCalificaciones.AddCell(new PdfPCell(new Phrase(nombreCompleto, fontAlumnoNombreLargo))
-                    {
-                        HorizontalAlignment = Element.ALIGN_LEFT,
-                        VerticalAlignment = Element.ALIGN_MIDDLE,
-                        Padding = 2f
-                    });
+                    { HorizontalAlignment = Element.ALIGN_LEFT, VerticalAlignment = Element.ALIGN_MIDDLE, Padding = 2f });
 
-                    // 1. Datos de los Meses (3 * 9 = 27 celdas individuales)
-                    for (int i = 0; i < 27; i++)
+                    // 1. Datos de los Meses (Calificaciones Mensuales y Promedio Mensual)
+                    for (int m = 0; m < meses.Length; m++)
                     {
-                        if (i % numMaterias == (numMaterias - 1)) // La 9ª celda de cada mes es el Promedio
+                        string periodo = periodosBD[m];
+                        for (int i = 0; i < numMaterias; i++)
                         {
-                            tablaCalificaciones.AddCell(CrearCelda("0.0", fontAlumnoNombreLargo, Element.ALIGN_CENTER, colorAmarillo));
-                        }
-                        else
-                        {
-                            tablaCalificaciones.AddCell(CrearCelda(" ", fontNormal, Element.ALIGN_CENTER));
+                            string materia = materiasBase[i].ToUpper().Trim();
+
+                            if (materia == "PROMEDIO")
+                            {
+                                double sumMes = alumno.Notas.Where(kv => kv.Key.EndsWith($"_{periodo.ToUpper()}") && ObtenerCampoFormativo(kv.Key.Split('_')[0]) != "SIN CAMPO").Sum(kv => kv.Value);
+                                int countMes = alumno.Notas.Count(kv => kv.Key.EndsWith($"_{periodo.ToUpper()}") && ObtenerCampoFormativo(kv.Key.Split('_')[0]) != "SIN CAMPO");
+                                double promMes = (countMes > 0) ? Math.Round(sumMes / countMes, 1) : 0.0;
+
+                                tablaCalificaciones.AddCell(CrearCelda(promMes.ToString("F1"), fontAlumnoNombreLargo, Element.ALIGN_CENTER, colorAmarillo));
+                            }
+                            else
+                            {
+                                string clave = $"{materia}_{periodo}";
+                                double calif = alumno.Notas.ContainsKey(clave) ? alumno.Notas[clave] : 0.0;
+                                string textoCalif = calif > 0 ? calif.ToString("F0") : "-";
+                                tablaCalificaciones.AddCell(CrearCelda(textoCalif, fontNormal, Element.ALIGN_CENTER));
+                            }
                         }
                     }
 
-                    // 2. Datos del TRIMESTRE (5 celdas CONSOLIDADAS que ocupan 9 columnas)
+                    // 2. Datos del TRIMESTRE (PROMEDIOS CONSOLIDADOS)
+                    foreach (var campo in camposConsolidados)
+                    {
+                        double promCampo = CalcularPromedioTrimestralCampo(alumno.Notas, materiasBase, periodosBD, campo);
+                        int colSpan = (campo == "LENGUAJES" || campo == "SABERES Y PENSAMIENTO CIENTÍFICO") ? 3 : 1;
 
-                    // Celda Consolidada 1: Comunicación (colSpan = 3) -> Cubre Español, Inglés, Artes
-                    tablaCalificaciones.AddCell(CrearCelda("##.#", fontNormal, Element.ALIGN_CENTER, 1, 3));
+                        tablaCalificaciones.AddCell(CrearCelda(promCampo.ToString("F1"), fontNormal, Element.ALIGN_CENTER, 1, colSpan));
 
-                    // Celda Consolidada 2: Ciencias/P. Mate (colSpan = 3) -> Cubre Matemáticas, Tecnología, Ciencias
-                    tablaCalificaciones.AddCell(CrearCelda("##.#", fontNormal, Element.ALIGN_CENTER, 1, 3));
+                        promGeneralTrimestre += promCampo;
+                        contadorCampos++;
+                    }
 
-                    // Celda 3: F. Cívica (colSpan = 1) -> Cubre F. Cívica
-                    tablaCalificaciones.AddCell(CrearCelda("##.#", fontNormal, Element.ALIGN_CENTER));
+                    double promFinalCampos = (contadorCampos > 0) ? Math.Round(promGeneralTrimestre / contadorCampos, 1) : 0.0;
+                    tablaCalificaciones.AddCell(CrearCelda(promFinalCampos.ToString("F1"), fontNormal, Element.ALIGN_CENTER, colorAmarillo));
 
-                    // Celda 4: Ed. Física (colSpan = 1) -> Cubre Ed. Física
-                    tablaCalificaciones.AddCell(CrearCelda("##.#", fontNormal, Element.ALIGN_CENTER));
-
-                    // Celda 5: Promedio (colSpan = 1) -> Cubre Promedio de Trimestre
-                    tablaCalificaciones.AddCell(CrearCelda("##.#", fontNormal, Element.ALIGN_CENTER, colorAmarillo));
-
-                    // 3. Promedio Trimestral Final (colSpan = 1)
-                    tablaCalificaciones.AddCell(CrearCelda("0.0", fontAlumnoNombreLargo, Element.ALIGN_CENTER, colorAmarillo));
+                    // 3. Promedio Trimestral Final (Guardado como 'TRIMESTRE_X_FINAL' en la BD)
+                    promFinalDB = alumno.PromedioFinalTrimestral > 0 ? alumno.PromedioFinalTrimestral.ToString("F1") : "0.0";
+                    tablaCalificaciones.AddCell(CrearCelda(promFinalDB, fontAlumnoNombreLargo, Element.ALIGN_CENTER, colorAmarillo));
                 }
 
-
                 // ====================================================================
-                // FILA PROMEDIO GRUPAL (Misma unificación de 5 celdas)
+                // FILA PROMEDIO GRUPAL 
                 // ====================================================================
                 tablaCalificaciones.AddCell(CrearCelda("TRIMESTRAL", fontSubtitulo, Element.ALIGN_CENTER, 1, 3, colorEncabezadoFijo));
 
-                // 1. Promedio Grupal de los Meses (3 * 9 = 27 celdas individuales)
-                for (int i = 0; i < 27; i++)
+                // 1. Promedio Grupal de los Meses
+                for (int m = 0; m < meses.Length; m++)
                 {
-                    if (i % numMaterias == (numMaterias - 1))
+                    string periodo = periodosBD[m];
+                    for (int i = 0; i < numMaterias; i++)
                     {
-                        tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, colorAmarillo));
-                    }
-                    else
-                    {
-                        tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER));
+                        string materia = materiasBase[i].ToUpper().Trim();
+                        string clave = $"{materia}_{periodo}";
+
+                        if (materia == "PROMEDIO")
+                        {
+                            double promMes = promediosGrupo.Mensuales.ContainsKey(clave) ? promediosGrupo.Mensuales[clave] : 0.0;
+                            tablaCalificaciones.AddCell(CrearCelda(promMes.ToString("F1"), fontSubtitulo, Element.ALIGN_CENTER, colorAmarillo));
+                        }
+                        else
+                        {
+                            double promMateria = promediosGrupo.Mensuales.ContainsKey(clave) ? promediosGrupo.Mensuales[clave] : 0.0;
+                            tablaCalificaciones.AddCell(CrearCelda(promMateria.ToString("F1"), fontSubtitulo, Element.ALIGN_CENTER));
+                        }
                     }
                 }
 
                 // 2. Promedio Grupal del TRIMESTRE (5 celdas CONSOLIDADAS)
+                double promGeneralTrimestreGrupo = 0;
+                contadorCampos = 0;
 
-                // Celda Consolidada 1: Comunicación (colSpan = 3)
-                tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, 1, 3));
+                foreach (var campo in camposConsolidados)
+                {
+                    double promCampo = promediosGrupo.Consolidados.ContainsKey(campo) ? promediosGrupo.Consolidados[campo] : 0.0;
+                    int colSpan = (campo == "LENGUAJES" || campo == "SABERES Y PENSAMIENTO CIENTÍFICO") ? 3 : 1;
 
-                // Celda Consolidada 2: Ciencias/P. Mate (colSpan = 3)
-                tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, 1, 3));
+                    tablaCalificaciones.AddCell(CrearCelda(promCampo.ToString("F1"), fontSubtitulo, Element.ALIGN_CENTER, 1, colSpan));
 
-                // Celda 3: F. Cívica (colSpan = 1)
-                tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER));
+                    promGeneralTrimestreGrupo += promCampo;
+                    contadorCampos++;
+                }
 
-                // Celda 4: Ed. Física (colSpan = 1)
-                tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER));
+                double promFinalCamposGrupo = (contadorCampos > 0) ? Math.Round(promGeneralTrimestreGrupo / contadorCampos, 1) : 0.0;
+                tablaCalificaciones.AddCell(CrearCelda(promFinalCamposGrupo.ToString("F1"), fontSubtitulo, Element.ALIGN_CENTER, colorAmarillo));
 
-                // Celda 5: Promedio (colSpan = 1)
-                tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, colorAmarillo));
+                // 3. Promedio Trimestral Final GRUPAL 
+                promFinalDB = promediosGrupo.PromedioFinalTrimestral.ToString("F1");
+                tablaCalificaciones.AddCell(CrearCelda(promFinalDB, fontSubtitulo, Element.ALIGN_CENTER, colorAmarillo));
 
-                // 3. Promedio Trimestral Final (colSpan = 1)
-                tablaCalificaciones.AddCell(CrearCelda("##.#", fontSubtitulo, Element.ALIGN_CENTER, colorAmarillo));
-
+                // 7. Cierre y Registro
                 doc.Add(tablaCalificaciones);
                 doc.Close();
                 writer.Close();
+
+                RegistrarGeneracionBoletaGrupal(idGrupo, trimestre, rutaSalida);
 
                 MessageBox.Show($"Boleta grupal generada correctamente en:\n{rutaSalida}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                if (doc != null && doc.IsOpen()) doc.Close();
+                if (writer != null) writer.Close();
                 MessageBox.Show($"Error al generar boleta grupal: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // MÉTODOS AUXILIARES
+        // ====================================================================
+        // MÉTODOS AUXILIARES (TUS DEFINICIONES ORIGINALES)
+        // ====================================================================
+
         private PdfPCell CreateRotatedHeaderCell(string text, PdfFont font, int rowspan, BaseColor background)
         {
             return new PdfPCell(new Phrase(text, font))
@@ -468,6 +698,7 @@ namespace Proyecto_Boletas
 
         public void CrearBoleta(int idAlumno, string trimestre)
         {
+            // Este método queda vacío ya que no se implementó la lógica de boleta individual
         }
 
         private PdfPCell CrearCelda(string texto, PdfFont fuente, int alineacion, BaseColor fondo = null)
@@ -493,20 +724,11 @@ namespace Proyecto_Boletas
 
         private PdfPCell CrearCelda(string texto, PdfFont fuente, int alineacion, int rowSpan, int colSpan)
         {
-            // Sobrecarga utilizada para las celdas de datos consolidadas sin color de fondo
             PdfPCell cell = CrearCelda(texto, fuente, alineacion);
             cell.Rowspan = rowSpan;
             cell.Colspan = colSpan;
             return cell;
         }
 
-        public class Alumno
-        {
-            public int AlumnoID { get; set; }
-            public string Nombre { get; set; }
-            public string ApellidoPaterno { get; set; }
-            public string ApellidoMaterno { get; set; }
-            public string Genero { get; set; }
-        }
     }
 }

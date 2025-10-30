@@ -309,18 +309,26 @@ namespace Proyecto_Boletas
 
         private void cbGrupoPer_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cbAlumno.DataSource = null;
             cbAlumno.Items.Clear();
 
             if (cbGrupoPer.SelectedItem != null)
             {
-                int idGrupo = (int)((ComboboxItem)cbGrupoPer.SelectedItem).Value;
-
                 try
                 {
+                    // Extrae correctamente el id del grupo seleccionado
+                    int idGrupo = Convert.ToInt32(((ComboboxItem)cbGrupoPer.SelectedItem).Value);
+
+                    List<ComboboxItem> alumnosList = new List<ComboboxItem>();
+
                     using (MySqlConnection conn = new Conexion().GetConnection())
                     {
                         conn.Open();
-                        string query = "SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno FROM alumnos WHERE id_grupo = @idGrupo ORDER BY ApellidoPaterno";
+                        string query = @"
+                SELECT AlumnoID, Nombre, ApellidoPaterno, ApellidoMaterno
+                FROM alumnos
+                WHERE id_grupo = @idGrupo
+                ORDER BY ApellidoPaterno, Nombre";
 
                         using (MySqlCommand cmd = new MySqlCommand(query, conn))
                         {
@@ -332,20 +340,41 @@ namespace Proyecto_Boletas
                                 {
                                     string nombreCompleto = $"{dr["ApellidoPaterno"]} {dr["ApellidoMaterno"]} {dr["Nombre"]}";
 
-                                    cbAlumno.Items.Add(new ComboboxItem
+                                    alumnosList.Add(new ComboboxItem
                                     {
                                         Text = nombreCompleto,
-                                        Value = dr["AlumnoID"]
+                                        Value = Convert.ToInt32(dr["AlumnoID"])
                                     });
                                 }
                             }
                         }
                     }
+
+                    if (alumnosList.Count > 0)
+                    {
+                        cbAlumno.DisplayMember = "Text";
+                        cbAlumno.ValueMember = "Value";
+                        cbAlumno.DataSource = alumnosList;
+                        cbAlumno.SelectedIndex = 0; // selecciona automáticamente el primero
+                    }
+                    else
+                    {
+                        cbAlumno.DataSource = null;
+                        cbAlumno.Items.Clear();
+                        cbAlumno.Text = "Sin alumnos en este grupo";
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al cargar alumnos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al cargar alumnos: " + ex.Message,
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un grupo válido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -376,13 +405,10 @@ namespace Proyecto_Boletas
 
             try
             {
-                int idAlumno = (int)((ComboboxItem)cbAlumno.SelectedItem).Value;
+                int idAlumno = Convert.ToInt32(cbAlumno.SelectedValue);
                 string trimestre = cbTrimestrePer.SelectedItem.ToString();
 
-                // Crear el generador de boleta
                 GeneradorBoletaP generador = new GeneradorBoletaP();
-
-                // Genera la boleta personal del alumno seleccionado
                 generador.CrearBoletaPersonal(idAlumno, trimestre);
 
                 MessageBox.Show("Boleta generada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);

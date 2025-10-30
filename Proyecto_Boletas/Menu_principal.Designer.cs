@@ -72,10 +72,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.logo_escuela1;
-            pictureBox1.Location = new Point(190, 130);
-            pictureBox1.Margin = new Padding(6, 6, 6, 6);
+            pictureBox1.Location = new Point(157, 144);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(952, 602);
+            pictureBox1.Size = new Size(476, 301);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 23;
             pictureBox1.TabStop = false;
@@ -112,11 +111,10 @@
             btn_ingresar.FlatStyle = FlatStyle.Popup;
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(34, 32);
-            btn_ingresar.Margin = new Padding(6, 6, 6, 6);
+            btn_ingresar.Location = new Point(17, 16);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(310, 58);
+            btn_ingresar.Size = new Size(155, 29);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -148,7 +146,7 @@
             btn_admaestros.Dock = DockStyle.Top;
             btn_admaestros.FlatAppearance.BorderSize = 0;
             btn_admaestros.FlatStyle = FlatStyle.Flat;
-            btn_admaestros.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_admaestros.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_admaestros.ForeColor = SystemColors.ControlLightLight;
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
@@ -167,7 +165,7 @@
             btnEnvioBoletas.Dock = DockStyle.Top;
             btnEnvioBoletas.FlatAppearance.BorderSize = 0;
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
-            btnEnvioBoletas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
@@ -186,7 +184,7 @@
             btnEdicionDatos.Dock = DockStyle.Top;
             btnEdicionDatos.FlatAppearance.BorderSize = 0;
             btnEdicionDatos.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatos.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEdicionDatos.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
@@ -205,7 +203,7 @@
             btnBitacora.Dock = DockStyle.Top;
             btnBitacora.FlatAppearance.BorderSize = 0;
             btnBitacora.FlatStyle = FlatStyle.Flat;
-            btnBitacora.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnBitacora.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnBitacora.ForeColor = SystemColors.ControlLight;
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
@@ -224,7 +222,7 @@
             btnAdmSecre.Dock = DockStyle.Top;
             btnAdmSecre.FlatAppearance.BorderSize = 0;
             btnAdmSecre.FlatStyle = FlatStyle.Flat;
-            btnAdmSecre.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnAdmSecre.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnAdmSecre.ForeColor = SystemColors.ControlLight;
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
@@ -243,7 +241,7 @@
             btnEstadisticas.Dock = DockStyle.Top;
             btnEstadisticas.FlatAppearance.BorderSize = 0;
             btnEstadisticas.FlatStyle = FlatStyle.Flat;
-            btnEstadisticas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEstadisticas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
@@ -262,7 +260,7 @@
             btn_capturaCalif.Dock = DockStyle.Top;
             btn_capturaCalif.FlatAppearance.BorderSize = 0;
             btn_capturaCalif.FlatStyle = FlatStyle.Flat;
-            btn_capturaCalif.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_capturaCalif.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
@@ -281,7 +279,7 @@
             btn_inscripcion.Dock = DockStyle.Top;
             btn_inscripcion.FlatAppearance.BorderSize = 0;
             btn_inscripcion.FlatStyle = FlatStyle.Flat;
-            btn_inscripcion.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_inscripcion.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;

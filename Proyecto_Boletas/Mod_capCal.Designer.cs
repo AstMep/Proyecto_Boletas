@@ -49,6 +49,10 @@
             Logo = new PictureBox();
             label1 = new Label();
             panelApp = new Panelito();
+            panelito6 = new Panelito();
+            label25 = new Label();
+            cbInasistencias = new ComboBox();
+            label20 = new Label();
             label21 = new Label();
             btnalta_inscripcion2 = new Button();
             panelito5 = new Panelito();
@@ -56,6 +60,8 @@
             cbEducacinF = new ComboBox();
             label18 = new Label();
             panelito4 = new Panelito();
+            cbC = new ComboBox();
+            lbC = new Label();
             label23 = new Label();
             cbFormacion = new ComboBox();
             label16 = new Label();
@@ -101,6 +107,7 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
             panelApp.SuspendLayout();
+            panelito6.SuspendLayout();
             panelito5.SuspendLayout();
             panelito4.SuspendLayout();
             panelito3.SuspendLayout();
@@ -380,6 +387,7 @@
             panelApp.AutoScroll = true;
             panelApp.BackColor = Color.FromArgb(181, 131, 120);
             panelApp.BorderRadius = 20;
+            panelApp.Controls.Add(panelito6);
             panelApp.Controls.Add(label21);
             panelApp.Controls.Add(btnalta_inscripcion2);
             panelApp.Controls.Add(panelito5);
@@ -396,14 +404,56 @@
             panelApp.TabIndex = 8;
             panelApp.Paint += panelApp_Paint_1;
             // 
+            // panelito6
+            // 
+            panelito6.BackColor = Color.FromArgb(157, 101, 101);
+            panelito6.BorderRadius = 20;
+            panelito6.Controls.Add(label25);
+            panelito6.Controls.Add(cbInasistencias);
+            panelito6.Controls.Add(label20);
+            panelito6.Location = new Point(254, 625);
+            panelito6.Name = "panelito6";
+            panelito6.Size = new Size(298, 69);
+            panelito6.TabIndex = 64;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label25.ForeColor = SystemColors.ControlLightLight;
+            label25.Location = new Point(85, 11);
+            label25.Name = "label25";
+            label25.Size = new Size(139, 18);
+            label25.TabIndex = 64;
+            label25.Text = "PUNTUALIDAD";
+            // 
+            // cbInasistencias
+            // 
+            cbInasistencias.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbInasistencias.Location = new Point(139, 32);
+            cbInasistencias.Name = "cbInasistencias";
+            cbInasistencias.Size = new Size(80, 23);
+            cbInasistencias.TabIndex = 63;
+            cbInasistencias.SelectedIndexChanged += cbInasistencias_SelectedIndexChanged;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label20.ForeColor = SystemColors.ControlLightLight;
+            label20.Location = new Point(28, 32);
+            label20.Name = "label20";
+            label20.Size = new Size(105, 21);
+            label20.TabIndex = 56;
+            label20.Text = "Inasistencias:";
+            // 
             // label21
             // 
             label21.AutoSize = true;
             label21.BackColor = Color.Transparent;
             label21.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label21.ForeColor = SystemColors.ActiveCaptionText;
-            label21.Location = new Point(624, 1425);
-            label21.Margin = new Padding(6, 0, 6, 0);
+            label21.Location = new Point(336, 668);
             label21.Name = "label21";
             label21.Size = new Size(232, 45);
             label21.TabIndex = 62;
@@ -416,12 +466,14 @@
             btnalta_inscripcion2.FlatStyle = FlatStyle.Popup;
             btnalta_inscripcion2.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnalta_inscripcion2.Image = (Image)resources.GetObject("btnalta_inscripcion2.Image");
+            btnalta_inscripcion2.Location = new Point(336, 714);
             btnalta_inscripcion2.Location = new Point(624, 1263);
             btnalta_inscripcion2.Margin = new Padding(6);
             btnalta_inscripcion2.Name = "btnalta_inscripcion2";
             btnalta_inscripcion2.Size = new Size(210, 156);
             btnalta_inscripcion2.TabIndex = 60;
             btnalta_inscripcion2.UseVisualStyleBackColor = false;
+            btnalta_inscripcion2.Click += btnalta_inscripcion2_Click;
             // 
             // panelito5
             // 
@@ -430,9 +482,11 @@
             panelito5.Controls.Add(label24);
             panelito5.Controls.Add(cbEducacinF);
             panelito5.Controls.Add(label18);
+            panelito5.Location = new Point(393, 480);
             panelito5.Location = new Point(732, 1013);
             panelito5.Margin = new Padding(6);
             panelito5.Name = "panelito5";
+            panelito5.Size = new Size(304, 116);
             panelito5.Size = new Size(565, 237);
             panelito5.TabIndex = 59;
             // 
@@ -451,36 +505,64 @@
             // cbEducacinF
             // 
             cbEducacinF.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbEducacinF.Location = new Point(159, 60);
             cbEducacinF.Location = new Point(316, 96);
             cbEducacinF.Margin = new Padding(6);
             cbEducacinF.Name = "cbEducacinF";
             cbEducacinF.Size = new Size(145, 40);
             cbEducacinF.TabIndex = 62;
+            cbEducacinF.SelectedIndexChanged += cbEducacinF_SelectedIndexChanged;
             // 
             // label18
             // 
             label18.AutoSize = true;
             label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label18.ForeColor = SystemColors.ControlLightLight;
+            label18.Location = new Point(56, 51);
             label18.Location = new Point(69, 92);
             label18.Margin = new Padding(6, 0, 6, 0);
             label18.Name = "label18";
+            label18.Size = new Size(88, 42);
             label18.Size = new Size(255, 45);
             label18.TabIndex = 54;
-            label18.Text = "Educación Física";
+            label18.Text = "Educación \r\n   Física:";
             // 
             // panelito4
             // 
             panelito4.BackColor = Color.FromArgb(157, 101, 101);
             panelito4.BorderRadius = 20;
+            panelito4.Controls.Add(cbC);
+            panelito4.Controls.Add(lbC);
             panelito4.Controls.Add(label23);
             panelito4.Controls.Add(cbFormacion);
             panelito4.Controls.Add(label16);
+            panelito4.Location = new Point(73, 480);
             panelito4.Location = new Point(137, 1013);
             panelito4.Margin = new Padding(6);
             panelito4.Name = "panelito4";
+            panelito4.Size = new Size(298, 116);
             panelito4.Size = new Size(553, 237);
             panelito4.TabIndex = 58;
+            // 
+            // cbC
+            // 
+            cbC.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbC.Location = new Point(172, 38);
+            cbC.Name = "cbC";
+            cbC.Size = new Size(80, 23);
+            cbC.TabIndex = 67;
+            cbC.SelectedIndexChanged += cbC_SelectedIndexChanged;
+            // 
+            // lbC
+            // 
+            lbC.AutoSize = true;
+            lbC.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbC.ForeColor = SystemColors.ControlLightLight;
+            lbC.Location = new Point(21, 37);
+            lbC.Name = "lbC";
+            lbC.Size = new Size(145, 21);
+            lbC.TabIndex = 66;
+            lbC.Text = "Conoc. Del Medio:";
             // 
             // label23
             // 
@@ -497,11 +579,13 @@
             // cbFormacion
             // 
             cbFormacion.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFormacion.Location = new Point(172, 77);
             cbFormacion.Location = new Point(319, 128);
             cbFormacion.Margin = new Padding(6);
             cbFormacion.Name = "cbFormacion";
             cbFormacion.Size = new Size(145, 40);
             cbFormacion.TabIndex = 61;
+            cbFormacion.SelectedIndexChanged += cbFormacion_SelectedIndexChanged;
             // 
             // label16
             // 
@@ -513,7 +597,7 @@
             label16.Name = "label16";
             label16.Size = new Size(265, 90);
             label16.TabIndex = 56;
-            label16.Text = "Formación Cívica\r\nY Ética";
+            label16.Text = "Formación Cívica\r\nY Ética:";
             // 
             // panelito3
             // 
@@ -524,6 +608,7 @@
             panelito3.Controls.Add(cbMatematicas);
             panelito3.Controls.Add(label15);
             panelito3.Controls.Add(label17);
+            panelito3.Location = new Point(393, 307);
             panelito3.Location = new Point(732, 634);
             panelito3.Margin = new Padding(6);
             panelito3.Name = "panelito3";
@@ -545,26 +630,31 @@
             // cbTecnologias
             // 
             cbTecnologias.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbTecnologias.Location = new Point(159, 87);
             cbTecnologias.Location = new Point(295, 134);
             cbTecnologias.Margin = new Padding(6);
             cbTecnologias.Name = "cbTecnologias";
             cbTecnologias.Size = new Size(145, 40);
             cbTecnologias.TabIndex = 59;
+            cbTecnologias.SelectedIndexChanged += cbTecnologias_SelectedIndexChanged;
             // 
             // cbMatematicas
             // 
             cbMatematicas.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbMatematicas.Location = new Point(159, 50);
             cbMatematicas.Location = new Point(295, 66);
             cbMatematicas.Margin = new Padding(6);
             cbMatematicas.Name = "cbMatematicas";
             cbMatematicas.Size = new Size(145, 40);
             cbMatematicas.TabIndex = 58;
+            cbMatematicas.SelectedIndexChanged += cbMatematicas_SelectedIndexChanged;
             // 
             // label15
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = SystemColors.ControlLightLight;
+            label15.Location = new Point(37, 85);
             label15.Location = new Point(69, 130);
             label15.Margin = new Padding(6, 0, 6, 0);
             label15.Name = "label15";
@@ -577,6 +667,7 @@
             label17.AutoSize = true;
             label17.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label17.ForeColor = SystemColors.ControlLightLight;
+            label17.Location = new Point(37, 50);
             label17.Location = new Point(69, 62);
             label17.Margin = new Padding(6, 0, 6, 0);
             label17.Name = "label17";
@@ -595,6 +686,7 @@
             panelito2.Controls.Add(label13);
             panelito2.Controls.Add(label12);
             panelito2.Controls.Add(label7);
+            panelito2.Location = new Point(73, 307);
             panelito2.Location = new Point(137, 634);
             panelito2.Margin = new Padding(6);
             panelito2.Name = "panelito2";
@@ -622,6 +714,7 @@
             cbArtes.Name = "cbArtes";
             cbArtes.Size = new Size(145, 40);
             cbArtes.TabIndex = 59;
+            cbArtes.SelectedIndexChanged += cbArtes_SelectedIndexChanged;
             // 
             // cbIngles
             // 
@@ -631,6 +724,7 @@
             cbIngles.Name = "cbIngles";
             cbIngles.Size = new Size(145, 40);
             cbIngles.TabIndex = 58;
+            cbIngles.SelectedIndexChanged += cbIngles_SelectedIndexChanged;
             // 
             // cbEspanol
             // 
@@ -640,6 +734,7 @@
             cbEspanol.Name = "cbEspanol";
             cbEspanol.Size = new Size(145, 40);
             cbEspanol.TabIndex = 57;
+            cbEspanol.SelectedIndexChanged += cbEspanol_SelectedIndexChanged;
             // 
             // label13
             // 
@@ -721,6 +816,7 @@
             // cbmes
             // 
             cbmes.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbmes.Location = new Point(183, 122);
             cbmes.Location = new Point(340, 343);
             cbmes.Margin = new Padding(6);
             cbmes.Name = "cbmes";
@@ -745,6 +841,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = SystemColors.ControlLightLight;
+            label10.Location = new Point(40, 124);
             label10.Location = new Point(54, 343);
             label10.Margin = new Padding(6, 0, 6, 0);
             label10.Name = "label10";
@@ -757,6 +854,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = SystemColors.ControlLightLight;
+            label8.Location = new Point(18, 163);
             label8.Location = new Point(33, 260);
             label8.Margin = new Padding(6, 0, 6, 0);
             label8.Name = "label8";
@@ -766,6 +864,8 @@
             // 
             // cbAlumno
             // 
+            cbAlumno.Location = new Point(183, 161);
+            cbAlumno.Margin = new Padding(3, 2, 3, 2);
             cbAlumno.Location = new Point(340, 260);
             cbAlumno.Margin = new Padding(6, 4, 6, 4);
             cbAlumno.Name = "cbAlumno";
@@ -1060,6 +1160,8 @@
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
             panelApp.ResumeLayout(false);
             panelApp.PerformLayout();
+            panelito6.ResumeLayout(false);
+            panelito6.PerformLayout();
             panelito5.ResumeLayout(false);
             panelito5.PerformLayout();
             panelito4.ResumeLayout(false);
@@ -1150,5 +1252,11 @@
         private Label label24;
         private Label label23;
         private Label label22;
+        private ComboBox cbC;
+        private Label lbC;
+        private Panelito panelito6;
+        private ComboBox cbInasistencias;
+        private Label label20;
+        private Label label25;
     }
 }

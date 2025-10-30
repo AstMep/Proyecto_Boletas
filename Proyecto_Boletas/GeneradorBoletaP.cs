@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging; // Necesario para el MemoryStream
+using System.Drawing.Imaging;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
@@ -11,8 +11,12 @@ using System.Windows.Forms;
 
 namespace Proyecto_Boletas
 {
-    // Alias para evitar ambigüedad
     using PdfRectangle = iTextSharp.text.Rectangle;
+
+
+    // ====================================================================
+    // ESTRUCTURAS AUXILIARES
+    // ====================================================================
 
     internal class AlumnoInfo
     {
@@ -20,50 +24,58 @@ namespace Proyecto_Boletas
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-        public string NombreCompleto { get; set; }
+        public string NombreCompleto { get; set; } // ApellidoPaterno ApellidoMaterno Nombre
         public string Grupo { get; set; }
         public string Maestro { get; set; }
+        public int IdGrupo { get; set; } // Necesario para buscar materias
+        public int NoLista { get; set; }
     }
 
-    // ESTRUCTURA DE DATOS
     internal class DatosBoleta
     {
+        // [8 materias, 10 meses]
         public decimal?[,] CalificacionesMensuales { get; set; } = new decimal?[8, 10];
+        // [8 materias, 3 trimestres + 1 P. Final]
         public decimal?[,] CalificacionesPeriodales { get; set; } = new decimal?[8, 4];
+        // [10 meses]
         public decimal?[] PromediosMensuales { get; set; } = new decimal?[10];
         public decimal? PFinalPromedio { get; set; }
         public decimal? PromedioEdFinal { get; set; }
-        public int?[] Inasistencias { get; set; } = new int?[14];
+        public int?[] Inasistencias { get; set; } = new int?[14]; // Asumo 10 meses + 4 totales/finales
     }
 
-    // -----------------------------------------------------------
+    // ====================================================================
     // CLASE GENERADORA DEL PDF
-    // -----------------------------------------------------------
+    // ====================================================================
 
     internal class GeneradorBoletaP
     {
         // 🎯 AJUSTE DE TAMAÑO DE FUENTES 
-        private readonly iTextSharp.text.Font fontTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11);
-        private readonly iTextSharp.text.Font fontClave = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 9);
-        private readonly iTextSharp.text.Font fontTexto = FontFactory.GetFont(FontFactory.HELVETICA, 8); // Aumentado a 8 para más espacio
-        private readonly iTextSharp.text.Font fontPromedio = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 7); // Aumentado a 7
+        private readonly iTextSharp.text.Font fontTitulo = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+        private readonly iTextSharp.text.Font fontClave = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8);
+        private readonly iTextSharp.text.Font fontTexto = FontFactory.GetFont(FontFactory.HELVETICA, 7);
+        private readonly iTextSharp.text.Font fontPromedio = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 6);
         private readonly iTextSharp.text.Font fontNiveles = FontFactory.GetFont(FontFactory.HELVETICA, 6);
 
-        // --- Colores ---
+        // --- Colores (Tomados de GeneradorBoletaT) ---
         private readonly BaseColor colorBorde = BaseColor.BLACK;
-        private readonly BaseColor colorBlanco = BaseColor.WHITE; // Nuevo: Usaremos blanco en lugar de lila/magenta
-        private readonly BaseColor colorLila = new BaseColor(220, 220, 240); // Se mantiene para títulos de campos
-        private readonly BaseColor colorMagenta = new BaseColor(255, 220, 255); // Se mantiene para títulos de campos
-        private readonly BaseColor colorAmarilloClaro = new BaseColor(255, 245, 200); // Se mantiene para títulos de campos
-        private readonly BaseColor colorVerdeClaro = new BaseColor(230, 255, 200); // Se mantiene para títulos de campos
+        private readonly BaseColor colorBlanco = BaseColor.WHITE;
+        private readonly BaseColor colorLila = new BaseColor(220, 220, 240); // LENGUAJES (Esp, Ing, Art)
+        private readonly BaseColor colorMagenta = new BaseColor(255, 220, 255); // SABERES (Mate, Tec)
+        private readonly BaseColor colorAmarilloClaro = new BaseColor(255, 245, 200); // ÉTICA (F. Cívica, Ciencias)
+        private readonly BaseColor colorVerdeClaro = new BaseColor(230, 255, 200); // HUMANO (Ed. Física)
         private readonly BaseColor colorPromedio = new BaseColor(255, 223, 100);
         private readonly BaseColor colorGrisInasistencias = new BaseColor(240, 240, 240);
+
+        // --- Mapeo Interno de Materias y Meses ---
+        private readonly string[] mesesBD = { "DIAGNOSTICO", "SEP", "OCT", "NOV", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN" };
+        private readonly string[] materiasBD = { "ESPAÑOL", "INGLÉS", "ARTES", "MATEMÁTICAS", "TECNOLOGÍA", "CIENCIAS_CONDICIONAL", "FORM. CÍV Y ÉTICA", "ED. FISICA" };
+
 
         private string[] materiasBase;
 
         private MySqlConnection GetConnection()
         {
-            // Nota: Se asume la existencia de la clase Conexion
             Conexion conexion = new Conexion();
             return conexion.GetConnection();
         }
@@ -74,66 +86,188 @@ namespace Proyecto_Boletas
 
             if (nombreNormalizado.Contains("primero") || nombreNormalizado.Contains("segundo"))
             {
-                return "Conoc. del Medio";
+                return "CONOCIMIENTO DEL MEDIO";
             }
             else if (nombreNormalizado.Contains("tercero") ||
                      nombreNormalizado.Contains("cuarto") ||
                      nombreNormalizado.Contains("quinto") ||
                      nombreNormalizado.Contains("sexto"))
             {
-                return "C. Naturales";
+                return "CIENCIAS NATURALES";
             }
-            return "Conoc. del Medio";
+            return "CONOCIMIENTO DEL MEDIO";
         }
 
-        private DatosBoleta ObtenerDatosBoletaDummy()
+        // Nuevo: Obtiene el color de la fila basado en la lógica de los Campos Formativos
+        private BaseColor ObtenerColorMateriaFila(int indexMateria)
         {
-            // Simular datos de ejemplo para ver el llenado (solo para prueba)
+            if (indexMateria >= 0 && indexMateria <= 2) return colorLila; // LENGUAJES
+            if (indexMateria >= 3 && indexMateria <= 4) return colorMagenta; // SABERES (Mate, Tec)
+            if (indexMateria >= 5 && indexMateria <= 6) return colorAmarilloClaro; // ÉTICA (Ciencias, F. Civica)
+            if (indexMateria == 7) return colorVerdeClaro; // HUMANO (Ed. Física)
+            return colorBlanco;
+        }
+
+        // ====================================================================
+        // LÓGICA DE EXTRACCIÓN DE DATOS REALES
+        // ====================================================================
+
+        private AlumnoInfo ObtenerInfoAlumno(int idAlumno)
+        {
+            AlumnoInfo info = null;
+            string query = @"
+                SELECT A.Nombre, A.ApellidoPaterno, A.ApellidoMaterno, G.nombre_grupo, G.id_grupo, 
+                       M.NombreMaestro, M.ApellidoPMaestro, M.ApellidoMMaestro,
+                       (SELECT COUNT(*) FROM alumnos WHERE id_grupo = A.id_grupo AND AlumnoID <= A.AlumnoID) AS NoLista
+                FROM alumnos A
+                INNER JOIN grupo G ON A.id_grupo = G.id_grupo
+                INNER JOIN maestro M ON G.id_maestro = M.id_maestro
+                WHERE A.AlumnoID = @idAlumno";
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idAlumno", idAlumno);
+                conn.Open();
+
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        info = new AlumnoInfo
+                        {
+                            AlumnoID = idAlumno,
+                            Nombre = dr["Nombre"].ToString(),
+                            ApellidoPaterno = dr["ApellidoPaterno"].ToString(),
+                            ApellidoMaterno = dr["ApellidoMaterno"].ToString(),
+                            Grupo = dr["nombre_grupo"].ToString(),
+                            IdGrupo = dr.GetInt32("id_grupo"),
+                            Maestro = $"{dr["NombreMaestro"]} {dr["ApellidoPMaestro"]} {dr["ApellidoMMaestro"]}",
+                            NoLista = dr.GetInt32("NoLista"),
+                        };
+                        info.NombreCompleto = $"{info.ApellidoPaterno} {info.ApellidoMaterno} {info.Nombre}".ToUpper();
+                    }
+                }
+            }
+            return info;
+        }
+
+
+        private DatosBoleta ObtenerDatosBoleta(int idAlumno, string trimestre, int idGrupo)
+        {
             DatosBoleta datos = new DatosBoleta();
-            datos.CalificacionesMensuales[0, 1] = 9.5m; // Español - Sept
-            datos.CalificacionesMensuales[3, 3] = 7.0m; // Matemáticas - Nov/Dic
-            datos.CalificacionesMensuales[7, 9] = 10.0m; // Ed. Física - Jun
-            datos.Inasistencias[1] = 2; // Sept
-            datos.PFinalPromedio = 8.8m;
+
+            // 1. Mapeo de Materias Condicionales para la consulta
+            string nombreCienciasBD = ObtenerNombreMateriaCiencias(idGrupo.ToString()).ToUpper();
+
+            // Reemplazar la materia condicional en el array de mapeo interno
+            string[] materiasBDActualizadas = (string[])materiasBD.Clone();
+            materiasBDActualizadas[5] = nombreCienciasBD;
+
+            // 2. Determinar Periodos a Consultar
+            string[] mesesTrimestre;
+            string periodoFinal;
+
+            if (trimestre.Contains("1er")) { mesesTrimestre = new[] { "SEP", "OCT", "NOV" }; periodoFinal = "1ER_TRIMESTRE_FINAL"; }
+            else if (trimestre.Contains("2do")) { mesesTrimestre = new[] { "ENE", "FEB", "MAR" }; periodoFinal = "2DO_TRIMESTRE_FINAL"; }
+            else { mesesTrimestre = new[] { "ABR", "MAY", "JUN" }; periodoFinal = "3ER_TRIMESTRE_FINAL"; }
+
+            // 3. Extracción de Calificaciones
+            // Consulta de meses (Diagnóstico, Meses del trimestre, Promedio Final)
+            string periodosInQuery = $"'{string.Join("','", mesesBD)}','{periodoFinal}'";
+
+            string query = $@"
+                SELECT M.Nombre AS NombreMateria, C.Calificacion, C.Periodo 
+                FROM calificaciones C
+                INNER JOIN materias M ON C.MateriaID = M.MateriaID
+                WHERE C.AlumnoID = @idAlumno
+                AND C.Periodo IN ({periodosInQuery})";
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@idAlumno", idAlumno);
+                conn.Open();
+
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string materia = dr["NombreMateria"].ToString().ToUpper().Trim();
+                        string periodo = dr["Periodo"].ToString().ToUpper().Trim();
+                        decimal calificacion = dr.GetDecimal("Calificacion");
+
+                        // Mapear al índice de la matriz (r: fila de materia, c: columna de mes/periodo)
+                        int r = Array.IndexOf(materiasBDActualizadas, materia);
+                        int cMensual = Array.IndexOf(mesesBD, periodo);
+
+                        if (r != -1) // Si la materia se mapea
+                        {
+                            // A. Calificaciones Mensuales (0-9)
+                            if (cMensual != -1)
+                            {
+                                datos.CalificacionesMensuales[r, cMensual] = calificacion;
+                            }
+
+                            // B. Calificaciones Periodales (Trimestres)
+                            if (periodo == periodoFinal)
+                            {
+                                int cPeriodal = (trimestre.Contains("1er") ? 0 : trimestre.Contains("2do") ? 1 : 2);
+                                datos.CalificacionesPeriodales[r, cPeriodal] = calificacion;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 4. CÁLCULO DE PROMEDIOS MENSUALES Y FINAL
+            for (int c = 0; c < 10; c++)
+            {
+                decimal suma = 0;
+                int count = 0;
+                // Excluir el mes de diagnóstico (c=0) del promedio final si fuera necesario
+                // La suma de promedios mensuales SI incluye el Diagnóstico (c=0) si tiene calificación
+
+                for (int r = 0; r < 8; r++) // 8 materias
+                {
+                    if (datos.CalificacionesMensuales[r, c].HasValue)
+                    {
+                        suma += datos.CalificacionesMensuales[r, c].Value;
+                        count++;
+                    }
+                }
+                if (count > 0) datos.PromediosMensuales[c] = Math.Round(suma / count, 1);
+            }
+
+            // [Aquí iría la lógica para calcular el PFinalPromedio y PromedioEdFinal]
+
             return datos;
         }
 
 
+        // ====================================================================
+        // CÓDIGO DEL GENERADOR DE PDF
+        // ====================================================================
+
         public void CrearBoletaPersonal(int idAlumno, string trimestre)
         {
-            string nombreAlumno = "", nombreGrupo = "", nombreMaestro = "";
-            string cicloEscolar = "2024-2025";
-            string noLista = "S/N";
             string rutaSalida = string.Empty;
-
-            AlumnoInfo alumnoObjetivo = null;
-            int? idGrupo = null;
 
             try
             {
-                // NOTA: Se comenta la lógica de DB para el ejemplo y se usan datos dummy
-                alumnoObjetivo = new AlumnoInfo
-                {
-                    AlumnoID = idAlumno,
-                    NombreCompleto = "PÉREZ LÓPEZ JUAN",
-                    Grupo = "PRIMERO A",
-                    Maestro = "MÓNICA HERNÁNDEZ",
-                };
-                nombreAlumno = alumnoObjetivo.NombreCompleto;
-                nombreGrupo = alumnoObjetivo.Grupo;
-                nombreMaestro = alumnoObjetivo.Maestro;
-                noLista = "1";
-                // FIN: LÓGICA DUMMY
-
-                if (alumnoObjetivo == null)
+                // 1. OBTENER INFO Y DATOS
+                AlumnoInfo infoAlumno = ObtenerInfoAlumno(idAlumno);
+                if (infoAlumno == null)
                 {
                     MessageBox.Show("No se encontró información para el alumno seleccionado.", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
+                // Extraer datos de calificaciones (llena las matrices)
+                DatosBoleta datosDelAlumno = ObtenerDatosBoleta(idAlumno, trimestre, infoAlumno.IdGrupo);
 
-                // INICIALIZAR ARREGLO DE MATERIAS
-                string nombreMateriaCiencias = ObtenerNombreMateriaCiencias(nombreGrupo);
+                // Re-inicializar materiasBase con el nombre condicional correcto y en mayúsculas
+                string nombreMateriaCiencias = ObtenerNombreMateriaCiencias(infoAlumno.Grupo).ToUpper();
                 materiasBase = new[] {
                     "ESPAÑOL", "INGLÉS", "ARTES",
                     "MATEMÁTICAS", "TECNOLOGÍA",
@@ -142,34 +276,26 @@ namespace Proyecto_Boletas
                     "ED. FISICA"
                 };
 
-                // OBTENER DATOS (Dummy o reales si se conecta la DB)
-                DatosBoleta datosDelAlumno = ObtenerDatosBoletaDummy();
-
-                // USO DE SaveFileDialog
+                // 2. USO DE SaveFileDialog
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
-                    saveFileDialog.FileName = $"Boleta_Personal_{idAlumno}_{trimestre}.pdf";
+                    saveFileDialog.FileName = $"Boleta_Personal_{infoAlumno.NombreCompleto.Replace(" ", "_")}_{trimestre}.pdf";
                     saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
-                    saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                    if (saveFileDialog.ShowDialog() != DialogResult.OK)
-                    {
-                        return;
-                    }
-
+                    if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                     rutaSalida = saveFileDialog.FileName;
                 }
 
-                // --- Configuración y Generación del PDF (Tamaño Carta Vertical) ---
+                // 3. Configuración y Generación del PDF
                 Document doc = new Document(PageSize.LETTER, 30, 30, 30, 30);
                 PdfWriter.GetInstance(doc, new FileStream(rutaSalida, FileMode.Create));
                 doc.Open();
 
-                // --- Agregar secciones al PDF ---
-                doc.Add(CrearEncabezadoSuperior(nombreGrupo, nombreMaestro, cicloEscolar, noLista));
+                // 4. Agregar secciones al PDF
+                doc.Add(CrearEncabezadoSuperior(infoAlumno.Grupo, infoAlumno.Maestro, "2024-2025", infoAlumno.NoLista.ToString()));
 
                 doc.Add(new Paragraph("\n"));
-                doc.Add(new Paragraph($"ALUMNO (A): {nombreAlumno}", fontClave));
+                doc.Add(new Paragraph($"ALUMNO (A): {infoAlumno.NombreCompleto}", fontClave));
                 doc.Add(new Paragraph("\n"));
 
 
@@ -184,23 +310,12 @@ namespace Proyecto_Boletas
 
                 doc.Close();
 
-
-                MessageBox.Show($"Boleta Personal generada correctamente en:\n{rutaSalida}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Abrir el PDF correctamente en Windows
+                // 5. Abrir el PDF
                 try
                 {
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = rutaSalida,
-                        UseShellExecute = true
-                    });
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = rutaSalida, UseShellExecute = true });
                 }
-                catch (Exception exOpen)
-                {
-                    MessageBox.Show($"El PDF se generó correctamente, pero no se pudo abrir automáticamente.\n\nPuedes encontrarlo en:\n{rutaSalida}",
-                        "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                catch { /* Manejo de error de apertura */ }
             }
             catch (Exception ex)
             {
@@ -209,7 +324,9 @@ namespace Proyecto_Boletas
         }
 
 
-        // MÉTODOS AUXILIARES: SE MANTIENEN SIN CAMBIOS FUNCIONALES
+        // ====================================================================
+        // MÉTODOS AUXILIARES: TABLAS Y CELDAS
+        // ====================================================================
         private PdfPTable CrearEncabezadoSuperior(string grupo, string maestro, string ciclo, string lista)
         {
             PdfPTable table = new PdfPTable(4) { WidthPercentage = 100 };
@@ -260,85 +377,18 @@ namespace Proyecto_Boletas
             return table;
         }
 
-        private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int bordeEstilo)
-        {
-            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
-            {
-                HorizontalAlignment = alineacion,
-                VerticalAlignment = Element.ALIGN_MIDDLE,
-                Padding = 4f, // AUMENTADO PARA MÁS ESPACIO
-                Border = bordeEstilo,
-                BorderColor = colorBorde
-            };
-            return cell;
-        }
-
-        private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int colspan, int rowspan, BaseColor fondo)
-        {
-            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
-            {
-                HorizontalAlignment = alineacion,
-                VerticalAlignment = Element.ALIGN_MIDDLE,
-                Colspan = colspan,
-                Rowspan = rowspan,
-                Padding = 4f, // AUMENTADO PARA MÁS ESPACIO
-                BorderColor = colorBorde,
-                BackgroundColor = fondo
-            };
-            return cell;
-        }
-
-        private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, BaseColor fondo = null)
-        {
-            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
-            {
-                HorizontalAlignment = alineacion,
-                VerticalAlignment = Element.ALIGN_MIDDLE,
-                Padding = 4f, // AUMENTADO PARA MÁS ESPACIO
-                BorderColor = colorBorde
-            };
-            if (fondo != null)
-            {
-                cell.BackgroundColor = fondo;
-            }
-            return cell;
-        }
-
-        private PdfPCell CrearCeldaVertical(string texto, iTextSharp.text.Font fuente, BaseColor fondo, int rowspan, int colspan, BaseColor bordeColor)
-        {
-            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
-            {
-                Rotation = 90,
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                VerticalAlignment = Element.ALIGN_MIDDLE,
-                Rowspan = rowspan,
-                Colspan = colspan,
-                BackgroundColor = fondo,
-                BorderColor = bordeColor,
-                Padding = 3f // Mantenemos el padding bajo para texto vertical
-            };
-            return cell;
-        }
-
-        // 🎯 1. FUNCIÓN CORREGIDA DE LA TABLA PRINCIPAL DE CALIFICACIONES (Con espacios y sin colores en calificaciones)
         private PdfPTable CrearTablaPrincipalCalificaciones(DatosBoleta datos)
         {
-            // Tabla con 17 columnas (añadimos 1 columna para el espacio)
             PdfPTable tablaBase = new PdfPTable(17) { WidthPercentage = 100 };
 
-            float[] widths = { 0.11f, 0.12f, // A, B (Campos)
-                        0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, // C-L (10 Meses)
-                        0.015f, // ESPACIO SEPARADOR (MUY PEQUEÑO)
-                        0.06f, 0.06f, 0.06f, // M, N, O (3 Trimestres)
-                        0.09f // P (P. Final)
-                        };
+            float[] widths = { 0.11f, 0.12f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.015f, 0.06f, 0.06f, 0.06f, 0.09f };
             tablaBase.SetWidths(widths);
 
             // --- FILA 1: TÍTULOS DE ENCABEZADO SUPERIOR ---
 
             // Campo: CAMPOS DE FORMACIÓN (Rowspan 2)
             PdfPCell tituloCampos = CrearCelda("CAMPOS DE FORMACIÓN ACADÉMICA", fontClave, Element.ALIGN_CENTER, 2, 2, colorGrisInasistencias);
-            tituloCampos.MinimumHeight = 35f; // Reducido para hacer tabla más compacta
+            tituloCampos.MinimumHeight = 35f;
             tablaBase.AddCell(tituloCampos);
 
             // Calificaciones Mensuales (Colspan 10)
@@ -361,15 +411,13 @@ namespace Proyecto_Boletas
             tablaBase.AddCell(periodosCell);
 
             // --- FILA 2: SUBTÍTULOS DE CALIFICACIONES ---
-            string[] mesesAbrev = { "DIAG.", "SEPT", "OCT", "NOV/DI", "ENERO", "FEB", "MAR", "ABRIL", "MAY", "JUN" };
+            string[] mesesAbrev = { "DIA G.", "SEP T", "OC T", "NOV/DI", "ENE RO", "FEB", "MAR", "ABR IL", "MAY", "JUN" };
             foreach (string mes in mesesAbrev)
             {
                 PdfPCell cell = CrearCelda(mes, fontPromedio, Element.ALIGN_CENTER, colorGrisInasistencias);
-                cell.MinimumHeight = 22f; // Reducido
+                cell.MinimumHeight = 22f;
                 tablaBase.AddCell(cell);
             }
-
-            // (El espacio separador ya tiene Rowspan=2, no se agrega nada aquí)
 
             string[] trimestres = { "1º TRIM", "2º TRIM", "3º TRIM" };
             foreach (string t in trimestres)
@@ -394,18 +442,15 @@ namespace Proyecto_Boletas
             tablaBase.AddCell(finalCell);
 
             // --- FILAS 3-11: DATOS DE MATERIAS Y PROMEDIOS ---
-
-            BaseColor[] coloresTitulosCampos = { colorLila, colorLila, colorLila, colorMagenta, colorMagenta, colorAmarilloClaro, colorAmarilloClaro, colorVerdeClaro };
-
             for (int r = 0; r < 9; r++)
             {
                 BaseColor colorFondoDatos = colorBlanco;
 
                 if (r < 8) // Filas de Materias
                 {
-                    BaseColor colorTituloCampo = coloresTitulosCampos[r];
+                    BaseColor colorTituloCampo = ObtenerColorMateriaFila(r);
 
-                    // Columna 1 (A): Campo Formativo Vertical con ROWSPAN 
+                    // Columna 1 (A): Campo Formativo Vertical con ROWSPAN (Tu lógica original)
                     if (r == 0) tablaBase.AddCell(CrearCeldaVertical("LENGUAJES", fontClave, colorTituloCampo, 3, 1, colorBorde));
                     else if (r == 3) tablaBase.AddCell(CrearCeldaVertical("SABERES\n Y \nPENS. \nCIENT.", fontClave, colorTituloCampo, 2, 1, colorBorde));
                     else if (r == 5) tablaBase.AddCell(CrearCeldaVertical("ÉTICA,\n NAT.\n Y SOC.", fontClave, colorTituloCampo, 2, 1, colorBorde));
@@ -415,7 +460,7 @@ namespace Proyecto_Boletas
                     string nombreMateria = materiasBase[r].ToUpper();
                     PdfPCell cellMateria;
 
-                    if (r == 6)
+                    if (r == 6) // F. Cívica
                     {
                         cellMateria = CrearCelda(nombreMateria.Replace(" Y ", "\nY\n"), fontTexto, Element.ALIGN_LEFT, colorTituloCampo);
                     }
@@ -423,7 +468,7 @@ namespace Proyecto_Boletas
                     {
                         cellMateria = CrearCelda(nombreMateria, fontTexto, Element.ALIGN_LEFT, colorTituloCampo);
                     }
-                    cellMateria.MinimumHeight = 26f; // Reducido para compactar
+                    cellMateria.MinimumHeight = 26f;
                     tablaBase.AddCell(cellMateria);
 
                     // Columnas 3-12: Calificaciones Mensuales (10 columnas)
@@ -437,10 +482,7 @@ namespace Proyecto_Boletas
                             fontColor = BaseColor.RED;
                         }
 
-                        PdfPCell dataCell = CrearCelda(valor,
-                                                       FontFactory.GetFont(FontFactory.HELVETICA, 7, fontColor), // Fuente más pequeña
-                                                       Element.ALIGN_CENTER,
-                                                       colorFondoDatos);
+                        PdfPCell dataCell = CrearCelda(valor, FontFactory.GetFont(FontFactory.HELVETICA, 7, fontColor), Element.ALIGN_CENTER, colorFondoDatos);
                         dataCell.MinimumHeight = 26f;
                         tablaBase.AddCell(dataCell);
                     }
@@ -470,10 +512,7 @@ namespace Proyecto_Boletas
                         }
                         // La columna c=3 (P. Final) se deja vacía para las materias individuales
 
-                        PdfPCell dataCell = CrearCelda(valor,
-                                                       FontFactory.GetFont(FontFactory.HELVETICA, 7, fontColor),
-                                                       Element.ALIGN_CENTER,
-                                                       colorFondoDatos);
+                        PdfPCell dataCell = CrearCelda(valor, FontFactory.GetFont(FontFactory.HELVETICA, 7, fontColor), Element.ALIGN_CENTER, colorFondoDatos);
                         dataCell.MinimumHeight = 26f;
                         tablaBase.AddCell(dataCell);
                     }
@@ -506,7 +545,7 @@ namespace Proyecto_Boletas
                     };
                     tablaBase.AddCell(espacioPromedio);
 
-                    // Columnas 14-16: Vacías (no hay promedios trimestrales)
+                    // Columnas 14-16: Vacías (no hay promedios trimestrales en esta fila)
                     for (int i = 0; i < 3; i++)
                     {
                         PdfPCell emptyCell = CrearCelda("", fontClave, Element.ALIGN_CENTER, colorFondoPromedio);
@@ -525,7 +564,6 @@ namespace Proyecto_Boletas
             return tablaBase;
         }
 
-        // OTROS MÉTODOS AUXILIARES: SE MANTIENEN SIN CAMBIOS FUNCIONALES
         private PdfPTable CrearTablaInasistenciasNiveles(DatosBoleta datos)
         {
             PdfPTable tablaContenedoraPrincipal = new PdfPTable(1) { WidthPercentage = 100 };
@@ -539,7 +577,7 @@ namespace Proyecto_Boletas
 
             // Título INASISTENCIAS (Rowspan 2)
             PdfPCell tituloInasCell = CrearCelda("INASISTENCIAS", fontClave, Element.ALIGN_CENTER, 2, 2, colorGrisInasistencias);
-            tituloInasCell.MinimumHeight = 45f; // AUMENTADO
+            tituloInasCell.MinimumHeight = 45f;
             tituloInasCell.BorderColor = colorBorde;
             inasistencias.AddCell(tituloInasCell);
 
@@ -554,31 +592,56 @@ namespace Proyecto_Boletas
             }
 
             // CALIF (Colspan 3)
-            PdfPCell califTrimCell = CrearCelda("CALIF", fontPromedio, Element.ALIGN_CENTER, 3, 1, colorGrisInasistencias);
+            PdfPCell califTrimCell = CrearCelda("CALIF", fontPromedio, Element.ALIGN_CENTER, 1, 1, colorGrisInasistencias);
+            califTrimCell.MinimumHeight = 20f;
+            califTrimCell.BorderColor = colorBorde;
+            inasistencias.AddCell(califTrimCell);
+
+            PdfPCell califTrimCell1 = CrearCelda("CALIF", fontPromedio, Element.ALIGN_CENTER, 1, 1, colorGrisInasistencias);
+            califTrimCell.MinimumHeight = 20f;
+            califTrimCell.BorderColor = colorBorde;
+            inasistencias.AddCell(califTrimCell);
+
+            PdfPCell califTrimCell2 = CrearCelda("CALIF", fontPromedio, Element.ALIGN_CENTER, 1, 1, colorGrisInasistencias);
             califTrimCell.MinimumHeight = 20f;
             califTrimCell.BorderColor = colorBorde;
             inasistencias.AddCell(califTrimCell);
 
             // P. FINAL
-            PdfPCell pFinalCell = CrearCelda("P. FINAL", fontPromedio, Element.ALIGN_CENTER, 1, 1, colorGrisInasistencias);
+            PdfPCell pFinalCell = CrearCelda("P. F", fontPromedio, Element.ALIGN_CENTER, 1, 1, colorGrisInasistencias);
             pFinalCell.MinimumHeight = 20f;
             pFinalCell.BorderColor = colorBorde;
             inasistencias.AddCell(pFinalCell);
 
             // Datos de Inasistencias (14 celdas)
+            // Ya que el encabezado INASISTENCIAS usa Rowspan=2 y Colspan=2,
+            // debemos insertar dos celdas vacías en la fila de datos para ocupar ese espacio.
+
+            // 1. Celdas vacías para el espacio del encabezado (Columna 1 y 2)
+            for (int i = 0; i < 2; i++)
+            {
+                // Usar BaseColor.WHITE para evitar barras negras
+                PdfPCell emptyCell = CrearCelda("", fontTexto, Element.ALIGN_CENTER, BaseColor.WHITE);
+                emptyCell.MinimumHeight = 25f; // Mantener la altura
+                emptyCell.BorderColor = colorBorde;
+                inasistencias.AddCell(emptyCell);
+            }
+
+            // 2. Datos de inasistencias (las 14 celdas restantes)
             for (int i = 0; i < 14; i++)
             {
+                // Ajustamos los índices para acceder a los 14 valores (0 a 13)
                 string valor = datos.Inasistencias[i] != null ? datos.Inasistencias[i].Value.ToString() : "";
 
                 PdfPCell dataCell = CrearCelda(valor, fontTexto, Element.ALIGN_CENTER, BaseColor.WHITE);
-                dataCell.MinimumHeight = 25f; // AUMENTADO
+                dataCell.MinimumHeight = 25f;
                 dataCell.BorderColor = colorBorde;
                 inasistencias.AddCell(dataCell);
             }
 
+            // El total de celdas añadidas es 2 (espacio) + 14 (datos) = 16, lo que coincide con el ancho de la tabla.
+
             tablaContenedoraPrincipal.AddCell(new PdfPCell(inasistencias) { Padding = 0, Border = PdfRectangle.BOX, BorderColor = colorBorde });
-
-
             // --- B. SUB-TABLA DE NIVELES DE DESEMPEÑO ---
             PdfPTable nivelesContenedor = new PdfPTable(1) { WidthPercentage = 100 };
             nivelesContenedor.DefaultCell.Border = PdfRectangle.NO_BORDER;
@@ -590,9 +653,9 @@ namespace Proyecto_Boletas
             (string titulo, string descripcion, BaseColor color)[] nivelesData = new (string, string, BaseColor)[]
             {
                 ("NIVEL I - EQUIVALE A 5", "El estudiante tiene carencias fundamentales en valores y principios para desarrollar una convivencia sana y pacífica, dentro y fuera del aula.", colorBlanco),
-                ("NIVEL II - EQUIVALE A 6 Y 7", "El estudiante tiene dificultades para demostrar valores y principios para desarrollar una convivencia sana y pacífica, dentro y fuera del aula.", colorAmarilloClaro), // Uso de amarillo claro
+                ("NIVEL II - EQUIVALE A 6 Y 7", "El estudiante tiene dificultades para demostrar valores y principios para desarrollar una convivencia sana y pacífica, dentro y fuera del aula.", colorAmarilloClaro),
                 ("NIVEL III - EQUIVALE A 8 Y 9", "El estudiante ha demostrado los valores y principios para desarrollar una convivencia sana y pacífica, dentro y fuera del aula.", colorBlanco),
-                ("NIVEL IV - EQUIVALE A 10", "El estudiante ha demostrado los valores y principios para desarrollar una convivencia sana y pacífica, dentro y fuera del aula.", colorLila) // Uso de lila
+                ("NIVEL IV - EQUIVALE A 10", "El estudiante ha demostrado los valores y principios para desarrollar una convivencia sana y pacífica, dentro y fuera del aula.", colorLila)
             };
 
             foreach (var nivel in nivelesData)
@@ -638,7 +701,7 @@ namespace Proyecto_Boletas
                     Border = PdfRectangle.BOTTOM_BORDER,
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_BOTTOM,
-                    PaddingTop = 20f // AUMENTADO PARA MÁS ESPACIO
+                    PaddingTop = 20f
                 };
                 colIzquierda.AddCell(firmaCell);
             }
@@ -658,7 +721,7 @@ namespace Proyecto_Boletas
                     Border = PdfRectangle.BOTTOM_BORDER,
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_BOTTOM,
-                    PaddingTop = 20f // AUMENTADO PARA MÁS ESPACIO
+                    PaddingTop = 20f
                 };
                 colDerecha.AddCell(firmaCell);
             }
@@ -667,13 +730,65 @@ namespace Proyecto_Boletas
             return tablaBase;
         }
 
-        public class Alumno
+        // Métodos CrearCelda...
+        private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int bordeEstilo)
         {
-            public int AlumnoID { get; set; }
-            public string Nombre { get; set; }
-            public string ApellidoPaterno { get; set; }
-            public string ApellidoMaterno { get; set; }
-            public string Genero { get; set; }
+            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
+            {
+                HorizontalAlignment = alineacion,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                Padding = 4f,
+                Border = bordeEstilo,
+                BorderColor = colorBorde
+            };
+            return cell;
+        }
+
+        private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, int colspan, int rowspan, BaseColor fondo)
+        {
+            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
+            {
+                HorizontalAlignment = alineacion,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                Colspan = colspan,
+                Rowspan = rowspan,
+                Padding = 4f,
+                BorderColor = colorBorde,
+                BackgroundColor = fondo
+            };
+            return cell;
+        }
+
+        private PdfPCell CrearCelda(string texto, iTextSharp.text.Font fuente, int alineacion, BaseColor fondo = null)
+        {
+            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
+            {
+                HorizontalAlignment = alineacion,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                Padding = 4f,
+                BorderColor = colorBorde
+            };
+            if (fondo != null)
+            {
+                cell.BackgroundColor = fondo;
+            }
+            return cell;
+        }
+
+        private PdfPCell CrearCeldaVertical(string texto, iTextSharp.text.Font fuente, BaseColor fondo, int rowspan, int colspan, BaseColor bordeColor)
+        {
+            PdfPCell cell = new PdfPCell(new Phrase(texto, fuente))
+            {
+                Rotation = 90,
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                Rowspan = rowspan,
+                Colspan = colspan,
+                BackgroundColor = fondo,
+                BorderColor = bordeColor,
+                Padding = 3f
+            };
+            return cell;
         }
     }
 }
