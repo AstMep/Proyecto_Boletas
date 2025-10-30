@@ -81,5 +81,12 @@ namespace Proyecto_Boletas
             formularioPDF.Show();
             this.Hide();
         }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+            Mod_Modificacion Modificacion = new Mod_Modificacion("Secretaria"); // ✅ Pasar "Secretaria"
+            Modificacion.Show();
+            this.Hide();
+        }
     }
 }

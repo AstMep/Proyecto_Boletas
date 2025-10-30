@@ -278,7 +278,7 @@ namespace Proyecto_Boletas
         private bool ValidarTutor(string nombre, string apellidoP, string apellidoM, string telefono, string correo, out string mensajeError)
         {
             mensajeError = "";
-            
+
 
             // Campos vacíos
             if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(apellidoP) ||
@@ -693,7 +693,7 @@ namespace Proyecto_Boletas
         }
 
 
-       
+
 
         private void MostrarMateriasDeGrupo(int idGrupo)
         {
@@ -1007,7 +1007,7 @@ namespace Proyecto_Boletas
                     return;
                 }
 
-                
+
 
                 if (!ValidarTutor(nombreTutor, apellidoPTutor, apellidoMTutor, telefonoTutor, correoTutor, out string msgTutor))
                 {
@@ -1311,6 +1311,13 @@ namespace Proyecto_Boletas
         private void groupBox1_Enter_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEdicionDatos_Click_1(object sender, EventArgs e)
+        {
+            Mod_Modificacion modificacion = new Mod_Modificacion(rolUsuario);
+            modificacion.Show();
+            this.Hide();
         }
     }
 }

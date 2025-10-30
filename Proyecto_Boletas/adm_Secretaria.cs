@@ -485,5 +485,12 @@ namespace Proyecto_Boletas
             administrar_maestros.Show();
             this.Hide();
         }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+            Mod_Modificacion modificacion = new Mod_Modificacion();
+            modificacion.Show();
+            this.Hide();
+        }
     }
 }

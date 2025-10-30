@@ -108,10 +108,11 @@
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(336, 0);
-            panelApp.Margin = new Padding(6, 6, 6, 6);
+            panelApp.Margin = new Padding(6);
             panelApp.Name = "panelApp";
             panelApp.Size = new Size(1562, 1097);
             panelApp.TabIndex = 8;
+            panelApp.Paint += panelApp_Paint;
             // 
             // panelito3
             // 
@@ -124,7 +125,7 @@
             panelito3.Controls.Add(label17);
             panelito3.Controls.Add(cbAlumno);
             panelito3.Location = new Point(150, 164);
-            panelito3.Margin = new Padding(6, 6, 6, 6);
+            panelito3.Margin = new Padding(6);
             panelito3.Name = "panelito3";
             panelito3.Size = new Size(1320, 322);
             panelito3.TabIndex = 24;
@@ -148,7 +149,7 @@
             btnGuardarModificacion.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGuardarModificacion.Image = (Image)resources.GetObject("btnGuardarModificacion.Image");
             btnGuardarModificacion.Location = new Point(58, 66);
-            btnGuardarModificacion.Margin = new Padding(6, 6, 6, 6);
+            btnGuardarModificacion.Margin = new Padding(6);
             btnGuardarModificacion.Name = "btnGuardarModificacion";
             btnGuardarModificacion.Size = new Size(156, 145);
             btnGuardarModificacion.TabIndex = 51;
@@ -171,7 +172,7 @@
             // 
             cbGrupoPer.DropDownStyle = ComboBoxStyle.DropDownList;
             cbGrupoPer.Location = new Point(574, 100);
-            cbGrupoPer.Margin = new Padding(6, 6, 6, 6);
+            cbGrupoPer.Margin = new Padding(6);
             cbGrupoPer.Name = "cbGrupoPer";
             cbGrupoPer.Size = new Size(700, 40);
             cbGrupoPer.TabIndex = 48;
@@ -193,7 +194,7 @@
             // 
             cbAlumno.DropDownStyle = ComboBoxStyle.DropDownList;
             cbAlumno.Location = new Point(574, 162);
-            cbAlumno.Margin = new Padding(6, 6, 6, 6);
+            cbAlumno.Margin = new Padding(6);
             cbAlumno.Name = "cbAlumno";
             cbAlumno.Size = new Size(700, 40);
             cbAlumno.TabIndex = 47;
@@ -216,7 +217,7 @@
             panelito2.Controls.Add(label19);
             panelito2.Controls.Add(label20);
             panelito2.Location = new Point(149, 1257);
-            panelito2.Margin = new Padding(6, 6, 6, 6);
+            panelito2.Margin = new Padding(6);
             panelito2.Name = "panelito2";
             panelito2.Size = new Size(1322, 508);
             panelito2.TabIndex = 23;
@@ -236,7 +237,7 @@
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(1142, 371);
-            pictureBox1.Margin = new Padding(6, 6, 6, 6);
+            pictureBox1.Margin = new Padding(6);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(137, 137);
             pictureBox1.TabIndex = 34;
@@ -245,7 +246,7 @@
             // correo_tutor
             // 
             correo_tutor.Location = new Point(438, 407);
-            correo_tutor.Margin = new Padding(6, 6, 6, 6);
+            correo_tutor.Margin = new Padding(6);
             correo_tutor.Name = "correo_tutor";
             correo_tutor.Size = new Size(645, 39);
             correo_tutor.TabIndex = 44;
@@ -265,7 +266,7 @@
             // telefono_tutor
             // 
             telefono_tutor.Location = new Point(438, 339);
-            telefono_tutor.Margin = new Padding(6, 6, 6, 6);
+            telefono_tutor.Margin = new Padding(6);
             telefono_tutor.Name = "telefono_tutor";
             telefono_tutor.Size = new Size(645, 39);
             telefono_tutor.TabIndex = 42;
@@ -285,7 +286,7 @@
             // apellidoM_tutor
             // 
             apellidoM_tutor.Location = new Point(438, 271);
-            apellidoM_tutor.Margin = new Padding(6, 6, 6, 6);
+            apellidoM_tutor.Margin = new Padding(6);
             apellidoM_tutor.Name = "apellidoM_tutor";
             apellidoM_tutor.Size = new Size(645, 39);
             apellidoM_tutor.TabIndex = 40;
@@ -294,7 +295,7 @@
             // apellidoP_tutor
             // 
             apellidoP_tutor.Location = new Point(438, 203);
-            apellidoP_tutor.Margin = new Padding(6, 6, 6, 6);
+            apellidoP_tutor.Margin = new Padding(6);
             apellidoP_tutor.Name = "apellidoP_tutor";
             apellidoP_tutor.Size = new Size(645, 39);
             apellidoP_tutor.TabIndex = 39;
@@ -303,7 +304,7 @@
             // nombre_tutor
             // 
             nombre_tutor.Location = new Point(440, 124);
-            nombre_tutor.Margin = new Padding(6, 6, 6, 6);
+            nombre_tutor.Margin = new Padding(6);
             nombre_tutor.Name = "nombre_tutor";
             nombre_tutor.Size = new Size(643, 39);
             nombre_tutor.TabIndex = 38;
@@ -365,7 +366,7 @@
             panelito1.Controls.Add(Usuario);
             panelito1.Controls.Add(label5);
             panelito1.Location = new Point(150, 525);
-            panelito1.Margin = new Padding(6, 6, 6, 6);
+            panelito1.Margin = new Padding(6);
             panelito1.Name = "panelito1";
             panelito1.Size = new Size(1320, 702);
             panelito1.TabIndex = 22;
@@ -375,7 +376,7 @@
             // 
             combosgenero.FormattingEnabled = true;
             combosgenero.Location = new Point(880, 617);
-            combosgenero.Margin = new Padding(6, 6, 6, 6);
+            combosgenero.Margin = new Padding(6);
             combosgenero.Name = "combosgenero";
             combosgenero.Size = new Size(216, 40);
             combosgenero.TabIndex = 56;
@@ -396,7 +397,7 @@
             // 
             grupo_alumno.FormattingEnabled = true;
             grupo_alumno.Location = new Point(880, 523);
-            grupo_alumno.Margin = new Padding(6, 6, 6, 6);
+            grupo_alumno.Margin = new Padding(6);
             grupo_alumno.Name = "grupo_alumno";
             grupo_alumno.Size = new Size(216, 40);
             grupo_alumno.TabIndex = 54;
@@ -417,7 +418,7 @@
             // 
             edad_alumno.FormattingEnabled = true;
             edad_alumno.Location = new Point(453, 533);
-            edad_alumno.Margin = new Padding(6, 6, 6, 6);
+            edad_alumno.Margin = new Padding(6);
             edad_alumno.Name = "edad_alumno";
             edad_alumno.Size = new Size(225, 40);
             edad_alumno.TabIndex = 52;
@@ -426,7 +427,7 @@
             // nacimiento_alumno
             // 
             nacimiento_alumno.Location = new Point(453, 429);
-            nacimiento_alumno.Margin = new Padding(6, 6, 6, 6);
+            nacimiento_alumno.Margin = new Padding(6);
             nacimiento_alumno.Name = "nacimiento_alumno";
             nacimiento_alumno.Size = new Size(643, 39);
             nacimiento_alumno.TabIndex = 51;
@@ -480,7 +481,7 @@
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
             pictureBox2.Location = new Point(1161, 326);
-            pictureBox2.Margin = new Padding(6, 6, 6, 6);
+            pictureBox2.Margin = new Padding(6);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(117, 141);
             pictureBox2.TabIndex = 46;
@@ -489,7 +490,7 @@
             // txtCurp
             // 
             txtCurp.Location = new Point(453, 367);
-            txtCurp.Margin = new Padding(6, 6, 6, 6);
+            txtCurp.Margin = new Padding(6);
             txtCurp.Name = "txtCurp";
             txtCurp.Size = new Size(643, 39);
             txtCurp.TabIndex = 37;
@@ -498,7 +499,7 @@
             // apellidoM_alumno
             // 
             apellidoM_alumno.Location = new Point(453, 299);
-            apellidoM_alumno.Margin = new Padding(6, 6, 6, 6);
+            apellidoM_alumno.Margin = new Padding(6);
             apellidoM_alumno.Name = "apellidoM_alumno";
             apellidoM_alumno.Size = new Size(643, 39);
             apellidoM_alumno.TabIndex = 35;
@@ -507,7 +508,7 @@
             // apellidoP_alumno
             // 
             apellidoP_alumno.Location = new Point(453, 230);
-            apellidoP_alumno.Margin = new Padding(6, 6, 6, 6);
+            apellidoP_alumno.Margin = new Padding(6);
             apellidoP_alumno.Name = "apellidoP_alumno";
             apellidoP_alumno.Size = new Size(643, 39);
             apellidoP_alumno.TabIndex = 34;
@@ -516,7 +517,7 @@
             // nombre_alumno
             // 
             nombre_alumno.Location = new Point(453, 164);
-            nombre_alumno.Margin = new Padding(6, 6, 6, 6);
+            nombre_alumno.Margin = new Padding(6);
             nombre_alumno.Name = "nombre_alumno";
             nombre_alumno.Size = new Size(643, 39);
             nombre_alumno.TabIndex = 33;
@@ -562,7 +563,7 @@
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(6, 6, 6, 6);
+            panel1.Margin = new Padding(6);
             panel1.Name = "panel1";
             panel1.Size = new Size(1528, 126);
             panel1.TabIndex = 21;
@@ -588,13 +589,14 @@
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
             btn_ingresar.Location = new Point(32, 34);
-            btn_ingresar.Margin = new Padding(6, 6, 6, 6);
+            btn_ingresar.Margin = new Padding(6);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
             btn_ingresar.Size = new Size(288, 62);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
+            btn_ingresar.Click += btn_ingresar_Click;
             // 
             // panelMenu
             // 
@@ -611,7 +613,7 @@
             panelMenu.Controls.Add(panelLogo);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(6, 6, 6, 6);
+            panelMenu.Margin = new Padding(6);
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(336, 1097);
             panelMenu.TabIndex = 7;
@@ -627,12 +629,13 @@
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
             btn_admaestros.Location = new Point(0, 951);
-            btn_admaestros.Margin = new Padding(6, 6, 6, 6);
+            btn_admaestros.Margin = new Padding(6);
             btn_admaestros.Name = "btn_admaestros";
             btn_admaestros.Size = new Size(336, 109);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
+            btn_admaestros.Click += btn_admaestros_Click;
             // 
             // btnEnvioBoletas
             // 
@@ -645,12 +648,13 @@
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEnvioBoletas.Location = new Point(0, 842);
-            btnEnvioBoletas.Margin = new Padding(6, 6, 6, 6);
+            btnEnvioBoletas.Margin = new Padding(6);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
             btnEnvioBoletas.Size = new Size(336, 109);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
+            btnEnvioBoletas.Click += btnEnvioBoletas_Click;
             // 
             // btnEdicionDatos
             // 
@@ -663,12 +667,13 @@
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdicionDatos.Location = new Point(0, 733);
-            btnEdicionDatos.Margin = new Padding(6, 6, 6, 6);
+            btnEdicionDatos.Margin = new Padding(6);
             btnEdicionDatos.Name = "btnEdicionDatos";
             btnEdicionDatos.Size = new Size(336, 109);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
+            btnEdicionDatos.Click += btnEdicionDatos_Click;
             // 
             // btnBitacora
             // 
@@ -681,12 +686,13 @@
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
             btnBitacora.Location = new Point(0, 624);
-            btnBitacora.Margin = new Padding(6, 6, 6, 6);
+            btnBitacora.Margin = new Padding(6);
             btnBitacora.Name = "btnBitacora";
             btnBitacora.Size = new Size(336, 109);
             btnBitacora.TabIndex = 4;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
+            btnBitacora.Click += btnBitacora_Click;
             // 
             // btnAdmSecre
             // 
@@ -699,12 +705,13 @@
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdmSecre.Location = new Point(0, 515);
-            btnAdmSecre.Margin = new Padding(6, 6, 6, 6);
+            btnAdmSecre.Margin = new Padding(6);
             btnAdmSecre.Name = "btnAdmSecre";
             btnAdmSecre.Size = new Size(336, 109);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.Text = "Adm. Secretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
+            btnAdmSecre.Click += btnAdmSecre_Click;
             // 
             // btnEstadisticas
             // 
@@ -717,12 +724,13 @@
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEstadisticas.Location = new Point(0, 406);
-            btnEstadisticas.Margin = new Padding(6, 6, 6, 6);
+            btnEstadisticas.Margin = new Padding(6);
             btnEstadisticas.Name = "btnEstadisticas";
             btnEstadisticas.Size = new Size(336, 109);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
+            btnEstadisticas.Click += btnEstadisticas_Click;
             // 
             // btn_capturaCalif
             // 
@@ -735,12 +743,13 @@
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
             btn_capturaCalif.Location = new Point(0, 276);
-            btn_capturaCalif.Margin = new Padding(6, 6, 6, 6);
+            btn_capturaCalif.Margin = new Padding(6);
             btn_capturaCalif.Name = "btn_capturaCalif";
             btn_capturaCalif.Size = new Size(336, 130);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
+            btn_capturaCalif.Click += btn_capturaCalif_Click;
             // 
             // btn_inscripcion
             // 
@@ -753,12 +762,13 @@
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
             btn_inscripcion.Location = new Point(0, 171);
-            btn_inscripcion.Margin = new Padding(6, 6, 6, 6);
+            btn_inscripcion.Margin = new Padding(6);
             btn_inscripcion.Name = "btn_inscripcion";
             btn_inscripcion.Size = new Size(336, 105);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
+            btn_inscripcion.Click += btn_inscripcion_Click;
             // 
             // panelLogo
             // 
@@ -769,7 +779,7 @@
             panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(6, 6, 6, 6);
+            panelLogo.Margin = new Padding(6);
             panelLogo.Name = "panelLogo";
             panelLogo.Size = new Size(336, 171);
             panelLogo.TabIndex = 0;
@@ -789,7 +799,7 @@
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
             Logo.Location = new Point(108, 11);
-            Logo.Margin = new Padding(6, 6, 6, 6);
+            Logo.Margin = new Padding(6);
             Logo.Name = "Logo";
             Logo.Size = new Size(106, 100);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
@@ -813,7 +823,7 @@
             ClientSize = new Size(1898, 1097);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Margin = new Padding(6, 6, 6, 6);
+            Margin = new Padding(6);
             Name = "Mod_Modificacion";
             Text = "Mod_Modificacion";
             Load += Mod_Modificacion_Load;

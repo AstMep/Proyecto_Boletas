@@ -615,6 +615,13 @@ namespace Proyecto_Boletas
             pdf_director.Show();
             this.Hide();
         }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+            Mod_Modificacion modificacion = new Mod_Modificacion();
+            modificacion.Show();
+            this.Hide();
+        }
     }
 
 }

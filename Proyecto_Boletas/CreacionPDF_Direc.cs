@@ -405,7 +405,7 @@ namespace Proyecto_Boletas
 
         private void btnEdicionDatos_Click(object sender, EventArgs e)
         {
-            Mod_Modificacion Modificacion = new Mod_Modificacion();
+            Mod_Modificacion Modificacion = new Mod_Modificacion(rolUsuario);
             Modificacion.Show();
             this.Hide();
         }

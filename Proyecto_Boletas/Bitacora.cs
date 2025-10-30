@@ -161,5 +161,12 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+            Mod_Modificacion modificacion = new Mod_Modificacion();
+            modificacion.Show();
+            this.Hide();
+        }
     }
 }

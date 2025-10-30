@@ -22,6 +22,7 @@ namespace Proyecto_Boletas
             OcultarBotonesPorRol();
             CargarMeses();
             CargarGrupos();
+            OcultarBotonesPorRol();
 
         }
 
@@ -30,16 +31,16 @@ namespace Proyecto_Boletas
             if (rolUsuario == "Secretaria")
             {
                 // Ocultar botones solo para secretaria
-                btnAdmSecre.Visible = false;
-                btnBitacora.Visible = false;
-                btn_admaestros.Visible = false;
+                button6.Visible = false;
+                button5.Visible = false;
+                button2.Visible = false;
             }
             else if (rolUsuario == "Director")
             {
                 // Mostrar todos los botones para director
-                btnAdmSecre.Visible = true;
-                btnBitacora.Visible = true;
-                btn_admaestros.Visible = true;
+                button6.Visible = true;
+                button5.Visible = true;
+                button2.Visible = true;
             }
         }
 
@@ -303,13 +304,16 @@ namespace Proyecto_Boletas
             this.Hide();
 
         }
-
-
-
-        private void panelApp_Paint(object sender, PaintEventArgs e)
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
         {
-
+            Mod_Modificacion modificacion = new Mod_Modificacion(rolUsuario);
+            modificacion.Show();
+            this.Hide();
         }
+
+
+
+        
 
         private void btn_capturaCalif_Click(object sender, EventArgs e)
         {
@@ -378,5 +382,25 @@ namespace Proyecto_Boletas
         {
 
         }
+
+        private void btn_inscripcion_Click_1(object sender, EventArgs e)
+        {
+            Mod_inscripcion inscripcion = new Mod_inscripcion(rolUsuario);
+            inscripcion.Show();
+            this.Hide();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+       
+
+        
+        
+
+        
     }
 }

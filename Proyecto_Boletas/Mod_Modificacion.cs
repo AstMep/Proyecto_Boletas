@@ -1,4 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Data;
+using System.Text.RegularExpressions;
+using static Proyecto_Boletas.Mod_capCal;
+
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,14 +17,50 @@ using System.Windows.Forms;
 using static Proyecto_Boletas.Mod_capCal;
 
 namespace Proyecto_Boletas
+
 {
+
     public partial class Mod_Modificacion : Form
     {
+        private string rolUsuario; // Variable para almacenar el rol
+        private bool estaCargandoDatos = false;
         public Mod_Modificacion()
         {
             InitializeComponent();
+            rolUsuario = "Director"; // Valor por defecto
             ConfigurarControles();
             CargarGrupos();
+            OcultarBotonesPorRol();
+        }
+
+        // ⭐ Constructor CON parámetros (para usar en el código)
+        public Mod_Modificacion(string rol)
+        {
+            InitializeComponent();
+            rolUsuario = rol;
+            ConfigurarControles();
+            CargarGrupos();
+            OcultarBotonesPorRol();
+        }
+
+
+        // ⭐ NUEVO: Método para ocultar botones según el rol
+        private void OcultarBotonesPorRol()
+        {
+            if (rolUsuario == "Secretaria")
+            {
+                // Ocultar botones solo para secretaria
+                btnAdmSecre.Visible = false;
+                btnBitacora.Visible = false;
+                btn_admaestros.Visible = false;
+            }
+            else if (rolUsuario == "Director")
+            {
+                // Mostrar todos los botones para director
+                btnAdmSecre.Visible = true;
+                btnBitacora.Visible = true;
+                btn_admaestros.Visible = true;
+            }
         }
 
         // ⭐ CONFIGURACIÓN INICIAL DE CONTROLES
@@ -46,7 +87,7 @@ namespace Proyecto_Boletas
 
             // Cargar edades
             edad_alumno.Items.Clear();
-            for (int i = 6; i <= 14; i++)
+            for (int i = 6; i <= 18; i++)
                 edad_alumno.Items.Add(i);
 
             // Cargar géneros
@@ -660,6 +701,7 @@ namespace Proyecto_Boletas
 
             if (datos.Rows.Count > 0)
             {
+                estaCargandoDatos = true;
                 DataRow row = datos.Rows[0];
 
                 nombre_alumno.Text = row["NombreAlumno"].ToString();
@@ -811,9 +853,45 @@ namespace Proyecto_Boletas
 
         }
 
+        // ⭐ NUEVO: Asignar grupo automáticamente según la edad
+        private void AsignarGrupoAutomaticamente(int edad)
+        {
+            string gradoBuscado = "";
+
+            // Determinar el grado según la edad
+            if (edad == 6) gradoBuscado = "primero";
+            else if (edad == 7) gradoBuscado = "segundo";
+            else if (edad == 8) gradoBuscado = "tercero";
+            else if (edad == 9) gradoBuscado = "cuarto";
+            else if (edad >= 10 && edad <= 12) gradoBuscado = "quinto";
+            else if (edad >= 13 && edad <= 18) gradoBuscado = "sexto";
+            else
+            {
+                return; // No asignar grupo si está fuera de rango
+            }
+
+            // Buscar el grupo que coincida
+            for (int i = 0; i < cbGrupoPer.Items.Count; i++)
+            {
+                Grupo grupo = (Grupo)cbGrupoPer.Items[i];
+                string nombreGrupo = grupo.NombreGrupo.ToLower();
+
+                if (nombreGrupo.Contains(gradoBuscado))
+                {
+                    cbGrupoPer.SelectedIndex = i;
+                    return;
+                }
+            }
+        }
         // ⭐ EVENTO: Autocompletar desde CURP
         private void txtCurp_TextChanged(object sender, EventArgs e)
         {
+
+
+
+            if (estaCargandoDatos)
+                return;
+
             string curp = txtCurp.Text.Trim().ToUpper();
 
             if (curp.Length == 18)
@@ -822,13 +900,21 @@ namespace Proyecto_Boletas
 
                 if (fechaCURP != null)
                 {
+                    // ✅ Asignar fecha de nacimiento automáticamente
                     nacimiento_alumno.Value = fechaCURP.Value;
 
+                    // ✅ Calcular y asignar edad automáticamente
                     int edadCalculada = CalcularEdad(fechaCURP.Value);
-                    if (edadCalculada >= 6 && edadCalculada <= 14)
+                    if (edadCalculada >= 6 && edadCalculada <= 18)
+                    {
                         edad_alumno.SelectedItem = edadCalculada;
+
+                        // ✅ Asignar grupo automáticamente según la edad
+                        AsignarGrupoAutomaticamente(edadCalculada);
+                    }
                 }
 
+                // ✅ Asignar género automáticamente
                 string generoCURP = ObtenerGeneroDesdeCURP(curp);
 
                 if (generoCURP != null)
@@ -895,17 +981,19 @@ namespace Proyecto_Boletas
         // ⭐ EVENTO: Calcular edad automáticamente
         private void nacimiento_alumno_ValueChanged(object sender, EventArgs e)
         {
+            if (estaCargandoDatos)
+                return;
             DateTime fechaNac = nacimiento_alumno.Value;
             int edadCalculada = CalcularEdad(fechaNac);
 
-            if (edadCalculada >= 6 && edadCalculada <= 14)
+            if (edadCalculada >= 6 && edadCalculada <= 18)
             {
                 edad_alumno.SelectedItem = edadCalculada;
             }
             else
             {
                 edad_alumno.SelectedIndex = -1;
-                MessageBox.Show($"La edad calculada ({edadCalculada} años) está fuera del rango permitido (6-14 años).",
+                MessageBox.Show($"La edad calculada ({edadCalculada} años) está fuera del rango permitido (6-18 años).",
                     "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -1035,6 +1123,72 @@ namespace Proyecto_Boletas
         }
 
         private void panelito1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btn_ingresar_Click(object sender, EventArgs e)
+        {
+            Form1 nuevoFormulario = new Form1();
+            nuevoFormulario.Show();
+            this.Close();
+        }
+
+        private void btn_inscripcion_Click(object sender, EventArgs e)
+        {
+            Mod_inscripcion formInscripcion = new Mod_inscripcion(rolUsuario);
+            formInscripcion.Show();
+            this.Hide();
+        }
+
+        private void btn_capturaCalif_Click(object sender, EventArgs e)
+        {
+            Mod_capCal formCaptura = new Mod_capCal(rolUsuario);
+            formCaptura.Show();
+            this.Hide();
+        }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdmSecre_Click(object sender, EventArgs e)
+        {
+            adm_Secretaria formSecretaria = new adm_Secretaria();
+            formSecretaria.Show();
+            this.Hide();
+        }
+
+        private void btnBitacora_Click(object sender, EventArgs e)
+        {
+            Bitacora formBitacora = new Bitacora();
+            formBitacora.Show();
+            this.Hide();
+        }
+
+        private void btnEdicionDatos_Click(object sender, EventArgs e)
+        {
+            Mod_Modificacion formModificacion = new Mod_Modificacion(rolUsuario);
+            formModificacion.Show();
+            this.Hide();
+        }
+
+        private void btnEnvioBoletas_Click(object sender, EventArgs e)
+        {
+            CreacionPDF_Direc formPDF = new CreacionPDF_Direc(rolUsuario);
+            formPDF.Show();
+            this.Hide();
+        }
+
+        private void btn_admaestros_Click(object sender, EventArgs e)
+        {
+            adm_maestros formMaestros = new adm_maestros();
+            formMaestros.Show();
+            this.Hide();
+        }
+
+        private void panelApp_Paint(object sender, PaintEventArgs e)
         {
 
         }
