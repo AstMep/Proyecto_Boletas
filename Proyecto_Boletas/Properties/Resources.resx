@@ -121,11 +121,14 @@
   <data name="B58378-Light Taupe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\B58378-Light Taupe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logo_escuela1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo_escuela1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="3917688" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3917688.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="9D6565-Copper Rose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\9D6565-Copper Rose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_escuela64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_escuela64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="3f4f5c" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3f4f5c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,10 +142,10 @@
   <data name="logo_escuela350" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_escuela350.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="3917688" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3917688.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logo_escuela1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_escuela1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logo_escuela64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo_escuela64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="estadisticas128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\estadisticas128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

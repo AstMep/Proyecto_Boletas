@@ -123,6 +123,16 @@ namespace Proyecto_Boletas.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap estadisticas128 {
+            get {
+                object obj = ResourceManager.GetObject("estadisticas128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_escuela1 {
             get {
                 object obj = ResourceManager.GetObject("logo_escuela1", resourceCulture);

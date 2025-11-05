@@ -47,6 +47,26 @@ namespace Proyecto_Boletas
             }
         }
 
+        private void LimpiarCamposDeCaptura()
+        {
+            // Calificaciones de las Materias
+            cbEspanol.SelectedIndex = -1;
+            cbIngles.SelectedIndex = -1;
+            cbArtes.SelectedIndex = -1;
+            cbMatematicas.SelectedIndex = -1;
+            cbTecnologias.SelectedIndex = -1;
+            cbC.SelectedIndex = -1; // Materia Condicional (C. Naturales / C. del Medio)
+            cbFormacion.SelectedIndex = -1;
+            cbEducacinF.SelectedIndex = -1;
+
+            // Inasistencias
+            cbInasistencias.SelectedIndex = -1;
+
+            // Alumno
+            cbAlumno.SelectedIndex = -1;
+            // Nota: El grupo y el mes NO se limpian, ya que la intención es seguir capturando 
+            // alumnos de ese mismo grupo y periodo.
+        }
         private string MapearMateriaCienciasParaDB(string nombreInterfaz)
         {
             string limpio = nombreInterfaz.ToUpper().Replace(".", "").Trim();
@@ -102,11 +122,12 @@ namespace Proyecto_Boletas
         }
 
         private void CargarCalificaciones()
-        { List<int> calificaciones = new List<int>
+        {
+            List<int> calificaciones = new List<int>
     {
         10, 9, 8, 7, 6, 5,
     };
-            cbC.DataSource = new List<int>(calificaciones); 
+            cbC.DataSource = new List<int>(calificaciones);
             cbC.SelectedIndex = -1;
 
             cbArtes.DataSource = new List<int>(calificaciones);
@@ -150,7 +171,7 @@ namespace Proyecto_Boletas
 
             try
             {
-         
+
                 using (MySqlConnection connection = db.GetConnection())
                 {
                     MySqlCommand command = new MySqlCommand(query, connection);
@@ -377,93 +398,70 @@ namespace Proyecto_Boletas
         private bool InsertarOActualizarCalificacion(int alumnoId, int materiaId, int calificacion, int inasistencias, string periodo)
         {
             Conexion db = new Conexion();
-            MySqlConnection connection = null;
 
             try
             {
-                // 💡 Usamos tu método GetConnection() para obtener la conexión
+                // 💡 1. Usamos el bloque 'using' para asegurar que la conexión se cierre.
                 using (MySqlConnection connection = db.GetConnection())
                 {
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@idGrupo", idGrupo);
+                    // ✅ CORRECCIÓN CLAVE: Abrir la conexión a la base de datos.
                     connection.Open();
 
+                    // 2. Verificar si la calificación ya existe.
+                    string checkQuery = "SELECT CalificacionID FROM calificaciones " +
+                                        "WHERE AlumnoID = @alumnoId AND MateriaID = @materiaId AND Periodo = @periodo LIMIT 1";
 
-                string checkQuery = "SELECT CalificacionID FROM calificaciones " +
-                                    "WHERE AlumnoID = @alumnoId AND MateriaID = @materiaId AND Periodo = @periodo LIMIT 1";
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@alumnoId", alumnoId);
+                        checkCommand.Parameters.AddWithValue("@materiaId", materiaId);
+                        checkCommand.Parameters.AddWithValue("@periodo", periodo);
 
-                MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection);
-                checkCommand.Parameters.AddWithValue("@alumnoId", alumnoId);
-                checkCommand.Parameters.AddWithValue("@materiaId", materiaId);
-                checkCommand.Parameters.AddWithValue("@periodo", periodo);
+                        object existingId = checkCommand.ExecuteScalar();
 
-                object existingId = checkCommand.ExecuteScalar();
+                        // 3. Determinar INSERT o UPDATE.
+                        string sql;
+                        if (existingId != null)
+                        {
+                            sql = "UPDATE calificaciones SET Calificacion = @calif, Inasistencias = @inasis, FechaRegistro = NOW() " +
+                                  "WHERE CalificacionID = @calificacionId";
+                        }
+                        else
+                        {
+                            sql = "INSERT INTO calificaciones (AlumnoID, MateriaID, Calificacion, Periodo, Inasistencias, FechaRegistro) " +
+                                  "VALUES (@alumnoId, @materiaId, @calif, @periodo, @inasis, NOW())";
+                        }
 
-                string sql;
-                if (existingId != null)
-                {
-    
-                    sql = "UPDATE calificaciones SET Calificacion = @calif, Inasistencias = @inasis, FechaRegistro = NOW() " +
-                          "WHERE CalificacionID = @calificacionId";
-                }
-                else
-                {
+                        // 4. Ejecutar el comando final.
+                        using (MySqlCommand command = new MySqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@calif", calificacion);
+                            command.Parameters.AddWithValue("@inasis", inasistencias);
 
-                    sql = "INSERT INTO calificaciones (AlumnoID, MateriaID, Calificacion, Periodo, Inasistencias, FechaRegistro) " +
-                          "VALUES (@alumnoId, @materiaId, @calif, @periodo, @inasis, NOW())";
-                }
+                            if (existingId == null)
+                            {
+                                // Parámetros para INSERT
+                                command.Parameters.AddWithValue("@alumnoId", alumnoId);
+                                command.Parameters.AddWithValue("@materiaId", materiaId);
+                                command.Parameters.AddWithValue("@periodo", periodo);
+                            }
+                            else
+                            {
+                                // Parámetro para UPDATE
+                                command.Parameters.AddWithValue("@calificacionId", existingId);
+                            }
 
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@calif", calificacion); // Ya validado como entero 5-10
-                command.Parameters.AddWithValue("@inasis", inasistencias); // Ya validado como entero >= 0
-
-                // Parámetros comunes para INSERT y UPDATE
-                if (existingId == null)
-                {
-                    command.Parameters.AddWithValue("@alumnoId", alumnoId);
-                    command.Parameters.AddWithValue("@materiaId", materiaId);
-                    command.Parameters.AddWithValue("@periodo", periodo);
-                }
-                else
-                {
-                    // Parámetro específico para UPDATE
-                    command.Parameters.AddWithValue("@calificacionId", existingId);
-                }
-
-                command.ExecuteNonQuery();
-                return true;
+                            command.ExecuteNonQuery();
+                            return true;
+                        } // Fin using command
+                    } // Fin using checkCommand
+                } // Fin using connection
             }
             catch (MySqlException ex)
             {
-                // Esto captura errores de la BD, como IDs no existentes o problemas de sintaxis.
                 MessageBox.Show($"Error de BD: {ex.Message}", "Error de Guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-        }
-
-        private void LimpiarCamposDeCaptura()
-        {
-            // Calificaciones de las Materias
-            cbEspanol.SelectedIndex = -1;
-            cbIngles.SelectedIndex = -1;
-            cbArtes.SelectedIndex = -1;
-            cbMatematicas.SelectedIndex = -1;
-            cbTecnologias.SelectedIndex = -1;
-            cbC.SelectedIndex = -1; // Materia Condicional (C. Naturales / C. del Medio)
-            cbFormacion.SelectedIndex = -1;
-            cbEducacinF.SelectedIndex = -1;
-
-  
-            cbInasistencias.SelectedIndex = -1;
-          cbAlumno.SelectedIndex = -1;
-
         }
 
         private string ConvertirMesParaBD(string mesCompleto)
@@ -471,7 +469,7 @@ namespace Proyecto_Boletas
             switch (mesCompleto.ToUpper())
             {
                 case "AGOSTO (DIAGNÓSTICO)":
-                    return "DIAGNOSTICO"; 
+                    return "DIAGNOSTICO";
                 case "SEPTIEMBRE":
                     return "SEP";
                 case "OCTUBRE":
@@ -641,7 +639,7 @@ namespace Proyecto_Boletas
 
 
 
-        
+
 
         private void btn_capturaCalif_Click(object sender, EventArgs e)
         {
@@ -725,12 +723,19 @@ namespace Proyecto_Boletas
 
         }
 
-        
-       
+        private void btnCapturacalif_Click(object sender, EventArgs e)
+        {
+            GuardarCalificacionesMensuales(sender, e);
+        }
 
-        
-        
+        private void label17_Click(object sender, EventArgs e)
+        {
 
-        
+        }
+
+        private void panelito1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

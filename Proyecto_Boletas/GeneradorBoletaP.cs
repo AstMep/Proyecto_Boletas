@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Proyecto_Boletas
 {
@@ -60,15 +61,16 @@ namespace Proyecto_Boletas
         // --- Colores (Tomados de GeneradorBoletaT) ---
         private readonly BaseColor colorBorde = BaseColor.BLACK;
         private readonly BaseColor colorBlanco = BaseColor.WHITE;
-        private readonly BaseColor colorLila = new BaseColor(220, 220, 240); // LENGUAJES (Esp, Ing, Art)
-        private readonly BaseColor colorMagenta = new BaseColor(255, 220, 255); // SABERES (Mate, Tec)
+        private readonly BaseColor colorLila = new BaseColor(173, 216, 230); // LENGUAJES (Esp, Ing, Art)
+        private readonly BaseColor colorMagenta = new BaseColor(255, 182, 193); // SABERES (Mate, Tec)
         private readonly BaseColor colorAmarilloClaro = new BaseColor(255, 245, 200); // ÉTICA (F. Cívica, Ciencias)
-        private readonly BaseColor colorVerdeClaro = new BaseColor(230, 255, 200); // HUMANO (Ed. Física)
+        private readonly BaseColor colorVerdeClaro  = new BaseColor(152, 251, 152); // Ed. Física // HUMANO (Ed. Física)
         private readonly BaseColor colorPromedio = new BaseColor(255, 223, 100);
         private readonly BaseColor colorGrisInasistencias = new BaseColor(240, 240, 240);
 
         // --- Mapeo Interno de Materias y Meses ---
-        private readonly string[] mesesBD = { "DIAGNOSTICO", "SEP", "OCT", "NOV", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN" };
+        // CÓDIGO CORREGIDO para coincidir con la BD si usas NOV_DIC
+        private readonly string[] mesesBD = { "DIAGNOSTICO", "SEP", "OCT", "NOV_DIC", "ENE", "FEB", "MAR", "ABR", "MAY", "JUN" };
         private readonly string[] materiasBD = { "ESPAÑOL", "INGLÉS", "ARTES", "MATEMÁTICAS", "TECNOLOGÍA", "CIENCIAS_CONDICIONAL", "FORM. CÍV Y ÉTICA", "ED. FISICA" };
 
 
@@ -152,6 +154,49 @@ namespace Proyecto_Boletas
             return info;
         }
 
+        public DataTable ObtenerPromediosTrimestrales(int alumnoId)
+        {
+            DataTable dtPromedios = new DataTable();
+            Conexion db = new Conexion();
+
+            // Esta es la consulta combinada que calcula los 3 trimestres
+            string query = @"
+        SELECT
+            M.Nombre AS Materia,
+            ROUND(AVG(CASE WHEN C.Periodo IN ('SEP', 'OCT', 'NOV_DIC') THEN C.Calificacion END), 1) AS P_1TRIM,
+            ROUND(AVG(CASE WHEN C.Periodo IN ('ENE', 'FEB', 'MAR') THEN C.Calificacion END), 1) AS P_2TRIM,
+            ROUND(AVG(CASE WHEN C.Periodo IN ('ABR', 'MAY', 'JUN') THEN C.Calificacion END), 1) AS P_3TRIM
+        FROM 
+            calificaciones C
+        JOIN 
+            materias M ON C.MateriaID = M.MateriaID
+        WHERE 
+            C.AlumnoID = @alumnoId
+        GROUP BY 
+            M.Nombre, M.MateriaID
+        ORDER BY 
+            M.MateriaID;"; // Usar MateriaID para asegurar el orden
+
+            try
+            {
+                using (MySqlConnection connection = db.GetConnection())
+                {
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@alumnoId", alumnoId);
+                        connection.Open();
+
+                        MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                        adapter.Fill(dtPromedios);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener promedios trimestrales: " + ex.Message);
+            }
+            return dtPromedios;
+        }
 
         private DatosBoleta ObtenerDatosBoleta(int idAlumno, string trimestre, int idGrupo)
         {
@@ -164,28 +209,27 @@ namespace Proyecto_Boletas
             string[] materiasBDActualizadas = (string[])materiasBD.Clone();
             materiasBDActualizadas[5] = nombreCienciasBD;
 
-            // 2. Determinar Periodos a Consultar
+            // 2. Determinar Periodos a Consultar (Ajustado a NOV_DIC)
             string[] mesesTrimestre;
             string periodoFinal;
 
-            if (trimestre.Contains("1er")) { mesesTrimestre = new[] { "SEP", "OCT", "NOV" }; periodoFinal = "1ER_TRIMESTRE_FINAL"; }
+            if (trimestre.Contains("1er")) { mesesTrimestre = new[] { "SEP", "OCT", "NOV_DIC" }; periodoFinal = "1ER_TRIMESTRE_FINAL"; }
             else if (trimestre.Contains("2do")) { mesesTrimestre = new[] { "ENE", "FEB", "MAR" }; periodoFinal = "2DO_TRIMESTRE_FINAL"; }
             else { mesesTrimestre = new[] { "ABR", "MAY", "JUN" }; periodoFinal = "3ER_TRIMESTRE_FINAL"; }
 
-            // 3. Extracción de Calificaciones
-            // Consulta de meses (Diagnóstico, Meses del trimestre, Promedio Final)
-            string periodosInQuery = $"'{string.Join("','", mesesBD)}','{periodoFinal}'";
+            // 3. Extracción de Calificaciones MENSUALES (Directa desde la BD)
+            string periodosInQuery = $"'{string.Join("','", mesesBD)}'";
 
-            string query = $@"
-                SELECT M.Nombre AS NombreMateria, C.Calificacion, C.Periodo 
-                FROM calificaciones C
-                INNER JOIN materias M ON C.MateriaID = M.MateriaID
-                WHERE C.AlumnoID = @idAlumno
-                AND C.Periodo IN ({periodosInQuery})";
+            string queryMensual = $@"
+        SELECT M.Nombre AS NombreMateria, C.Calificacion, C.Periodo 
+        FROM calificaciones C
+        INNER JOIN materias M ON C.MateriaID = M.MateriaID
+        WHERE C.AlumnoID = @idAlumno
+        AND C.Periodo IN ({periodosInQuery})"; // Consulta solo los 10 períodos de captura
 
             using (MySqlConnection conn = GetConnection())
             {
-                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlCommand cmd = new MySqlCommand(queryMensual, conn);
                 cmd.Parameters.AddWithValue("@idAlumno", idAlumno);
                 conn.Open();
 
@@ -197,36 +241,52 @@ namespace Proyecto_Boletas
                         string periodo = dr["Periodo"].ToString().ToUpper().Trim();
                         decimal calificacion = dr.GetDecimal("Calificacion");
 
-                        // Mapear al índice de la matriz (r: fila de materia, c: columna de mes/periodo)
                         int r = Array.IndexOf(materiasBDActualizadas, materia);
                         int cMensual = Array.IndexOf(mesesBD, periodo);
 
-                        if (r != -1) // Si la materia se mapea
+                        if (r != -1 && cMensual != -1) // Si la materia y el período se mapean
                         {
-                            // A. Calificaciones Mensuales (0-9)
-                            if (cMensual != -1)
-                            {
-                                datos.CalificacionesMensuales[r, cMensual] = calificacion;
-                            }
+                            datos.CalificacionesMensuales[r, cMensual] = calificacion;
+                        }
+                    }
+                }
+                conn.Close(); // Cerrar la primera conexión
 
-                            // B. Calificaciones Periodales (Trimestres)
-                            if (periodo == periodoFinal)
-                            {
-                                int cPeriodal = (trimestre.Contains("1er") ? 0 : trimestre.Contains("2do") ? 1 : 2);
-                                datos.CalificacionesPeriodales[r, cPeriodal] = calificacion;
-                            }
+                // --- Extracción de PROMEDIOS TRIMESTRALES (Usando la función SQL) ---
+
+                // Ejecutamos la función que calcula los promedios trimestrales por materia en SQL
+                DataTable dtPromedios = ObtenerPromediosTrimestrales(idAlumno);
+
+                // Llenar la matriz CalificacionesPeriodales con los resultados de la BD
+                if (dtPromedios != null && dtPromedios.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dtPromedios.Rows)
+                    {
+                        string materiaNombre = row["Materia"].ToString().ToUpper().Trim();
+                        int r = Array.IndexOf(materiasBDActualizadas, materiaNombre);
+
+                        if (r != -1)
+                        {
+                            // 1º TRIM (Columna 0)
+                            if (row["P_1TRIM"] != DBNull.Value) datos.CalificacionesPeriodales[r, 0] = Convert.ToDecimal(row["P_1TRIM"]);
+                            // 2º TRIM (Columna 1)
+                            if (row["P_2TRIM"] != DBNull.Value) datos.CalificacionesPeriodales[r, 1] = Convert.ToDecimal(row["P_2TRIM"]);
+                            // 3º TRIM (Columna 2)
+                            if (row["P_3TRIM"] != DBNull.Value) datos.CalificacionesPeriodales[r, 2] = Convert.ToDecimal(row["P_3TRIM"]);
                         }
                     }
                 }
             }
 
-            // 4. CÁLCULO DE PROMEDIOS MENSUALES Y FINAL
+
+            // 4. CÁLCULO DE PROMEDIOS MENSUALES (Sigue igual)
+            decimal sumaFinalTrim = 0;
+            int countFinalTrim = 0;
+
             for (int c = 0; c < 10; c++)
             {
                 decimal suma = 0;
                 int count = 0;
-                // Excluir el mes de diagnóstico (c=0) del promedio final si fuera necesario
-                // La suma de promedios mensuales SI incluye el Diagnóstico (c=0) si tiene calificación
 
                 for (int r = 0; r < 8; r++) // 8 materias
                 {
@@ -237,13 +297,66 @@ namespace Proyecto_Boletas
                     }
                 }
                 if (count > 0) datos.PromediosMensuales[c] = Math.Round(suma / count, 1);
+
+                // Sumar promedios mensuales para el cálculo del Promedio Ed. Final (c > 0 excluye Diagnóstico)
+                if (c > 0 && datos.PromediosMensuales[c].HasValue)
+                {
+                    sumaFinalTrim += datos.PromediosMensuales[c].Value;
+                    countFinalTrim++;
+                }
             }
 
-            // [Aquí iría la lógica para calcular el PFinalPromedio y PromedioEdFinal]
+            //5.CÁLCULO DE PROMEDIOS GENERALES TRIMESTRALES(FILA AMARILLA)
+// Creamos un array para almacenar el promedio general de la boleta por cada trimestre.
+decimal?[] promediosGeneralesTrimestrales = new decimal?[4]; // 3 trimestres + P. Final
 
-            return datos;
-        }
+            for (int cTrimestre = 0; cTrimestre < 3; cTrimestre++) // Itera sobre 1º TRIM (0), 2º TRIM (1), 3º TRIM (2)
+            {
+                decimal sumaPromediosTrimestrales = 0;
+                int materiasContadas = 0;
 
+                // Sumar el promedio trimestral de cada materia (r=0 a r=7) para el trimestre actual
+                for (int r = 0; r < 8; r++) // 8 materias
+                {
+                    // Se asume que datos.CalificacionesPeriodales ya se llenó con los promedios por materia (P_1TRIM, P_2TRIM, P_3TRIM)
+                    if (datos.CalificacionesPeriodales[r, cTrimestre].HasValue)
+                    {
+                        sumaPromediosTrimestrales += datos.CalificacionesPeriodales[r, cTrimestre].Value;
+                        materiasContadas++;
+                    }
+                }
+
+                if (materiasContadas > 0)
+                {
+                    // Guardar el Promedio General del Trimestre (el valor que va en la fila amarilla)
+                    promediosGeneralesTrimestrales[cTrimestre] = Math.Round(sumaPromediosTrimestrales / materiasContadas, 1);
+                }
+            }
+
+            // 6. CÁLCULO DEL PROMEDIO FINAL CALIF (P. FINAL CALIF)
+            // Promedio de los 3 promedios generales trimestrales
+            decimal sumaFinalCalif = 0;
+            int countFinalCalif = 0;
+
+            for (int i = 0; i < 3; i++) // Sumar los 3 promedios generales
+            {
+                if (promediosGeneralesTrimestrales[i].HasValue)
+                {
+                    sumaFinalCalif += promediosGeneralesTrimestrales[i].Value;
+                    countFinalCalif++;
+                }
+            }
+
+            if (countFinalCalif > 0)
+            {
+                datos.PFinalPromedio = Math.Round(sumaFinalCalif / countFinalCalif, 1);
+                promediosGeneralesTrimestrales[3] = datos.PFinalPromedio; // Guardar también en la posición 3 (P. Final)
+            }
+
+
+
+            return datos; 
+            }
 
         // ====================================================================
         // CÓDIGO DEL GENERADOR DE PDF
@@ -521,6 +634,29 @@ namespace Proyecto_Boletas
                 {
                     BaseColor colorFondoPromedio = colorPromedio;
 
+                    // --- CÁLCULO DE PROMEDIOS GENERALES TRIMESTRALES (NECESARIO PARA LLENAR LA FILA) ---
+                    // Usamos esta matriz local para guardar los 3 promedios generales
+                    decimal?[] promediosGeneralesTrimestrales = new decimal?[3];
+
+                    for (int c = 0; c < 3; c++) // Itera sobre 1º TRIM (0), 2º TRIM (1), 3º TRIM (2)
+                    {
+                        decimal sumaTrim = 0;
+                        int countTrim = 0;
+
+                        // Sumamos los promedios de las 8 materias (r=0 a r=7) para el trimestre actual (c)
+                        for (int rTrim = 0; rTrim < 8; rTrim++)
+                        {
+                            // Usamos los promedios por materia que ya se llenaron desde la BD
+                            if (datos.CalificacionesPeriodales[rTrim, c].HasValue)
+                            {
+                                sumaTrim += datos.CalificacionesPeriodales[rTrim, c].Value;
+                                countTrim++;
+                            }
+                        }
+                        // Guardamos el promedio general de la boleta para ese trimestre
+                        if (countTrim > 0) promediosGeneralesTrimestrales[c] = Math.Round(sumaTrim / countTrim, 1);
+                    }
+
                     // Columna 1-2 (A-B): Fusión para "PROM. MENSUAL"
                     PdfPCell promMensualCell = CrearCelda("PROM. MENSUAL", fontClave, Element.ALIGN_CENTER, 2, 1, colorFondoPromedio);
                     promMensualCell.MinimumHeight = 26f;
@@ -545,15 +681,18 @@ namespace Proyecto_Boletas
                     };
                     tablaBase.AddCell(espacioPromedio);
 
-                    // Columnas 14-16: Vacías (no hay promedios trimestrales en esta fila)
+                    // Columnas 14-16: PROMEDIOS TRIMESTRALES GENERALES (LA FILA RODEADA)
                     for (int i = 0; i < 3; i++)
                     {
-                        PdfPCell emptyCell = CrearCelda("", fontClave, Element.ALIGN_CENTER, colorFondoPromedio);
-                        emptyCell.MinimumHeight = 26f;
-                        tablaBase.AddCell(emptyCell);
+                        // 💡 CAMBIO CLAVE: Usamos el promedio general calculado en 'promediosGeneralesTrimestrales[i]'
+                        string valor = promediosGeneralesTrimestrales[i] != null ? promediosGeneralesTrimestrales[i].Value.ToString("0.0") : "";
+                        PdfPCell dataCell = CrearCelda(valor, fontClave, Element.ALIGN_CENTER, colorFondoPromedio);
+                        dataCell.MinimumHeight = 26f;
+                        tablaBase.AddCell(dataCell);
                     }
 
-                    // Columna 17: Promedio Final
+                    // Columna 17: Promedio Final CALIF (P. Final)
+                    // Este valor se calcula y asigna en ObtenerDatosBoleta antes de llamar a esta función.
                     string valorFinal = datos.PFinalPromedio != null ? datos.PFinalPromedio.Value.ToString("0.0") : "";
                     PdfPCell finalPromedioCell = CrearCelda(valorFinal, fontClave, Element.ALIGN_CENTER, colorFondoPromedio);
                     finalPromedioCell.MinimumHeight = 26f;

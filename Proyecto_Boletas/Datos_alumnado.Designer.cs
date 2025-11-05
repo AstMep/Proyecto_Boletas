@@ -73,10 +73,9 @@
             panelApp.Controls.Add(cmbMes);
             panelApp.Controls.Add(label3);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(336, 0);
-            panelApp.Margin = new Padding(6, 6, 6, 6);
+            panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1406, 1035);
+            panelApp.Size = new Size(701, 426);
             panelApp.TabIndex = 3;
             // 
             // groupBox6
@@ -85,11 +84,9 @@
             groupBox6.Controls.Add(label12);
             groupBox6.Controls.Add(label13);
             groupBox6.Controls.Add(btnGenerarListas);
-            groupBox6.Location = new Point(173, 222);
-            groupBox6.Margin = new Padding(6, 6, 6, 6);
+            groupBox6.Location = new Point(93, 104);
             groupBox6.Name = "groupBox6";
-            groupBox6.Padding = new Padding(6, 6, 6, 6);
-            groupBox6.Size = new Size(297, 425);
+            groupBox6.Size = new Size(160, 199);
             groupBox6.TabIndex = 14;
             groupBox6.TabStop = false;
             // 
@@ -98,10 +95,9 @@
             label12.AutoSize = true;
             label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(20, 373);
-            label12.Margin = new Padding(6, 0, 6, 0);
+            label12.Location = new Point(11, 175);
             label12.Name = "label12";
-            label12.Size = new Size(286, 45);
+            label12.Size = new Size(143, 21);
             label12.TabIndex = 5;
             label12.Text = "Lista de Asistencia";
             // 
@@ -110,10 +106,9 @@
             label13.AutoSize = true;
             label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = SystemColors.ControlLightLight;
-            label13.Location = new Point(84, 329);
-            label13.Margin = new Padding(6, 0, 6, 0);
+            label13.Location = new Point(45, 154);
             label13.Name = "label13";
-            label13.Size = new Size(154, 45);
+            label13.Size = new Size(76, 21);
             label13.TabIndex = 4;
             label13.Text = "Generar  ";
             // 
@@ -124,10 +119,9 @@
             btnGenerarListas.FlatStyle = FlatStyle.Popup;
             btnGenerarListas.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerarListas.Image = (Image)resources.GetObject("btnGenerarListas.Image");
-            btnGenerarListas.Location = new Point(41, 34);
-            btnGenerarListas.Margin = new Padding(6, 6, 6, 6);
+            btnGenerarListas.Location = new Point(22, 16);
             btnGenerarListas.Name = "btnGenerarListas";
-            btnGenerarListas.Size = new Size(225, 288);
+            btnGenerarListas.Size = new Size(121, 135);
             btnGenerarListas.TabIndex = 3;
             btnGenerarListas.UseVisualStyleBackColor = false;
             btnGenerarListas.Click += btnGenerarListas_Click_1;
@@ -137,20 +131,18 @@
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(533, 393);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(287, 184);
             label2.Name = "label2";
-            label2.Size = new Size(250, 45);
+            label2.Size = new Size(128, 21);
             label2.TabIndex = 18;
             label2.Text = "Seleccione Mes:";
             // 
             // cmbGrupo
             // 
             cmbGrupo.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrupo.Location = new Point(810, 275);
-            cmbGrupo.Margin = new Padding(6, 6, 6, 6);
+            cmbGrupo.Location = new Point(436, 129);
             cmbGrupo.Name = "cmbGrupo";
-            cmbGrupo.Size = new Size(244, 40);
+            cmbGrupo.Size = new Size(133, 23);
             cmbGrupo.TabIndex = 15;
             // 
             // panel1
@@ -160,9 +152,8 @@
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(6, 6, 6, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1406, 126);
+            panel1.Size = new Size(701, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -170,10 +161,9 @@
             label14.AutoSize = true;
             label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = SystemColors.ControlLightLight;
-            label14.Location = new Point(624, 28);
-            label14.Margin = new Padding(6, 0, 6, 0);
+            label14.Location = new Point(336, 13);
             label14.Name = "label14";
-            label14.Size = new Size(475, 63);
+            label14.Size = new Size(238, 32);
             label14.TabIndex = 11;
             label14.Text = "Creación de PDFS";
             // 
@@ -185,11 +175,10 @@
             btn_ingresar.FlatStyle = FlatStyle.Popup;
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(32, 34);
-            btn_ingresar.Margin = new Padding(6, 6, 6, 6);
+            btn_ingresar.Location = new Point(17, 16);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(288, 62);
+            btn_ingresar.Size = new Size(155, 29);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -198,10 +187,9 @@
             // 
             cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
-            cmbMes.Location = new Point(810, 393);
-            cmbMes.Margin = new Padding(6, 6, 6, 6);
+            cmbMes.Location = new Point(436, 184);
             cmbMes.Name = "cmbMes";
-            cmbMes.Size = new Size(244, 40);
+            cmbMes.Size = new Size(133, 23);
             cmbMes.TabIndex = 17;
             // 
             // label3
@@ -209,10 +197,9 @@
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(533, 275);
-            label3.Margin = new Padding(6, 0, 6, 0);
+            label3.Location = new Point(287, 129);
             label3.Name = "label3";
-            label3.Size = new Size(280, 45);
+            label3.Size = new Size(143, 21);
             label3.TabIndex = 16;
             label3.Text = "Seleccione Grupo:";
             // 
@@ -223,9 +210,8 @@
             panelMenu.Controls.Add(panelito1);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(6, 6, 6, 6);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(336, 1035);
+            panelMenu.Size = new Size(181, 426);
             panelMenu.TabIndex = 2;
             panelMenu.Paint += panelMenu_Paint;
             // 
@@ -241,9 +227,8 @@
             panelito1.Controls.Add(panelLogo);
             panelito1.Dock = DockStyle.Left;
             panelito1.Location = new Point(0, 0);
-            panelito1.Margin = new Padding(6, 6, 6, 6);
             panelito1.Name = "panelito1";
-            panelito1.Size = new Size(336, 1035);
+            panelito1.Size = new Size(181, 426);
             panelito1.TabIndex = 4;
             // 
             // btnEnvioBoletas
@@ -252,14 +237,13 @@
             btnEnvioBoletas.Dock = DockStyle.Top;
             btnEnvioBoletas.FlatAppearance.BorderSize = 0;
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
-            btnEnvioBoletas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 624);
-            btnEnvioBoletas.Margin = new Padding(6, 6, 6, 6);
+            btnEnvioBoletas.Location = new Point(0, 292);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(336, 109);
+            btnEnvioBoletas.Size = new Size(181, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
@@ -270,14 +254,13 @@
             btnEdicionDatos.Dock = DockStyle.Top;
             btnEdicionDatos.FlatAppearance.BorderSize = 0;
             btnEdicionDatos.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatos.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEdicionDatos.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatos.Location = new Point(0, 515);
-            btnEdicionDatos.Margin = new Padding(6, 6, 6, 6);
+            btnEdicionDatos.Location = new Point(0, 241);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(336, 109);
+            btnEdicionDatos.Size = new Size(181, 51);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
@@ -289,14 +272,13 @@
             btnEstadisticas.Dock = DockStyle.Top;
             btnEstadisticas.FlatAppearance.BorderSize = 0;
             btnEstadisticas.FlatStyle = FlatStyle.Flat;
-            btnEstadisticas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEstadisticas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstadisticas.Location = new Point(0, 406);
-            btnEstadisticas.Margin = new Padding(6, 6, 6, 6);
+            btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(336, 109);
+            btnEstadisticas.Size = new Size(181, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -307,14 +289,13 @@
             btn_capturaCalif.Dock = DockStyle.Top;
             btn_capturaCalif.FlatAppearance.BorderSize = 0;
             btn_capturaCalif.FlatStyle = FlatStyle.Flat;
-            btn_capturaCalif.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_capturaCalif.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_capturaCalif.Location = new Point(0, 276);
-            btn_capturaCalif.Margin = new Padding(6, 6, 6, 6);
+            btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(336, 130);
+            btn_capturaCalif.Size = new Size(181, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -326,14 +307,13 @@
             btn_inscripcion.Dock = DockStyle.Top;
             btn_inscripcion.FlatAppearance.BorderSize = 0;
             btn_inscripcion.FlatStyle = FlatStyle.Flat;
-            btn_inscripcion.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_inscripcion.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_inscripcion.Location = new Point(0, 171);
-            btn_inscripcion.Margin = new Padding(6, 6, 6, 6);
+            btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(336, 105);
+            btn_inscripcion.Size = new Size(181, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -347,29 +327,26 @@
             panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(6, 6, 6, 6);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(336, 171);
+            panelLogo.Size = new Size(181, 80);
             panelLogo.TabIndex = 0;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(17, 107);
-            label4.Margin = new Padding(6, 0, 6, 0);
+            label4.Location = new Point(9, 50);
             label4.Name = "label4";
-            label4.Size = new Size(324, 52);
+            label4.Size = new Size(163, 26);
             label4.TabIndex = 40;
             label4.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
             // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(108, 11);
-            Logo.Margin = new Padding(6, 6, 6, 6);
+            Logo.Location = new Point(58, 5);
             Logo.Name = "Logo";
-            Logo.Size = new Size(106, 100);
+            Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 39;
             Logo.TabStop = false;
@@ -377,23 +354,21 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(-35, 134);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(-19, 63);
             label1.Name = "label1";
-            label1.Size = new Size(524, 32);
+            label1.Size = new Size(262, 15);
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
             // Datos_alumnado
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(1742, 1035);
+            ClientSize = new Size(882, 426);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Margin = new Padding(6, 6, 6, 6);
             Name = "Datos_alumnado";
             Text = "Datos_alumnado";
             Load += Datos_alumnado_Load;

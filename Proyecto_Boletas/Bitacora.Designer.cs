@@ -71,10 +71,9 @@
             panelApp.Controls.Add(panelito2);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(336, 0);
-            panelApp.Margin = new Padding(5, 6, 5, 6);
+            panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1377, 1069);
+            panelApp.Size = new Size(777, 448);
             panelApp.TabIndex = 3;
             panelApp.Paint += panelApp_Paint;
             // 
@@ -89,10 +88,10 @@
             panelito2.Controls.Add(label13);
             panelito2.Controls.Add(label3);
             panelito2.Controls.Add(cmbRoles);
-            panelito2.Location = new Point(102, 211);
-            panelito2.Margin = new Padding(5, 5, 5, 5);
+            panelito2.Location = new Point(55, 99);
+            panelito2.Margin = new Padding(3, 2, 3, 2);
             panelito2.Name = "panelito2";
-            panelito2.Size = new Size(1129, 411);
+            panelito2.Size = new Size(614, 228);
             panelito2.TabIndex = 38;
             // 
             // btnGenerarBitacora
@@ -102,10 +101,9 @@
             btnGenerarBitacora.FlatStyle = FlatStyle.Popup;
             btnGenerarBitacora.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerarBitacora.Image = (Image)resources.GetObject("btnGenerarBitacora.Image");
-            btnGenerarBitacora.Location = new Point(73, 30);
-            btnGenerarBitacora.Margin = new Padding(5, 6, 5, 6);
+            btnGenerarBitacora.Location = new Point(39, 14);
             btnGenerarBitacora.Name = "btnGenerarBitacora";
-            btnGenerarBitacora.Size = new Size(208, 237);
+            btnGenerarBitacora.Size = new Size(112, 128);
             btnGenerarBitacora.TabIndex = 3;
             btnGenerarBitacora.UseVisualStyleBackColor = false;
             btnGenerarBitacora.Click += btnGenerarBitacora_Click_1;
@@ -115,10 +113,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(358, 222);
-            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Location = new Point(193, 104);
             label2.Name = "label2";
-            label2.Size = new Size(250, 45);
+            label2.Size = new Size(128, 21);
             label2.TabIndex = 37;
             label2.Text = "Seleccione Mes:";
             // 
@@ -127,10 +124,9 @@
             label12.AutoSize = true;
             label12.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = SystemColors.ControlLightLight;
-            label12.Location = new Point(89, 315);
-            label12.Margin = new Padding(5, 0, 5, 0);
+            label12.Location = new Point(47, 172);
             label12.Name = "label12";
-            label12.Size = new Size(139, 45);
+            label12.Size = new Size(70, 21);
             label12.TabIndex = 5;
             label12.Text = "Bitacora";
             // 
@@ -138,10 +134,9 @@
             // 
             cmbMes.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMes.Items.AddRange(new object[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" });
-            cmbMes.Location = new Point(635, 222);
-            cmbMes.Margin = new Padding(5, 6, 5, 6);
+            cmbMes.Location = new Point(342, 104);
             cmbMes.Name = "cmbMes";
-            cmbMes.Size = new Size(243, 40);
+            cmbMes.Size = new Size(133, 23);
             cmbMes.TabIndex = 36;
             // 
             // label13
@@ -149,10 +144,9 @@
             label13.AutoSize = true;
             label13.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = SystemColors.ControlLightLight;
-            label13.Location = new Point(89, 270);
-            label13.Margin = new Padding(5, 0, 5, 0);
+            label13.Location = new Point(47, 151);
             label13.Name = "label13";
-            label13.Size = new Size(154, 45);
+            label13.Size = new Size(76, 21);
             label13.TabIndex = 4;
             label13.Text = "Generar  ";
             // 
@@ -161,20 +155,18 @@
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(358, 106);
-            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Location = new Point(193, 50);
             label3.Name = "label3";
-            label3.Size = new Size(267, 45);
+            label3.Size = new Size(137, 21);
             label3.TabIndex = 35;
             label3.Text = "Seleccione Roles:";
             // 
             // cmbRoles
             // 
             cmbRoles.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRoles.Location = new Point(635, 106);
-            cmbRoles.Margin = new Padding(5, 6, 5, 6);
+            cmbRoles.Location = new Point(342, 50);
             cmbRoles.Name = "cmbRoles";
-            cmbRoles.Size = new Size(243, 40);
+            cmbRoles.Size = new Size(133, 23);
             cmbRoles.TabIndex = 34;
             // 
             // panel1
@@ -184,9 +176,8 @@
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(5, 6, 5, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1377, 126);
+            panel1.Size = new Size(777, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -194,10 +185,9 @@
             label14.AutoSize = true;
             label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = SystemColors.ControlText;
-            label14.Location = new Point(536, 26);
-            label14.Margin = new Padding(5, 0, 5, 0);
+            label14.Location = new Point(289, 12);
             label14.Name = "label14";
-            label14.Size = new Size(251, 63);
+            label14.Size = new Size(126, 32);
             label14.TabIndex = 10;
             label14.Text = "Bitacora";
             // 
@@ -209,11 +199,10 @@
             btn_ingresar.FlatStyle = FlatStyle.Popup;
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(31, 34);
-            btn_ingresar.Margin = new Padding(5, 6, 5, 6);
+            btn_ingresar.Location = new Point(17, 16);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(288, 62);
+            btn_ingresar.Size = new Size(155, 29);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -226,9 +215,8 @@
             panelMenu.Controls.Add(panelito1);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(5, 6, 5, 6);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(336, 1069);
+            panelMenu.Size = new Size(181, 448);
             panelMenu.TabIndex = 2;
             // 
             // panelito1
@@ -246,9 +234,8 @@
             panelito1.Controls.Add(panelLogo);
             panelito1.Dock = DockStyle.Left;
             panelito1.Location = new Point(0, 0);
-            panelito1.Margin = new Padding(5, 6, 5, 6);
             panelito1.Name = "panelito1";
-            panelito1.Size = new Size(336, 1069);
+            panelito1.Size = new Size(181, 448);
             panelito1.TabIndex = 4;
             // 
             // btn_admaestros
@@ -257,14 +244,13 @@
             btn_admaestros.Dock = DockStyle.Top;
             btn_admaestros.FlatAppearance.BorderSize = 0;
             btn_admaestros.FlatStyle = FlatStyle.Flat;
-            btn_admaestros.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_admaestros.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_admaestros.ForeColor = SystemColors.ControlLightLight;
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_admaestros.Location = new Point(0, 950);
-            btn_admaestros.Margin = new Padding(5, 6, 5, 6);
+            btn_admaestros.Location = new Point(0, 445);
             btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(336, 109);
+            btn_admaestros.Size = new Size(181, 51);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
@@ -276,14 +262,13 @@
             btnEnvioBoletas.Dock = DockStyle.Top;
             btnEnvioBoletas.FlatAppearance.BorderSize = 0;
             btnEnvioBoletas.FlatStyle = FlatStyle.Flat;
-            btnEnvioBoletas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnEnvioBoletas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 841);
-            btnEnvioBoletas.Margin = new Padding(5, 6, 5, 6);
+            btnEnvioBoletas.Location = new Point(0, 394);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(336, 109);
+            btnEnvioBoletas.Size = new Size(181, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
@@ -295,14 +280,13 @@
             btnEdicionDatos.Dock = DockStyle.Top;
             btnEdicionDatos.FlatAppearance.BorderSize = 0;
             btnEdicionDatos.FlatStyle = FlatStyle.Flat;
-            btnEdicionDatos.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEdicionDatos.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatos.Location = new Point(0, 732);
-            btnEdicionDatos.Margin = new Padding(5, 6, 5, 6);
+            btnEdicionDatos.Location = new Point(0, 343);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(336, 109);
+            btnEdicionDatos.Size = new Size(181, 51);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
@@ -314,14 +298,13 @@
             btnBitacora.Dock = DockStyle.Top;
             btnBitacora.FlatAppearance.BorderSize = 0;
             btnBitacora.FlatStyle = FlatStyle.Flat;
-            btnBitacora.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnBitacora.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnBitacora.ForeColor = SystemColors.ControlLight;
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBitacora.Location = new Point(0, 623);
-            btnBitacora.Margin = new Padding(5, 6, 5, 6);
+            btnBitacora.Location = new Point(0, 292);
             btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(336, 109);
+            btnBitacora.Size = new Size(181, 51);
             btnBitacora.TabIndex = 4;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
@@ -332,14 +315,13 @@
             btnAdmSecre.Dock = DockStyle.Top;
             btnAdmSecre.FlatAppearance.BorderSize = 0;
             btnAdmSecre.FlatStyle = FlatStyle.Flat;
-            btnAdmSecre.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnAdmSecre.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnAdmSecre.ForeColor = SystemColors.ControlLight;
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdmSecre.Location = new Point(0, 514);
-            btnAdmSecre.Margin = new Padding(5, 6, 5, 6);
+            btnAdmSecre.Location = new Point(0, 241);
             btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(336, 109);
+            btnAdmSecre.Size = new Size(181, 51);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.Text = "Adm. Secretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
@@ -351,14 +333,13 @@
             btnEstadisticas.Dock = DockStyle.Top;
             btnEstadisticas.FlatAppearance.BorderSize = 0;
             btnEstadisticas.FlatStyle = FlatStyle.Flat;
-            btnEstadisticas.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btnEstadisticas.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstadisticas.Location = new Point(0, 405);
-            btnEstadisticas.Margin = new Padding(5, 6, 5, 6);
+            btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(336, 109);
+            btnEstadisticas.Size = new Size(181, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -369,14 +350,13 @@
             btn_capturaCalif.Dock = DockStyle.Top;
             btn_capturaCalif.FlatAppearance.BorderSize = 0;
             btn_capturaCalif.FlatStyle = FlatStyle.Flat;
-            btn_capturaCalif.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_capturaCalif.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_capturaCalif.Location = new Point(0, 275);
-            btn_capturaCalif.Margin = new Padding(5, 6, 5, 6);
+            btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(336, 130);
+            btn_capturaCalif.Size = new Size(181, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -388,14 +368,13 @@
             btn_inscripcion.Dock = DockStyle.Top;
             btn_inscripcion.FlatAppearance.BorderSize = 0;
             btn_inscripcion.FlatStyle = FlatStyle.Flat;
-            btn_inscripcion.Font = new Font("Agency FB", 12.75F, FontStyle.Bold);
+            btn_inscripcion.Font = new Font("Microsoft Sans Serif", 12.75F, FontStyle.Bold);
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_inscripcion.Location = new Point(0, 171);
-            btn_inscripcion.Margin = new Padding(5, 6, 5, 6);
+            btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(336, 104);
+            btn_inscripcion.Size = new Size(181, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -410,29 +389,26 @@
             panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(5, 6, 5, 6);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(336, 171);
+            panelLogo.Size = new Size(181, 80);
             panelLogo.TabIndex = 0;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(16, 107);
-            label4.Margin = new Padding(5, 0, 5, 0);
+            label4.Location = new Point(9, 50);
             label4.Name = "label4";
-            label4.Size = new Size(324, 52);
+            label4.Size = new Size(163, 26);
             label4.TabIndex = 40;
             label4.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
             // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(107, 11);
-            Logo.Margin = new Padding(5, 6, 5, 6);
+            Logo.Location = new Point(58, 5);
             Logo.Name = "Logo";
-            Logo.Size = new Size(106, 101);
+            Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 39;
             Logo.TabStop = false;
@@ -440,22 +416,20 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(-36, 134);
-            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Location = new Point(-19, 63);
             label1.Name = "label1";
-            label1.Size = new Size(524, 32);
+            label1.Size = new Size(262, 15);
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
             // Bitacora
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(1713, 1069);
+            ClientSize = new Size(958, 448);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Margin = new Padding(5, 6, 5, 6);
             Name = "Bitacora";
             Text = "Bitacora";
             panelApp.ResumeLayout(false);
