@@ -30,6 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mod_Estadisticas));
             panelApp = new Panelito();
+            panelito1 = new Panelito();
+            btnCEstadisticas = new Button();
+            label9 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             panel1 = new Panel();
             label14 = new Label();
             btn_ingresar = new Button();
@@ -46,18 +51,13 @@
             label4 = new Label();
             Logo = new PictureBox();
             label1 = new Label();
-            label2 = new Label();
-            panelito1 = new Panelito();
-            label3 = new Label();
-            button1 = new Button();
-            label9 = new Label();
-            cmbGrup = new ComboBox();
+            label5 = new Label();
             panelApp.SuspendLayout();
+            panelito1.SuspendLayout();
             panel1.SuspendLayout();
             panelMenu.SuspendLayout();
             panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
-            panelito1.SuspendLayout();
             SuspendLayout();
             // 
             // panelApp
@@ -73,6 +73,65 @@
             panelApp.Name = "panelApp";
             panelApp.Size = new Size(810, 495);
             panelApp.TabIndex = 8;
+            // 
+            // panelito1
+            // 
+            panelito1.BackColor = Color.FromArgb(157, 101, 101);
+            panelito1.BorderRadius = 20;
+            panelito1.Controls.Add(label5);
+            panelito1.Controls.Add(btnCEstadisticas);
+            panelito1.Controls.Add(label9);
+            panelito1.Controls.Add(label3);
+            panelito1.Location = new Point(94, 159);
+            panelito1.Name = "panelito1";
+            panelito1.Size = new Size(659, 266);
+            panelito1.TabIndex = 23;
+            // 
+            // btnCEstadisticas
+            // 
+            btnCEstadisticas.BackColor = Color.FromArgb(212, 168, 133);
+            btnCEstadisticas.BackgroundImage = Properties.Resources.estadisticas128;
+            btnCEstadisticas.BackgroundImageLayout = ImageLayout.None;
+            btnCEstadisticas.Location = new Point(62, 50);
+            btnCEstadisticas.Name = "btnCEstadisticas";
+            btnCEstadisticas.Size = new Size(147, 143);
+            btnCEstadisticas.TabIndex = 54;
+            btnCEstadisticas.UseVisualStyleBackColor = false;
+            btnCEstadisticas.Click += btnCEstadisticas_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Yu Gothic UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = SystemColors.ControlLightLight;
+            label9.Location = new Point(255, 22);
+            label9.Name = "label9";
+            label9.Size = new Size(250, 60);
+            label9.TabIndex = 53;
+            label9.Text = "Sección de Creación \r\n  de PDF de la institución";
+            label9.Click += label9_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlLightLight;
+            label3.Location = new Point(62, 196);
+            label3.Name = "label3";
+            label3.Size = new Size(136, 21);
+            label3.TabIndex = 36;
+            label3.Text = "Crear Estadisticas";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ButtonFace;
+            label2.Location = new Point(246, 97);
+            label2.Name = "label2";
+            label2.Size = new Size(322, 32);
+            label2.TabIndex = 22;
+            label2.Text = "Estadisticas Escolares";
             // 
             // panel1
             // 
@@ -309,70 +368,16 @@
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
-            // label2
+            // label5
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonFace;
-            label2.Location = new Point(236, 80);
-            label2.Name = "label2";
-            label2.Size = new Size(322, 32);
-            label2.TabIndex = 22;
-            label2.Text = "Estadisticas Escolares";
-            // 
-            // panelito1
-            // 
-            panelito1.BackColor = Color.FromArgb(157, 101, 101);
-            panelito1.BorderRadius = 20;
-            panelito1.Controls.Add(label9);
-            panelito1.Controls.Add(cmbGrup);
-            panelito1.Controls.Add(button1);
-            panelito1.Controls.Add(label3);
-            panelito1.Location = new Point(94, 159);
-            panelito1.Name = "panelito1";
-            panelito1.Size = new Size(659, 286);
-            panelito1.TabIndex = 23;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(95, 235);
-            label3.Name = "label3";
-            label3.Size = new Size(136, 21);
-            label3.TabIndex = 36;
-            label3.Text = "Crear Estadisticas";
-            // 
-            // button1
-            // 
-            button1.BackgroundImage = Properties.Resources.estadisticas128;
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.Location = new Point(95, 70);
-            button1.Name = "button1";
-            button1.Size = new Size(147, 143);
-            button1.TabIndex = 37;
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = SystemColors.ControlLightLight;
-            label9.Location = new Point(267, 112);
-            label9.Name = "label9";
-            label9.Size = new Size(143, 21);
-            label9.TabIndex = 53;
-            label9.Text = "Seleccione Grupo:";
-            label9.Click += label9_Click;
-            // 
-            // cmbGrup
-            // 
-            cmbGrup.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbGrup.Location = new Point(267, 149);
-            cmbGrup.Name = "cmbGrup";
-            cmbGrup.Size = new Size(277, 23);
-            cmbGrup.TabIndex = 52;
+            label5.AutoSize = true;
+            label5.Font = new Font("Yu Gothic UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ActiveCaptionText;
+            label5.Location = new Point(232, 97);
+            label5.Name = "label5";
+            label5.Size = new Size(355, 120);
+            label5.TabIndex = 55;
+            label5.Text = resources.GetString("label5.Text");
             // 
             // Mod_Estadisticas
             // 
@@ -383,16 +388,17 @@
             Controls.Add(panelMenu);
             Name = "Mod_Estadisticas";
             Text = "Mod_Estadisticas";
+            Load += Mod_Estadisticas_Load;
             panelApp.ResumeLayout(false);
             panelApp.PerformLayout();
+            panelito1.ResumeLayout(false);
+            panelito1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panelMenu.ResumeLayout(false);
             panelLogo.ResumeLayout(false);
             panelLogo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();
-            panelito1.ResumeLayout(false);
-            panelito1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -418,8 +424,8 @@
         private Label label1;
         private Panelito panelito1;
         private Label label3;
-        private Button button1;
         private Label label9;
-        private ComboBox cmbGrup;
+        private Button btnCEstadisticas;
+        private Label label5;
     }
 }

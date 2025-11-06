@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +18,28 @@ namespace Proyecto_Boletas
             InitializeComponent();
         }
 
+  
         private void label9_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Mod_Estadisticas_Load(object sender, EventArgs e)
+        {
+      
+        }
+
+        private void btnCEstadisticas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GeneradorEstadisticas generador = new GeneradorEstadisticas();
+                generador.CrearPDFEstadisticaTotal();  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar el PDF: " + ex.Message);
+            }
         }
     }
 }

@@ -13,12 +13,6 @@ using System.Data;
 namespace Proyecto_Boletas
 {
     using PdfRectangle = iTextSharp.text.Rectangle;
-
-
-    // ====================================================================
-    // ESTRUCTURAS AUXILIARES
-    // ====================================================================
-
     internal class AlumnoInfo
     {
         public int AlumnoID { get; set; }
