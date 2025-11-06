@@ -1216,7 +1216,9 @@ namespace Proyecto_Boletas
 
         private void btnEstadisticas_Click(object sender, EventArgs e)
         {
-
+            Mod_Estadisticas estadisticas = new Mod_Estadisticas(rolUsuario);
+            estadisticas.Show();
+            this.Hide();
         }
 
         private void btnAdmSecre_Click(object sender, EventArgs e)

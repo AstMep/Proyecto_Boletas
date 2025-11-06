@@ -435,6 +435,13 @@ namespace Proyecto_Boletas
             Modificacion.Show();
             this.Hide();
         }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+            Mod_Estadisticas estadisticas = new Mod_Estadisticas(rolUsuario);
+            estadisticas.Show();
+            this.Hide();
+        }
     }
 }
  

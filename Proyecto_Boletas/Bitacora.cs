@@ -168,5 +168,12 @@ namespace Proyecto_Boletas
             modificacion.Show();
             this.Hide();
         }
+
+        private void btnEstadisticas_Click(object sender, EventArgs e)
+        {
+            Mod_Estadisticas estadisticas = new Mod_Estadisticas("Director");
+            estadisticas.Show();
+            this.Hide();
+        }
     }
 }

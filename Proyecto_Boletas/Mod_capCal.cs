@@ -720,7 +720,9 @@ namespace Proyecto_Boletas
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            Mod_Estadisticas estadisticas = new Mod_Estadisticas(rolUsuario);
+            estadisticas.Show();
+            this.Hide();
         }
 
         private void btnCapturacalif_Click(object sender, EventArgs e)
