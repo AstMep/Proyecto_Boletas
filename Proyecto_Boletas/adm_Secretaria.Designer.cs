@@ -73,20 +73,20 @@
             panelApp.Controls.Add(groupBox1);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(310, 0);
-            panelApp.Margin = new Padding(6);
+            panelApp.Location = new Point(181, 0);
+            panelApp.Margin = new Padding(4, 3, 4, 3);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1424, 1058);
+            panelApp.Size = new Size(803, 522);
             panelApp.TabIndex = 3;
             // 
             // flowSecretarias
             // 
             flowSecretarias.AutoScroll = true;
             flowSecretarias.BackColor = Color.FromArgb(63, 75, 92);
-            flowSecretarias.Location = new Point(134, 592);
-            flowSecretarias.Margin = new Padding(6);
+            flowSecretarias.Location = new Point(78, 296);
+            flowSecretarias.Margin = new Padding(4, 3, 4, 3);
             flowSecretarias.Name = "flowSecretarias";
-            flowSecretarias.Size = new Size(1146, 448);
+            flowSecretarias.Size = new Size(668, 224);
             flowSecretarias.TabIndex = 26;
             // 
             // groupBox1
@@ -102,11 +102,11 @@
             groupBox1.Controls.Add(Usuario);
             groupBox1.Controls.Add(label3);
             groupBox1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            groupBox1.Location = new Point(134, 168);
-            groupBox1.Margin = new Padding(6);
+            groupBox1.Location = new Point(78, 84);
+            groupBox1.Margin = new Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(6);
-            groupBox1.Size = new Size(1146, 390);
+            groupBox1.Padding = new Padding(4, 3, 4, 3);
+            groupBox1.Size = new Size(668, 195);
             groupBox1.TabIndex = 22;
             groupBox1.TabStop = false;
             // 
@@ -116,29 +116,29 @@
             label18.BackColor = Color.Transparent;
             label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label18.ForeColor = Color.PeachPuff;
-            label18.Location = new Point(848, 280);
-            label18.Margin = new Padding(6, 0, 6, 0);
+            label18.Location = new Point(495, 140);
+            label18.Margin = new Padding(4, 0, 4, 0);
             label18.Name = "label18";
-            label18.Size = new Size(171, 38);
+            label18.Size = new Size(99, 21);
             label18.TabIndex = 9;
             label18.Text = "Información";
             // 
             // txtContrasenaSecre
             // 
             txtContrasenaSecre.BackColor = SystemColors.WindowFrame;
-            txtContrasenaSecre.Location = new Point(222, 268);
-            txtContrasenaSecre.Margin = new Padding(6);
+            txtContrasenaSecre.Location = new Point(130, 134);
+            txtContrasenaSecre.Margin = new Padding(4, 3, 4, 3);
             txtContrasenaSecre.Name = "txtContrasenaSecre";
-            txtContrasenaSecre.Size = new Size(440, 40);
+            txtContrasenaSecre.Size = new Size(258, 26);
             txtContrasenaSecre.TabIndex = 6;
             // 
             // txtCorreoSecre
             // 
             txtCorreoSecre.BackColor = SystemColors.WindowFrame;
-            txtCorreoSecre.Location = new Point(222, 176);
-            txtCorreoSecre.Margin = new Padding(6);
+            txtCorreoSecre.Location = new Point(130, 88);
+            txtCorreoSecre.Margin = new Padding(4, 3, 4, 3);
             txtCorreoSecre.Name = "txtCorreoSecre";
-            txtCorreoSecre.Size = new Size(440, 40);
+            txtCorreoSecre.Size = new Size(258, 26);
             txtCorreoSecre.TabIndex = 5;
             // 
             // label15
@@ -147,10 +147,10 @@
             label15.BackColor = Color.Transparent;
             label15.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = Color.PeachPuff;
-            label15.Location = new Point(874, 238);
-            label15.Margin = new Padding(6, 0, 6, 0);
+            label15.Location = new Point(510, 119);
+            label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
-            label15.Size = new Size(120, 38);
+            label15.Size = new Size(68, 21);
             label15.TabIndex = 5;
             label15.Text = "Guardar";
             // 
@@ -161,20 +161,20 @@
             btnAltaSecretarias.FlatStyle = FlatStyle.Popup;
             btnAltaSecretarias.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAltaSecretarias.Image = (Image)resources.GetObject("btnAltaSecretarias.Image");
-            btnAltaSecretarias.Location = new Point(874, 124);
-            btnAltaSecretarias.Margin = new Padding(6);
+            btnAltaSecretarias.Location = new Point(510, 62);
+            btnAltaSecretarias.Margin = new Padding(4, 3, 4, 3);
             btnAltaSecretarias.Name = "btnAltaSecretarias";
-            btnAltaSecretarias.Size = new Size(90, 104);
+            btnAltaSecretarias.Size = new Size(52, 52);
             btnAltaSecretarias.TabIndex = 3;
             btnAltaSecretarias.UseVisualStyleBackColor = false;
             // 
             // txtUsuarioSecre
             // 
             txtUsuarioSecre.BackColor = SystemColors.WindowFrame;
-            txtUsuarioSecre.Location = new Point(222, 92);
-            txtUsuarioSecre.Margin = new Padding(6);
+            txtUsuarioSecre.Location = new Point(130, 46);
+            txtUsuarioSecre.Margin = new Padding(4, 3, 4, 3);
             txtUsuarioSecre.Name = "txtUsuarioSecre";
-            txtUsuarioSecre.Size = new Size(440, 40);
+            txtUsuarioSecre.Size = new Size(258, 26);
             txtUsuarioSecre.TabIndex = 4;
             // 
             // label2
@@ -182,10 +182,10 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.PeachPuff;
-            label2.Location = new Point(46, 274);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(27, 137);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(174, 32);
+            label2.Size = new Size(97, 18);
             label2.TabIndex = 2;
             label2.Text = "Contraseña:";
             // 
@@ -194,10 +194,10 @@
             Usuario.AutoSize = true;
             Usuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Usuario.ForeColor = Color.PeachPuff;
-            Usuario.Location = new Point(46, 92);
-            Usuario.Margin = new Padding(6, 0, 6, 0);
+            Usuario.Location = new Point(27, 46);
+            Usuario.Margin = new Padding(4, 0, 4, 0);
             Usuario.Name = "Usuario";
-            Usuario.Size = new Size(118, 32);
+            Usuario.Size = new Size(66, 18);
             Usuario.TabIndex = 3;
             Usuario.Text = "Usuario:";
             // 
@@ -206,10 +206,10 @@
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.PeachPuff;
-            label3.Location = new Point(46, 176);
-            label3.Margin = new Padding(6, 0, 6, 0);
+            label3.Location = new Point(27, 88);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(112, 32);
+            label3.Size = new Size(64, 18);
             label3.TabIndex = 1;
             label3.Text = "Correo:";
             // 
@@ -220,9 +220,9 @@
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(6);
+            panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1424, 118);
+            panel1.Size = new Size(803, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -230,10 +230,10 @@
             label14.AutoSize = true;
             label14.Font = new Font("Cascadia Code", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = SystemColors.ControlLightLight;
-            label14.Location = new Point(390, 26);
-            label14.Margin = new Padding(6, 0, 6, 0);
+            label14.Location = new Point(227, 13);
+            label14.Margin = new Padding(4, 0, 4, 0);
             label14.Name = "label14";
-            label14.Size = new Size(749, 56);
+            label14.Size = new Size(420, 32);
             label14.TabIndex = 10;
             label14.Text = "Administración de Secretarias";
             // 
@@ -245,11 +245,11 @@
             btn_ingresar.FlatStyle = FlatStyle.Popup;
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(30, 32);
-            btn_ingresar.Margin = new Padding(6);
+            btn_ingresar.Location = new Point(18, 16);
+            btn_ingresar.Margin = new Padding(4, 3, 4, 3);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(266, 58);
+            btn_ingresar.Size = new Size(155, 29);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -270,9 +270,9 @@
             panelMenu.Controls.Add(panelLogo);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(6);
+            panelMenu.Margin = new Padding(4, 3, 4, 3);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(310, 1058);
+            panelMenu.Size = new Size(181, 522);
             panelMenu.TabIndex = 2;
             // 
             // btn_admaestros
@@ -285,10 +285,10 @@
             btn_admaestros.ForeColor = SystemColors.ControlLightLight;
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_admaestros.Location = new Point(0, 890);
-            btn_admaestros.Margin = new Padding(6);
+            btn_admaestros.Location = new Point(0, 445);
+            btn_admaestros.Margin = new Padding(4, 3, 4, 3);
             btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(310, 102);
+            btn_admaestros.Size = new Size(181, 51);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
@@ -304,10 +304,10 @@
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 788);
-            btnEnvioBoletas.Margin = new Padding(6);
+            btnEnvioBoletas.Location = new Point(0, 394);
+            btnEnvioBoletas.Margin = new Padding(4, 3, 4, 3);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(310, 102);
+            btnEnvioBoletas.Size = new Size(181, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación \r\nde PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
@@ -323,10 +323,10 @@
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatos.Location = new Point(0, 686);
-            btnEdicionDatos.Margin = new Padding(6);
+            btnEdicionDatos.Location = new Point(0, 343);
+            btnEdicionDatos.Margin = new Padding(4, 3, 4, 3);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(310, 102);
+            btnEdicionDatos.Size = new Size(181, 51);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
@@ -342,10 +342,10 @@
             btnBitacora.ForeColor = SystemColors.ControlLight;
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBitacora.Location = new Point(0, 584);
-            btnBitacora.Margin = new Padding(6);
+            btnBitacora.Location = new Point(0, 292);
+            btnBitacora.Margin = new Padding(4, 3, 4, 3);
             btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(310, 102);
+            btnBitacora.Size = new Size(181, 51);
             btnBitacora.TabIndex = 4;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
@@ -361,10 +361,10 @@
             btnAdmSecre.ForeColor = SystemColors.ControlLight;
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdmSecre.Location = new Point(0, 482);
-            btnAdmSecre.Margin = new Padding(6);
+            btnAdmSecre.Location = new Point(0, 241);
+            btnAdmSecre.Margin = new Padding(4, 3, 4, 3);
             btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(310, 102);
+            btnAdmSecre.Size = new Size(181, 51);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.Text = "Adm. Secretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
@@ -380,10 +380,10 @@
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstadisticas.Location = new Point(0, 380);
-            btnEstadisticas.Margin = new Padding(6);
+            btnEstadisticas.Location = new Point(0, 190);
+            btnEstadisticas.Margin = new Padding(4, 3, 4, 3);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(310, 102);
+            btnEstadisticas.Size = new Size(181, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -399,10 +399,10 @@
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_capturaCalif.Location = new Point(0, 258);
-            btn_capturaCalif.Margin = new Padding(6);
+            btn_capturaCalif.Location = new Point(0, 129);
+            btn_capturaCalif.Margin = new Padding(4, 3, 4, 3);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(310, 122);
+            btn_capturaCalif.Size = new Size(181, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -418,10 +418,10 @@
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_inscripcion.Location = new Point(0, 160);
-            btn_inscripcion.Margin = new Padding(6);
+            btn_inscripcion.Location = new Point(0, 80);
+            btn_inscripcion.Margin = new Padding(4, 3, 4, 3);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(310, 98);
+            btn_inscripcion.Size = new Size(181, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -436,29 +436,29 @@
             panelLogo.Controls.Add(label1);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(6);
+            panelLogo.Margin = new Padding(4, 3, 4, 3);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(310, 160);
+            panelLogo.Size = new Size(181, 80);
             panelLogo.TabIndex = 0;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(16, 100);
-            label4.Margin = new Padding(6, 0, 6, 0);
+            label4.Location = new Point(9, 50);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(296, 46);
+            label4.Size = new Size(163, 26);
             label4.TabIndex = 40;
             label4.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
             // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(100, 10);
-            Logo.Margin = new Padding(6);
+            Logo.Location = new Point(58, 5);
+            Logo.Margin = new Padding(4, 3, 4, 3);
             Logo.Name = "Logo";
-            Logo.Size = new Size(98, 94);
+            Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 39;
             Logo.TabStop = false;
@@ -466,23 +466,23 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(-32, 126);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(-19, 63);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(472, 30);
+            label1.Size = new Size(262, 15);
             label1.TabIndex = 1;
             label1.Text = "___________________________________________________";
             // 
             // adm_Secretaria
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(1734, 1058);
+            ClientSize = new Size(984, 522);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Margin = new Padding(6);
+            Margin = new Padding(4, 3, 4, 3);
             Name = "adm_Secretaria";
             Text = "adm_Secretaria";
             TransparencyKey = Color.Transparent;

@@ -918,7 +918,7 @@
             button2.Name = "button2";
             button2.Size = new Size(181, 51);
             button2.TabIndex = 7;
-            button2.Text = "Adm. Maestros";
+            button2.Text = "Adm.\r\n Maestros";
             button2.UseVisualStyleBackColor = true;
             button2.Click += btn_admaestros_Click;
             // 
@@ -936,7 +936,7 @@
             button3.Name = "button3";
             button3.Size = new Size(181, 51);
             button3.TabIndex = 6;
-            button3.Text = "Creación de PDFS";
+            button3.Text = "Creación de \r\n PDFS";
             button3.UseVisualStyleBackColor = true;
             button3.Click += btnEnvioBoletas_Click;
             // 
@@ -954,7 +954,7 @@
             button4.Name = "button4";
             button4.Size = new Size(181, 51);
             button4.TabIndex = 5;
-            button4.Text = "Edición de Datos";
+            button4.Text = "Edición de \r\nDatos";
             button4.UseVisualStyleBackColor = true;
             button4.Click += btnEdicionDatos_Click;
             // 
@@ -990,7 +990,7 @@
             button6.Name = "button6";
             button6.Size = new Size(181, 51);
             button6.TabIndex = 3;
-            button6.Text = "Adm. Secretarias";
+            button6.Text = "Adm. \r\nSecretarias";
             button6.UseVisualStyleBackColor = true;
             button6.Click += btnAdmSecre_Click;
             // 

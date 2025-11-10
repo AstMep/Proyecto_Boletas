@@ -79,20 +79,20 @@
             panelApp.Controls.Add(groupBox1);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(354, 0);
-            panelApp.Margin = new Padding(6);
+            panelApp.Location = new Point(206, 0);
+            panelApp.Margin = new Padding(4, 3, 4, 3);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(1414, 1128);
+            panelApp.Size = new Size(761, 502);
             panelApp.TabIndex = 3;
             // 
             // flowMaestros
             // 
             flowMaestros.AutoScroll = true;
             flowMaestros.BackColor = Color.FromArgb(63, 75, 92);
-            flowMaestros.Location = new Point(160, 744);
-            flowMaestros.Margin = new Padding(6);
+            flowMaestros.Location = new Point(93, 372);
+            flowMaestros.Margin = new Padding(4, 3, 4, 3);
             flowMaestros.Name = "flowMaestros";
-            flowMaestros.Size = new Size(1062, 340);
+            flowMaestros.Size = new Size(620, 170);
             flowMaestros.TabIndex = 29;
             flowMaestros.Paint += flowMaestros_Paint;
             // 
@@ -114,21 +114,21 @@
             groupBox1.Controls.Add(Usuario);
             groupBox1.Controls.Add(label4);
             groupBox1.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold);
-            groupBox1.Location = new Point(116, 160);
-            groupBox1.Margin = new Padding(6);
+            groupBox1.Location = new Point(68, 80);
+            groupBox1.Margin = new Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(6);
-            groupBox1.Size = new Size(1106, 544);
+            groupBox1.Padding = new Padding(4, 3, 4, 3);
+            groupBox1.Size = new Size(645, 272);
             groupBox1.TabIndex = 28;
             groupBox1.TabStop = false;
             // 
             // grupo_asignado
             // 
             grupo_asignado.DropDownStyle = ComboBoxStyle.DropDownList;
-            grupo_asignado.Location = new Point(222, 452);
-            grupo_asignado.Margin = new Padding(6);
+            grupo_asignado.Location = new Point(130, 226);
+            grupo_asignado.Margin = new Padding(4, 3, 4, 3);
             grupo_asignado.Name = "grupo_asignado";
-            grupo_asignado.Size = new Size(204, 38);
+            grupo_asignado.Size = new Size(121, 26);
             grupo_asignado.TabIndex = 0;
             grupo_asignado.SelectedIndexChanged += grupo_asignado_SelectedIndexChanged_1;
             // 
@@ -136,10 +136,10 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(48, 458);
-            label3.Margin = new Padding(6, 0, 6, 0);
+            label3.Location = new Point(28, 229);
+            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(105, 32);
+            label3.Size = new Size(59, 18);
             label3.TabIndex = 17;
             label3.Text = "Grupo:";
             // 
@@ -147,30 +147,30 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(46, 256);
-            label6.Margin = new Padding(6, 0, 6, 0);
+            label6.Location = new Point(27, 128);
+            label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new Size(131, 64);
+            label6.Size = new Size(74, 36);
             label6.TabIndex = 16;
             label6.Text = "Apellido\r\nMaterno:";
             // 
             // txtcorreomaestro
             // 
             txtcorreomaestro.BackColor = SystemColors.WindowFrame;
-            txtcorreomaestro.Location = new Point(222, 354);
-            txtcorreomaestro.Margin = new Padding(6);
+            txtcorreomaestro.Location = new Point(130, 177);
+            txtcorreomaestro.Margin = new Padding(4, 3, 4, 3);
             txtcorreomaestro.Name = "txtcorreomaestro";
-            txtcorreomaestro.Size = new Size(440, 40);
+            txtcorreomaestro.Size = new Size(258, 26);
             txtcorreomaestro.TabIndex = 13;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(48, 364);
-            label5.Margin = new Padding(6, 0, 6, 0);
+            label5.Location = new Point(28, 182);
+            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(112, 32);
+            label5.Size = new Size(64, 18);
             label5.TabIndex = 10;
             label5.Text = "Correo:";
             // 
@@ -180,29 +180,29 @@
             label18.BackColor = Color.Transparent;
             label18.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label18.ForeColor = SystemColors.ControlLightLight;
-            label18.Location = new Point(848, 282);
-            label18.Margin = new Padding(6, 0, 6, 0);
+            label18.Location = new Point(495, 141);
+            label18.Margin = new Padding(4, 0, 4, 0);
             label18.Name = "label18";
-            label18.Size = new Size(171, 38);
+            label18.Size = new Size(99, 21);
             label18.TabIndex = 9;
             label18.Text = "Información";
             // 
             // txtammaestro
             // 
             txtammaestro.BackColor = SystemColors.WindowFrame;
-            txtammaestro.Location = new Point(222, 268);
-            txtammaestro.Margin = new Padding(6);
+            txtammaestro.Location = new Point(130, 134);
+            txtammaestro.Margin = new Padding(4, 3, 4, 3);
             txtammaestro.Name = "txtammaestro";
-            txtammaestro.Size = new Size(440, 40);
+            txtammaestro.Size = new Size(258, 26);
             txtammaestro.TabIndex = 6;
             // 
             // txtapmaestro
             // 
             txtapmaestro.BackColor = SystemColors.WindowFrame;
-            txtapmaestro.Location = new Point(222, 176);
-            txtapmaestro.Margin = new Padding(6);
+            txtapmaestro.Location = new Point(130, 88);
+            txtapmaestro.Margin = new Padding(4, 3, 4, 3);
             txtapmaestro.Name = "txtapmaestro";
-            txtapmaestro.Size = new Size(440, 40);
+            txtapmaestro.Size = new Size(258, 26);
             txtapmaestro.TabIndex = 5;
             // 
             // label15
@@ -211,10 +211,10 @@
             label15.BackColor = Color.Transparent;
             label15.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = SystemColors.ControlLightLight;
-            label15.Location = new Point(874, 240);
-            label15.Margin = new Padding(6, 0, 6, 0);
+            label15.Location = new Point(510, 120);
+            label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
-            label15.Size = new Size(120, 38);
+            label15.Size = new Size(68, 21);
             label15.TabIndex = 5;
             label15.Text = "Guardar";
             // 
@@ -225,10 +225,10 @@
             btnAltaMaestros.FlatStyle = FlatStyle.Popup;
             btnAltaMaestros.Font = new Font("Century Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAltaMaestros.Image = (Image)resources.GetObject("btnAltaMaestros.Image");
-            btnAltaMaestros.Location = new Point(894, 130);
-            btnAltaMaestros.Margin = new Padding(6);
+            btnAltaMaestros.Location = new Point(522, 65);
+            btnAltaMaestros.Margin = new Padding(4, 3, 4, 3);
             btnAltaMaestros.Name = "btnAltaMaestros";
-            btnAltaMaestros.Size = new Size(90, 104);
+            btnAltaMaestros.Size = new Size(52, 52);
             btnAltaMaestros.TabIndex = 3;
             btnAltaMaestros.UseVisualStyleBackColor = false;
             btnAltaMaestros.Click += btnAltaMaestros_Click;
@@ -236,30 +236,30 @@
             // txtnombremaestro
             // 
             txtnombremaestro.BackColor = SystemColors.WindowFrame;
-            txtnombremaestro.Location = new Point(222, 92);
-            txtnombremaestro.Margin = new Padding(6);
+            txtnombremaestro.Location = new Point(130, 46);
+            txtnombremaestro.Margin = new Padding(4, 3, 4, 3);
             txtnombremaestro.Name = "txtnombremaestro";
-            txtnombremaestro.Size = new Size(440, 40);
+            txtnombremaestro.Size = new Size(258, 26);
             txtnombremaestro.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(46, 276);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(27, 138);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(0, 32);
+            label2.Size = new Size(0, 18);
             label2.TabIndex = 2;
             // 
             // Usuario
             // 
             Usuario.AutoSize = true;
             Usuario.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Usuario.Location = new Point(46, 92);
-            Usuario.Margin = new Padding(6, 0, 6, 0);
+            Usuario.Location = new Point(27, 46);
+            Usuario.Margin = new Padding(4, 0, 4, 0);
             Usuario.Name = "Usuario";
-            Usuario.Size = new Size(128, 32);
+            Usuario.Size = new Size(72, 18);
             Usuario.TabIndex = 3;
             Usuario.Text = "Nombre:";
             // 
@@ -267,10 +267,10 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(48, 164);
-            label4.Margin = new Padding(6, 0, 6, 0);
+            label4.Location = new Point(28, 82);
+            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(122, 64);
+            label4.Size = new Size(71, 36);
             label4.TabIndex = 1;
             label4.Text = "Apellido\r\nPaterno:";
             // 
@@ -280,9 +280,9 @@
             panel1.Controls.Add(btn_ingresar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(6);
+            panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1414, 118);
+            panel1.Size = new Size(761, 59);
             panel1.TabIndex = 21;
             // 
             // btn_ingresar
@@ -293,11 +293,11 @@
             btn_ingresar.FlatStyle = FlatStyle.Popup;
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
-            btn_ingresar.Location = new Point(30, 32);
-            btn_ingresar.Margin = new Padding(6);
+            btn_ingresar.Location = new Point(18, 16);
+            btn_ingresar.Margin = new Padding(4, 3, 4, 3);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
-            btn_ingresar.Size = new Size(266, 58);
+            btn_ingresar.Size = new Size(155, 29);
             btn_ingresar.TabIndex = 9;
             btn_ingresar.Text = "Cerrar Sesión ";
             btn_ingresar.UseVisualStyleBackColor = false;
@@ -310,9 +310,9 @@
             panelMenu.Controls.Add(panelito1);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(6);
+            panelMenu.Margin = new Padding(4, 3, 4, 3);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(354, 1128);
+            panelMenu.Size = new Size(206, 502);
             panelMenu.TabIndex = 2;
             // 
             // panelito1
@@ -330,9 +330,9 @@
             panelito1.Controls.Add(panelLogo);
             panelito1.Dock = DockStyle.Left;
             panelito1.Location = new Point(0, 0);
-            panelito1.Margin = new Padding(6);
+            panelito1.Margin = new Padding(4, 3, 4, 3);
             panelito1.Name = "panelito1";
-            panelito1.Size = new Size(390, 1128);
+            panelito1.Size = new Size(227, 502);
             panelito1.TabIndex = 4;
             // 
             // btn_admaestros
@@ -345,10 +345,10 @@
             btn_admaestros.ForeColor = SystemColors.ControlLightLight;
             btn_admaestros.Image = (Image)resources.GetObject("btn_admaestros.Image");
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_admaestros.Location = new Point(0, 890);
-            btn_admaestros.Margin = new Padding(6);
+            btn_admaestros.Location = new Point(0, 445);
+            btn_admaestros.Margin = new Padding(4, 3, 4, 3);
             btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(390, 102);
+            btn_admaestros.Size = new Size(227, 51);
             btn_admaestros.TabIndex = 7;
             btn_admaestros.Text = "Adm. Maestros";
             btn_admaestros.UseVisualStyleBackColor = true;
@@ -363,10 +363,10 @@
             btnEnvioBoletas.ForeColor = SystemColors.ControlLightLight;
             btnEnvioBoletas.Image = (Image)resources.GetObject("btnEnvioBoletas.Image");
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEnvioBoletas.Location = new Point(0, 788);
-            btnEnvioBoletas.Margin = new Padding(6);
+            btnEnvioBoletas.Location = new Point(0, 394);
+            btnEnvioBoletas.Margin = new Padding(4, 3, 4, 3);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(390, 102);
+            btnEnvioBoletas.Size = new Size(227, 51);
             btnEnvioBoletas.TabIndex = 6;
             btnEnvioBoletas.Text = "Creación de PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
@@ -382,10 +382,10 @@
             btnEdicionDatos.ForeColor = SystemColors.ControlLight;
             btnEdicionDatos.Image = (Image)resources.GetObject("btnEdicionDatos.Image");
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdicionDatos.Location = new Point(0, 686);
-            btnEdicionDatos.Margin = new Padding(6);
+            btnEdicionDatos.Location = new Point(0, 343);
+            btnEdicionDatos.Margin = new Padding(4, 3, 4, 3);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(390, 102);
+            btnEdicionDatos.Size = new Size(227, 51);
             btnEdicionDatos.TabIndex = 5;
             btnEdicionDatos.Text = "Edición de Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
@@ -401,10 +401,10 @@
             btnBitacora.ForeColor = SystemColors.ControlLight;
             btnBitacora.Image = (Image)resources.GetObject("btnBitacora.Image");
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBitacora.Location = new Point(0, 584);
-            btnBitacora.Margin = new Padding(6);
+            btnBitacora.Location = new Point(0, 292);
+            btnBitacora.Margin = new Padding(4, 3, 4, 3);
             btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(390, 102);
+            btnBitacora.Size = new Size(227, 51);
             btnBitacora.TabIndex = 4;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
@@ -420,10 +420,10 @@
             btnAdmSecre.ForeColor = SystemColors.ControlLight;
             btnAdmSecre.Image = (Image)resources.GetObject("btnAdmSecre.Image");
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdmSecre.Location = new Point(0, 482);
-            btnAdmSecre.Margin = new Padding(6);
+            btnAdmSecre.Location = new Point(0, 241);
+            btnAdmSecre.Margin = new Padding(4, 3, 4, 3);
             btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(390, 102);
+            btnAdmSecre.Size = new Size(227, 51);
             btnAdmSecre.TabIndex = 3;
             btnAdmSecre.Text = "Adm. Secretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
@@ -439,10 +439,10 @@
             btnEstadisticas.ForeColor = SystemColors.ControlLight;
             btnEstadisticas.Image = (Image)resources.GetObject("btnEstadisticas.Image");
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstadisticas.Location = new Point(0, 380);
-            btnEstadisticas.Margin = new Padding(6);
+            btnEstadisticas.Location = new Point(0, 190);
+            btnEstadisticas.Margin = new Padding(4, 3, 4, 3);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(390, 102);
+            btnEstadisticas.Size = new Size(227, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -458,10 +458,10 @@
             btn_capturaCalif.ForeColor = SystemColors.ControlLight;
             btn_capturaCalif.Image = (Image)resources.GetObject("btn_capturaCalif.Image");
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_capturaCalif.Location = new Point(0, 258);
-            btn_capturaCalif.Margin = new Padding(6);
+            btn_capturaCalif.Location = new Point(0, 129);
+            btn_capturaCalif.Margin = new Padding(4, 3, 4, 3);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(390, 122);
+            btn_capturaCalif.Size = new Size(227, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -477,10 +477,10 @@
             btn_inscripcion.ForeColor = SystemColors.ButtonHighlight;
             btn_inscripcion.Image = (Image)resources.GetObject("btn_inscripcion.Image");
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_inscripcion.Location = new Point(0, 160);
-            btn_inscripcion.Margin = new Padding(6);
+            btn_inscripcion.Location = new Point(0, 80);
+            btn_inscripcion.Margin = new Padding(4, 3, 4, 3);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(390, 98);
+            btn_inscripcion.Size = new Size(227, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -495,29 +495,29 @@
             panelLogo.Controls.Add(label7);
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
-            panelLogo.Margin = new Padding(6);
+            panelLogo.Margin = new Padding(4, 3, 4, 3);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(390, 160);
+            panelLogo.Size = new Size(227, 80);
             panelLogo.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Consolas", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(16, 100);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(9, 50);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(296, 46);
+            label1.Size = new Size(163, 26);
             label1.TabIndex = 40;
             label1.Text = "INSTITUTO MANUEL M. ACOSTA\r\n    ";
             // 
             // Logo
             // 
             Logo.Image = Properties.Resources.logo_escuela1;
-            Logo.Location = new Point(100, 10);
-            Logo.Margin = new Padding(6);
+            Logo.Location = new Point(58, 5);
+            Logo.Margin = new Padding(4, 3, 4, 3);
             Logo.Name = "Logo";
-            Logo.Size = new Size(98, 94);
+            Logo.Size = new Size(57, 47);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 39;
             Logo.TabStop = false;
@@ -525,23 +525,23 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(-32, 126);
-            label7.Margin = new Padding(6, 0, 6, 0);
+            label7.Location = new Point(-19, 63);
+            label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new Size(472, 30);
+            label7.Size = new Size(262, 15);
             label7.TabIndex = 1;
             label7.Text = "___________________________________________________";
             // 
             // adm_maestros
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(1768, 1128);
+            ClientSize = new Size(967, 502);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
-            Margin = new Padding(6, 4, 6, 4);
+            Margin = new Padding(4, 2, 4, 2);
             Name = "adm_maestros";
             Text = "adm_maestros";
             Load += adm_maestros_Load;

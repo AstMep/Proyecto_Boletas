@@ -63,16 +63,16 @@
             panelApp.Controls.Add(pictureBox1);
             panelApp.Controls.Add(panel1);
             panelApp.Dock = DockStyle.Fill;
-            panelApp.Location = new Point(181, 0);
+            panelApp.Location = new Point(184, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(728, 478);
+            panelApp.Size = new Size(741, 507);
             panelApp.TabIndex = 3;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.logo_escuela1;
             pictureBox1.Location = new Point(251, 180);
-            pictureBox1.Margin = new Padding(2, 2, 2, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(238, 150);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -87,7 +87,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(728, 59);
+            panel1.Size = new Size(741, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -110,7 +110,7 @@
             btn_ingresar.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btn_ingresar.ForeColor = SystemColors.ActiveCaptionText;
             btn_ingresar.Location = new Point(8, 13);
-            btn_ingresar.Margin = new Padding(2, 2, 2, 2);
+            btn_ingresar.Margin = new Padding(2);
             btn_ingresar.Name = "btn_ingresar";
             btn_ingresar.RightToLeft = RightToLeft.Yes;
             btn_ingresar.Size = new Size(154, 32);
@@ -135,7 +135,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(181, 478);
+            panelMenu.Size = new Size(184, 507);
             panelMenu.TabIndex = 2;
             // 
             // btn_admaestros
@@ -150,9 +150,9 @@
             btn_admaestros.ImageAlign = ContentAlignment.MiddleLeft;
             btn_admaestros.Location = new Point(0, 445);
             btn_admaestros.Name = "btn_admaestros";
-            btn_admaestros.Size = new Size(181, 51);
+            btn_admaestros.Size = new Size(184, 51);
             btn_admaestros.TabIndex = 16;
-            btn_admaestros.Text = "Adm. Maestros";
+            btn_admaestros.Text = "Adm. \r\nMaestros";
             btn_admaestros.UseVisualStyleBackColor = true;
             btn_admaestros.Click += btn_admaestros_Click_1;
             // 
@@ -168,9 +168,9 @@
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEnvioBoletas.Location = new Point(0, 394);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(181, 51);
+            btnEnvioBoletas.Size = new Size(184, 51);
             btnEnvioBoletas.TabIndex = 15;
-            btnEnvioBoletas.Text = "Creación de PDFS";
+            btnEnvioBoletas.Text = "Creación de \r\nPDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
             btnEnvioBoletas.Click += btnEnvioBoletas_Click_1;
             // 
@@ -186,9 +186,9 @@
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdicionDatos.Location = new Point(0, 343);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.Size = new Size(184, 51);
             btnEdicionDatos.TabIndex = 14;
-            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.Text = "Edición de\r\n Datos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
             btnEdicionDatos.Click += btnEdicionDatos_Click_1;
             // 
@@ -204,7 +204,7 @@
             btnBitacora.ImageAlign = ContentAlignment.MiddleLeft;
             btnBitacora.Location = new Point(0, 292);
             btnBitacora.Name = "btnBitacora";
-            btnBitacora.Size = new Size(181, 51);
+            btnBitacora.Size = new Size(184, 51);
             btnBitacora.TabIndex = 13;
             btnBitacora.Text = "Bitacora";
             btnBitacora.UseVisualStyleBackColor = true;
@@ -222,9 +222,9 @@
             btnAdmSecre.ImageAlign = ContentAlignment.MiddleLeft;
             btnAdmSecre.Location = new Point(0, 241);
             btnAdmSecre.Name = "btnAdmSecre";
-            btnAdmSecre.Size = new Size(181, 51);
+            btnAdmSecre.Size = new Size(184, 51);
             btnAdmSecre.TabIndex = 12;
-            btnAdmSecre.Text = "Adm. Secretarias";
+            btnAdmSecre.Text = "Adm. \r\nSecretarias";
             btnAdmSecre.UseVisualStyleBackColor = true;
             btnAdmSecre.Click += btnAdmSecre_Click_1;
             // 
@@ -240,7 +240,7 @@
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.Size = new Size(184, 51);
             btnEstadisticas.TabIndex = 11;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -258,7 +258,7 @@
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
             btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(181, 61);
+            btn_capturaCalif.Size = new Size(184, 61);
             btn_capturaCalif.TabIndex = 10;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -276,7 +276,7 @@
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
             btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.Size = new Size(184, 49);
             btn_inscripcion.TabIndex = 8;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -292,7 +292,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(181, 80);
+            panelLogo.Size = new Size(184, 80);
             panelLogo.TabIndex = 9;
             // 
             // label4
@@ -331,7 +331,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.FromArgb(181, 131, 120);
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(909, 478);
+            ClientSize = new Size(925, 507);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
             Name = "Menu_principal";

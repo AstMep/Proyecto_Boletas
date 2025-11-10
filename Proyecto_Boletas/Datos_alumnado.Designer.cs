@@ -75,7 +75,7 @@
             panelApp.Dock = DockStyle.Fill;
             panelApp.Location = new Point(181, 0);
             panelApp.Name = "panelApp";
-            panelApp.Size = new Size(701, 426);
+            panelApp.Size = new Size(733, 426);
             panelApp.TabIndex = 3;
             // 
             // groupBox6
@@ -153,7 +153,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(701, 59);
+            panel1.Size = new Size(733, 59);
             panel1.TabIndex = 21;
             // 
             // label14
@@ -228,7 +228,7 @@
             panelito1.Dock = DockStyle.Left;
             panelito1.Location = new Point(0, 0);
             panelito1.Name = "panelito1";
-            panelito1.Size = new Size(181, 426);
+            panelito1.Size = new Size(192, 426);
             panelito1.TabIndex = 4;
             // 
             // btnEnvioBoletas
@@ -243,9 +243,9 @@
             btnEnvioBoletas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEnvioBoletas.Location = new Point(0, 292);
             btnEnvioBoletas.Name = "btnEnvioBoletas";
-            btnEnvioBoletas.Size = new Size(181, 51);
+            btnEnvioBoletas.Size = new Size(192, 51);
             btnEnvioBoletas.TabIndex = 6;
-            btnEnvioBoletas.Text = "Creación de PDFS";
+            btnEnvioBoletas.Text = "Creación \r\nde PDFS";
             btnEnvioBoletas.UseVisualStyleBackColor = true;
             // 
             // btnEdicionDatos
@@ -260,9 +260,9 @@
             btnEdicionDatos.ImageAlign = ContentAlignment.MiddleLeft;
             btnEdicionDatos.Location = new Point(0, 241);
             btnEdicionDatos.Name = "btnEdicionDatos";
-            btnEdicionDatos.Size = new Size(181, 51);
+            btnEdicionDatos.Size = new Size(192, 51);
             btnEdicionDatos.TabIndex = 5;
-            btnEdicionDatos.Text = "Edición de Datos";
+            btnEdicionDatos.Text = "Edición de \r\nDatos";
             btnEdicionDatos.UseVisualStyleBackColor = true;
             btnEdicionDatos.Click += btnEdicionDatos_Click;
             // 
@@ -278,7 +278,7 @@
             btnEstadisticas.ImageAlign = ContentAlignment.MiddleLeft;
             btnEstadisticas.Location = new Point(0, 190);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.Size = new Size(181, 51);
+            btnEstadisticas.Size = new Size(192, 51);
             btnEstadisticas.TabIndex = 2;
             btnEstadisticas.Text = "Estadisticas";
             btnEstadisticas.UseVisualStyleBackColor = true;
@@ -295,7 +295,7 @@
             btn_capturaCalif.ImageAlign = ContentAlignment.MiddleLeft;
             btn_capturaCalif.Location = new Point(0, 129);
             btn_capturaCalif.Name = "btn_capturaCalif";
-            btn_capturaCalif.Size = new Size(181, 61);
+            btn_capturaCalif.Size = new Size(192, 61);
             btn_capturaCalif.TabIndex = 1;
             btn_capturaCalif.Text = "Captura de \r\nCalificaciones";
             btn_capturaCalif.UseVisualStyleBackColor = true;
@@ -313,7 +313,7 @@
             btn_inscripcion.ImageAlign = ContentAlignment.MiddleLeft;
             btn_inscripcion.Location = new Point(0, 80);
             btn_inscripcion.Name = "btn_inscripcion";
-            btn_inscripcion.Size = new Size(181, 49);
+            btn_inscripcion.Size = new Size(192, 49);
             btn_inscripcion.TabIndex = 0;
             btn_inscripcion.Text = "Inscripción";
             btn_inscripcion.UseVisualStyleBackColor = true;
@@ -328,7 +328,7 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(181, 80);
+            panelLogo.Size = new Size(192, 80);
             panelLogo.TabIndex = 0;
             // 
             // label4
@@ -366,7 +366,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.FromArgb(63, 75, 92);
-            ClientSize = new Size(882, 426);
+            ClientSize = new Size(914, 426);
             Controls.Add(panelApp);
             Controls.Add(panelMenu);
             Name = "Datos_alumnado";
