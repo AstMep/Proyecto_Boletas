@@ -311,12 +311,19 @@ namespace Proyecto_Boletas
         // FUNCIÓN PRINCIPAL: CREAR BOLETA GRUPAL (COMPLETA)
         // ====================================================================
 
-        public void CrearBoletaGrupal(int idGrupo, string trimestre)
+        // ====================================================================
+        // FUNCIÓN PRINCIPAL: CREAR BOLETA GRUPAL (COMPLETA)
+        // ====================================================================
+
+        // CAMBIO 1: Agregamos el parámetro "string rutaDeGuardado"
+        public void CrearBoletaGrupal(int idGrupo, string trimestre, string rutaDeGuardado)
         {
             string nombreGrupo = "";
             string nombreMaestro = "";
             List<Alumno> alumnos = new List<Alumno>();
-            string rutaSalida = "";
+
+            // CAMBIO 2: Usamos la ruta que recibimos del formulario
+            string rutaSalida = rutaDeGuardado;
 
             // 1. DEFINICIÓN DE PARÁMETROS TRIMESTRALES
             string[] meses = ObtenerMeses(trimestre);
@@ -335,13 +342,8 @@ namespace Proyecto_Boletas
             try
             {
                 // 2. SELECCIONAR RUTA DE GUARDADO
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
-                saveFileDialog.Title = "Guardar Boleta Grupal";
-                saveFileDialog.FileName = $"Boleta_Grupo_{idGrupo}_{trimestre}.pdf";
-
-                if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-                rutaSalida = saveFileDialog.FileName;
+                // ¡ELIMINADO! El SaveFileDialog ya no se necesita aquí.
+                // Usamos la 'rutaSalida' que pasamos como parámetro.
 
                 // 3. EXTRAER DATOS DEL GRUPO, MAESTRO, ALUMNOS
                 using (MySqlConnection conn = new Conexion().GetConnection())
@@ -396,7 +398,7 @@ namespace Proyecto_Boletas
             // Usa el nombre completo aquí para que las funciones de cálculo y extracción funcionen correctamente
             nombreMateriaCiencias,
             "FORM. CÍV Y ÉTICA", "ED. FISICA", "PROMEDIO"
-        };
+    };
                 numMaterias = materiasBase.Length;
                 totalColumnas = 3 + ((numMeses + 1) * numMaterias) + 1;
 
@@ -409,6 +411,8 @@ namespace Proyecto_Boletas
                 // 6. CONFIGURACIÓN DEL PDF
                 // Ajustamos los márgenes para que haya menos espacio arriba si es necesario
                 doc = new Document(PageSize.A4.Rotate(), 15, 15, 20, 20); // Margen superior de 20 (antes 40)
+
+                // ¡Importante! Usamos 'rutaSalida' que ahora viene del parámetro
                 writer = PdfWriter.GetInstance(doc, new FileStream(rutaSalida, FileMode.Create));
                 doc.Open();
 
@@ -448,7 +452,7 @@ namespace Proyecto_Boletas
                 PdfPCell celdaTexto = new PdfPCell();
                 celdaTexto.AddElement(new Paragraph("INSTITUTO MANUEL M. ACOSTA", fontTitulo) { Alignment = Element.ALIGN_CENTER });
                 celdaTexto.AddElement(new Paragraph("BOLETA INTERNA TRIMESTRAL", fontSubtitulo) { Alignment = Element.ALIGN_CENTER });
-                celdaTexto.AddElement(new Paragraph($"Grupo: {nombreGrupo}      Maestro: {nombreMaestro}      Trimestre: {trimestre}", fontNormal) { Alignment = Element.ALIGN_CENTER });
+                celdaTexto.AddElement(new Paragraph($"Grupo: {nombreGrupo}     Maestro: {nombreMaestro}     Trimestre: {trimestre}", fontNormal) { Alignment = Element.ALIGN_CENTER });
                 celdaTexto.Border = PdfRectangle.NO_BORDER;
                 encabezado.AddCell(celdaTexto);
 
@@ -643,7 +647,9 @@ namespace Proyecto_Boletas
 
                 RegistrarGeneracionBoletaGrupal(idGrupo, trimestre, rutaSalida);
 
-                MessageBox.Show($"Boleta grupal generada correctamente en:\n{rutaSalida}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // CAMBIO 3: Mensaje eliminado. El formulario 'CreacionPDF_Direc'
+                // ya muestra un mensaje de éxito después de llamar a esta función.
+                // MessageBox.Show($"Boleta grupal generada correctamente en:\n{rutaSalida}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

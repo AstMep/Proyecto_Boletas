@@ -356,9 +356,9 @@ decimal?[] promediosGeneralesTrimestrales = new decimal?[4]; // 3 trimestres + P
         // CÓDIGO DEL GENERADOR DE PDF
         // ====================================================================
 
-        public void CrearBoletaPersonal(int idAlumno, string trimestre)
+        public void CrearBoletaPersonal(int idAlumno, string trimestre, string rutaDeGuardado)
         {
-            string rutaSalida = string.Empty;
+            string rutaSalida = rutaDeGuardado;
 
             try
             {
@@ -383,15 +383,7 @@ decimal?[] promediosGeneralesTrimestrales = new decimal?[4]; // 3 trimestres + P
                     "ED. FISICA"
                 };
 
-                // 2. USO DE SaveFileDialog
-                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-                {
-                    saveFileDialog.FileName = $"Boleta_Personal_{infoAlumno.NombreCompleto.Replace(" ", "_")}_{trimestre}.pdf";
-                    saveFileDialog.Filter = "Archivos PDF (*.pdf)|*.pdf";
-
-                    if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-                    rutaSalida = saveFileDialog.FileName;
-                }
+               
 
                 // 3. Configuración y Generación del PDF
                 Document doc = new Document(PageSize.LETTER, 30, 30, 30, 30);
@@ -417,12 +409,7 @@ decimal?[] promediosGeneralesTrimestrales = new decimal?[4]; // 3 trimestres + P
 
                 doc.Close();
 
-                // 5. Abrir el PDF
-                try
-                {
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = rutaSalida, UseShellExecute = true });
-                }
-                catch { /* Manejo de error de apertura */ }
+               
             }
             catch (Exception ex)
             {
