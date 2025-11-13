@@ -625,7 +625,7 @@ namespace Proyecto_Boletas
                 EnviarCorreoConAdjunto(emailProfesor, asunto, cuerpo, this.rutaPdfGrupalGenerado);
                 this.Cursor = Cursors.Default;
 
-                
+
 
                 // --- 8. REGISTRAR EN BITÁCORA GENERAL ---
                 BitacoraManager.RegistrarAccion($"Envío de Boleta Grupal: Grupo {idGrupo} ({trimestre}) a {emailProfesor}");
@@ -888,6 +888,10 @@ namespace Proyecto_Boletas
             }
         }
 
+        private void panelito2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
  

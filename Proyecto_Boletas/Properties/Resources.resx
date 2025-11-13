@@ -118,17 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="274259" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\274259.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="B58378-Light Taupe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\B58378-Light Taupe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="3917688" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3917688.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="estadisticas128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\estadisticas128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_escuela1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_escuela1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="9D6565-Copper Rose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\9D6565-Copper Rose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo_escuela64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo_escuela64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="3f4f5c" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\3f4f5c.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,16 +139,16 @@
   <data name="D4A885-Tumbleweed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\D4A885-Tumbleweed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="274259" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\274259.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logo_escuela64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_escuela64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_escuela350" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_escuela350.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logo_escuela1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo_escuela1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="3917688" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3917688.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="estadisticas128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\estadisticas128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="social" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Iconos\social.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
